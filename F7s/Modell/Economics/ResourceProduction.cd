@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="F6.Model.Economics.Agents.FacilityOperationsRole">
+    <Position X="13" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Model\Economics\Facilities\FacilityOperationsRole.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="facility" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="F6.Model.Economics.Operations.ResourceProductionOperatorRole">
+    <Position X="0.5" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Model\Economics\Operations\ResourceProductionOperation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ProductiveOperation" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="F6.Model.Economics.Operations.ResourceProductionOperation">
+    <Position X="4.25" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAQAAAAAAAAAAAAAJAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Model\Economics\Operations\ResourceProductionOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="F6.Model.Economics.Facilities.Facility" Collapsed="true">
+    <Position X="10.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAAAAAAAAAAAiEAiBAAAAAAAAAAAAAACAAAQAAAQAAA=</HashCode>
+      <FileName>Model\Economics\Facilities\Facility.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="F6.Model.Economics.Mining.ResourceProductionFacility">
+    <Position X="7.5" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAgAAAAAAAIAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Model\Economics\Industries\Mining\ResourceProductionFacility.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="operations" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

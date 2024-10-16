@@ -1,0 +1,48 @@
+Procedure
+
+1. Pass value and quality -> Dimensions known
+2. Get best unit -> Multiplier
+3. Get viable magnitudes, taking dimensions into account
+4. Adjust value
+5. Choose preferred candidate
+
+1. 	1000m
+2. 	GBU -> m -> x1
+3. 	1000 / 1 = 1000 -> Linear magnitude (1000) = 3 -> kilo, 3, 1000
+4. 	1000 / 1000 = 1 km
+
+1. 	10000 m²
+2. 	GBU -> m² -> x1
+3. 	10000 / 1 = 10000 -> Quadratic magnitude (10000) -> Linear magnitude (100) = 2 -> hecto, 2, 100
+4. 	10000 / 100² = 1 hectom² (hectare)
+
+1. 	2500000 m²
+2.	GBU -> m² -> x1
+3.	2500000 / 1 = 2500000 -> Quadratic magnitude (2500000) -> Linear magnitude (1581)  = 3.2 -> Round/3-Floor to 3 -> Kilo, 3, 1000
+4.	2500000 / 1000² = 2.5 km²
+
+1.	50000000m³
+2.	GBU -> m³ -> x1
+3.	50000000 / 1 = 50000000 -> Cubic magnitude (50000000) -> Linear magnitude (368) = 2.57 -> (A) Round to 3 -> Kilo, 3, 1000	OR	(B) Floor to 2 -> Hecto, 2, 100
+4A. 50000000 / 1000³ = 0.05km³
+4B.	50000000 / 100³ = 50hm³
+
+1. 	35000000g
+2. 	GBU -> t -> x1000000
+3. 	35000000 / 1000000 = 35 -> Linear magnitude (35) = 1.54 -> (A) Round to Deca, 2, 10	OR	(B) Floor to none, 1, 1
+4A.	35 / 10 = 3.5dt
+4B. 35 / 1 = 35t
+
+1.	100000000k
+2.	GBU -> k -> x1
+3.	100000000 / 1 = 10000000 -> linear magnitude (100000000) = 8 -> (A) Round to Giga, 9, 1000000000 OR (B) Floor to Mega, 6, 1000000
+4A.	100000000 / 1000000000 = 0.1Gt
+4B.	100000000 / 1000000 = 100Mt
+
+
+What is our metric for preferrable appellations?
+	2. Highest ratio of digits to other chars (decimal point, unit prefix etc.).
+	1. Brevity.
+	Will have to prioritize one over the other.
+
+TODO: If a favourite magnitude is provided, use that unless it exceeds the maximum digits, in which case we revert to standard (non-favourite) procedure. Effectively, this means processing three variants (ABC instead of AB).
