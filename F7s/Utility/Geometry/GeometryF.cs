@@ -350,6 +350,10 @@ namespace F7s.Utility.Geometry {
         internal static Vector2 Normalize (Vector2 rheologicMovement) {
             throw new NotImplementedException();
         }
+
+        internal static bool ApproximatelyEquals (Vector3 vector31, Vector3 vector32) {
+            throw new NotImplementedException();
+        }
     }
 
 }

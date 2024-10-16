@@ -199,7 +199,7 @@ namespace F7s.Utility.Shapes {
             float shapeSizeAssumptionAdjustment
         ) {
 
-            float distance = position1.DistanceTo(position2);
+            float distance = Vector3.Distance(position1, position2);
             float combinedRadius = shape1.Radius + shape2.Radius;
 
             bool intersects = distance < combinedRadius + shapeSizeAssumptionAdjustment;
@@ -368,7 +368,7 @@ namespace F7s.Utility.Shapes {
 
         public override bool Equals (object obj) {
             Shape3Dim other = obj as Shape3Dim;
-            return base.Equals(obj) || (this.GetType() == other.GetType() && this.FullExtents().IsEqualApprox(other.FullExtents()));
+            return base.Equals(obj) || (this.GetType() == other.GetType() && GeometryF.ApproximatelyEquals(this.FullExtents(), other.FullExtents()));
         }
 
         public override int GetHashCode () {

@@ -1,9 +1,11 @@
-﻿using System;
-using Stride.Core.Mathematics;
+﻿using Stride.Core.Mathematics;
+using System;
 
 namespace F7s.Engine.InputHandling {
-    public class MouseVelocityAction : MousePositionAction {
-        public MouseVelocityAction (Action<Vector2> action) : base(action) {
+    public class MouseVelocityAction : AbstractInputAction {
+        public readonly Action<Vector2> action;
+        public MouseVelocityAction (Action<Vector2> action) : base(action.Method.Name) {
+            this.action = action;
         }
 
         public override void Deregister () {
@@ -12,6 +14,10 @@ namespace F7s.Engine.InputHandling {
 
         public override void Register () {
             InputHandler.RegisterMouseVelocityAction(this);
+        }
+        public void Trigger (Vector2 value) {
+            action.Invoke(value);
+            Triggered();
         }
     }
 

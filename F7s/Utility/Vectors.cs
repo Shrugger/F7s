@@ -82,6 +82,14 @@ namespace F7s.Utility {
         public static bool AllPositivellOrNegativeOne (Vector3 scale, float tolerance) {
             return ApproximatelyEqual(Vector3.One, scale, tolerance) || ApproximatelyEqual(-Vector3.One, scale, tolerance);
         }
+
+        internal static bool ApproximatelyEqual (Vector3d origin1, Vector3d origin2, float delta) {
+            throw new NotImplementedException();
+        }
+
+        internal static bool ApproximatelyEqual (object column01, object column02, float delta) {
+            throw new NotImplementedException();
+        }
     }
 
 }

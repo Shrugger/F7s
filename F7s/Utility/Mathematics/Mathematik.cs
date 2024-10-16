@@ -138,7 +138,7 @@ namespace F7s.Utility.Mathematics {
             throw new NotImplementedException();
         }
 
-        public static float Lerp (float minAltitudeOverBounds, float maxAltitudeOverBounds, float v) {
+        public static float Lerp (float a, float b, float v) {
             throw new NotImplementedException();
         }
 
@@ -147,6 +147,18 @@ namespace F7s.Utility.Mathematics {
         }
 
         public static double Lerp (double a, double b, double interpolationFactor) {
+            throw new NotImplementedException();
+        }
+
+        internal static int FloorToInt (double v) {
+            throw new NotImplementedException();
+        }
+
+        internal static int CeilToInt (double v) {
+            throw new NotImplementedException();
+        }
+
+        internal static float PIngPong (float rotation, float v) {
             throw new NotImplementedException();
         }
     }

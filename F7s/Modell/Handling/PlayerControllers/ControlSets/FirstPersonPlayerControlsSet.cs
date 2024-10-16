@@ -1,52 +1,55 @@
-﻿using F7s.Engine.InputHandling;
+﻿using F7s.Engine;
+using F7s.Engine.InputHandling;
+using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
+using Stride.Input;
 
 namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
     public class FirstPersonPlayerControlsSet : InputSet {
         public FirstPersonPlayerControlsSet () {
 
-            this.Add(new InputVectorAction(Player.ActivateUiControls, Key.Tab));
+            this.Add(new InputVectorAction(Player.ActivateUiControls, Keys.Tab));
 
             {
-                void MoveLeft (double delta) {
-                    Player.Translate(-Vector3.UnitX * (float) delta * Player.PanSpeed);
+                void MoveLeft () {
+                    Player.Translate(-Vector3.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
-                void MoveRight (double delta) {
-                    Player.Translate(Vector3.UnitX * (float) delta * Player.PanSpeed);
+                void MoveRight () {
+                    Player.Translate(Vector3.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
-                void MoveForward (double delta) {
-                    Player.Translate(Vector3.UnitZ * (float) delta * Player.PanSpeed);
+                void MoveForward () {
+                    Player.Translate(Vector3.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
-                void MoveBackward (double delta) {
-                    Player.Translate(-Vector3.UnitZ * (float) delta * Player.PanSpeed);
+                void MoveBackward () {
+                    Player.Translate(-Vector3.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
-                void MoveUp (double delta) {
-                    Player.Translate(Vector3.UnitY * (float) delta * Player.PanSpeed);
+                void MoveUp () {
+                    Player.Translate(Vector3.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
-                void MoveDown (double delta) {
-                    Player.Translate(-Vector3.UnitY * (float) delta * Player.PanSpeed);
+                void MoveDown () {
+                    Player.Translate(-Vector3.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
 
-                Add(new KeyHoldAction(MoveLeft, KeyHoldAction.ProcessTypes.Process, Key.A, shift: false));
-                Add(new KeyHoldAction(MoveRight, KeyHoldAction.ProcessTypes.Process, Key.D, shift: false));
-                Add(new KeyHoldAction(MoveForward, KeyHoldAction.ProcessTypes.Process, Key.W, shift: false));
-                Add(new KeyHoldAction(MoveBackward, KeyHoldAction.ProcessTypes.Process, Key.S, shift: false));
-                Add(new KeyHoldAction(MoveUp, KeyHoldAction.ProcessTypes.Process, Key.Space, shift: false));
-                Add(new KeyHoldAction(MoveDown, KeyHoldAction.ProcessTypes.Process, Key.Alt, shift: false));
-                Add(new InputVectorAction(Player.SpeedUp, Key.Up, shift: false));
-                Add(new InputVectorAction(Player.SpeedDown, Key.Down, shift: false));
+                Add(new InputVectorAction(MoveLeft, Keys.A));
+                Add(new InputVectorAction(MoveRight, Keys.D));
+                Add(new InputVectorAction(MoveForward, Keys.W));
+                Add(new InputVectorAction(MoveBackward, Keys.S));
+                Add(new InputVectorAction(MoveUp, Keys.Space));
+                Add(new InputVectorAction(MoveDown, Keys.LeftAlt));
+                Add(new InputVectorAction(Player.SpeedUp, Keys.Up));
+                Add(new InputVectorAction(Player.SpeedDown, Keys.Down));
             }
 
             {
-                InputHandler.SetMouseMode(Input.MouseModeEnum.Captured);
                 Add(new MouseDeltaAction(Player.RotatePlayer));
             }
 
-            Add(new InputVectorAction(() => { Player.SetTransform(Transform3D.Identity); }, Key.R, control: true));
+            Add(new InputVectorAction(() => { Player.SetTransform(Transform3D.Identity); }, new KeyButtonInput(Keys.R, ButtonInput.ButtonStates.Pressed), new KeyButtonInput(Keys.LeftCtrl, ButtonInput.ButtonStates.HeldDown)));
         }
         protected override void OnActivation () {
             base.OnActivation();
-            InputHandler.SetMouseMode(Input.MouseModeEnum.Captured);
+            InputHandler.SetMouseInvisible();
+            InputHandler.LockMousePosition();
 
         }
     }

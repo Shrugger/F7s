@@ -8,7 +8,7 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets
     public class GeneralControlsSet : InputSet {
         public GeneralControlsSet () {
             Add(new InputVectorAction(Zeit.TogglePause, new KeyButtonInput(Keys.P, ButtonInput.ButtonStates.Pressed)));
-            //  Add(new InputVectorAction(Main.Quit, Key.Escape)); // TODO: Restore quit functionality.
+            //  Add(new InputVectorAction(Main.Quit, Keys.Escape)); // TODO: Restore quit functionality.
 
             this.Activate();
         }

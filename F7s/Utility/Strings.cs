@@ -1,4 +1,4 @@
-﻿using Stride.Core.Mathematics; using System;
+﻿using F7s.Utility.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace F7s.Utility {
         /// <summary>
         ///     Counts the number of zeroes that come before any other digit.
         /// </summary>
-        public static int CountUninformativeZeroes(double value) {
+        public static int CountUninformativeZeroes (double value) {
 
             int boringZeroes = 0;
             string numericalValueString = value.ToString();
@@ -33,7 +33,7 @@ namespace F7s.Utility {
             return boringZeroes;
         }
 
-        public static int CountInformativeDigitsBeforeDecimal(double value) {
+        public static int CountInformativeDigitsBeforeDecimal (double value) {
 
             if (Math.Abs(value) < 1) {
                 return 0;
@@ -41,7 +41,7 @@ namespace F7s.Utility {
 
             int digits = 0;
 
-            string numericalValueString = MathF.RoundToInt(value).ToString();
+            string numericalValueString = Mathematik.RoundToInt(value).ToString();
 
             for (int i = 0; i < numericalValueString.Length; i++) {
                 char c = numericalValueString[index: i];
@@ -54,7 +54,7 @@ namespace F7s.Utility {
             return digits;
         }
 
-        public static int ZerosAfterDecimalBeforeInterestingDigitsStart(double value) {
+        public static int ZerosAfterDecimalBeforeInterestingDigitsStart (double value) {
             int zeros = 0;
             double decimalsOnly = value % 1.0;
 
@@ -84,11 +84,11 @@ namespace F7s.Utility {
 
         #region punctuation, capitalisation, line breaks
 
-        public static int CountLineBreaks(string text) {
+        public static int CountLineBreaks (string text) {
             return text.Count(predicate: c => IsLineBreak(c: c));
         }
 
-        public static string CollapseToAcronym(
+        public static string CollapseToAcronym (
             string text,
             bool includeFirstLetterRegardlessOfCapitalization = false,
             bool preserveNonLetterCharacters = true
@@ -113,7 +113,7 @@ namespace F7s.Utility {
             return acronym;
         }
 
-        public static string SeparateCapitalisedWords(string text, bool keepAbbreviations) {
+        public static string SeparateCapitalisedWords (string text, bool keepAbbreviations) {
             for (int i = 1; i < text.Length; i++) {
                 if (IsMajuscule(c: text[index: i])) {
                     if (keepAbbreviations
@@ -132,14 +132,14 @@ namespace F7s.Utility {
             return text;
         }
 
-        public static string CamelCaseToWords(string camelCasedText) {
+        public static string CamelCaseToWords (string camelCasedText) {
             string words = camelCasedText;
             words = CapitaliseFirstLetter(words);
             words = SeparateCapitalisedWords(words, true);
             return words;
         }
 
-        public static string PunctuateIfNecessary(string text, char punctuation) {
+        public static string PunctuateIfNecessary (string text, char punctuation) {
             if (!IsPunctuation(c: text.Substring(startIndex: text.Length - 1, length: 1).ToCharArray()[0])) {
                 return text + punctuation;
             }
@@ -147,11 +147,11 @@ namespace F7s.Utility {
             return text;
         }
 
-        public static string RemoveLineBreaks(string text) {
+        public static string RemoveLineBreaks (string text) {
             return Remove(text: text, "\n", "\r");
         }
 
-        public static string InsertLineBreaks(
+        public static string InsertLineBreaks (
             string text,
             int desiredLength,
             string firstLineStarter = "",
@@ -207,7 +207,7 @@ namespace F7s.Utility {
             return text;
         }
 
-        public static string BeginEachLineWith(string text, string lineStarter) {
+        public static string BeginEachLineWith (string text, string lineStarter) {
             text = lineStarter + text;
 
             for (int i = 0; i < text.Length; i++) {
@@ -219,7 +219,7 @@ namespace F7s.Utility {
             return text;
         }
 
-        public static string CapitaliseFirstLetter(string s) {
+        public static string CapitaliseFirstLetter (string s) {
             if (s == null) {
                 return null;
             }
@@ -231,7 +231,7 @@ namespace F7s.Utility {
             return s.ToUpper();
         }
 
-        public static string ReportLineLengths(string text) {
+        public static string ReportLineLengths (string text) {
 
             string lineLengths = "";
 
@@ -242,15 +242,15 @@ namespace F7s.Utility {
             return lineLengths;
         }
 
-        public static string GetFirstLine(string text) {
+        public static string GetFirstLine (string text) {
             return GetFirstLines(text: text, lines: 1).First();
         }
 
-        public static List<string> GetFirstLines(string text, int lines) {
+        public static List<string> GetFirstLines (string text, int lines) {
             return SplitIntoLines(text: text, lineCountLimit: lines);
         }
 
-        public static List<string> SplitIntoLines(
+        public static List<string> SplitIntoLines (
             string text,
             bool preservePairedLineBreaksAsEmptyLines = true,
             int? lineCountLimit = null
@@ -345,7 +345,7 @@ namespace F7s.Utility {
             return text.Split('\n', '\r').ToList(); // This simply removes line breaks
         }
 
-        public static bool ContainsLineBreak(string text) {
+        public static bool ContainsLineBreak (string text) {
             foreach (char c in text) {
                 if (IsLineBreak(c: c)) {
                     return true;
@@ -355,23 +355,23 @@ namespace F7s.Utility {
             return false;
         }
 
-        public static string CollapseIntoSingleLine(string text, string separator = "") {
+        public static string CollapseIntoSingleLine (string text, string separator = "") {
             return text.Replace(oldValue: "\n", newValue: separator).Replace(oldValue: "\r", newValue: separator);
         }
 
-        public static int CountLines(string text) {
+        public static int CountLines (string text) {
             return SplitIntoLines(text: text).Count;
         }
 
-        public static int LongestLineWidth(string text) {
+        public static int LongestLineWidth (string text) {
             return SplitIntoLines(text: text).Max(selector: line => line.Length);
         }
         #endregion
 
-        public static List<string> SeparateWords(string text) {
+        public static List<string> SeparateWords (string text) {
             return text.Split(' ').ToList();
         }
-        public static List<string> SeparateWordsButRecombineParantheses(string text) {
+        public static List<string> SeparateWordsButRecombineParantheses (string text) {
             List<string> words = SeparateWords(text);
 
             for (int i = 0; i < words.Count; i++) {
@@ -398,32 +398,32 @@ namespace F7s.Utility {
                 words[i] = words[i].Trim('(', ')');
             }
 
-            GD.Print(text + " -> " + words);
+            Console.WriteLine(text + " -> " + words);
 
             return words;
         }
 
         #region content changes
 
-        public static string ForceLengthPadLeft(string text, int length, string forcedPadding = "") {
+        public static string ForceLengthPadLeft (string text, int length, string forcedPadding = "") {
             string cut = CutToSize(text: text, length: length);
             string cutAndPadded = forcedPadding + cut.PadLeft(totalWidth: length);
 
             return cutAndPadded;
         }
 
-        public static string ForceLengthPadRight(string text, int length, string forcedPadding = "") {
+        public static string ForceLengthPadRight (string text, int length, string forcedPadding = "") {
             string cut = CutToSize(text: text, length: length);
             string cutAndPadded = cut.PadRight(totalWidth: length) + forcedPadding;
 
             return cutAndPadded;
         }
 
-        public static string CutToSize(string text, int length) {
+        public static string CutToSize (string text, int length) {
             return text.Substring(startIndex: 0, length: Math.Min(length, text.Length));
         }
 
-        public static string Remove(string text, params string[] removees) {
+        public static string Remove (string text, params string[] removees) {
             foreach (string removee in removees) {
                 for (int i = 0; i < text.Length - removee.Length; i++) {
                     if (text.Substring(startIndex: i, length: removee.Length) == removee) {
@@ -438,7 +438,7 @@ namespace F7s.Utility {
         /// <summary>
         ///     Removes all connected whitespaces from the index provided to the first non-whitespace character.
         /// </summary>
-        public static string RemoveWhitespaceSequence(string text, int startIndex = 0) {
+        public static string RemoveWhitespaceSequence (string text, int startIndex = 0) {
             for (int i = startIndex;
                  i < text.Length
               && IsWhitespace(
@@ -450,11 +450,11 @@ namespace F7s.Utility {
             return text;
         }
 
-        public static string TrimNewlinesAndWhitespaces(string text) {
+        public static string TrimNewlinesAndWhitespaces (string text) {
             return TrimNewlines(text: text.Trim());
         }
 
-        public static string TrimNewlines(string text) {
+        public static string TrimNewlines (string text) {
             return text.TrimStart(trimChars: Chars.newline).TrimEnd(trimChars: Chars.newline);
         }
 
@@ -462,7 +462,7 @@ namespace F7s.Utility {
 
         #region miscellaneous
 
-        public static string ReportArrayContents<T>(T[] array) {
+        public static string ReportArrayContents<T> (T[] array) {
 
             string report = "";
 
@@ -477,14 +477,14 @@ namespace F7s.Utility {
             return report;
         }
 
-        public static string ReportDictionaryContents<T1, T2>(Dictionary<T1, T2> dictionary) {
+        public static string ReportDictionaryContents<T1, T2> (Dictionary<T1, T2> dictionary) {
             return ReportDictionaryContents(
                                                     dictionary: dictionary,
                                                     stringProducer: (t1, t2) => t2 + Chars.multiplication + t1
                                                    );
         }
 
-        public static string ReportDictionaryContents<T1, T2>(
+        public static string ReportDictionaryContents<T1, T2> (
             Dictionary<T1, T2> dictionary,
             Func<T1, T2, string> stringProducer
         ) {
@@ -506,7 +506,7 @@ namespace F7s.Utility {
             return report;
         }
 
-        public static int NextNonWhitespaceIndex(string text, int startIndex = 0) {
+        public static int NextNonWhitespaceIndex (string text, int startIndex = 0) {
             for (int i = startIndex; i < text.Length; i++) {
                 if (IsWhitespace(c: text[index: i]) == false) {
                     return i;
@@ -528,7 +528,7 @@ namespace F7s.Utility {
         ///         next one.
         ///         If true, will skip ahead to the next complete word and return that.
         ///     </param>
-        public static string NextWord(string text, int startIndex = 0, bool skipWhitespaceAndIncompleteWord = true) {
+        public static string NextWord (string text, int startIndex = 0, bool skipWhitespaceAndIncompleteWord = true) {
 
             // Finding the first non-whitespace character's index; i.e. the start of the next word.
             for (;
@@ -560,32 +560,32 @@ namespace F7s.Utility {
             return text.Substring(startIndex: startIndex);
         }
 
-        public static int LengthOfNextWord(string text, int startIndex = 0) {
+        public static int LengthOfNextWord (string text, int startIndex = 0) {
             return NextWord(text: text, startIndex: startIndex).Length;
 
         }
 
-        public static bool IsLineBreak(char c) {
+        public static bool IsLineBreak (char c) {
             return c == '\n';
         }
 
-        public static bool IsLineBreak(string s) {
+        public static bool IsLineBreak (string s) {
             return s == "\n";
         }
 
-        public static bool HasContent(string s) {
+        public static bool HasContent (string s) {
             return !IsWhitespaceOrNullOrEmpty(s);
         }
 
-        public static bool IsOrReadsNullOrEmpty(string s) {
+        public static bool IsOrReadsNullOrEmpty (string s) {
             return s == null || s == "" || s == "NULL";
         }
 
-        public static bool IsWhitespaceOrNullOrEmpty(string s) {
+        public static bool IsWhitespaceOrNullOrEmpty (string s) {
             return string.IsNullOrEmpty(value: s) || IsWhitespace(s: s);
         }
 
-        public static bool IsWhitespace(string s) {
+        public static bool IsWhitespace (string s) {
             foreach (char c in s) {
                 if (IsWhitespace(c: c) == false) {
                     return false;
@@ -594,27 +594,27 @@ namespace F7s.Utility {
             return true;
         }
 
-        public static bool IsWhitespace(char c) {
+        public static bool IsWhitespace (char c) {
             return c == Chars.tab || c == ' ' || c.ToString() == " " || c == '\r' || c == '\n';
         }
 
-        public static bool IsMajuscule(char c) {
+        public static bool IsMajuscule (char c) {
             return c.ToString() != c.ToString().ToLower() && IsLetter(c: c);
         }
 
-        public static bool IsPunctuation(char c) {
+        public static bool IsPunctuation (char c) {
             return c == '.' || c == ',' || c == ':' || c == ';' || c == '?' || c == '!';
         }
 
-        public static bool IsKonsonant(char c) {
+        public static bool IsKonsonant (char c) {
             return IsVokal(c: c) == false && IsLetter(c: c);
         }
 
-        public static bool IsLetter(char c) {
+        public static bool IsLetter (char c) {
             return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
         }
 
-        public static bool IsVokal(char c) {
+        public static bool IsVokal (char c) {
             c = char.ToLower(c: c);
 
             return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y' || c == '_' || c == '-'

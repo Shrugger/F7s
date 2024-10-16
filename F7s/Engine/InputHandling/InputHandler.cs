@@ -7,6 +7,8 @@ namespace F7s.Engine.InputHandling {
 
     public static class InputHandler {
 
+        // TODO: Make sure that all AbstractInputActions are actually registered, triggerable and handled.
+
         private static InputManager strideInputManager = new InputManager();
 
         private static readonly List<InputVectorAction> eventActions = new List<InputVectorAction>();

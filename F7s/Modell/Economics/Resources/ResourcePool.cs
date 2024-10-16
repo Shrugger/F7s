@@ -1,5 +1,6 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Modell.Handling;
+using F7s.Utility.Mathematics;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -67,7 +68,7 @@ namespace F7s.Modell.Economics.Resources {
 
         public float RemoveQuantity (ResourceType type, float desiredQuantity) {
             if (Contains(type)) {
-                float drawn = MathF.Clamp(desiredQuantity, 0, this.pool[type]);
+                float drawn = Mathematik.Clamp(desiredQuantity, 0, this.pool[type]);
                 this.pool[type] -= drawn;
                 return drawn;
             } else {

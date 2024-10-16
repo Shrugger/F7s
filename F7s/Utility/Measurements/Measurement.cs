@@ -1,4 +1,5 @@
 using Assets.Utility.Measurements;
+using F7s.Utility.Mathematics;
 using F7s.Utility.Measurements.Units;
 using System;
 using System.Collections.Generic;
@@ -283,8 +284,8 @@ namespace F7s.Utility.Measurements {
 
                 double paddingLength = totalLength
                                      - (numericalString.Length + appellation.unitAndPrefix.Length + separator.Length);
-                int paddingLeft = MathF.FloorToInt(paddingLength / 2.0);
-                int paddingRight = MathF.CeilToInt(paddingLength / 2.0);
+                int paddingLeft = Mathematik.FloorToInt(paddingLength / 2.0);
+                int paddingRight = Mathematik.CeilToInt(paddingLength / 2.0);
 
                 appellationString = numericalString.PadLeft(totalWidth: paddingLeft)
                                   + separator
@@ -474,7 +475,7 @@ namespace F7s.Utility.Measurements {
 
             if (InterestingDigitsBeforeDecimal(value: quantityInScaledUnits) >= maximumDecimals) {
                 // CONVENTION: If there are more interesting digits before the decimal point than we would put behind it, round completely.
-                return MathF.Round(quantityInScaledUnits);
+                return Rounding.Round(quantityInScaledUnits);
             }
 
             #endregion
@@ -545,7 +546,7 @@ namespace F7s.Utility.Measurements {
                                                            rawMagnitude: rawMagnitude,
                                                            permitGranularMagnitudes: permitGranularMagnitudes
                                                           )) {
-                return MathF.RoundToInt(rawMagnitude);
+                return Mathematik.RoundToInt(rawMagnitude);
             }
 
             return RoundToMultiplesOfThree(value: rawMagnitude);
@@ -556,7 +557,7 @@ namespace F7s.Utility.Measurements {
                                                            rawMagnitude: rawMagnitude,
                                                            permitGranularMagnitudes: permitGranularMagnitudes
                                                           )) {
-                return MathF.FloorToInt(rawMagnitude);
+                return Mathematik.FloorToInt(rawMagnitude);
             }
 
             return FloorToMultiplesOfThree(value: rawMagnitude);
@@ -567,7 +568,7 @@ namespace F7s.Utility.Measurements {
                                                            rawMagnitude: rawMagnitude,
                                                            permitGranularMagnitudes: permitGranularMagnitudes
                                                           )) {
-                return MathF.CeilToInt(rawMagnitude);
+                return Mathematik.CeilToInt(rawMagnitude);
             }
 
             return CeilToMultiplesOfThree(value: rawMagnitude);
@@ -582,15 +583,15 @@ namespace F7s.Utility.Measurements {
         }
 
         private static int RoundToMultiplesOfThree (double value) {
-            return MathF.RoundToInt(value / 3d) * 3;
+            return Mathematik.RoundToInt(value / 3d) * 3;
         }
 
         private static int FloorToMultiplesOfThree (double value) {
-            return MathF.FloorToInt(value / 3d) * 3;
+            return Mathematik.FloorToInt(value / 3d) * 3;
         }
 
         private static int CeilToMultiplesOfThree (double value) {
-            return MathF.CeilToInt(value / 3d) * 3;
+            return Mathematik.CeilToInt(value / 3d) * 3;
         }
 
         #endregion
@@ -612,7 +613,7 @@ namespace F7s.Utility.Measurements {
                 return 0;
             }
 
-            return MathF.FloorToInt(absoluteValue).ToString().Length;
+            return Mathematik.FloorToInt(absoluteValue).ToString().Length;
         }
 
         #endregion

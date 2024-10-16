@@ -1,6 +1,7 @@
 ﻿using F7s.Utility.Geometry;
-using System;
 using Stride.Core.Mathematics;
+using System;
+using System.Diagnostics;
 
 namespace F7s.Utility {
     public static class Transforms {
@@ -13,7 +14,7 @@ namespace F7s.Utility {
         }
 
         public static void AssertEqual (Transform3D a, Transform3D b, float delta = 0.001f) {
-            Assert.IsTrue(
+            Debug.Assert(
                 ApproximatelyEqual(a, b, delta),
                 "\n" +
                 a + "\n" +

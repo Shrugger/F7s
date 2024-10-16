@@ -1,17 +1,18 @@
 ﻿using F7s.Utility.Geometry;
-using Stride.Core.Mathematics; using System;
+using F7s.Utility.Mathematics;
+using Stride.Core.Mathematics;
 using System;
 
 namespace F7s.Utility.Shapes {
 
     [Serializable]
     public class PartialOctagonalPipe : CompoundShape {
-        public PartialOctagonalPipe(float outerDiameter, float length, float internalDiameter, bool top, bool upperRight, bool right, bool lowerRight, bool bottom, bool lowerLeft, bool left, bool upperLeft) : base(new Vector3(outerDiameter, outerDiameter, length)) {
+        public PartialOctagonalPipe (float outerDiameter, float length, float internalDiameter, bool top, bool upperRight, bool right, bool lowerRight, bool bottom, bool lowerLeft, bool left, bool upperLeft) : base(new Vector3(outerDiameter, outerDiameter, length)) {
 
             float thickness = (outerDiameter - internalDiameter) / 2.0f;
             float width = (MathF.Sqrt(2) - 1.0f) * outerDiameter;
 
-            Box GenerateWall() {
+            Box GenerateWall () {
                 if (width <= 0) {
                     throw new ArgumentException("Width " + width + " from arguments diameter " + outerDiameter + " length " + length + " internalDiameter " + internalDiameter + ".");
                 }
@@ -24,9 +25,9 @@ namespace F7s.Utility.Shapes {
                 return new Box(width, thickness, length);
             }
 
-            void Constitute(float rotation) {
+            void Constitute (float rotation) {
                 float longitude = rotation < 180 ? 90 : 270;
-                float latitude = MathF.PIngPong(rotation, 180.0f) - 90.0f;
+                float latitude = Mathematik.PIngPong(rotation, 180.0f) - 90.0f;
                 Vector3 position = new PolarCoordinates(longitude, latitude, (outerDiameter / 2.0f) - (thickness / (2.0f))).ToVector3();
 
                 this.AddConstituent(new Constituent(GenerateWall(), position, new Vector3(0, 0, rotation), "Partial " + this.GetType().Name + " " + rotation + Chars.degree));

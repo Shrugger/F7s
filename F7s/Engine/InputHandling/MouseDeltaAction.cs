@@ -3,8 +3,10 @@ using Stride.Core.Mathematics;
 using System;
 
 namespace F7s.Engine.InputHandling {
-    public class MouseDeltaAction : MousePositionAction {
-        public MouseDeltaAction (Action<Vector2> action) : base(action) {
+    public class MouseDeltaAction : AbstractInputAction {
+        public readonly Action<Vector2> action;
+        public MouseDeltaAction (Action<Vector2> action) : base(action.Method.Name) {
+            this.action = action;
         }
 
         public override void Deregister () {
@@ -13,6 +15,10 @@ namespace F7s.Engine.InputHandling {
 
         public override void Register () {
             InputHandler.RegisterMouseDeltaAction(this);
+        }
+        public void Trigger (Vector2 value) {
+            action.Invoke(value);
+            Triggered();
         }
     }
 
