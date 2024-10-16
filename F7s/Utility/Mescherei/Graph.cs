@@ -11,10 +11,13 @@ using Buffer = Stride.Graphics.Buffer;
 namespace F7s.Utility.Mescherei {
 
     public class Mesch {
+        public readonly Model model;
         public readonly Mesh mesh;
 
         public Mesch () {
+            this.model = new Model();
             mesh = new Mesh();
+            this.model.Meshes.Add(mesh);
             mesh.Draw = new MeshDraw();
         }
 
@@ -39,9 +42,9 @@ namespace F7s.Utility.Mescherei {
 
             draw.VertexBuffers = new VertexBufferBinding[] { new VertexBufferBinding(vertexBuffer, VertexPositionTexture.Layout, vertexBuffer.ElementCount) };
             draw.IndexBuffer = new IndexBufferBinding(indexBuffer, true, indexBuffer.ElementCount);
-            new VertexBufferBinding(vertexBuffer, VertexPositionColorTexture)
 
-            throw new NotImplementedException();
+            VertexBufferBinding vertexBufferBinding = new VertexBufferBinding(vertexBuffer, VertexPositionColorTexture.Layout, vertexBuffer.ElementCount);
+            draw.VertexBuffers = new VertexBufferBinding[] { vertexBufferBinding };
 
             return mesch;
         }
