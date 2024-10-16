@@ -30,21 +30,14 @@ namespace F7s.Utility.Mescherei {
             int indicesCount = graph.TriangleCount * 3;
             draw.DrawCount = indicesCount;
 
-            // TODO: Create an alternative method that uses a VertexPositionTexture without colors to improve performance for cases without vertex coloring.
-            // TODO: Also create an alternative method that uses VertexPositionNormalColor to offer normals, as well. And then create one for normals without colors, kthxbye.
-            VertexPositionColorTexture[] vertices = new VertexPositionColorTexture[graph.VertexCount];
-            int[] indices = new int[indicesCount];
-
-            throw new NotImplementedException("Populate vertices and indices.");
+            VertexPositionNormalColor[] vertices = graph.GetVertexArray();
+            int[] indices = graph.GetIndexArray();
 
             Buffer vertexBuffer = Buffer.Vertex.New(graphicsDevice, vertices, graphicsResourceUsage);
             Buffer indexBuffer = Buffer.Index.New(graphicsDevice, indices, graphicsResourceUsage);
 
-            draw.VertexBuffers = new VertexBufferBinding[] { new VertexBufferBinding(vertexBuffer, VertexPositionTexture.Layout, vertexBuffer.ElementCount) };
+            draw.VertexBuffers = new VertexBufferBinding[] { new VertexBufferBinding(vertexBuffer, VertexPositionNormalColor.Layout, vertexBuffer.ElementCount) };
             draw.IndexBuffer = new IndexBufferBinding(indexBuffer, true, indexBuffer.ElementCount);
-
-            VertexBufferBinding vertexBufferBinding = new VertexBufferBinding(vertexBuffer, VertexPositionColorTexture.Layout, vertexBuffer.ElementCount);
-            draw.VertexBuffers = new VertexBufferBinding[] { vertexBufferBinding };
 
             return mesch;
         }
@@ -56,6 +49,9 @@ namespace F7s.Utility.Mescherei {
         private List<Triangle> triangles = new List<Triangle>();
         private List<Edge> edges = new List<Edge>();
         public List<Vertex> Vertices { get { return vertices; } }
+        private VertexPositionNormalColor[] vertexArray = null;
+        private int[] indexArray = null;
+
         public List<Triangle> Triangles { get { return triangles; } }
         public List<Edge> Edges { get { return edges; } }
 
@@ -75,6 +71,28 @@ namespace F7s.Utility.Mescherei {
             }
         }
 
+        public VertexPositionNormalColor[] GetVertexArray () {
+            if (vertexArray == null) {
+                vertexArray = BakeVertexArray();
+            }
+            return vertexArray;
+        }
+        private VertexPositionNormalColor[] BakeVertexArray () {
+            return this.Vertices.ConvertAll(v => v.ToStride()).ToArray();
+        }
+        public int[] GetIndexArray () {
+            if (this.indexArray == null) {
+                this.BakeIndexArray();
+            }
+            return this.indexArray;
+        }
+        private int[] BakeIndexArray () {
+            List<int> indices = new List<int>();
+            foreach (Triangle t in this.triangles) {
+                indices.AddRange(t.VertexIndices());
+            }
+            return indices.ToArray();
+        }
 
         public override string ToString () {
             return (Deleted ? "DELETED " : "") + "Graph " + "V" + vertices.Count + " T" + triangles.Count;

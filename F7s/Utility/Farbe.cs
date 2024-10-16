@@ -120,6 +120,7 @@ namespace F7s.Utility {
 
         public static Farbe black => new Farbe(0, 0, 0, 1);
         public static Farbe white => new Farbe(1, 1, 1, 1);
+        public static Farbe magenta => new Farbe(1, 0, 1, 1);
 
         #endregion
 

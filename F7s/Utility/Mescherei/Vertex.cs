@@ -1,5 +1,6 @@
 ﻿using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
+using Stride.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -207,6 +208,10 @@ namespace F7s.Utility.Mescherei {
             } else {
                 return Alea.Vector2(0, 1);
             }
+        }
+
+        public VertexPositionNormalColor ToStride () {
+            return new VertexPositionNormalColor(this.Position, this.Normal, this.Color);
         }
     }
 
