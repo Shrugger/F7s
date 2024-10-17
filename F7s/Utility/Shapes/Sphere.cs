@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace F7s.Utility.Shapes
 {
 
-    [Serializable]
+    
     public class Sphere : Shape3Dim {
 
         public Sphere(double radius) : this((float)radius) { }

@@ -3,7 +3,7 @@ using System;
 
 namespace F7s.Utility.Shapes {
 
-    [System.Serializable]
+    
     public class Tube : Cylinder {
 
         public readonly float internalDiameter;

@@ -1,14 +1,15 @@
-using Stride.Core.Mathematics; using System;
+using Stride.Core.Mathematics;
+using System;
 
 namespace F7s.Utility.Shapes {
 
-    [System.Serializable]
+
     public class SpadeShape : CompoundShape {
 
-        public SpadeShape(Vector3 size)
+        public SpadeShape (Vector3 size)
             : this(size.Z, size.Y, size.X) { }
 
-        public SpadeShape(float overallLength, float width, float thickness) : base(new Vector3(thickness, width, overallLength)) {
+        public SpadeShape (float overallLength, float width, float thickness) : base(new Vector3(thickness, width, overallLength)) {
             float pointDiameter = width / MathF.Sqrt(2);
 
             Shape3Dim bladeShape = new Box(thickness, width, overallLength - (pointDiameter / 2.0));

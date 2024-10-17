@@ -2,7 +2,7 @@
 using Stride.Core.Mathematics; using System;
 
 namespace F7s.Utility.Shapes {
-    [System.Serializable]
+    
     public class HollowRoundnoseBulletShape : CompoundShape {
         public HollowRoundnoseBulletShape(float diameter, float length, float wallThickness) : base(new Vector3(diameter, diameter, length)) {
             this.AddConstituent(new HollowCylinder(diameter, length / 2.0f, diameter - wallThickness * 2, length / 2.0f - wallThickness * 2), new Vector3(0, 0, -length / 4.0f), Vector3.Zero, "Base");

@@ -2,7 +2,7 @@ using Stride.Core.Mathematics; using System;
 
 namespace F7s.Utility.Shapes {
 
-    [System.Serializable]
+    
     public class Cube : Box {
 
         public Cube(float edgeLength)

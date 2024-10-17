@@ -1,7 +1,7 @@
 ﻿using Stride.Core.Mathematics;
 
 namespace F7s.Utility.Shapes {
-    [System.Serializable]
+    
     public class ClosedBottomBox : ComplexHollowBox {
         private readonly Box internalShape;
         private readonly Vector3 internalShapeOffset;

@@ -5,7 +5,7 @@ using System;
 
 namespace F7s.Utility.Shapes {
 
-    [Serializable]
+    
     public class PartialOctagonalPipe : CompoundShape {
         public PartialOctagonalPipe (float outerDiameter, float length, float internalDiameter, bool top, bool upperRight, bool right, bool lowerRight, bool bottom, bool lowerLeft, bool left, bool upperLeft) : base(new Vector3(outerDiameter, outerDiameter, length)) {
 

@@ -21,7 +21,7 @@ namespace F7s.Utility.Geometry {
     }
 
     public enum Direction { Undefined, Left, Right, Up, Down, Forward, Back }
-    [Serializable]
+    
     public struct Vector3d : Coordinates {
 
         public const float kEpsilon = 1E-05f;

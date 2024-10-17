@@ -14,7 +14,7 @@ namespace F7s.Modell.Abstract {
 
         private static double currentSimulationDate;
         private static readonly List<GameEntity> gameEntities = new List<GameEntity>();
-        private static readonly Utility.PriorityQueue<GameEntity, double> updateQueue = new Utility.PriorityQueue<GameEntity, double>(Utility.PriorityQueue<GameEntity, double>.HeapType.MinHeap);
+        private static readonly PriorityQueue<GameEntity, double> updateQueue = new PriorityQueue<GameEntity, double>();
 
 
         public static string ReportEntities () {
@@ -142,15 +142,23 @@ namespace F7s.Modell.Abstract {
             }
 
             if (skipToNextDate && updateQueue.Count > 0) {
-                double nextDate = updateQueue.PeekPriority();
+                double nextDate = PeekUpdatePriority();
                 currentSimulationDate = nextDate;
             } else {
-                double maximumDeltaTime = updateQueue.Count > 0 ? updateQueue.PeekPriority() - currentSimulationDate : double.MaxValue;
+                double maximumDeltaTime = updateQueue.Count > 0 ? PeekUpdatePriority() - currentSimulationDate : double.MaxValue;
                 double simulationDeltaTime = Math.Clamp(engineDeltaTime * speedFactor, 0, maximumDeltaTime);
                 currentSimulationDate += simulationDeltaTime;
             }
 
             UpdateScheduledEntities();
+        }
+
+        private static double PeekUpdatePriority () {
+            return updateQueue.Peek().GetUpdatePriority();
+        }
+
+        private double GetUpdatePriority () {
+            throw new NotImplementedException();
         }
 
         public static void OnRenderUpdate (double deltaTime) {
@@ -173,7 +181,7 @@ namespace F7s.Modell.Abstract {
             while (!abort) {
                 GameEntity toUpdate = null;
 
-                double nextPriority = updateQueue.PeekPriority();
+                double nextPriority = PeekUpdatePriority();
                 if (nextPriority <= currentSimulationDate) {
                     toUpdate = updateQueue.Dequeue();
                 } else {

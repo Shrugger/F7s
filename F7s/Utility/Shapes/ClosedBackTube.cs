@@ -1,7 +1,7 @@
 ﻿using Stride.Core.Mathematics;
 
 namespace F7s.Utility.Shapes {
-    [System.Serializable]
+    
     public class ClosedBackTube : Cylinder {
         private readonly Cylinder internalShape;
         private readonly Vector3 internalShapeOffset;

@@ -11,7 +11,7 @@ namespace F7s.Utility.Geometry {
     ///     Polar Coordinates describe an objects position relative to the center of a sphere. Values in this struct are
     ///     longitude, latitude and radial distance.
     /// </summary>
-    [Serializable]
+    
     public class PolarCoordinates : Coordinates {
 
         /// <summary>

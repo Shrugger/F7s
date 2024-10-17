@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace F7s.Utility.Shapes {
 
-    [Serializable]
+
     public abstract class Shape3Dim {
 
 

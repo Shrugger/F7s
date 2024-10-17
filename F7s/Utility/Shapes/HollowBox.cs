@@ -1,7 +1,7 @@
 using Stride.Core.Mathematics; using System;
 
 namespace F7s.Utility.Shapes {
-    [System.Serializable]
+    
     public class HollowBox : Box {
 
         private readonly float wallThickness;

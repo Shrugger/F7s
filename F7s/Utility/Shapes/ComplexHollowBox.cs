@@ -2,7 +2,7 @@
 using Stride.Core.Mathematics; using System;
 
 namespace F7s.Utility.Shapes {
-    [Serializable]
+    
     public class ComplexHollowBox : CompoundShape {
         public ComplexHollowBox(float wallThickness, Vector3 internalExtents, bool left, bool right, bool top, bool bottom, bool front, bool back) : this(internalExtents.X + (wallThickness * 2), internalExtents.Y + (wallThickness * 2), internalExtents.Z + (wallThickness * 2), wallThickness, left, right, top, bottom, front, back) { }
         public ComplexHollowBox(Vector3 fullExtents, float wallThickness, bool left, bool right, bool top, bool bottom, bool front, bool back) : this(fullExtents.X, fullExtents.Y, fullExtents.Z, wallThickness, left, right, top, bottom, front, back) { }

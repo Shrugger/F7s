@@ -2,7 +2,7 @@
 using System;
 
 namespace F7s.Utility.Shapes {
-    [Serializable]
+    
     public class Octagon : CompoundShape {
         public Octagon(float width, float height, float length) : base(new Vector3(width, height, length)) {
             Box GenerateBox() {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace F7s.Utility.Shapes {
 
-    [System.Serializable]
+    
     public class Capsule : Shape3Dim {
         public readonly float diameter;
         public readonly float length;

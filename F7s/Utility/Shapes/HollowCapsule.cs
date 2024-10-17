@@ -1,5 +1,5 @@
 ﻿namespace F7s.Utility.Shapes {
-    [System.Serializable]
+    
     public class HollowCapsule : Capsule {
 
         private readonly float internalDiameter;

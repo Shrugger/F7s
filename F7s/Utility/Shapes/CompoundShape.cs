@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace F7s.Utility.Shapes {
 
-    [Serializable]
+
     public class CompoundShape : Shape3Dim {
 
         public class Constituent {

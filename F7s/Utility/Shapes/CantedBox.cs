@@ -3,7 +3,7 @@ using System;
 
 namespace F7s.Utility.Shapes {
 
-    [System.Serializable]
+    
     public class CantedBox : Box {
 
         public CantedBox (float diameter, float length) : base(diameter, diameter, length) {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace F7s.Utility.Shapes
 {
 
-    [System.Serializable]
+    
     public class Cylinder : Capsule {
         public Cylinder(float diameter, float length) : base(diameter, length) {
         }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace F7s.Utility.Shapes {
 
-    [System.Serializable]
+    
     public class Box : Shape3Dim {
 
         protected Vector3 fullExtents;

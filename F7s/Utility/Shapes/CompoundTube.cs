@@ -4,7 +4,7 @@ using Stride.Core.Mathematics;
 using System;
 
 namespace F7s.Utility.Shapes {
-    [Serializable]
+
     public class CompoundTube : CompoundShape {
         public readonly Tube tubeShape;
 

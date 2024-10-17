@@ -1,5 +1,5 @@
 ﻿namespace F7s.Utility.Shapes {
-    [System.Serializable]
+    
     public class HollowCylinder : Cylinder {
 
         private readonly float internalDiameter;

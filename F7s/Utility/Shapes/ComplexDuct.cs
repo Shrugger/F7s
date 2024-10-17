@@ -1,7 +1,7 @@
 ﻿using Stride.Core.Mathematics;
 using System;
 namespace F7s.Utility.Shapes {
-    [Serializable]
+    
     public class ComplexDuct : ComplexHollowBox {
         public ComplexDuct (Vector3 fullExtents, float wallThickness) : this(fullExtents.X, fullExtents.Y, fullExtents.Z, wallThickness) { }
 

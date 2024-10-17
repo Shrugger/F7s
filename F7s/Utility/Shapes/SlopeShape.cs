@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace F7s.Utility.Shapes {
-    [System.Serializable]
+    
     public class SlopeShape : CompoundShape {
         public readonly float height;
         public readonly float baseLength;
