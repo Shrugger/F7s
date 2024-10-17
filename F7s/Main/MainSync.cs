@@ -8,7 +8,7 @@ namespace F7s {
 
     public class MainSync : SyncScript {
 
-
+        private bool simulationStarted = false;
 
 
         public override void Start () {
@@ -23,9 +23,6 @@ namespace F7s {
             Mesh terrainMesh = new Mesh { Draw = terrainMeshDraw };
             terrainModel.Meshes.Add(terrainMesh);
 
-            Simulation simulation = this.GetSimulation();
-            simulation.PreTick += PrePhysicsUpdate;
-            simulation.PostTick += PostPhysicsUpdate;
         }
 
         private void PrePhysicsUpdate (Simulation sender, float tick) {
@@ -36,8 +33,19 @@ namespace F7s {
 
         }
 
-        public override void Update () {
+        private void InitializeSimulationUpdateListeners () {
+            if (simulationStarted) {
+                return;
+            }
+            Simulation simulation = this.GetSimulation();
+            if (simulation != null) {
+                simulation.PreTick += PrePhysicsUpdate;
+                simulation.PostTick += PostPhysicsUpdate;
+            }
+        }
 
+        public override void Update () {
+            InitializeSimulationUpdateListeners();
         }
     }
 }
