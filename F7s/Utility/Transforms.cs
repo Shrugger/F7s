@@ -1,5 +1,4 @@
 ﻿using F7s.Utility.Geometry;
-using Stride.Core.Mathematics;
 using System;
 using System.Diagnostics;
 
@@ -7,26 +6,12 @@ namespace F7s.Utility {
     public static class Transforms {
         public static bool ApproximatelyEqual (Transform3D a, Transform3D b, float delta = 0.001f) {
             bool origin = Vectors.ApproximatelyEqual(a.Origin, b.Origin, delta);
-            bool basis0 = Vectors.ApproximatelyEqual(a.Basis.Column0, b.Basis.Column0, delta);
-            bool basis1 = Vectors.ApproximatelyEqual(a.Basis.Column1, b.Basis.Column1, delta);
-            bool basis2 = Vectors.ApproximatelyEqual(a.Basis.Column2, b.Basis.Column2, delta);
-            return origin && basis0 && basis1 && basis2;
+            bool basis = Matrix3x3d.ApproximatelyEqual(a.Basis, b.Basis, delta);
+            return origin && basis;
         }
 
         public static void AssertEqual (Transform3D a, Transform3D b, float delta = 0.001f) {
-            Debug.Assert(
-                ApproximatelyEqual(a, b, delta),
-                "\n" +
-                a + "\n" +
-                "!= " + "\n" +
-                b + "\n" +
-                "Differences " + "\n" +
-                "Col0" + (a.Basis.Column0 - b.Basis.Column0) + "\n" +
-                "Col1" + (a.Basis.Column1 - b.Basis.Column1) + "\n" +
-                "Col2" + (a.Basis.Column2 - b.Basis.Column2) + "\n" +
-                "Orig" + (a.Origin - b.Origin) + "\n" +
-                "Delta " + delta,
-                delta);
+            Debug.Assert(ApproximatelyEqual(a, b, delta));
         }
 
         const float DefaultValidationTolerance = 0.0001f;
@@ -51,26 +36,27 @@ namespace F7s.Utility {
         public static bool ValidScaled (Transform3D transform) {
             return Valid(transform, false, 0);
         }
+
         private static bool Valid (Transform3D transform, bool expectUniformScale, float tolerance = DefaultValidationTolerance) {
             if (Vectors.Invalid(transform.Origin)) {
                 return false;
             }
-            if (Vector3.Zero == transform.Basis.Column0) {
+            if (transform.Basis.m00 == 0 && transform.Basis.m10 == 0 && transform.Basis.m20 == 0) {
                 return false;
             }
-            if (Vector3.Zero == transform.Basis.Column1) {
+            if (transform.Basis.m00 == 0 && transform.Basis.m10 == 0 && transform.Basis.m20 == 0) {
                 return false;
             }
-            if (Vector3.Zero == transform.Basis.Column2) {
+            if (transform.Basis.m00 == 0 && transform.Basis.m10 == 0 && transform.Basis.m20 == 0) {
                 return false;
             }
-            if (Vectors.Invalid(transform.Basis.Column0)) {
+            if (!ValidCellValue(transform.Basis.m00) || !ValidCellValue(transform.Basis.m01) || !ValidCellValue(transform.Basis.m02)) {
                 return false;
             }
-            if (Vectors.Invalid(transform.Basis.Column1)) {
+            if (!ValidCellValue(transform.Basis.m10) || !ValidCellValue(transform.Basis.m11) || !ValidCellValue(transform.Basis.m12)) {
                 return false;
             }
-            if (Vectors.Invalid(transform.Basis.Column2)) {
+            if (!ValidCellValue(transform.Basis.m20) || !ValidCellValue(transform.Basis.m21) || !ValidCellValue(transform.Basis.m22)) {
                 return false;
             }
             if (Vectors.Invalid(transform.Basis.Scale)) {
@@ -81,6 +67,10 @@ namespace F7s.Utility {
             }
 
             return true;
+        }
+
+        public static bool ValidCellValue (double value) {
+            return double.IsFinite(value) && !double.IsNaN(value);
         }
     }
 

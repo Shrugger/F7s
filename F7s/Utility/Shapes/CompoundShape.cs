@@ -183,13 +183,13 @@ namespace F7s.Utility.Shapes {
                 List<Vector3> vertices = this.RelativeVertices();
                 Stride.Core.Mathematics.BoundingBox bounds = new Stride.Core.Mathematics.BoundingBox(vertices.First(), Stride.Core.Mathematics.Vector3.Zero);
 
-                vertices.ForEach(v => bounds.Expand(v));
+                vertices.ForEach(v => BoundingBox.Merge(ref bounds, v, out bounds));
                 return bounds;
             }
         }
 
         public override List<Vector3> RelativeVertices () {
-            return this.constituents.SelectMany(c => c.shape.RelativeVertices().Select(v => c.transform * new Transform3D(new Basis(), v).Origin)).ToList();
+            return this.constituents.SelectMany(c => c.shape.RelativeVertices().Select(v => c.transform.Transform(v))).ToList();
         }
 
 

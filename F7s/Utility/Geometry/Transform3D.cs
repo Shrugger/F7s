@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stride.Core.Mathematics;
+using System;
 
 namespace F7s.Utility.Geometry;
 
@@ -23,5 +24,17 @@ public class Transform3D {
 
     internal Transform3D Translated (Vector3d origin) {
         throw new NotImplementedException();
+    }
+
+    public Matrix ToStrideMatrix () {
+        // TODO: This is ridiulous.
+        return Matrix.AffineTransformation(1, this.Basis.GetRotationQuaternion(), this.Origin.ToVector3());
+    }
+
+    public Vector3 Transform (Vector3 v) {
+        Matrix translation;
+        Matrix.Translation(in v, out translation);
+        Matrix transformation = ToStrideMatrix();
+        return (transformation * translation).TranslationVector;
     }
 }

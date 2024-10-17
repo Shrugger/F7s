@@ -1,4 +1,5 @@
-﻿using Stride.Core.Mathematics;
+﻿using F7s.Utility.Mathematics;
+using Stride.Core.Mathematics;
 using System;
 
 namespace F7s.Utility.Geometry {
@@ -17,7 +18,7 @@ namespace F7s.Utility.Geometry {
 
         public static readonly Matrix3x3d Identity = new Matrix3x3d(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
-        public string Scale { get { throw new NotImplementedException(); } }
+        public Vector3 Scale { get { throw new NotImplementedException(); } }
 
         public Matrix3x3d (
             double i00,
@@ -87,6 +88,19 @@ namespace F7s.Utility.Geometry {
 
         internal Quaternion GetRotationQuaternion () {
             throw new NotImplementedException();
+        }
+
+        internal static bool ApproximatelyEqual (Matrix3x3d a, Matrix3x3d b, float delta) {
+            return
+                Mathematik.IsEqualApprox(a.m00, b.m00, delta) &&
+                Mathematik.IsEqualApprox(a.m01, b.m01, delta) &&
+                Mathematik.IsEqualApprox(a.m02, b.m02, delta) &&
+                Mathematik.IsEqualApprox(a.m10, b.m10, delta) &&
+                Mathematik.IsEqualApprox(a.m11, b.m11, delta) &&
+                Mathematik.IsEqualApprox(a.m12, b.m12, delta) &&
+                Mathematik.IsEqualApprox(a.m20, b.m20, delta) &&
+                Mathematik.IsEqualApprox(a.m21, b.m21, delta) &&
+                Mathematik.IsEqualApprox(a.m22, b.m22, delta);
         }
     }
 

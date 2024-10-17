@@ -161,5 +161,9 @@ namespace F7s.Utility.Mathematics {
         internal static float PIngPong (float rotation, float v) {
             throw new NotImplementedException();
         }
+
+        internal static float Wrap (float rotation, float v1, float v2) {
+            throw new NotImplementedException();
+        }
     }
 }

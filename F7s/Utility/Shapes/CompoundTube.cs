@@ -1,5 +1,6 @@
 ﻿using F7s.Utility.Geometry;
-using Stride.Core.Mathematics; using System;
+using F7s.Utility.Mathematics;
+using Stride.Core.Mathematics;
 using System;
 
 namespace F7s.Utility.Shapes {
@@ -7,11 +8,11 @@ namespace F7s.Utility.Shapes {
     public class CompoundTube : CompoundShape {
         public readonly Tube tubeShape;
 
-        public override string ToString() {
+        public override string ToString () {
             return this.GetType().Name + " " + this.tubeShape.ToString();
         }
 
-        public CompoundTube(Tube shape, int sides) {
+        public CompoundTube (Tube shape, int sides) {
             if (sides < 3) {
                 throw new ArgumentException("Cannot create a compound tube out of merely " + sides + " sides.");
             }
@@ -22,7 +23,7 @@ namespace F7s.Utility.Shapes {
             float width = (MathF.Sqrt(2) - 1.0f) * shape.diameter;
             float length = shape.length;
 
-            Box GenerateWall() {
+            Box GenerateWall () {
                 if (width <= 0) {
                     throw new ArgumentException("Width " + width + " from arguments diameter " + shape.diameter + " length " + length + " internalDiameter " + shape.internalDiameter + ".");
                 }
@@ -35,9 +36,9 @@ namespace F7s.Utility.Shapes {
                 return new Box(width, thickness, length);
             }
 
-            void Constitute(float rotation) {
+            void Constitute (float rotation) {
                 float longitude = rotation < 180 ? 90 : 270;
-                float latitude = MathF.Wrap(rotation, -90f, 90f);
+                float latitude = Mathematik.Wrap(rotation, -90f, 90f);
                 Vector3 position = new PolarCoordinates(longitude, latitude, (shape.diameter / 2.0f) - (thickness / (2.0f))).ToVector3();
 
                 this.AddConstituent(new Constituent(GenerateWall(), position, new Vector3(0, 0, rotation), "Partial " + this.GetType().Name + " " + rotation + Chars.degree));
@@ -50,28 +51,28 @@ namespace F7s.Utility.Shapes {
         }
 
 
-        public override Shape3Dim GetInternalNegativeSpace() {
+        public override Shape3Dim GetInternalNegativeSpace () {
             return this.tubeShape.InternalNegativeCylinder();
         }
-        public float WallThickness() {
+        public float WallThickness () {
             return (this.tubeShape.diameter - this.tubeShape.internalDiameter) / 2.0f;
         }
 
-        public override Shape3Dim GetShapePlusSize(float addition) {
+        public override Shape3Dim GetShapePlusSize (float addition) {
             return new Tube(this.tubeShape.diameter + addition, this.tubeShape.length + addition, this.tubeShape.internalDiameter);
         }
 
-        public override float SubstantialVolume() {
+        public override float SubstantialVolume () {
             return this.tubeShape.SubstantialVolume();
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals (object obj) {
             return obj is Tube tube &&
                    base.Equals(obj) &&
                    this.tubeShape.internalDiameter == tube.internalDiameter;
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode () {
             var hashCode = -469255269;
             hashCode = hashCode * -1521134295 + base.GetHashCode();
             hashCode = hashCode * -1521134295 + this.tubeShape.internalDiameter.GetHashCode();
