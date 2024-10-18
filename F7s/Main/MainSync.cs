@@ -1,8 +1,6 @@
-﻿using Stride.Engine;
-using Stride.Extensions;
-using Stride.Graphics.GeometricPrimitives;
+﻿using F7s.Modell.Terrains;
+using Stride.Engine;
 using Stride.Physics;
-using Stride.Rendering;
 
 namespace F7s {
 
@@ -13,15 +11,7 @@ namespace F7s {
 
         public override void Start () {
 
-
-            Entity terrainEntity = new Entity();
-            ModelComponent terrainModelComponent = terrainEntity.GetOrCreate<ModelComponent>();
-            Model terrainModel = new Model();
-            terrainModelComponent.Model = terrainModel;
-
-            Stride.Rendering.MeshDraw terrainMeshDraw = GeometricPrimitive.Cylinder.New(GraphicsDevice).ToMeshDraw();
-            Mesh terrainMesh = new Mesh { Draw = terrainMeshDraw };
-            terrainModel.Meshes.Add(terrainMesh);
+            Terrain terrain = new Terrain("Tiny Planet", 1, 2, this.Entity, new PlanetologyData(1, 1, 1, true, true, 5));
 
         }
 
