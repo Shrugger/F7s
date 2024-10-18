@@ -72,7 +72,7 @@ namespace F7s.Engine {
             }
         }
 
-        internal static ulong GetTicksMsec () {
+        public static ulong GetTicksMsec () {
             throw new NotImplementedException();
         }
     }

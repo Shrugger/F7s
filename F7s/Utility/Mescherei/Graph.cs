@@ -8,17 +8,16 @@ using System.Diagnostics;
 using System.Linq;
 using Buffer = Stride.Graphics.Buffer;
 
-namespace F7s.Utility.Mescherei
-{
+namespace F7s.Utility.Mescherei {
 
     public class Mesch {
         public readonly Model model;
         public readonly Mesh mesh;
 
         public Mesch () {
-            this.model = new Model();
+            model = new Model();
             mesh = new Mesh();
-            this.model.Meshes.Add(mesh);
+            model.Meshes.Add(mesh);
             mesh.Draw = new MeshDraw();
         }
 
@@ -51,7 +50,7 @@ namespace F7s.Utility.Mescherei
         private List<Edge> edges = new List<Edge>();
         public List<Vertex> Vertices { get { return vertices; } }
         private VertexPositionNormalColor[] vertexArray = null;
-        private int[] indexArray = null;
+        private readonly int[] indexArray = null;
 
         public List<Triangle> Triangles { get { return triangles; } }
         public List<Edge> Edges { get { return edges; } }
@@ -79,17 +78,17 @@ namespace F7s.Utility.Mescherei
             return vertexArray;
         }
         private VertexPositionNormalColor[] BakeVertexArray () {
-            return this.Vertices.ConvertAll(v => v.ToStride()).ToArray();
+            return Vertices.ConvertAll(v => v.ToStride()).ToArray();
         }
         public int[] GetIndexArray () {
-            if (this.indexArray == null) {
-                this.BakeIndexArray();
+            if (indexArray == null) {
+                BakeIndexArray();
             }
-            return this.indexArray;
+            return indexArray;
         }
         private int[] BakeIndexArray () {
             List<int> indices = new List<int>();
-            foreach (Triangle t in this.triangles) {
+            foreach (Triangle t in triangles) {
                 indices.AddRange(t.VertexIndices());
             }
             return indices.ToArray();
@@ -262,7 +261,7 @@ namespace F7s.Utility.Mescherei
             }
             Vertex interpolated = AddVertex(position, null, null, Farbe.Lerp(a.Color, b.Color, weight));
             if (!spherical) {
-                Debug.Assert(Mathematik.ApproximatelyEquals(Vertex.Distance(a, b), Vertex.Distance(a, interpolated) + Vertex.Distance(interpolated, b), 0.001f));
+                Debug.Assert(Mathematik.ApproximatelyEqual(Vertex.Distance(a, b), Vertex.Distance(a, interpolated) + Vertex.Distance(interpolated, b), 0.001f));
             }
             return interpolated;
         }

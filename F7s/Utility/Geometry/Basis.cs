@@ -14,7 +14,7 @@ public struct Basis {
 
     public Vector3 Scale { get { throw new NotImplementedException(); } }
 
-    internal static Matrix3x3d FromEuler (Vector3 rotation) {
+    public static Matrix3x3d FromEuler (Vector3 rotation) {
         throw new NotImplementedException();
     }
 

@@ -30,7 +30,7 @@ namespace F7s.Utility.Measurements
 
         private static bool systemInitialized;
 
-        internal static void InitializeIfApplicable () {
+        public static void InitializeIfApplicable () {
             if (systemInitialized == false) {
                 Quality.InitializeQualities();
                 Unit.InitializeUnits();

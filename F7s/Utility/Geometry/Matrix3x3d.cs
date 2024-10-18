@@ -92,7 +92,7 @@ namespace F7s.Geometry
             throw new NotImplementedException();
         }
 
-        internal static bool ApproximatelyEqual (Matrix3x3d a, Matrix3x3d b, float delta) {
+        public static bool ApproximatelyEqual (Matrix3x3d a, Matrix3x3d b, float delta) {
             return
                 Mathematik.IsEqualApprox(a.m00, b.m00, delta) &&
                 Mathematik.IsEqualApprox(a.m01, b.m01, delta) &&

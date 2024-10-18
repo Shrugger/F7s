@@ -3,8 +3,7 @@ using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 
-namespace F7s.Utility.Geometry
-{
+namespace F7s.Utility.Geometry {
 
 
     public struct QuaternionD {
@@ -109,15 +108,15 @@ namespace F7s.Utility.Geometry
 
         public Vector3d normalized => Normalize(value: this);
 
-        public double magnitude => Math.Sqrt(X * X + Y * Y + Z * Z);
+        public double magnitude => Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
 
-        public double sqrMagnitude => X * X + Y * Y + Z * Z;
+        public double sqrMagnitude => (X * X) + (Y * Y) + (Z * Z);
 
         public static Vector3d Lerp (Vector3d from, Vector3d to, double t) {
             return new Vector3d(
-                                x: from.X + (to.X - from.X) * t,
-                                y: from.Y + (to.Y - from.Y) * t,
-                                z: from.Z + (to.Z - from.Z) * t
+                                x: from.X + ((to.X - from.X) * t),
+                                y: from.Y + ((to.Y - from.Y) * t),
+                                z: from.Z + ((to.Z - from.Z) * t)
                                );
         }
 
@@ -139,7 +138,7 @@ namespace F7s.Utility.Geometry
                 return target;
             }
 
-            return current + direction / magnitude * maxDistanceDelta;
+            return current + (direction / magnitude * maxDistanceDelta);
         }
 
         internal Vector3d Absolute () {
@@ -160,15 +159,15 @@ namespace F7s.Utility.Geometry
             double num2 = num1 * deltaTime;
 
             double num3 = 1.0d
-                        / (1.0d + num2 + 0.479999989271164d * num2 * num2 + 0.234999999403954d * num2 * num2 * num2);
+                        / (1.0d + num2 + (0.479999989271164d * num2 * num2) + (0.234999999403954d * num2 * num2 * num2));
             Vector3d vector = current - target;
             Vector3d vector3_1 = target;
             double maxLength = maxSpeed * smoothTime;
             Vector3d vector3_2 = ClampMagnitude(vector: vector, maxLength: maxLength);
             target = current - vector3_2;
-            Vector3d vector3_3 = (currentVelocity + num1 * vector3_2) * deltaTime;
-            currentVelocity = (currentVelocity - num1 * vector3_3) * num3;
-            Vector3d vector3_4 = target + (vector3_2 + vector3_3) * num3;
+            Vector3d vector3_3 = (currentVelocity + (num1 * vector3_2)) * deltaTime;
+            currentVelocity = (currentVelocity - (num1 * vector3_3)) * num3;
+            Vector3d vector3_4 = target + ((vector3_2 + vector3_3) * num3);
 
             if (Dot(lhs: vector3_1 - current, rhs: vector3_4 - vector3_1) > 0.0) {
                 vector3_4 = vector3_1;
@@ -206,14 +205,14 @@ namespace F7s.Utility.Geometry
 
         public static Vector3d Cross (Vector3d lhs, Vector3d rhs) {
             return new Vector3d(
-                                x: lhs.Y * rhs.Z - lhs.Z * rhs.Y,
-                                y: lhs.Z * rhs.X - lhs.X * rhs.Z,
-                                z: lhs.X * rhs.Y - lhs.Y * rhs.X
+                                x: (lhs.Y * rhs.Z) - (lhs.Z * rhs.Y),
+                                y: (lhs.Z * rhs.X) - (lhs.X * rhs.Z),
+                                z: (lhs.X * rhs.Y) - (lhs.Y * rhs.X)
                                );
         }
 
         public static Vector3d Reflect (Vector3d inDirection, Vector3d inNormal) {
-            return -2d * Dot(lhs: inNormal, rhs: inDirection) * inNormal + inDirection;
+            return (-2d * Dot(lhs: inNormal, rhs: inDirection) * inNormal) + inDirection;
         }
 
         public static Vector3d Normalize (Vector3d value) {
@@ -237,7 +236,7 @@ namespace F7s.Utility.Geometry
         }
 
         public static double Dot (Vector3d lhs, Vector3d rhs) {
-            return lhs.X * rhs.X + lhs.Y * rhs.Y + lhs.Z * rhs.Z;
+            return (lhs.X * rhs.X) + (lhs.Y * rhs.Y) + (lhs.Z * rhs.Z);
         }
 
         public static Vector3d Project (Vector3d vector, Vector3d onNormal) {
@@ -268,7 +267,7 @@ namespace F7s.Utility.Geometry
         public static double Distance (Vector3d a, Vector3d b) {
             Vector3d vector3d = new Vector3d(x: a.X - b.X, y: a.Y - b.Y, z: a.Z - b.Z);
 
-            return Math.Sqrt(vector3d.X * vector3d.X + vector3d.Y * vector3d.Y + vector3d.Z * vector3d.Z);
+            return Math.Sqrt((vector3d.X * vector3d.X) + (vector3d.Y * vector3d.Y) + (vector3d.Z * vector3d.Z));
         }
 
         public static Vector3d ClampMagnitude (Vector3d vector, double maxLength) {
@@ -284,11 +283,11 @@ namespace F7s.Utility.Geometry
         }
 
         public static double Length (Vector3d a) {
-            return Math.Sqrt(a.X * a.X + a.Y * a.Y + a.Z * a.Z);
+            return Math.Sqrt((a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z));
         }
 
         public static double SqrMagnitude (Vector3d a) {
-            return a.X * a.X + a.Y * a.Y + a.Z * a.Z;
+            return (a.X * a.X) + (a.Y * a.Y) + (a.Z * a.Z);
         }
 
         public static Vector3d Min (Vector3d lhs, Vector3d rhs) {
@@ -377,14 +376,18 @@ namespace F7s.Utility.Geometry
         }
 
         public Vector3d (double x, double y, double z) {
-            if (double.IsNaN(x) || double.IsNaN(y) || double.IsNaN(z)) {
-                throw new ArgumentException(message: "Cannot handle parameters " + x + ", " + y + ", " + z + ".");
-            }
+            ValidateParameters(x, y, z);
 
             X = x;
             Y = y;
             Z = z;
 
+        }
+
+        public void ValidateParameters (double x, double y, double z) {
+            if (double.IsNaN(x) || double.IsNaN(y) || double.IsNaN(z) || !double.IsFinite(x) || !double.IsFinite(y) || !double.IsFinite(z)) {
+                throw new ArgumentException(message: "Cannot handle parameters " + x + ", " + y + ", " + z + ".");
+            }
         }
 
         public Vector3d (float x, float y, float z)
@@ -401,11 +404,11 @@ namespace F7s.Utility.Geometry
             : this(x: valueForEachComponent, y: valueForEachComponent, z: valueForEachComponent) { }
 
         public override int GetHashCode () {
-            return X.GetHashCode() ^ Y.GetHashCode() << 2 ^ Z.GetHashCode() >> 2;
+            return X.GetHashCode() ^ (Y.GetHashCode() << 2) ^ (Z.GetHashCode() >> 2);
         }
 
         public override bool Equals (object other) {
-            if (other is Vector3d == false && other is Vector3 == false) {
+            if ((other is Vector3d) == false && (other is Vector3) == false) {
                 return false;
             }
 
@@ -423,38 +426,50 @@ namespace F7s.Utility.Geometry
             return false;
         }
 
-        public string ToString (int decimals) {
-            return "("
-                 + Mathematik.Round(value: X, decimals: decimals)
-                 + ", "
-                 + Mathematik.Round(value: Y, decimals: decimals)
-                 + ", "
-                 + Mathematik.Round(value: Z, decimals: decimals)
-                 + ")";
+        public string ToStringRounded (int decimals) {
+            if (Mathematik.Valid(this)) {
+                return "("
+                     + Mathematik.Round(value: X, decimals: decimals)
+                     + ", "
+                     + Mathematik.Round(value: Y, decimals: decimals)
+                     + ", "
+                     + Mathematik.Round(value: Z, decimals: decimals)
+                     + ")";
+            } else {
+                return ToString();
+            }
         }
 
         public string ToStringRounded () {
-            return "("
+            if (Mathematik.Valid(this)) {
+                return "("
                  + Mathematik.Round(value: X, decimals: 3)
                  + ", "
                  + Mathematik.Round(value: Y, decimals: 3)
                  + ", "
                  + Mathematik.Round(value: Z, decimals: 3)
                  + ")";
+            } else {
+                return ToString();
+            }
         }
 
-        public string ToString (bool inParantheses = true) {
-            return (inParantheses ? "(" : "")
+        public string ToStringNicely (bool inParantheses = true) {
+            if (Mathematik.Valid(this)) {
+                return (inParantheses ? "(" : "")
                  + Mathematik.RoundToFirstInterestingDigit(value: X, 1)
                  + ", "
                  + Mathematik.RoundToFirstInterestingDigit(value: Y, 1)
                  + ", "
                  + Mathematik.RoundToFirstInterestingDigit(value: Z, 1)
                  + (inParantheses ? ")" : "");
+            } else {
+                return ToString();
+            }
         }
 
         public override string ToString () {
-            return ToString(inParantheses: true);
+            return "(" + X + ", " + Y + ", " + Z + ")";
         }
 
         public static bool ApproximatelyEquals (Vector3d lhs, Vector3d rhs) {
@@ -511,10 +526,10 @@ namespace F7s.Utility.Geometry
             double cr = Math.Cos(roll * 0.5);
             double sr = Math.Sin(roll * 0.5);
 
-            double W = cr * cp * cy + sr * sp * sy;
-            double X = sr * cp * cy - cr * sp * sy;
-            double Y = cr * sp * cy + sr * cp * sy;
-            double Z = cr * cp * sy - sr * sp * cy;
+            double W = (cr * cp * cy) + (sr * sp * sy);
+            double X = (sr * cp * cy) - (cr * sp * sy);
+            double Y = (cr * sp * cy) + (sr * cp * sy);
+            double Z = (cr * cp * sy) - (sr * sp * cy);
             QuaternionD q = new QuaternionD(W, X, Y, Z);
 
             return q;

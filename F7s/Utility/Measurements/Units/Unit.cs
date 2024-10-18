@@ -201,7 +201,7 @@ namespace F7s.Utility.Measurements.Units {
 
         public static Unit Pascal { get; private set; }
 
-        internal static void InitializeUnits() {
+        public static void InitializeUnits() {
 
             Unit.Gram = new Unit(quality: Quality.Mass, abbreviatedName: "g", commonness: Commonness.Basic);
 

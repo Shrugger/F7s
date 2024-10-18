@@ -140,7 +140,7 @@ namespace F7s.Utility.Measurements {
 
         public static Quality Pressure { get; private set; }
 
-        internal static void InitializeQualities() {
+        public static void InitializeQualities() {
 
             Mass = new Quality(name: "Mass");
             Time = new Quality(name: "Time");

@@ -23,6 +23,11 @@ namespace F7s.Utility.Mescherei {
         public bool Dirty { get; private set; } = true;
 
         public Triangle (Graph mesch, Vertex v0, Vertex v1, Vertex v2) {
+
+            Debug.Assert(!Mathematik.ApproximatelyEqual(v0.Position, v1.Position, 0.0001f));
+            Debug.Assert(!Mathematik.ApproximatelyEqual(v1.Position, v2.Position, 0.0001f));
+            Debug.Assert(!Mathematik.ApproximatelyEqual(v2.Position, v0.Position, 0.0001f));
+
             Mesch = mesch;
             Vertices = new List<Vertex>() { v0, v1, v2 };
             Vertices.ForEach(v => v.AddTriangle(this));
@@ -176,9 +181,14 @@ namespace F7s.Utility.Mescherei {
         }
 
         private Vector3 CalculateFaceNormal () {
-            Vector3 vector1 = V1.Position - V0.Position;
-            Vector3 vector2 = V2.Position - V0.Position;
-            Vector3 faceNormal = Mathematik.Normalize(Mathematik.Cross(vector2, vector1));
+            Vector3 pos0 = V0.Position;
+            Vector3 pos1 = V1.Position;
+            Vector3 pos2 = V2.Position;
+
+            Vector3 vector1 = pos1 - pos0;
+            Vector3 vector2 = pos2 - pos0;
+            Vector3 cross = Mathematik.Cross(vector2, vector1);
+            Vector3 faceNormal = Mathematik.Normalize(cross);
 
             Debug.Assert(Vector3.Zero != faceNormal);
             this.faceNormal = faceNormal;

@@ -48,37 +48,37 @@ namespace F7s.Utility.Mescherei {
             Vertex v10 = GenerateVertex(x: -t, y: 0, z: -unit);
             Vertex v11 = GenerateVertex(x: -t, y: 0, z: unit);
 
-            Triangle AddIndex (Vertex v1, Vertex v2, Vertex v3) {
-                return graph.AddTriangle(v1, v2, v3);
+            Triangle AddIndex (Vertex a, Vertex b, Vertex c) {
+                return graph.AddTriangle(a, b, c);
             }
 
             // 5 faces around point 0
-            AddIndex(v1: v0, v2: v11, v3: v5);
-            AddIndex(v1: v0, v2: v5, v3: v1);
-            AddIndex(v1: v0, v2: v1, v3: v7);
-            AddIndex(v1: v0, v2: v7, v3: v10);
-            AddIndex(v1: v0, v2: v10, v3: v11);
+            AddIndex(a: v0, b: v11, c: v5);
+            AddIndex(a: v0, b: v5, c: v1);
+            AddIndex(a: v0, b: v1, c: v7);
+            AddIndex(a: v0, b: v7, c: v10);
+            AddIndex(a: v0, b: v10, c: v11);
 
             // 5 adjacent faces
-            AddIndex(v1: v1, v2: v5, v3: v9);
-            AddIndex(v1: v5, v2: v11, v3: v4);
-            AddIndex(v1: v11, v2: v10, v3: v2);
-            AddIndex(v1: v10, v2: v7, v3: v6);
-            AddIndex(v1: v7, v2: v1, v3: v8);
+            AddIndex(a: v1, b: v5, c: v9);
+            AddIndex(a: v5, b: v11, c: v4);
+            AddIndex(a: v11, b: v10, c: v2);
+            AddIndex(a: v10, b: v7, c: v6);
+            AddIndex(a: v7, b: v1, c: v8);
 
             // 5 faces around point 3
-            AddIndex(v1: v3, v2: v9, v3: v4);
-            AddIndex(v1: v3, v2: v4, v3: v2);
-            AddIndex(v1: v3, v2: v2, v3: v6);
-            AddIndex(v1: v3, v2: v6, v3: v8);
-            AddIndex(v1: v3, v2: v8, v3: v9);
+            AddIndex(a: v3, b: v9, c: v4);
+            AddIndex(a: v3, b: v4, c: v2);
+            AddIndex(a: v3, b: v2, c: v6);
+            AddIndex(a: v3, b: v6, c: v8);
+            AddIndex(a: v3, b: v8, c: v9);
 
             // 5 adjacent faces
-            AddIndex(v1: v4, v2: v9, v3: v5);
-            AddIndex(v1: v2, v2: v4, v3: v11);
-            AddIndex(v1: v6, v2: v2, v3: v10);
-            AddIndex(v1: v8, v2: v6, v3: v7);
-            AddIndex(v1: v9, v2: v8, v3: v1);
+            AddIndex(a: v4, b: v9, c: v5);
+            AddIndex(a: v2, b: v4, c: v11);
+            AddIndex(a: v6, b: v2, c: v10);
+            AddIndex(a: v8, b: v6, c: v7);
+            AddIndex(a: v9, b: v8, c: v1);
 
             foreach (Edge e in graph.Edges) {
                 Debug.Assert(2 == e.TrianglesCount());

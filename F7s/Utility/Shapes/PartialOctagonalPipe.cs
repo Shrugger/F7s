@@ -2,8 +2,7 @@
 using Stride.Core.Mathematics;
 using System;
 
-namespace F7s.Utility.Shapes
-{
+namespace F7s.Utility.Shapes {
 
 
     public class PartialOctagonalPipe : CompoundShape {
@@ -27,7 +26,7 @@ namespace F7s.Utility.Shapes
 
             void Constitute (float rotation) {
                 float longitude = rotation < 180 ? 90 : 270;
-                float latitude = Mathematik.PIngPong(rotation, 180.0f) - 90.0f;
+                float latitude = Mathematik.PingPong(rotation, 180.0f) - 90.0f;
                 Vector3 position = new PolarCoordinates(longitude, latitude, (outerDiameter / 2.0f) - (thickness / 2.0f)).ToVector3();
 
                 AddConstituent(new Constituent(GenerateWall(), position, new Vector3(0, 0, rotation), "Partial " + GetType().Name + " " + rotation + Chars.degree));

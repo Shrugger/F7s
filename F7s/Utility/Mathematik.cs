@@ -135,40 +135,55 @@ namespace F7s.Utility {
         }
 
         public static bool IsEqualApprox (double a, double b, double delta = 0.00000001) {
-            throw new NotImplementedException();
+            return Math.Abs(a - b) <= delta;
         }
 
         public static int Clamp (int value, int min, int max) {
-            throw new NotImplementedException();
+            if (value < min) {
+                return min;
+            } else if (value > max) {
+                return max;
+            } else {
+                return value;
+            }
         }
         public static double Clamp (double value, double min, double max) {
-            throw new NotImplementedException();
+            if (value < min) {
+                return min;
+            } else if (value > max) {
+                return max;
+            } else {
+                return value;
+            }
         }
         public static float Clamp (float value, float min, float max) {
-            throw new NotImplementedException();
+            if (value < min) {
+                return min;
+            } else if (value > max) {
+                return max;
+            } else {
+                return value;
+            }
         }
 
         public static float Lerp (float a, float b, float v) {
-            throw new NotImplementedException();
+            return a + ((b - a) * v);
         }
 
         public static double Lerp (double a, double b, double interpolationFactor) {
-            throw new NotImplementedException();
+            return a + ((b - a) * interpolationFactor);
         }
 
-        internal static int FloorToInt (double v) {
-            throw new NotImplementedException();
+        public static int FloorToInt (double v) {
+            return (int) Math.Floor(v);
         }
 
-        internal static int CeilToInt (double v) {
-            throw new NotImplementedException();
+        public static int CeilToInt (double v) {
+            return (int) Math.Ceiling(v);
         }
 
-        internal static float PIngPong (float rotation, float v) {
-            throw new NotImplementedException();
-        }
 
-        internal static float Wrap (float rotation, float v1, float v2) {
+        public static float Wrap (float rotation, float v1, float v2) {
             throw new NotImplementedException();
         }
 
@@ -856,44 +871,36 @@ namespace F7s.Utility {
             return Vector3.Normalize(v);
         }
 
-        internal static Vector3 Cross (Vector3 a, Vector3 b) {
+        public static Vector3 Cross (Vector3 a, Vector3 b) {
             return Vector3.Cross(a, b);
         }
 
         public static Vector3 Slerp (Vector3 start, Vector3 end, float weight) {
             // Source: https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
 
-            // Dot product - the cosine of the angle between 2 vectors.
-            float dot = Vector3.Dot(start, end);
+            if (Mathematik.ApproximatelyEqual(start, end)) {
+                throw new Exception(start + " == " + end + ".");
+            }
 
-            // Clamp it to be in the range of Acos()
-            // This may be unnecessary, but floating point
-            // precision can be a fickle mistress.
-            Mathematik.Clamp(dot, -1.0f, 1.0f);
+            Quaternion startQ = Quaternion.LookRotation(start, Vector3.UnitY);
+            Quaternion endQ = Quaternion.LookRotation(end, Vector3.UnitY);
+            Quaternion resultQ = Quaternion.Slerp(startQ, endQ, weight);
+            Vector3 result = resultQ * Vector3.UnitZ;
 
-            // Acos(dot) returns the angle between start and end,
-            // And multiplying that by percent returns the angle between
-            // start and the final result.
-            float theta = MathF.Acos(dot) * weight;
-            Vector3 RelativeVec = end - (start * dot);
-            RelativeVec.Normalize();
-
-            // Orthonormal basis
-            // The final result.
-            return (start * MathF.Cos(theta)) + (RelativeVec * MathF.Sin(theta));
+            if (!Mathematik.Valid(result) || (weight != 0 && Mathematik.ApproximatelyEqual(result, start)) || (weight != 1 && Mathematik.ApproximatelyEqual(result, end))) {
+                throw new Exception("Spherical interpolation failed from " + start + " to " + end + " by " + weight + " with " + result + ".");
+            }
+            return result;
         }
 
-        internal static bool ApproximatelyEquals (float a, float b, float delta) {
-            throw new NotImplementedException();
+        public static bool ApproximatelyEqual (float a, float b, float delta) {
+            return MathF.Abs(a - b) < delta;
         }
 
-        internal static Vector2 Normalize (Vector2 rheologicMovement) {
-            throw new NotImplementedException();
+        public static Vector2 Normalize (Vector2 v) {
+            return Vector2.Normalize(v);
         }
 
-        internal static bool ApproximatelyEquals (Vector3 vector31, Vector3 vector32) {
-            throw new NotImplementedException();
-        }
         public static bool Valid (Vector3 v) {
 
             float x = v.X;
@@ -939,10 +946,11 @@ namespace F7s.Utility {
         }
 
 
-        public static bool ApproximatelyEqual (Vector3 expected, Vector3 actual, float tolerance) {
-            return Math.Abs(expected.X) - Math.Abs(actual.X) < tolerance &&
-                    Math.Abs(expected.Y) - Math.Abs(actual.Y) < tolerance &&
-                    Math.Abs(expected.Z) - Math.Abs(actual.Z) < tolerance;
+        public static bool ApproximatelyEqual (Vector3 expected, Vector3 actual, float tolerance = 0.0001f) {
+            bool ComponentWise (float expected, float actual) {
+                return Math.Abs(expected - actual) < tolerance;
+            }
+            return ComponentWise(expected.X, actual.X) && ComponentWise(expected.Y, actual.Y) && ComponentWise(expected.Z, actual.Z);
         }
 
         public static Vector3 Sum (IEnumerable<Vector3> vectors) {
@@ -970,11 +978,11 @@ namespace F7s.Utility {
             return ApproximatelyEqual(Vector3.One, scale, tolerance) || ApproximatelyEqual(-Vector3.One, scale, tolerance);
         }
 
-        internal static bool ApproximatelyEqual (Vector3d origin1, Vector3d origin2, float delta) {
+        public static bool ApproximatelyEqual (Vector3d origin1, Vector3d origin2, float delta) {
             throw new NotImplementedException();
         }
 
-        internal static bool ApproximatelyEqual (object column01, object column02, float delta) {
+        public static bool ApproximatelyEqual (object column01, object column02, float delta) {
             throw new NotImplementedException();
         }
         public static bool ApproximatelyEqual (Transform3D a, Transform3D b, float delta = 0.001f) {
@@ -1044,6 +1052,60 @@ namespace F7s.Utility {
 
         public static bool ValidCellValue (double value) {
             return double.IsFinite(value) && !double.IsNaN(value);
+        }
+
+        //
+        // Summary:
+        //     Returns the value wrapped between 0 and the length. If the limit is reached,
+        //     the next value the function returned is decreased to the 0 side or increased
+        //     to the length side (like a triangle wave). If length is less than zero, it becomes
+        //     positive.
+        //
+        // Parameters:
+        //   value:
+        //     The value to pingpong.
+        //
+        //   length:
+        //     The maximum value of the function.
+        //
+        // Returns:
+        //     The ping-ponged value.
+        public static float PingPong (float value, float length) {
+            if (length == 0f) {
+                return 0f;
+            }
+
+            return Math.Abs((Fract((value - length) / (length * 2f)) * length * 2f) - length);
+            static float Fract (float value) {
+                return value - MathF.Floor(value);
+            }
+        }
+
+        //
+        // Summary:
+        //     Returns the value wrapped between 0 and the length. If the limit is reached,
+        //     the next value the function returned is decreased to the 0 side or increased
+        //     to the length side (like a triangle wave). If length is less than zero, it becomes
+        //     positive.
+        //
+        // Parameters:
+        //   value:
+        //     The value to pingpong.
+        //
+        //   length:
+        //     The maximum value of the function.
+        //
+        // Returns:
+        //     The ping-ponged value.
+        public static double PingPong (double value, double length) {
+            if (length == 0.0) {
+                return 0.0;
+            }
+
+            return Math.Abs((Fract((value - length) / (length * 2.0)) * length * 2.0) - length);
+            static double Fract (double value) {
+                return value - Math.Floor(value);
+            }
         }
     }
 }

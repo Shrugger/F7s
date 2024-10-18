@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" Version="3.6.1" />
     <PackageReference Include="Stride.CommunityToolkit" Version="1.0.0-preview.45" />
     <PackageReference Include="Stride.Engine" Version="4.2.0.2232" />
 
