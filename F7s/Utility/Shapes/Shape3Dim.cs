@@ -369,7 +369,7 @@ namespace F7s.Utility.Shapes
 
         public override bool Equals (object obj) {
             Shape3Dim other = obj as Shape3Dim;
-            return base.Equals(obj) || (this.GetType() == other.GetType() && Geom.ApproximatelyEquals(this.FullExtents(), other.FullExtents()));
+            return base.Equals(obj) || (this.GetType() == other.GetType() && Mathematik.ApproximatelyEquals(this.FullExtents(), other.FullExtents()));
         }
 
         public override int GetHashCode () {

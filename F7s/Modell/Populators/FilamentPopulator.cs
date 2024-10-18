@@ -168,7 +168,7 @@ namespace F7s.Modell.Populators
                     Farbe.Randomise(new Farbe(0.6f, 0.5f, 0.4f), 0.2f)
                     );
                 new Orbiting(rockyAsteroid, Constants.AstronomicUnit * scale * 2f * Alea.Float(0.95f, 1.1f), coer);
-                rockyAsteroid.SetQuantity(new Quantity(Geom.CubeVolumeFromDimensions(rockyAsteroid.scale), 6.0));
+                rockyAsteroid.SetQuantity(new Quantity(Mathematik.CubeVolumeFromDimensions(rockyAsteroid.scale), 6.0));
             }
             for (int a = 1; a <= 5; a++) {
                 Body iceAsteroid = new Body(
@@ -177,7 +177,7 @@ namespace F7s.Modell.Populators
                     Farbe.Randomise(new Farbe(0.4f, 0.5f, 0.6f), 0.2f)
                     );
                 new Orbiting(iceAsteroid, Constants.AstronomicUnit * scale * 2f * Alea.Float(0.95f, 1.1f), coer);
-                iceAsteroid.SetQuantity(new Quantity(Geom.CubeVolumeFromDimensions(iceAsteroid.scale), 3.0));
+                iceAsteroid.SetQuantity(new Quantity(Mathematik.CubeVolumeFromDimensions(iceAsteroid.scale), 3.0));
             }
 
             CelestialBody spiritus = new CelestialBody("Spiritus", 500000000 * scale, new Farbe(0.5f, 0.6f, 7f));
@@ -193,7 +193,7 @@ namespace F7s.Modell.Populators
                     Farbe.Randomise(new Farbe(0.5f, 0.5f, 0.5f), 0.25f)
                     );
                 new Orbiting(moonlet, spiritus.radius * Alea.Float(1.5f, 3.5f), spiritus);
-                moonlet.SetQuantity(new Quantity(Geom.CubeVolumeFromDimensions(moonlet.scale), 6.0));
+                moonlet.SetQuantity(new Quantity(Mathematik.CubeVolumeFromDimensions(moonlet.scale), 6.0));
             }
 
             for (int p = 1; p <= 3; p++) {
@@ -203,7 +203,7 @@ namespace F7s.Modell.Populators
                     Farbe.Randomise(new Farbe(0.5f, 0.5f, 0.5f), 0.25f)
                     );
                 new Orbiting(planetoid, Constants.AstronomicUnit * scale * Alea.Float(3f, 4f), coer);
-                planetoid.SetQuantity(new Quantity(Geom.CubeVolumeFromDimensions(planetoid.scale), 6.0));
+                planetoid.SetQuantity(new Quantity(Mathematik.CubeVolumeFromDimensions(planetoid.scale), 6.0));
             }
 
             // TODO: Star Cör B and its randomized planets
@@ -268,7 +268,7 @@ namespace F7s.Modell.Populators
                 direction = new Vector3(Alea.Float(), 0, Alea.Float());
             }
             float finalDistance = radius + distance;
-            Vector3 position = Geom.Normalize(direction) * finalDistance;
+            Vector3 position = Mathematik.Normalize(direction) * finalDistance;
             Kamera.View(physicalEntity, position);
             Player.SetPanSpeed(distance / 1f);
         }

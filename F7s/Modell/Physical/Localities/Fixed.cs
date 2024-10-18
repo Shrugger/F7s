@@ -46,7 +46,7 @@ namespace F7s.Modell.Physical.Localities
                     break;
                 case ReanchorMethodology.UseNewTransform:
                     Debug.Assert(newTransform != null);
-                    Debug.Assert(Geom.ValidPositional(newTransform));
+                    Debug.Assert(Mathematik.ValidPositional(newTransform));
                     newLocality = new Fixed(physicalEntity, newTransform, newAnchor);
                     break;
                 default:
@@ -88,19 +88,19 @@ namespace F7s.Modell.Physical.Localities
         }
 
         public override void SetTransform (Transform3D value) {
-            if (Geom.InvalidPositional(value)) {
+            if (Mathematik.InvalidPositional(value)) {
                 throw new Exception();
             }
             Transform = value;
         }
 
         public override void Translate (Vector3 relativeOffset) {
-            if (Geom.Invalid(relativeOffset)) {
+            if (Mathematik.Invalid(relativeOffset)) {
                 throw new Exception(relativeOffset.ToString());
             }
             throw new NotImplementedException(); // TODO: Redo for Stride.
             //this.Transform = this.Transform.TranslatedLocal(relativeOffset);
-            if (Geom.Invalid(Transform.Origin)) {
+            if (Mathematik.Invalid(Transform.Origin)) {
                 throw new Exception(Transform.Origin.ToString());
             }
         }
@@ -185,7 +185,7 @@ namespace F7s.Modell.Physical.Localities
         public override void Validate () {
             base.Validate();
 
-            if (Geom.InvalidPositional(Transform)) {
+            if (Mathematik.InvalidPositional(Transform)) {
                 throw new Exception();
             }
         }

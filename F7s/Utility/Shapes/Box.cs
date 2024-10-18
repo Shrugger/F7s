@@ -16,7 +16,7 @@ namespace F7s.Utility.Shapes
             : this(fullExtents: new Vector3(x: x, y: y, z: z)) { }
 
         public Box (Vector3 aspectRatio, float volume)
-            : this(fullExtents: Geom.ScaleBoxToVolume(boxExtents: aspectRatio, volume: volume)) { }
+            : this(fullExtents: Mathematik.ScaleBoxToVolume(boxExtents: aspectRatio, volume: volume)) { }
 
         public Box (Vector3 fullExtents) {
             this.fullExtents = fullExtents;

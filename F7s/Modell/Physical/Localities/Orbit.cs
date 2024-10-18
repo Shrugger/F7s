@@ -23,7 +23,7 @@ namespace F7s.Modell.Physical.Localities
         }
 
         public Quaternion GetRotation () {
-            if (!Geom.Valid(this.absoluteRotation)) {
+            if (!Mathematik.Valid(this.absoluteRotation)) {
                 throw new Exception("Invalid rotation " + this.absoluteRotation + " out of " + this.ToString());
             }
             return this.absoluteRotation;
@@ -75,7 +75,7 @@ namespace F7s.Modell.Physical.Localities
 
         public Quaternion GetRotation (double time) {
             float modulodTime = (float) (time % (double) this.RotationalPeriod());
-            return Geom.DegreesToQuaternion(this.rotationOffset + this.angularVelocity * modulodTime);
+            return Mathematik.DegreesToQuaternion(this.rotationOffset + this.angularVelocity * modulodTime);
         }
 
         public double GetInclination () {
@@ -209,8 +209,8 @@ namespace F7s.Modell.Physical.Localities
                 throw new Exception();
             }
 
-            double i = orbit.GetInclination() * Geom.Deg2Rad;
-            double om = orbit.GetLongitudeOfAscendingNode() * Geom.Deg2Rad;
+            double i = orbit.GetInclination() * Mathematik.Deg2Rad;
+            double om = orbit.GetLongitudeOfAscendingNode() * Mathematik.Deg2Rad;
             double e = orbit.GetEccentricity();
             double a = orbit.GetSemimajorAxis();
 
@@ -251,7 +251,7 @@ namespace F7s.Modell.Physical.Localities
             Vector3d x = new Vector3d(fCos, 0, fSin) * r;
             Vector3d v = new Vector3d(-fSin, 0, e + fCos) * Math.Sqrt(mu / (a * (1 - e * e)));
 
-            double wf = ((orbit.GetArgumentOfPeriapsis()) * Geom.Deg2Rad);
+            double wf = ((orbit.GetArgumentOfPeriapsis()) * Mathematik.Deg2Rad);
             /*Matrix3x3d m1 = new Matrix3x3d	(	Math.Cos(om * Geometry.Deg2Rad),	-Math.Sin(om * Geometry.Deg2Rad),	0,
 												Math.Sin(om * Geometry.Deg2Rad),	Math.Cos(om * Geometry.Deg2Rad),	1,
 												0,				0,				0);

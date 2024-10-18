@@ -116,7 +116,7 @@ namespace F7s.Utility.Mescherei
         }
 
         public float SurfaceArea () {
-            return Geom.TriangleSurfaceArea(V0.Position, V1.Position, V2.Position);
+            return Mathematik.TriangleSurfaceArea(V0.Position, V1.Position, V2.Position);
         }
 
         public void AddEdge (Edge edge) {
@@ -157,7 +157,7 @@ namespace F7s.Utility.Mescherei
             Vector3 surfaceNormal = GetFaceNormal();
             Vector3 shapeToTriangleVector = triangleCenter - shapeCentre;
 
-            double angle = Vector3d.Angle(from: Geom.Normalize(shapeToTriangleVector), to: surfaceNormal); // Using double-precision angle calculation works better for very small angles.
+            double angle = Vector3d.Angle(from: Mathematik.Normalize(shapeToTriangleVector), to: surfaceNormal); // Using double-precision angle calculation works better for very small angles.
 
             if (angle < 0) {
                 throw new Exception("Angle " + angle + " < 0.");
@@ -173,13 +173,13 @@ namespace F7s.Utility.Mescherei
         }
 
         public Vector3 CartesianCenter () {
-            return Geom.Average(Vertices.Select(v => v.Position));
+            return Mathematik.Average(Vertices.Select(v => v.Position));
         }
 
         private Vector3 CalculateFaceNormal () {
             Vector3 vector1 = V1.Position - V0.Position;
             Vector3 vector2 = V2.Position - V0.Position;
-            Vector3 faceNormal = Geom.Normalize(Geom.Cross(vector2, vector1));
+            Vector3 faceNormal = Mathematik.Normalize(Mathematik.Cross(vector2, vector1));
 
             Debug.Assert(Vector3.Zero == faceNormal);
             this.faceNormal = faceNormal;

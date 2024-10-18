@@ -232,7 +232,7 @@ namespace F7s.Utility.Mescherei
         }
 
         public Vector3 AlteredVertexRadius (Vector3 vertex, float radius) {
-            return Geom.Normalize(vertex) * radius;
+            return Mathematik.Normalize(vertex) * radius;
         }
 
         public void ApplyToAllVertices (Func<Vector3, Vector3> action) {
@@ -258,11 +258,11 @@ namespace F7s.Utility.Mescherei
             if (!spherical) {
                 position = Vector3.Lerp(a.Position, b.Position, weight);
             } else {
-                position = Geom.Slerp(a.Position, b.Position, weight);
+                position = Mathematik.Slerp(a.Position, b.Position, weight);
             }
             Vertex interpolated = AddVertex(position, null, null, Farbe.Lerp(a.Color, b.Color, weight));
             if (!spherical) {
-                Debug.Assert(Geom.ApproximatelyEquals(Vertex.Distance(a, b), Vertex.Distance(a, interpolated) + Vertex.Distance(interpolated, b), 0.001f));
+                Debug.Assert(Mathematik.ApproximatelyEquals(Vertex.Distance(a, b), Vertex.Distance(a, interpolated) + Vertex.Distance(interpolated, b), 0.001f));
             }
             return interpolated;
         }

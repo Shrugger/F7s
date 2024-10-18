@@ -119,7 +119,7 @@ namespace F7s.Utility.Mescherei
                 Debug.Assert(Vector3.Zero != triangleNormal);
                 normal += triangleNormal;
             }
-            normal = Geom.Normalize(normal);
+            normal = Mathematik.Normalize(normal);
             Debug.Assert(Vector3.Zero != normal);
             Normal = normal;
             return normal;
