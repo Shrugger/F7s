@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace F7s.Utility.Mescherei
-{
+namespace F7s.Utility.Mescherei {
     public class Triangle {
 
         public readonly Graph Mesch;
@@ -138,8 +137,8 @@ namespace F7s.Utility.Mescherei
                 throw new Exception(message: "Cannot sensibly invert two-sided triangles.");
             }
 
-            bool inversionRequired = desiredDirection == Facing.Direction.Outward && FacesInward(shapeCentre)
-                                  || desiredDirection == Facing.Direction.Inward && FacesOutward(shapeCentre);
+            bool inversionRequired = (desiredDirection == Facing.Direction.Outward && FacesInward(shapeCentre))
+                                  || (desiredDirection == Facing.Direction.Inward && FacesOutward(shapeCentre));
 
             if (inversionRequired) {
                 Invert();
@@ -181,7 +180,7 @@ namespace F7s.Utility.Mescherei
             Vector3 vector2 = V2.Position - V0.Position;
             Vector3 faceNormal = Mathematik.Normalize(Mathematik.Cross(vector2, vector1));
 
-            Debug.Assert(Vector3.Zero == faceNormal);
+            Debug.Assert(Vector3.Zero != faceNormal);
             this.faceNormal = faceNormal;
             return faceNormal;
         }
