@@ -1,7 +1,8 @@
 ﻿
+using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 
-namespace F7s.Utility.Geometry {
+namespace F7s.Geometry {
     public interface Coordinates {
 
         Vector3 ToVector3 ();

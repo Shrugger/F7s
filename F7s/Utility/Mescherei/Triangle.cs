@@ -173,7 +173,7 @@ namespace F7s.Utility.Mescherei {
         }
 
         public Vector3 CartesianCenter () {
-            return Vectors.Average(Vertices.Select(v => v.Position));
+            return Geom.Average(Vertices.Select(v => v.Position));
         }
 
         private Vector3 CalculateFaceNormal () {

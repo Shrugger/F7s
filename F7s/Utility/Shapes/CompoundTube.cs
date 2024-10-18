@@ -9,7 +9,7 @@ namespace F7s.Utility.Shapes {
         public readonly Tube tubeShape;
 
         public override string ToString () {
-            return this.GetType().Name + " " + this.tubeShape.ToString();
+            return GetType().Name + " " + tubeShape.ToString();
         }
 
         public CompoundTube (Tube shape, int sides) {
@@ -17,7 +17,7 @@ namespace F7s.Utility.Shapes {
                 throw new ArgumentException("Cannot create a compound tube out of merely " + sides + " sides.");
             }
 
-            this.tubeShape = shape;
+            tubeShape = shape;
 
             float thickness = (shape.diameter - shape.internalDiameter) / 2.0f;
             float width = (MathF.Sqrt(2) - 1.0f) * shape.diameter;
@@ -39,9 +39,9 @@ namespace F7s.Utility.Shapes {
             void Constitute (float rotation) {
                 float longitude = rotation < 180 ? 90 : 270;
                 float latitude = Mathematik.Wrap(rotation, -90f, 90f);
-                Vector3 position = new PolarCoordinates(longitude, latitude, (shape.diameter / 2.0f) - (thickness / (2.0f))).ToVector3();
+                Vector3 position = new PolarCoordinates(longitude, latitude, (shape.diameter / 2.0f) - (thickness / 2.0f)).ToVector3();
 
-                this.AddConstituent(new Constituent(GenerateWall(), position, new Vector3(0, 0, rotation), "Partial " + this.GetType().Name + " " + rotation + Chars.degree));
+                AddConstituent(new Constituent(GenerateWall(), position, new Vector3(0, 0, rotation), "Partial " + GetType().Name + " " + rotation + Chars.degree));
             }
 
             float degreesPerSide = 360f / sides;
@@ -52,30 +52,30 @@ namespace F7s.Utility.Shapes {
 
 
         public override Shape3Dim GetInternalNegativeSpace () {
-            return this.tubeShape.InternalNegativeCylinder();
+            return tubeShape.InternalNegativeCylinder();
         }
         public float WallThickness () {
-            return (this.tubeShape.diameter - this.tubeShape.internalDiameter) / 2.0f;
+            return (tubeShape.diameter - tubeShape.internalDiameter) / 2.0f;
         }
 
         public override Shape3Dim GetShapePlusSize (float addition) {
-            return new Tube(this.tubeShape.diameter + addition, this.tubeShape.length + addition, this.tubeShape.internalDiameter);
+            return new Tube(tubeShape.diameter + addition, tubeShape.length + addition, tubeShape.internalDiameter);
         }
 
         public override float SubstantialVolume () {
-            return this.tubeShape.SubstantialVolume();
+            return tubeShape.SubstantialVolume();
         }
 
         public override bool Equals (object obj) {
             return obj is Tube tube &&
                    base.Equals(obj) &&
-                   this.tubeShape.internalDiameter == tube.internalDiameter;
+                   tubeShape.internalDiameter == tube.internalDiameter;
         }
 
         public override int GetHashCode () {
             var hashCode = -469255269;
-            hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + this.tubeShape.internalDiameter.GetHashCode();
+            hashCode = (hashCode * -1521134295) + base.GetHashCode();
+            hashCode = (hashCode * -1521134295) + tubeShape.internalDiameter.GetHashCode();
             return hashCode;
         }
     }

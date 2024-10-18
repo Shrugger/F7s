@@ -13,7 +13,7 @@ using F7s.Modell.Physical.Celestial;
 using F7s.Modell.Physical.Localities;
 using F7s.Modell.Terrains;
 using F7s.Utility;
-using F7s.Utility.Geometry;
+using F7s.Geometry;
 using F7s.Utility.Measurements;
 using Stride.Core.Mathematics;
 using Stride.Input;
@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using F7s.Utility.Geometry;
 
 namespace F7s.Modell.Populators {
 

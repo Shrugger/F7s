@@ -1,9 +1,9 @@
 ﻿using F7s.Modell.Handling;
 using F7s.Modell.Physical.Bodies;
 using F7s.Utility;
-using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using System.Collections.Generic;
+using F7s.Utility.Geometry;
 
 namespace F7s.Modell.Physical.Celestial {
 

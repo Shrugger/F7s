@@ -1,8 +1,9 @@
-﻿using F7s.Utility.Mathematics;
+﻿using F7s.Utility.Geometry;
+using F7s.Utility.Mathematics;
 using Stride.Core.Mathematics;
 using System;
 
-namespace F7s.Utility.Geometry {
+namespace F7s.Geometry {
 
     public struct Matrix3x3d {
 

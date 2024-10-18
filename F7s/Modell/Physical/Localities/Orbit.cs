@@ -1,9 +1,10 @@
 ﻿using F7s.Utility;
-using F7s.Utility.Geometry;
+using F7s.Geometry;
 using F7s.Utility.Lazies;
 using F7s.Utility.Measurements;
 using Stride.Core.Mathematics;
 using System;
+using F7s.Utility.Geometry;
 
 namespace F7s.Modell.Physical.Localities {
 
@@ -21,7 +22,7 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public Quaternion GetRotation () {
-            if (!Vectors.Valid(this.absoluteRotation)) {
+            if (!Geom.Valid(this.absoluteRotation)) {
                 throw new Exception("Invalid rotation " + this.absoluteRotation + " out of " + this.ToString());
             }
             return this.absoluteRotation;

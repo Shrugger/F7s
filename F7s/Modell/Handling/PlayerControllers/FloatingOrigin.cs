@@ -1,6 +1,6 @@
 ﻿using F7s.Engine;
 using F7s.Modell.Physical.Localities;
-using F7s.Utility.Geometry;
+using F7s.Geometry;
 using System;
 
 namespace F7s.Modell.Handling.PlayerControllers {

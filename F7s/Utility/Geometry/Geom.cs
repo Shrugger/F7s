@@ -1,7 +1,11 @@
-﻿using F7s.Utility.Mathematics;
+﻿using F7s.Geometry;
+using F7s.Utility.Mathematics;
 using F7s.Utility.Shapes;
 using Stride.Core.Mathematics;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace F7s.Utility.Geometry {
 
@@ -15,7 +19,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public static double AngularSizeInPixels (double realDiameter, double distance, double screenSize, double fieldOfView) {
-            double realAngularSize = realDiameter / distance * Geom.Rad2DegDouble;
+            double realAngularSize = realDiameter / distance * Rad2DegDouble;
             return realAngularSize * AngularSizeOfPixel(screenSize, fieldOfView);
         }
 
@@ -24,15 +28,15 @@ namespace F7s.Utility.Geometry {
         }
 
         public static double GreatCircleDistance (double lat1, double lon1, double lat2, double lon2, double radius = 1.0) {
-            lat1 = Geom.Deg2RadDouble * lat1;
-            lon1 = Geom.Deg2RadDouble * lon1;
-            lat2 = Geom.Deg2RadDouble * lat2;
-            lon2 = Geom.Deg2RadDouble * lon2;
+            lat1 = Deg2RadDouble * lat1;
+            lon1 = Deg2RadDouble * lon1;
+            lat2 = Deg2RadDouble * lat2;
+            lon2 = Deg2RadDouble * lon2;
             double d_lat = lat2 - lat1;
             double d_lon = lon2 - lon1;
-            double h = (Math.Sin(d_lat / 2) * Math.Sin(d_lat / 2)) +
-                (Math.Cos(lat1) * Math.Cos(lat2) *
-                Math.Sin(d_lon / 2) * Math.Sin(d_lon / 2));
+            double h = Math.Sin(d_lat / 2) * Math.Sin(d_lat / 2) +
+                Math.Cos(lat1) * Math.Cos(lat2) *
+                Math.Sin(d_lon / 2) * Math.Sin(d_lon / 2);
             return 2 * radius * Math.Asin(Math.Sqrt(h));
         }
         public static double FrustrumVolume (double minimumAltitude, double maximumAltitude, double crossSectionAreAtMinimumAltitude, double crossSectionAreAtMaximumAltitude) {
@@ -94,7 +98,7 @@ namespace F7s.Utility.Geometry {
         public static double CylinderSurfaceArea (double radius, double height) {
             double flatSurface = CircleArea(radius);
             double sideSurface = CylinderSideSurfaceArea(radius, height);
-            return sideSurface + (flatSurface * 2.0f);
+            return sideSurface + flatSurface * 2.0f;
         }
         public static double CylinderSideSurfaceArea (double radius, double height) {
             double sideSurface = 2.0f * Math.PI * radius * height;
@@ -148,7 +152,7 @@ namespace F7s.Utility.Geometry {
                 if (degrees.ContainsNaN()) {
                     throw new Exception("Degrees euler vector contains NaN: " + degrees);
                 }
-                return Geom.DegreesToQuaternion(degrees.ToVector3());
+                return DegreesToQuaternion(degrees.ToVector3());
             }
         }
 
@@ -157,33 +161,33 @@ namespace F7s.Utility.Geometry {
         }
 
         public static Vector3d QuaternionToDegreesDouble (Quaternion quaternion) {
-            return Geom.QuaternionToDegrees(quaternion);
+            return QuaternionToDegrees(quaternion);
         }
 
         public static Vector3d QuaternionToFractionsDouble (Quaternion quaternion) {
-            return Geom.DegreesToFractions(degrees: QuaternionToDegreesDouble(quaternion));
+            return DegreesToFractions(degrees: QuaternionToDegreesDouble(quaternion));
         }
 
         public static bool PointIsInTriangle (Vector2 point, Vector2 corner1, Vector2 corner2, Vector2 corner3) {
             // Calculated using barycentric coordinates
-            double s = (corner1.Y * corner3.X)
-                     - (corner1.X * corner3.Y)
-                     + ((corner3.Y - corner1.Y) * point.X)
-                     + ((corner1.X - corner3.X) * point.Y);
+            double s = corner1.Y * corner3.X
+                     - corner1.X * corner3.Y
+                     + (corner3.Y - corner1.Y) * point.X
+                     + (corner1.X - corner3.X) * point.Y;
 
-            double t = (corner1.X * corner2.Y)
-                     - (corner1.Y * corner2.X)
-                     + ((corner1.Y - corner2.Y) * point.X)
-                     + ((corner2.X - corner1.X) * point.Y);
+            double t = corner1.X * corner2.Y
+                     - corner1.Y * corner2.X
+                     + (corner1.Y - corner2.Y) * point.X
+                     + (corner2.X - corner1.X) * point.Y;
 
-            if ((s < 0) != (t < 0)) {
+            if (s < 0 != t < 0) {
                 return false;
             }
 
-            double a = (-corner2.Y * corner3.X)
-                     + (corner1.Y * (corner3.X - corner2.X))
-                     + (corner1.X * (corner2.Y - corner3.Y))
-                     + (corner2.X * corner3.Y);
+            double a = -corner2.Y * corner3.X
+                     + corner1.Y * (corner3.X - corner2.X)
+                     + corner1.X * (corner2.Y - corner3.Y)
+                     + corner2.X * corner3.Y;
 
             if (a < 0.0f) {
                 s = -s;
@@ -245,27 +249,27 @@ namespace F7s.Utility.Geometry {
             if (start1.X > start2.X) {
                 startX = start1.X;
                 firstY1 = start1.Y;
-                firstY2 = startX * inclination2 * (start2.Y - (inclination2 * start2.X));
+                firstY2 = startX * inclination2 * (start2.Y - inclination2 * start2.X);
             } else {
                 startX = start2.X;
                 firstY2 = start2.Y;
-                firstY1 = startX * inclination1 * (start1.Y - (inclination1 * start1.X));
+                firstY1 = startX * inclination1 * (start1.Y - inclination1 * start1.X);
             }
 
             if (end1.X > end2.X) {
                 endX = end1.X;
                 lastY1 = end1.Y;
-                lastY2 = endX * inclination2 * (end2.Y - (inclination2 * end2.X));
+                lastY2 = endX * inclination2 * (end2.Y - inclination2 * end2.X);
             } else {
                 endX = end2.X;
                 lastY2 = end2.Y;
-                lastY1 = startX * inclination1 * (end1.Y - (inclination1 * end1.X));
+                lastY1 = startX * inclination1 * (end1.Y - inclination1 * end1.X);
             }
 
             firstYDifference = firstY2 - firstY1;
             lastYDifference = lastY2 - lastY1;
 
-            if ((firstYDifference < 0) != (lastYDifference < 0)) {
+            if (firstYDifference < 0 != lastYDifference < 0) {
                 return true;
             }
 
@@ -304,7 +308,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public static float AngularSizeInPixels (float realDiameter, float distance, float screenSize, float fieldOfView) {
-            float realAngularSize = realDiameter / distance * Geom.Rad2Deg;
+            float realAngularSize = realDiameter / distance * Rad2Deg;
             return realAngularSize * AngularSizeOfPixel(screenSize, fieldOfView);
         }
 
@@ -326,15 +330,15 @@ namespace F7s.Utility.Geometry {
         }
 
         public static float GreatCircleDistance (float lat1, float lon1, float lat2, float lon2, float radius = 1.0f) {
-            lat1 = Geom.Deg2Rad * lat1;
-            lon1 = Geom.Deg2Rad * lon1;
-            lat2 = Geom.Deg2Rad * lat2;
-            lon2 = Geom.Deg2Rad * lon2;
+            lat1 = Deg2Rad * lat1;
+            lon1 = Deg2Rad * lon1;
+            lat2 = Deg2Rad * lat2;
+            lon2 = Deg2Rad * lon2;
             float d_lat = lat2 - lat1;
             float d_lon = lon2 - lon1;
-            float h = (MathF.Sin(d_lat / 2) * MathF.Sin(d_lat / 2)) +
-                (MathF.Cos(lat1) * MathF.Cos(lat2) *
-                MathF.Sin(d_lon / 2) * MathF.Sin(d_lon / 2));
+            float h = MathF.Sin(d_lat / 2) * MathF.Sin(d_lat / 2) +
+                MathF.Cos(lat1) * MathF.Cos(lat2) *
+                MathF.Sin(d_lon / 2) * MathF.Sin(d_lon / 2);
             return 2 * radius * MathF.Asin(MathF.Sqrt(h));
         }
         public static float FrustrumVolume (float minimumAltitude, float maximumAltitude, float crossSectionAreAtMinimumAltitude, float crossSectionAreAtMaximumAltitude) {
@@ -395,7 +399,7 @@ namespace F7s.Utility.Geometry {
         public static float CylinderSurfaceArea (float radius, float height) {
             float flatSurface = CircleArea(radius);
             float sideSurface = CylinderSideSurfaceArea(radius, height);
-            return sideSurface + (flatSurface * 2.0f);
+            return sideSurface + flatSurface * 2.0f;
         }
         public static float CylinderSideSurfaceArea (float radius, float height) {
             float sideSurface = 2.0f * MathF.PI * radius * height;
@@ -483,8 +487,8 @@ namespace F7s.Utility.Geometry {
             }
 
             float c = 1 - a - b;
-            float rndX = (a * c1.X) + (b * c2.X) + (c * c3.X);
-            float rndY = (a * c1.Y) + (b * c2.Y) + (c * c3.Y);
+            float rndX = a * c1.X + b * c2.X + c * c3.X;
+            float rndY = a * c1.Y + b * c2.Y + c * c3.Y;
 
             return new Vector2(x: rndX, y: rndY);
         }
@@ -502,7 +506,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public static bool FacesTowards (Vector3 position, Vector3 facing, Vector3 observer) {
-            return Geom.Angle(facing, observer - position) < 90;
+            return Angle(facing, observer - position) < 90;
         }
 
         private static int Angle (Vector3 a, Vector3 b) {
@@ -530,7 +534,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public static Vector3 InvertRotation (Vector3 rotationInDegrees) {
-            return Geom.QuaternionToDegrees(Geom.Inverse(Geom.DegreesToQuaternion(rotationInDegrees)));
+            return QuaternionToDegrees(Inverse(DegreesToQuaternion(rotationInDegrees)));
         }
 
         private static Quaternion Inverse (Quaternion quaternion) {
@@ -572,12 +576,12 @@ namespace F7s.Utility.Geometry {
             // And multiplying that by percent returns the angle between
             // start and the final result.
             float theta = MathF.Acos(dot) * weight;
-            Vector3 RelativeVec = end - (start * dot);
+            Vector3 RelativeVec = end - start * dot;
             RelativeVec.Normalize();
 
             // Orthonormal basis
             // The final result.
-            return (start * MathF.Cos(theta)) + (RelativeVec * MathF.Sin(theta));
+            return start * MathF.Cos(theta) + RelativeVec * MathF.Sin(theta);
         }
 
         internal static bool ApproximatelyEquals (float a, float b, float delta) {
@@ -590,6 +594,157 @@ namespace F7s.Utility.Geometry {
 
         internal static bool ApproximatelyEquals (Vector3 vector31, Vector3 vector32) {
             throw new NotImplementedException();
+        }
+        public static bool Valid (Vector3 v) {
+
+            float x = v.X;
+            float y = v.Y;
+            float z = v.Z;
+
+            if (!float.IsFinite(x) || !float.IsFinite(y) || !float.IsFinite(z)) {
+                return false;
+            }
+
+            if (float.IsNaN(x) || float.IsNaN(y) || float.IsNaN(z)) {
+                return false;
+            }
+
+            return true;
+        }
+        public static bool Valid (Vector3d v) {
+
+            double x = v.X;
+            double y = v.Y;
+            double z = v.Z;
+
+            if (!double.IsFinite(x) || !double.IsFinite(y) || !double.IsFinite(z)) {
+                return false;
+            }
+
+            if (double.IsNaN(x) || double.IsNaN(y) || double.IsNaN(z)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool Valid (Quaternion q) {
+            return float.IsFinite(q.X) && float.IsFinite(q.Y) && float.IsFinite(q.Z) && float.IsFinite(q.W);
+        }
+
+        public static bool Invalid (Vector3 v) {
+            return !Valid(v);
+        }
+        public static bool Invalid (Vector3d v) {
+            return !Valid(v);
+        }
+
+
+        public static bool ApproximatelyEqual (Vector3 expected, Vector3 actual, float tolerance) {
+            return Math.Abs(expected.X) - Math.Abs(actual.X) < tolerance &&
+                    Math.Abs(expected.Y) - Math.Abs(actual.Y) < tolerance &&
+                    Math.Abs(expected.Z) - Math.Abs(actual.Z) < tolerance;
+        }
+
+        public static Vector3 Sum (IEnumerable<Vector3> vectors) {
+            Vector3 sum = Vector3.Zero;
+            foreach (Vector3 vector in vectors) {
+                sum += vector;
+            }
+            return sum;
+        }
+
+        public static Vector3 Average (IEnumerable<Vector3> vectors) {
+            Vector3 sum = Sum(vectors);
+            Vector3 average = sum / vectors.Count();
+            return average;
+        }
+
+        public static bool Positive (Vector3 scale) {
+            return scale.X > 0 && scale.Y > 0 && scale.Z > 0;
+        }
+
+        public static bool AllPositiveOrAllNegative (Vector3 scale) {
+            return scale.X > 0 && scale.Y > 0 && scale.Z > 0 || scale.X < 0 && scale.Y < 0 && scale.Z < 0;
+        }
+        public static bool AllPositivellOrNegativeOne (Vector3 scale, float tolerance) {
+            return ApproximatelyEqual(Vector3.One, scale, tolerance) || ApproximatelyEqual(-Vector3.One, scale, tolerance);
+        }
+
+        internal static bool ApproximatelyEqual (Vector3d origin1, Vector3d origin2, float delta) {
+            throw new NotImplementedException();
+        }
+
+        internal static bool ApproximatelyEqual (object column01, object column02, float delta) {
+            throw new NotImplementedException();
+        }
+        public static bool ApproximatelyEqual (Transform3D a, Transform3D b, float delta = 0.001f) {
+            bool origin = ApproximatelyEqual(a.Origin, b.Origin, delta);
+            bool basis = Matrix3x3d.ApproximatelyEqual(a.Basis, b.Basis, delta);
+            return origin && basis;
+        }
+
+        public static void AssertEqual (Transform3D a, Transform3D b, float delta = 0.001f) {
+            Debug.Assert(ApproximatelyEqual(a, b, delta));
+        }
+
+        private const float DefaultValidationTolerance = 0.0001f;
+
+        public static void ValidatePositional (Transform3D transform, float tolerance = DefaultValidationTolerance) {
+            if (InvalidPositional(transform, tolerance)) {
+                throw new Exception(transform.ToString());
+            }
+        }
+
+        public static bool InvalidPositional (Transform3D transform, float tolerance = DefaultValidationTolerance) {
+            return !ValidPositional(transform, tolerance);
+        }
+        public static bool InvalidScaled (Transform3D transform) {
+            return !ValidScaled(transform);
+        }
+
+        public static bool ValidPositional (Transform3D transform, float tolerance = DefaultValidationTolerance) {
+            return Valid(transform, true, tolerance);
+        }
+
+        public static bool ValidScaled (Transform3D transform) {
+            return Valid(transform, false, 0);
+        }
+
+        private static bool Valid (Transform3D transform, bool expectUniformScale, float tolerance = DefaultValidationTolerance) {
+            if (Invalid(transform.Origin)) {
+                return false;
+            }
+            if (transform.Basis.m00 == 0 && transform.Basis.m10 == 0 && transform.Basis.m20 == 0) {
+                return false;
+            }
+            if (transform.Basis.m00 == 0 && transform.Basis.m10 == 0 && transform.Basis.m20 == 0) {
+                return false;
+            }
+            if (transform.Basis.m00 == 0 && transform.Basis.m10 == 0 && transform.Basis.m20 == 0) {
+                return false;
+            }
+            if (!ValidCellValue(transform.Basis.m00) || !ValidCellValue(transform.Basis.m01) || !ValidCellValue(transform.Basis.m02)) {
+                return false;
+            }
+            if (!ValidCellValue(transform.Basis.m10) || !ValidCellValue(transform.Basis.m11) || !ValidCellValue(transform.Basis.m12)) {
+                return false;
+            }
+            if (!ValidCellValue(transform.Basis.m20) || !ValidCellValue(transform.Basis.m21) || !ValidCellValue(transform.Basis.m22)) {
+                return false;
+            }
+            if (Invalid(transform.Basis.Scale)) {
+                return false;
+            }
+            if (expectUniformScale && !AllPositivellOrNegativeOne(transform.Basis.Scale, tolerance)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool ValidCellValue (double value) {
+            return double.IsFinite(value) && !double.IsNaN(value);
         }
     }
 

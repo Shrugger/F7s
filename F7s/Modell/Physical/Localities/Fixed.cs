@@ -1,8 +1,9 @@
-﻿using F7s.Utility;
+﻿using F7s.Geometry;
+using F7s.Utility;
 using F7s.Utility.Geometry;
+using Stride.Core.Mathematics;
 using System;
 using System.Diagnostics;
-using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Physical.Localities {
 
@@ -12,12 +13,12 @@ namespace F7s.Modell.Physical.Localities {
         public Transform3D Transform { get; private set; }
 
         public Fixed (PhysicalEntity entity, Transform3D transform = null, Locality anchor = null, Vector3? velocity = null) : base(entity, anchor) {
-            this.Transform = transform ?? Transform3D.Identity;
+            Transform = transform ?? Transform3D.Identity;
             this.anchor = anchor;
         }
 
         public override Locality Sibling (PhysicalEntity entity) {
-            return new Fixed(entity, this.Transform, this.anchor);
+            return new Fixed(entity, Transform, anchor);
         }
 
         public static Fixed FixedSibling (PhysicalEntity entity, Locality sibling) {
@@ -35,25 +36,25 @@ namespace F7s.Modell.Physical.Localities {
             switch (methodology) {
                 case ReanchorMethodology.MaintainAbsoluteTransform:
                     Debug.Assert(null == newTransform);
-                    Transform3D newLocalTransform = this.CalculateRelativeTransform(newAnchor);
-                    newLocality = new Fixed(this.physicalEntity, newLocalTransform, newAnchor);
+                    Transform3D newLocalTransform = CalculateRelativeTransform(newAnchor);
+                    newLocality = new Fixed(physicalEntity, newLocalTransform, newAnchor);
                     AssertEquivalence(this, newLocality);
                     break;
                 case ReanchorMethodology.MaintainLocalTransform:
                     Debug.Assert(null == newTransform);
-                    newLocality = new Fixed(this.physicalEntity, this.Transform, newAnchor);
+                    newLocality = new Fixed(physicalEntity, Transform, newAnchor);
                     break;
                 case ReanchorMethodology.UseNewTransform:
                     Debug.Assert(newTransform != null);
-                    Debug.Assert(Transforms.ValidPositional(newTransform));
-                    newLocality = new Fixed(this.physicalEntity, newTransform, newAnchor);
+                    Debug.Assert(Geom.ValidPositional(newTransform));
+                    newLocality = new Fixed(physicalEntity, newTransform, newAnchor);
                     break;
                 default:
                     throw new NotImplementedException(methodology.ToString());
             }
 
-            newLocality.Name = this.Name;
-            this.Replace(newLocality);
+            newLocality.Name = Name;
+            Replace(newLocality);
             return newLocality;
         }
 
@@ -66,54 +67,54 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public override Locality HierarchySuperior () {
-            return this.anchor;
+            return anchor;
         }
 
         protected override void ReplaceSuperior (Locality replacement) {
-            this.anchor = replacement;
+            anchor = replacement;
             base.ReplaceSuperior(replacement);
         }
 
         public override Transform3D GetLocalTransform () {
-            return this.Transform;
+            return Transform;
         }
 
         public override string ToString () {
-            if (this.Name != null) {
-                return this.Name;
+            if (Name != null) {
+                return Name;
             } else {
-                return base.ToString() + (this.anchor != null ? "@[" + (this.anchor.physicalEntity?.ToString() ?? this.anchor.ToString()) + "]" : "");
+                return base.ToString() + (anchor != null ? "@[" + (anchor.physicalEntity?.ToString() ?? anchor.ToString()) + "]" : "");
             }
         }
 
         public override void SetTransform (Transform3D value) {
-            if (Transforms.InvalidPositional(value)) {
+            if (Geom.InvalidPositional(value)) {
                 throw new Exception();
             }
-            this.Transform = value;
+            Transform = value;
         }
 
         public override void Translate (Vector3 relativeOffset) {
-            if (Vectors.Invalid(relativeOffset)) {
+            if (Geom.Invalid(relativeOffset)) {
                 throw new Exception(relativeOffset.ToString());
             }
             throw new NotImplementedException(); // TODO: Redo for Stride.
             //this.Transform = this.Transform.TranslatedLocal(relativeOffset);
-            if (Vectors.Invalid(this.Transform.Origin)) {
-                throw new Exception(this.Transform.Origin.ToString());
+            if (Geom.Invalid(Transform.Origin)) {
+                throw new Exception(Transform.Origin.ToString());
             }
         }
 
         public override void Rotate (float yaw, float pitch, float roll = 0) {
-            Transform3D entityTransform = this.GetLocalTransform();
+            Transform3D entityTransform = GetLocalTransform();
 
             throw new NotImplementedException(); // TODO: Redo for Stride.
             // entityTransform.Basis = entityTransform.Basis.Rotated(-Vector3.UnitY, yaw).Rotated(-Vector3.UnitX, pitch).Rotated(Vector3.UnitZ, roll);
-            this.SetTransform(entityTransform);
+            SetTransform(entityTransform);
         }
 
         public override void RotateEcliptic (float yaw, float pitch, float roll = 0) {
-            Transform3D entityTransform = this.GetLocalTransform();
+            Transform3D entityTransform = GetLocalTransform();
 
             throw new NotImplementedException(); // TODO: Redo for Stride.
             /*
@@ -184,7 +185,7 @@ namespace F7s.Modell.Physical.Localities {
         public override void Validate () {
             base.Validate();
 
-            if (Transforms.InvalidPositional(this.Transform)) {
+            if (Geom.InvalidPositional(Transform)) {
                 throw new Exception();
             }
         }

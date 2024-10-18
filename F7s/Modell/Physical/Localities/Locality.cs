@@ -2,12 +2,13 @@
 using F7s.Modell.Abstract;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Utility;
-using F7s.Utility.Geometry;
+using F7s.Geometry;
 using F7s.Utility.Lazies;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using F7s.Utility.Geometry;
 
 namespace F7s.Modell.Physical.Localities {
 
@@ -18,7 +19,7 @@ namespace F7s.Modell.Physical.Localities {
 
         public static double TimeFactor = 1;
 
-        private readonly LazyFrameMonoMemory<Locality, Transform3D> cachedRelativeTransforms;
+        private readonly LazyFrameMonoMemory<Locality, Transform3D> cachedRelativeGeom;
 
         private List<Locality> hierarchySubordinates = new List<Locality>();
 
@@ -44,7 +45,7 @@ namespace F7s.Modell.Physical.Localities {
             if (entity != null) {
                 SetPhysicalEntity(entity);
             }
-            this.cachedRelativeTransforms = new LazyFrameMonoMemory<Locality, Transform3D>(this.CalculateRelativeTransform);
+            this.cachedRelativeGeom = new LazyFrameMonoMemory<Locality, Transform3D>(this.CalculateRelativeTransform);
             anchor?.RegisterHierarchySubordinate(this);
         }
 
@@ -82,7 +83,7 @@ namespace F7s.Modell.Physical.Localities {
             Debug.Assert(AbsolutelyEqual(a, b, delta), "\n" + a.GetAbsoluteTransform() + "\n" + " != " + "\n" + b.GetAbsoluteTransform());
         }
         public static bool AbsolutelyEqual (Locality a, Locality b, float delta = 0.1f) {
-            return Transforms.ApproximatelyEqual(a.GetAbsoluteTransform(), b.GetAbsoluteTransform(), delta);
+            return Geom.ApproximatelyEqual(a.GetAbsoluteTransform(), b.GetAbsoluteTransform(), delta);
         }
 
         public virtual bool InheritsRotation () {
@@ -158,8 +159,8 @@ namespace F7s.Modell.Physical.Localities {
                 return Transform3D.Identity;
             } else {
                 Transform3D transform3D = this.CalculateRelativeTransform(relativeTo); // TODO: REMOVE
-                // TODO: REACTIVATE Transform3D transform3D = this.cachedRelativeTransforms.GetValue(relativeTo);
-                if (Transforms.InvalidPositional(transform3D)) {
+                // TODO: REACTIVATE Transform3D transform3D = this.cachedRelativeGeom.GetValue(relativeTo);
+                if (Geom.InvalidPositional(transform3D)) {
                     throw new Exception();
                 }
                 return transform3D;
@@ -185,7 +186,7 @@ namespace F7s.Modell.Physical.Localities {
             Transform3D result = absoluteOther.Inverse() * absoluteSelf;
             result.Basis = result.Basis.Orthonormalized();
 
-            if (Transforms.InvalidPositional(result)) {
+            if (Geom.InvalidPositional(result)) {
                 throw new Exception("Invalid relative transform of " + this + " to " + relativeTo + ": " + result);
             }
 
@@ -220,7 +221,7 @@ namespace F7s.Modell.Physical.Localities {
 
             foreach (Locality child in descendingInheritance) {
                 Transform3D local = child.GetLocalTransform();
-                if (Transforms.InvalidPositional(local)) {
+                if (Geom.InvalidPositional(local)) {
                     throw new Exception();
                 }
                 if (!initialized) {
@@ -235,7 +236,7 @@ namespace F7s.Modell.Physical.Localities {
                         result = local.Translated(total.Origin);
                     }
                     result.Basis = result.Basis.Orthonormalized();
-                    if (Transforms.InvalidPositional(result)) {
+                    if (Geom.InvalidPositional(result)) {
                         throw new Exception("Scale " + result.Basis.Scale + ". Whole Transform: " + result);
                     }
                     total = result;
@@ -253,7 +254,7 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         protected void UncacheTransform () {
-            this.cachedRelativeTransforms.MarkAsDirty();
+            this.cachedRelativeGeom.MarkAsDirty();
         }
 
         public Locality HierarchyMember () {

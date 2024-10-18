@@ -1,10 +1,11 @@
 ﻿using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
-using F7s.Utility.Geometry;
+using F7s.Geometry;
 using Stride.Core.Mathematics;
 using System;
 using System.Diagnostics;
+using F7s.Utility.Geometry;
 
 namespace F7s.Engine.PlayerControllers {
 

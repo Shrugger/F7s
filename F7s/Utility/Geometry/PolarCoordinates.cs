@@ -1,4 +1,4 @@
-﻿
+﻿using F7s.Geometry;
 using F7s.Utility.Lazies;
 using F7s.Utility.Mathematics;
 using Stride.Core.Mathematics;
@@ -11,7 +11,7 @@ namespace F7s.Utility.Geometry {
     ///     Polar Coordinates describe an objects position relative to the center of a sphere. Values in this struct are
     ///     longitude, latitude and radial distance.
     /// </summary>
-    
+
     public class PolarCoordinates : Coordinates {
 
         /// <summary>
@@ -77,13 +77,13 @@ namespace F7s.Utility.Geometry {
                 this.latitude = -latitude;
             }
 
-            this.InitializeCartesianBackingLazies();
+            InitializeCartesianBackingLazies();
         }
 
         private void InitializeCartesianBackingLazies () {
             PolarCoordinates thisCoordinates = this;
-            this.asVector3 = new Faul<Vector3>(() => thisCoordinates.ConvertPolarCoordinatesToVector3());
-            this.asVector3d = new Faul<Vector3d>(() => thisCoordinates.ConvertPolarCoordinatesToVector3d());
+            asVector3 = new Faul<Vector3>(() => thisCoordinates.ConvertPolarCoordinatesToVector3());
+            asVector3d = new Faul<Vector3d>(() => thisCoordinates.ConvertPolarCoordinatesToVector3d());
         }
 
         public static double ConvertToLongitude (double raw) {
@@ -100,7 +100,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public PolarCoordinates SetRadialDistance (double radialDistance) {
-            return new PolarCoordinates(this.longitude, this.latitude, radialDistance);
+            return new PolarCoordinates(longitude, latitude, radialDistance);
         }
         #region predefined coordinates
 
@@ -203,7 +203,7 @@ namespace F7s.Utility.Geometry {
             return ToCartesian(this);
         }
         private Vector3 ConvertPolarCoordinatesToVector3 () {
-            return this.ConvertPolarCoordinatesToVector3d().ToVector3();
+            return ConvertPolarCoordinatesToVector3d().ToVector3();
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace F7s.Utility.Geometry {
         /// </summary>
         /// <returns> A two-dimensional vector containing longitude and latitude of these polar coordinates. </returns>
         public Vector2 LongLatToVector2 () {
-            return new Vector2(x: (float) this.longitude, y: (float) this.latitude);
+            return new Vector2(x: (float) longitude, y: (float) latitude);
         }
 
         /// <summary>
@@ -239,8 +239,8 @@ namespace F7s.Utility.Geometry {
         #region miscellaneous
 
         public override string ToString () {
-            double lon = Rounding.Round(value: this.longitude);
-            double lat = Rounding.Round(value: this.latitude);
+            double lon = Rounding.Round(value: longitude);
+            double lat = Rounding.Round(value: latitude);
 
             string lonD = Math.Abs(value: lon - 180)
                         + (lon < 0
@@ -256,7 +256,7 @@ namespace F7s.Utility.Geometry {
                                    ? "S"
                                    : "");
 
-            return "(" + lonD + ", " + latD + ", " + Rounding.Round(value: this.radialDistance) + ")";
+            return "(" + lonD + ", " + latD + ", " + Rounding.Round(value: radialDistance) + ")";
         }
         public override bool Equals (object obj) {
             if (obj == null) {
@@ -269,7 +269,7 @@ namespace F7s.Utility.Geometry {
 
             PolarCoordinates other = (PolarCoordinates) obj;
 
-            return base.Equals(obj: obj) && this.longitude == other.longitude && this.latitude == other.latitude && this.radialDistance == other.radialDistance;
+            return base.Equals(obj: obj) && longitude == other.longitude && latitude == other.latitude && radialDistance == other.radialDistance;
         }
 
         /// <summary>
@@ -312,10 +312,10 @@ namespace F7s.Utility.Geometry {
             double maxRadius = double.MaxValue
         ) {
             return new PolarCoordinates(
-                                        longitude: this.longitude,
-                                        latitude: this.latitude,
+                                        longitude: longitude,
+                                        latitude: latitude,
                                         radialDistance: Math.Clamp(
-                                                                    value: this.radialDistance + addition,
+                                                                    value: radialDistance + addition,
                                                                     min: minRadius,
                                                                     max: maxRadius
                                                                    )
@@ -325,7 +325,7 @@ namespace F7s.Utility.Geometry {
         #endregion
 
         public Vector3d ToVector3d () {
-            return this.asVector3d;
+            return asVector3d;
         }
 
         public PolarCoordinates RelativePolarCoordinatesDouble () {
@@ -333,15 +333,15 @@ namespace F7s.Utility.Geometry {
         }
 
         public double CartesianDistanceDouble (Coordinates other) {
-            return this.DirectDistance(other: other.Polar());
+            return DirectDistance(other: other.Polar());
         }
 
         public Vector3 ToVector3 () {
-            return this.asVector3;
+            return asVector3;
         }
 
         public double MagnitudeDouble () {
-            return this.radialDistance;
+            return radialDistance;
         }
 
         public double PolarDistanceDouble (Coordinates other, double projectionRadius) {

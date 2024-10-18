@@ -1,7 +1,7 @@
 ﻿using Stride.Core.Mathematics;
 using System;
 
-namespace F7s.Utility.Geometry;
+namespace F7s.Geometry;
 
 public struct Basis {
     Matrix3x3d matrix;

@@ -5,12 +5,13 @@ using F7s.Modell.Handling.PhysicalData;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using F7s.Utility.Geometry;
+using F7s.Geometry;
 using F7s.Utility.Measurements;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using F7s.Utility.Geometry;
 
 namespace F7s.Modell.Physical {
 

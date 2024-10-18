@@ -1,7 +1,8 @@
+using F7s.Geometry;
 using F7s.Utility.Mathematics;
+using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
-using Stride.Core.Mathematics;
 
 namespace F7s.Utility.Geometry {
 
@@ -21,7 +22,7 @@ namespace F7s.Utility.Geometry {
     }
 
     public enum Direction { Undefined, Left, Right, Up, Down, Forward, Back }
-    
+
     public struct Vector3d : Coordinates {
 
         public const float kEpsilon = 1E-05f;
@@ -33,11 +34,11 @@ namespace F7s.Utility.Geometry {
             get {
                 switch (index) {
                     case 0:
-                        return this.X;
+                        return X;
                     case 1:
-                        return this.Y;
+                        return Y;
                     case 2:
-                        return this.Z;
+                        return Z;
                     default:
                         throw new IndexOutOfRangeException(message: "Invalid index!");
                 }
@@ -45,15 +46,15 @@ namespace F7s.Utility.Geometry {
             set {
                 switch (index) {
                     case 0:
-                        this.X = value;
+                        X = value;
 
                         break;
                     case 1:
-                        this.Y = value;
+                        Y = value;
 
                         break;
                     case 2:
-                        this.Z = value;
+                        Z = value;
 
                         break;
                     default:
@@ -108,9 +109,9 @@ namespace F7s.Utility.Geometry {
 
         public Vector3d normalized => Normalize(value: this);
 
-        public double magnitude => Math.Sqrt(this.X * this.X + this.Y * this.Y + this.Z * this.Z);
+        public double magnitude => Math.Sqrt(X * X + Y * Y + Z * Z);
 
-        public double sqrMagnitude => this.X * this.X + this.Y * this.Y + this.Z * this.Z;
+        public double sqrMagnitude => X * X + Y * Y + Z * Z;
 
         public static Vector3d Lerp (Vector3d from, Vector3d to, double t) {
             return new Vector3d(
@@ -125,7 +126,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public AxesLengthsOrdered AxesLengthsOrdered () {
-            return new AxesLengthsOrdered(this.ToVector3());
+            return new AxesLengthsOrdered(ToVector3());
         }
 
 
@@ -142,7 +143,7 @@ namespace F7s.Utility.Geometry {
         }
 
         internal Vector3d Absolute () {
-            return new Vector3d(Math.Abs(this.X), Math.Abs(this.Y), Math.Abs(this.Z));
+            return new Vector3d(Math.Abs(X), Math.Abs(Y), Math.Abs(Z));
         }
 
 
@@ -178,9 +179,9 @@ namespace F7s.Utility.Geometry {
         }
 
         public void Set (double new_x, double new_y, double new_z) {
-            this.X = new_x;
-            this.Y = new_y;
-            this.Z = new_z;
+            X = new_x;
+            Y = new_y;
+            Z = new_z;
         }
 
         public static Vector3d Scale (Vector3d a, Vector3d b) {
@@ -188,7 +189,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public static Vector3d Average (IEnumerable<Vector3d> values) {
-            Vector3d sum = Vector3d.Zero;
+            Vector3d sum = Zero;
             int count = 0;
             foreach (Vector3d value in values) {
                 sum += value;
@@ -198,9 +199,9 @@ namespace F7s.Utility.Geometry {
             return sum / count;
         }
         public void Scale (Vector3d scale) {
-            this.X *= scale.X;
-            this.Y *= scale.Y;
-            this.Z *= scale.Z;
+            X *= scale.X;
+            Y *= scale.Y;
+            Z *= scale.Z;
         }
 
         public static Vector3d Cross (Vector3d lhs, Vector3d rhs) {
@@ -279,7 +280,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public double Length () {
-            return this.magnitude;
+            return magnitude;
         }
 
         public static double Length (Vector3d a) {
@@ -380,9 +381,9 @@ namespace F7s.Utility.Geometry {
                 throw new ArgumentException(message: "Cannot handle parameters " + x + ", " + y + ", " + z + ".");
             }
 
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
+            X = x;
+            Y = y;
+            Z = z;
 
         }
 
@@ -400,7 +401,7 @@ namespace F7s.Utility.Geometry {
             : this(x: valueForEachComponent, y: valueForEachComponent, z: valueForEachComponent) { }
 
         public override int GetHashCode () {
-            return this.X.GetHashCode() ^ this.Y.GetHashCode() << 2 ^ this.Z.GetHashCode() >> 2;
+            return X.GetHashCode() ^ Y.GetHashCode() << 2 ^ Z.GetHashCode() >> 2;
         }
 
         public override bool Equals (object other) {
@@ -415,7 +416,7 @@ namespace F7s.Utility.Geometry {
                 throw new InvalidCastException(other + " is a " + other.GetType(), ice);
             }
 
-            if (this.X.Equals(obj: vector3d.X) && this.Y.Equals(obj: vector3d.Y) && this.Z.Equals(obj: vector3d.Z)) {
+            if (X.Equals(obj: vector3d.X) && Y.Equals(obj: vector3d.Y) && Z.Equals(obj: vector3d.Z)) {
                 return true;
             }
 
@@ -424,36 +425,36 @@ namespace F7s.Utility.Geometry {
 
         public string ToString (int decimals) {
             return "("
-                 + Rounding.Round(value: this.X, decimals: decimals)
+                 + Rounding.Round(value: X, decimals: decimals)
                  + ", "
-                 + Rounding.Round(value: this.Y, decimals: decimals)
+                 + Rounding.Round(value: Y, decimals: decimals)
                  + ", "
-                 + Rounding.Round(value: this.Z, decimals: decimals)
+                 + Rounding.Round(value: Z, decimals: decimals)
                  + ")";
         }
 
         public string ToStringRounded () {
             return "("
-                 + Rounding.Round(value: this.X, decimals: 3)
+                 + Rounding.Round(value: X, decimals: 3)
                  + ", "
-                 + Rounding.Round(value: this.Y, decimals: 3)
+                 + Rounding.Round(value: Y, decimals: 3)
                  + ", "
-                 + Rounding.Round(value: this.Z, decimals: 3)
+                 + Rounding.Round(value: Z, decimals: 3)
                  + ")";
         }
 
         public string ToString (bool inParantheses = true) {
             return (inParantheses ? "(" : "")
-                 + Rounding.RoundToFirstInterestingDigit(value: this.X, 1)
+                 + Rounding.RoundToFirstInterestingDigit(value: X, 1)
                  + ", "
-                 + Rounding.RoundToFirstInterestingDigit(value: this.Y, 1)
+                 + Rounding.RoundToFirstInterestingDigit(value: Y, 1)
                  + ", "
-                 + Rounding.RoundToFirstInterestingDigit(value: this.Z, 1)
+                 + Rounding.RoundToFirstInterestingDigit(value: Z, 1)
                  + (inParantheses ? ")" : "");
         }
 
         public override string ToString () {
-            return this.ToString(inParantheses: true);
+            return ToString(inParantheses: true);
         }
 
         public static bool ApproximatelyEquals (Vector3d lhs, Vector3d rhs) {
@@ -469,23 +470,23 @@ namespace F7s.Utility.Geometry {
         }
 
         public bool ContainsZero () {
-            return this.X == 0 || this.Y == 0 || this.Z == 0;
+            return X == 0 || Y == 0 || Z == 0;
         }
 
         public bool ContainsNonPositive () {
-            return this.X <= 0 || this.Y <= 0 || this.Z <= 0;
+            return X <= 0 || Y <= 0 || Z <= 0;
         }
 
         public bool ContainsNegative () {
-            return this.X < 0 || this.Y < 0 || this.Z < 0;
+            return X < 0 || Y < 0 || Z < 0;
         }
 
         public bool ContainsNaN () {
-            return double.IsNaN(this.X) || double.IsNaN(this.Y) || double.IsNaN(this.Z);
+            return double.IsNaN(X) || double.IsNaN(Y) || double.IsNaN(Z);
         }
 
         public Vector3 ToVector3 () {
-            return new Vector3(x: (float) this.X, y: (float) this.Y, z: (float) this.Z);
+            return new Vector3(x: (float) X, y: (float) Y, z: (float) Z);
         }
 
 
@@ -541,11 +542,11 @@ namespace F7s.Utility.Geometry {
         }
 
         public double MagnitudeDouble () {
-            return this.magnitude;
+            return magnitude;
         }
 
         public double PolarDistanceDouble (Coordinates other, double projectionRadius = 1.0) {
-            return this.Polar().PolarDistanceDouble(other, projectionRadius);
+            return Polar().PolarDistanceDouble(other, projectionRadius);
         }
 
         Vector3d Coordinates.ToVector3d () {

@@ -1,8 +1,7 @@
 ﻿using F7s.Utility.Geometry;
 using F7s.Utility.Mescherei;
 
-namespace F7s.Modell.Terrains
-{
+namespace F7s.Modell.Terrains {
     public class Mountains : SetLinearElevation {
 
 

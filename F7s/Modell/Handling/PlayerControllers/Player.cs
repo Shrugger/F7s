@@ -3,7 +3,7 @@ using F7s.Modell.Abstract;
 using F7s.Modell.Handling.PlayerControllers.ControlSets;
 using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
-using F7s.Utility.Geometry;
+using F7s.Geometry;
 using F7s.Utility.Mathematics;
 using Stride.Core.Mathematics;
 using System;

@@ -1,7 +1,8 @@
-﻿using Stride.Core.Mathematics;
+﻿using F7s.Utility.Geometry;
+using Stride.Core.Mathematics;
 using System;
 
-namespace F7s.Utility.Geometry;
+namespace F7s.Geometry;
 
 public class Transform3D {
     public Matrix3x3d Basis;
