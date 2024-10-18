@@ -1,17 +1,16 @@
 ﻿using F7s.Engine;
+using F7s.Geometry;
 using F7s.Modell.Abstract;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Utility;
-using F7s.Geometry;
+using F7s.Utility.Geometry;
 using F7s.Utility.Lazies;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using F7s.Utility.Geometry;
 
-namespace F7s.Modell.Physical.Localities
-{
+namespace F7s.Modell.Physical.Localities {
 
 
     public abstract class Locality : AbstractGameValue, Hierarchical<Locality> {
@@ -20,23 +19,23 @@ namespace F7s.Modell.Physical.Localities
 
         public static double TimeFactor = 1;
 
-        private readonly LazyFrameMonoMemory<Locality, Transform3D> cachedRelativeGeom;
+        private readonly LazyFrameMonoMemory<Locality, Transform3D> cachedRelativeGeometry;
 
         private List<Locality> hierarchySubordinates = new List<Locality>();
 
         private int hierarchyDepthBackingField = -1;
         public int hierarchyDepth {
             get {
-                if (this.hierarchyDepthBackingField == -1) {
-                    this.RecalulcateHierarchyDepth();
-                    if (this.hierarchyDepthBackingField == -1) {
+                if (hierarchyDepthBackingField == -1) {
+                    RecalulcateHierarchyDepth();
+                    if (hierarchyDepthBackingField == -1) {
                         throw new Exception();
                     }
                 }
-                return this.hierarchyDepthBackingField;
+                return hierarchyDepthBackingField;
             }
             set {
-                this.hierarchyDepthBackingField = value;
+                hierarchyDepthBackingField = value;
             }
         }
         public bool Obsolete { get; private set; } = false;
@@ -46,12 +45,12 @@ namespace F7s.Modell.Physical.Localities
             if (entity != null) {
                 SetPhysicalEntity(entity);
             }
-            this.cachedRelativeGeom = new LazyFrameMonoMemory<Locality, Transform3D>(this.CalculateRelativeTransform);
+            cachedRelativeGeometry = new LazyFrameMonoMemory<Locality, Transform3D>(CalculateRelativeTransform);
             anchor?.RegisterHierarchySubordinate(this);
         }
 
         public virtual Locality Sibling (PhysicalEntity entity) {
-            throw new NotImplementedException(this.GetType().Name);
+            throw new NotImplementedException(GetType().Name);
         }
 
         public void SetPhysicalEntity (PhysicalEntity physicalEntity, bool forceReplace = false) {
@@ -75,7 +74,7 @@ namespace F7s.Modell.Physical.Localities
         }
 
         public virtual void Validate () {
-            if (this.Obsolete) {
+            if (Obsolete) {
                 throw new Exception(this + " is obsolete and cannot be validated.");
             }
         }
@@ -92,7 +91,7 @@ namespace F7s.Modell.Physical.Localities
         }
 
         public virtual void Update (double deltaTime) {
-            this.Validate();
+            Validate();
             // Note that this is NOT called automatically.
         }
 
@@ -105,21 +104,21 @@ namespace F7s.Modell.Physical.Localities
         }
 
         public override string ToString () {
-            if (this.Name != null) {
-                return this.Name;
+            if (Name != null) {
+                return Name;
             } else {
                 return "[" +
-                    (this.Obsolete ? "DELETED " : "") +
-                    (this.Name != null ? this.Name + " " : "") +
-                    (this.physicalEntity ? this.physicalEntity.ToString() + " " : "") +
-                    this.GetType().Name +
-                    (this.hierarchyDepthBackingField > 0 ? " D" + this.hierarchyDepthBackingField : "") +
+                    (Obsolete ? "DELETED " : "") +
+                    (Name != null ? Name + " " : "") +
+                    (physicalEntity ? physicalEntity.ToString() + " " : "") +
+                    GetType().Name +
+                    (hierarchyDepthBackingField > 0 ? " D" + hierarchyDepthBackingField : "") +
                     "]";
             }
         }
         private void RecalulcateHierarchyDepth (Locality superior = null) {
-            this.Validate();
-            superior ??= this.HierarchySuperior();
+            Validate();
+            superior ??= HierarchySuperior();
 
             int depth;
             if (superior != null) {
@@ -127,39 +126,39 @@ namespace F7s.Modell.Physical.Localities
             } else {
                 depth = 0;
             }
-            if (depth != this.hierarchyDepthBackingField) {
-                this.hierarchyDepth = depth;
-                this.HierarchySubordinates().ForEach(s => s.RecalulcateHierarchyDepth());
+            if (depth != hierarchyDepthBackingField) {
+                hierarchyDepth = depth;
+                HierarchySubordinates().ForEach(s => s.RecalulcateHierarchyDepth());
             }
         }
 
         public void Replace (Locality replacement) {
-            this.Validate();
-            Locality superior = this.HierarchySuperior();
+            Validate();
+            Locality superior = HierarchySuperior();
             superior.RegisterHierarchySubordinate(replacement);
-            List<Locality> subordinates = this.HierarchySubordinates();
+            List<Locality> subordinates = HierarchySubordinates();
             subordinates.ForEach(sub => sub.ReplaceSuperior(replacement));
-            this.Delete();
+            Delete();
         }
 
         protected virtual void ReplaceSuperior (Locality replacement) {
-            this.Validate();
-            this.MarkDirty();
+            Validate();
+            MarkDirty();
             replacement.RegisterHierarchySubordinate(this);
         }
 
         public Transform3D GetAbsoluteTransform () {
-            this.Validate();
+            Validate();
             return Origin.TransformRelativeToOrigin(this);
         }
 
         public Transform3D GetRelativeTransform (Locality relativeTo) {
             Debug.Assert(null != relativeTo);
-            this.Validate();
+            Validate();
             if (relativeTo == this) {
                 return Transform3D.Identity;
             } else {
-                Transform3D transform3D = this.CalculateRelativeTransform(relativeTo); // TODO: REMOVE
+                Transform3D transform3D = CalculateRelativeTransform(relativeTo); // TODO: REMOVE
                 // TODO: REACTIVATE Transform3D transform3D = this.cachedRelativeMathematik.GetValue(relativeTo);
                 if (Mathematik.InvalidPositional(transform3D)) {
                     throw new Exception();
@@ -170,7 +169,7 @@ namespace F7s.Modell.Physical.Localities
 
         protected Transform3D CalculateRelativeTransform (Locality relativeTo) {
             Debug.Assert(null != relativeTo);
-            this.Validate();
+            Validate();
             if (relativeTo == this) {
                 throw new Exception(this + " == " + relativeTo);
             }
@@ -181,7 +180,7 @@ namespace F7s.Modell.Physical.Localities
                 throw new Exception("No common root between " + this + " and " + relativeTo + ".");
             }
 
-            Transform3D absoluteSelf = this.CalculateRelativeTransformUpToRoot(commonRoot);
+            Transform3D absoluteSelf = CalculateRelativeTransformUpToRoot(commonRoot);
             Transform3D absoluteOther = relativeTo.CalculateRelativeTransformUpToRoot(commonRoot);
 
             Transform3D result = absoluteOther.Inverse() * absoluteSelf;
@@ -195,10 +194,10 @@ namespace F7s.Modell.Physical.Localities
         }
 
         private List<Locality> GetDescendingInheritance (Locality root) {
-            this.Validate();
+            Validate();
             List<Locality> members = new List<Locality>();
             members.Add(this);
-            Locality superior = this.HierarchySuperior();
+            Locality superior = HierarchySuperior();
             while (superior != null && superior.hierarchyDepth > root.hierarchyDepth) {
                 members.Add(superior);
                 Locality nextSuperior = superior.HierarchySuperior();
@@ -209,7 +208,7 @@ namespace F7s.Modell.Physical.Localities
         }
 
         private Transform3D CalculateRelativeTransformUpToRoot (Locality root) {
-            this.Validate();
+            Validate();
 
             if (this == root) {
                 return Transform3D.Identity;
@@ -218,7 +217,7 @@ namespace F7s.Modell.Physical.Localities
             Transform3D total = default;
             bool initialized = false;
 
-            List<Locality> descendingInheritance = this.GetDescendingInheritance(root);
+            List<Locality> descendingInheritance = GetDescendingInheritance(root);
 
             foreach (Locality child in descendingInheritance) {
                 Transform3D local = child.GetLocalTransform();
@@ -250,46 +249,46 @@ namespace F7s.Modell.Physical.Localities
         public abstract Transform3D GetLocalTransform ();
 
         protected Transform3D GetTransformRelativeToParent () {
-            this.Validate();
-            return this.GetLocalTransform();
+            Validate();
+            return GetLocalTransform();
         }
 
         protected void UncacheTransform () {
-            this.cachedRelativeMathematik.MarkAsDirty();
+            cachedRelativeGeometry.MarkAsDirty();
         }
 
         public Locality HierarchyMember () {
-            this.Validate();
+            Validate();
             return this;
         }
 
         public abstract Locality HierarchySuperior ();
 
         public List<Locality> HierarchySubordinates () {
-            this.Validate();
-            return this.hierarchySubordinates;
+            Validate();
+            return hierarchySubordinates;
         }
 
         public void RegisterHierarchySubordinate (Locality subordinate) {
-            this.Validate();
-            if (!this.HierarchySubordinates().Contains(subordinate)) {
-                this.hierarchySubordinates.Add(subordinate);
+            Validate();
+            if (!HierarchySubordinates().Contains(subordinate)) {
+                hierarchySubordinates.Add(subordinate);
                 subordinate.MarkDirty();
             }
         }
 
         private void DeregisterSubordinate (Locality subordinate) {
-            this.Validate();
-            if (!this.HierarchySubordinates().Contains(subordinate)) {
-                this.hierarchySubordinates.Remove(subordinate);
+            Validate();
+            if (!HierarchySubordinates().Contains(subordinate)) {
+                hierarchySubordinates.Remove(subordinate);
             }
         }
 
 
         public Hierarchical<Locality> HierarchyRoot () {
-            this.Validate();
-            if (this.HierarchySuperior() != null) {
-                return this.HierarchySuperior().HierarchyRoot();
+            Validate();
+            if (HierarchySuperior() != null) {
+                return HierarchySuperior().HierarchyRoot();
             } else {
                 return this;
             }
@@ -332,12 +331,12 @@ namespace F7s.Modell.Physical.Localities
         }
 
         public bool SharesHierarchy (Locality other) {
-            return this.HierarchyRoot() == other.HierarchyRoot();
+            return HierarchyRoot() == other.HierarchyRoot();
         }
 
         public double DistanceTo (Locality locality) {
-            this.Validate();
-            Vector3d relativePosition = this.GetRelativeTransform(locality).Origin;
+            Validate();
+            Vector3d relativePosition = GetRelativeTransform(locality).Origin;
             double distance = relativePosition.Length();
 
             if (double.IsFinite(distance)) {
@@ -348,55 +347,55 @@ namespace F7s.Modell.Physical.Localities
         }
 
         public void Delete () {
-            this.Validate();
-            this.Obsolete = true;
-            this.physicalEntity = null;
-            this.HierarchySuperior().DeregisterSubordinate(this);
-            this.hierarchySubordinates.Clear();
-            this.hierarchySubordinates = null;
-            this.hierarchyDepthBackingField = -1;
+            Validate();
+            Obsolete = true;
+            physicalEntity = null;
+            HierarchySuperior().DeregisterSubordinate(this);
+            hierarchySubordinates.Clear();
+            hierarchySubordinates = null;
+            hierarchyDepthBackingField = -1;
         }
         protected void MarkDirty () {
-            this.hierarchyDepthBackingField = -1;
+            hierarchyDepthBackingField = -1;
         }
 
         public virtual void SetTransform (Transform3D value) {
-            throw new NotImplementedException("Not implemented for type " + this.GetType().Name + ".");
+            throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
         public virtual void Translate (Vector3 relativeOffset) {
-            throw new NotImplementedException("Not implemented for type " + this.GetType().Name + ".");
+            throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
         public virtual void Rotate (float yaw, float pitch, float roll = 0) {
-            throw new NotImplementedException("Not implemented for type " + this.GetType().Name + ".");
+            throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
         public virtual void RotateEcliptic (float yaw, float pitch, float roll = 0) {
-            throw new NotImplementedException("Not implemented for type " + this.GetType().Name + ".");
+            throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
         public virtual void AddLocalVelocity (Vector3 forceVector) {
-            throw new NotImplementedException("Not implemented for type " + this.GetType().Name + ".");
+            throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
         public virtual void SetLocalVelocity (Vector3 forceVector) {
-            throw new NotImplementedException("Not implemented for type " + this.GetType().Name + ".");
+            throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
         public virtual Vector3 GetLocalVelocity () {
-            throw new NotImplementedException("Not implemented for type " + this.GetType().Name + ".");
+            throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
         public bool HasPhysicalEntity () {
-            return this.physicalEntity != null;
+            return physicalEntity != null;
         }
 
         public double DistanceFromSuperior () {
-            if (this.HierarchySuperior() == null) {
+            if (HierarchySuperior() == null) {
                 return 0;
             }
-            return this.DistanceTo(this.HierarchySuperior());
+            return DistanceTo(HierarchySuperior());
         }
     }
 }

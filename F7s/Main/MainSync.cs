@@ -1,4 +1,5 @@
-﻿using Stride.Engine;
+﻿using F7s.Modell.Terrains;
+using Stride.Engine;
 using Stride.Physics;
 
 namespace F7s.Main {
@@ -10,7 +11,7 @@ namespace F7s.Main {
 
         public override void Start () {
 
-            //    Terrain terrain = new Terrain("Tiny Planet", 1, 2, this.Entity, new PlanetologyData(1, 1, 1, true, true, 5)); // TODO: Reactivate after child's play.
+            Terrain terrain = new Terrain("Tiny Planet", 1, 2, Entity, new PlanetologyData(1, 1, 1, true, true, 5)); // TODO: Reactivate after child's play.
 
         }
 
