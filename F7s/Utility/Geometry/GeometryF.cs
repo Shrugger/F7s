@@ -331,16 +331,35 @@ namespace F7s.Utility.Geometry {
             return angle <= delta;
         }
 
-        internal static Vector3 Normalize (Vector3 direction) {
-            throw new NotImplementedException();
+        public static Vector3 Normalize (Vector3 v) {
+            return Vector3.Normalize(v);
         }
 
         internal static Vector3 Cross (Vector3 a, Vector3 b) {
-            throw new NotImplementedException();
+            return Vector3.Cross(a, b);
         }
 
-        internal static Vector3 Slerp (Vector3 position1, Vector3 position2, float weight) {
-            throw new NotImplementedException();
+        public static Vector3 Slerp (Vector3 start, Vector3 end, float weight) {
+            // Source: https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+
+            // Dot product - the cosine of the angle between 2 vectors.
+            float dot = Vector3.Dot(start, end);
+
+            // Clamp it to be in the range of Acos()
+            // This may be unnecessary, but floating point
+            // precision can be a fickle mistress.
+            Mathematik.Clamp(dot, -1.0f, 1.0f);
+
+            // Acos(dot) returns the angle between start and end,
+            // And multiplying that by percent returns the angle between
+            // start and the final result.
+            float theta = MathF.Acos(dot) * weight;
+            Vector3 RelativeVec = end - start * dot;
+            RelativeVec.Normalize();
+
+            // Orthonormal basis
+            // The final result.
+            return ((start * MathF.Cos(theta)) + (RelativeVec * MathF.Sin(theta)));
         }
 
         internal static bool ApproximatelyEquals (float a, float b, float delta) {

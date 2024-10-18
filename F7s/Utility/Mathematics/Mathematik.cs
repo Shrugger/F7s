@@ -109,12 +109,23 @@ namespace F7s.Utility.Mathematics {
             return value;
         }
 
-        public static float DegToRad (float v) {
-            throw new NotImplementedException();
+        public static float DegToRad (float degrees) {
+            const float factor = MathF.PI / 180f;
+            return degrees * factor;
         }
 
-        public static int RadToDeg (object x) {
-            throw new NotImplementedException();
+        public static float RadToDeg (float radians) {
+            const float factor = 180f / MathF.PI;
+            return radians * factor;
+        }
+        public static double DegToRad (double degrees) {
+            const double factor = Math.PI / 180.0;
+            return degrees * factor;
+        }
+
+        public static double RadToDeg (double radians) {
+            const double factor = 180.0 / Math.PI;
+            return radians * factor;
         }
 
         public static bool IsEqualApprox (double a, double b, double delta = 0.00000001) {
@@ -139,10 +150,6 @@ namespace F7s.Utility.Mathematics {
         }
 
         public static float Lerp (float a, float b, float v) {
-            throw new NotImplementedException();
-        }
-
-        public static double DegToRad (double v) {
             throw new NotImplementedException();
         }
 
