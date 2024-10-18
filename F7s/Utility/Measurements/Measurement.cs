@@ -1,11 +1,11 @@
 using Assets.Utility.Measurements;
-using F7s.Utility.Mathematics;
 using F7s.Utility.Measurements.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace F7s.Utility.Measurements {
+namespace F7s.Utility.Measurements
+{
 
     public static class Measurement {
 
@@ -407,7 +407,7 @@ namespace F7s.Utility.Measurements {
             }
 
             /*
-			GD.Print(candidates.Report(c => c + Chars.tab + Rounding.RoundToFirstInterestingDigit(c.digitToLengthRatio, 1) + (c.isZero ? Chars.tab + " zero " : "") + (Equals(c, champion) ? Chars.tab + " chosen" : "") + "\n") + "\n");
+			GD.Print(candidates.Report(c => c + Chars.tab + Mathematik.RoundToFirstInterestingDigit(c.digitToLengthRatio, 1) + (c.isZero ? Chars.tab + " zero " : "") + (Equals(c, champion) ? Chars.tab + " chosen" : "") + "\n") + "\n");
 			*/
 
             return champion;
@@ -475,7 +475,7 @@ namespace F7s.Utility.Measurements {
 
             if (InterestingDigitsBeforeDecimal(value: quantityInScaledUnits) >= maximumDecimals) {
                 // CONVENTION: If there are more interesting digits before the decimal point than we would put behind it, round completely.
-                return Rounding.Round(quantityInScaledUnits);
+                return Mathematik.Round(quantityInScaledUnits);
             }
 
             #endregion
@@ -517,7 +517,7 @@ namespace F7s.Utility.Measurements {
                                            max: 64
                                           );
 
-            double roundedValue = Rounding.Round(value: quantityInScaledUnits, decimals: availaleDecimals);
+            double roundedValue = Mathematik.Round(value: quantityInScaledUnits, decimals: availaleDecimals);
 
             return roundedValue;
         }

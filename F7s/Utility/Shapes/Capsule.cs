@@ -1,10 +1,10 @@
-using F7s.Utility.Geometry;
 using F7s.Utility.Shapes.Shapes2D;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 
-namespace F7s.Utility.Shapes {
+namespace F7s.Utility.Shapes
+{
 
 
     public class Capsule : Shape3Dim {
@@ -20,7 +20,7 @@ namespace F7s.Utility.Shapes {
             return true;
         }
         public override string ToString () {
-            return this.GetType().Name + "(" + Rounding.RoundToFirstInterestingDigit(this.diameter) + "x" + Rounding.RoundToFirstInterestingDigit(this.length) + ")";
+            return this.GetType().Name + "(" + Mathematik.RoundToFirstInterestingDigit(this.diameter) + "x" + Mathematik.RoundToFirstInterestingDigit(this.length) + ")";
         }
 
         public override Vector3 FullExtents () {

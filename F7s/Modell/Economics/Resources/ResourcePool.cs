@@ -1,10 +1,11 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Modell.Handling;
-using F7s.Utility.Mathematics;
+using F7s.Utility;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace F7s.Modell.Economics.Resources {
+namespace F7s.Modell.Economics.Resources
+{
 
     public class ResourcePool : AbstractGameValue {
         private Dictionary<ResourceType, float> pool = new Dictionary<ResourceType, float>();

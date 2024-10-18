@@ -1,9 +1,9 @@
-﻿using F7s.Utility.Mathematics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace F7s.Utility {
+namespace F7s.Utility
+{
 
     public static class Strings {
 

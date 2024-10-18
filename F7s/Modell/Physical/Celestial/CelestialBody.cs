@@ -3,9 +3,9 @@ using F7s.Modell.Physical.Bodies;
 using F7s.Utility;
 using Stride.Core.Mathematics;
 using System.Collections.Generic;
-using F7s.Utility.Geometry;
 
-namespace F7s.Modell.Physical.Celestial {
+namespace F7s.Modell.Physical.Celestial
+{
 
 
     public class CelestialBody : Body {

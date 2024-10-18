@@ -1,9 +1,9 @@
-using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 
-namespace F7s.Utility.Shapes {
+namespace F7s.Utility.Shapes
+{
 
 
     public class Box : Shape3Dim {
@@ -115,7 +115,7 @@ namespace F7s.Utility.Shapes {
         }
 
         public override string ToString () {
-            return this.GetType().Name + Rounding.RoundToFirstInterestingDigit(this.fullExtents);
+            return this.GetType().Name + Mathematik.RoundToFirstInterestingDigit(this.fullExtents);
         }
 
         public override bool IsConvex () {

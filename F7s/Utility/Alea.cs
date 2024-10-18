@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace F7s.Utility {
+namespace F7s.Utility
+{
 
     /// <summary>
     ///     Provides some random values meant to supplement System.Random and UnityEngine.Random.

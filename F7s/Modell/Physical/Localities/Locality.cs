@@ -10,7 +10,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using F7s.Utility.Geometry;
 
-namespace F7s.Modell.Physical.Localities {
+namespace F7s.Modell.Physical.Localities
+{
 
 
     public abstract class Locality : AbstractGameValue, Hierarchical<Locality> {

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace F7s.Utility.Mathematics {
-    
+namespace F7s.Utility.Mathematics
+{
+
     public class Polator {
 
         private List<(double, double)> data;

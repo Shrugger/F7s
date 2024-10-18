@@ -21,9 +21,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using F7s.Utility.Geometry;
 
-namespace F7s.Modell.Populators {
+namespace F7s.Modell.Populators
+{
 
 
     public class FilamentPopulator : Populator {
@@ -259,7 +259,7 @@ namespace F7s.Modell.Populators {
                 "Viewing " + physicalEntity +
                 " with Radius " + Measurement.MeasureLength(radius) +
                 " from Distance " + Measurement.MeasureLength(distance) +
-                " (" + Rounding.RoundToFirstInterestingDigit(distance / radius, 2) + ")"
+                " (" + Mathematik.RoundToFirstInterestingDigit(distance / radius, 2) + ")"
                 );
             Vector3 direction;
             if (physicalEntity != Instance.coer) {

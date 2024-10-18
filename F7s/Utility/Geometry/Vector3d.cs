@@ -1,10 +1,10 @@
 using F7s.Geometry;
-using F7s.Utility.Mathematics;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 
-namespace F7s.Utility.Geometry {
+namespace F7s.Utility.Geometry
+{
 
 
     public struct QuaternionD {
@@ -425,31 +425,31 @@ namespace F7s.Utility.Geometry {
 
         public string ToString (int decimals) {
             return "("
-                 + Rounding.Round(value: X, decimals: decimals)
+                 + Mathematik.Round(value: X, decimals: decimals)
                  + ", "
-                 + Rounding.Round(value: Y, decimals: decimals)
+                 + Mathematik.Round(value: Y, decimals: decimals)
                  + ", "
-                 + Rounding.Round(value: Z, decimals: decimals)
+                 + Mathematik.Round(value: Z, decimals: decimals)
                  + ")";
         }
 
         public string ToStringRounded () {
             return "("
-                 + Rounding.Round(value: X, decimals: 3)
+                 + Mathematik.Round(value: X, decimals: 3)
                  + ", "
-                 + Rounding.Round(value: Y, decimals: 3)
+                 + Mathematik.Round(value: Y, decimals: 3)
                  + ", "
-                 + Rounding.Round(value: Z, decimals: 3)
+                 + Mathematik.Round(value: Z, decimals: 3)
                  + ")";
         }
 
         public string ToString (bool inParantheses = true) {
             return (inParantheses ? "(" : "")
-                 + Rounding.RoundToFirstInterestingDigit(value: X, 1)
+                 + Mathematik.RoundToFirstInterestingDigit(value: X, 1)
                  + ", "
-                 + Rounding.RoundToFirstInterestingDigit(value: Y, 1)
+                 + Mathematik.RoundToFirstInterestingDigit(value: Y, 1)
                  + ", "
-                 + Rounding.RoundToFirstInterestingDigit(value: Z, 1)
+                 + Mathematik.RoundToFirstInterestingDigit(value: Z, 1)
                  + (inParantheses ? ")" : "");
         }
 

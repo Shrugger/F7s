@@ -6,7 +6,8 @@ using Stride.Core.Mathematics;
 using System;
 using F7s.Utility.Geometry;
 
-namespace F7s.Modell.Physical.Localities {
+namespace F7s.Modell.Physical.Localities
+{
 
     public class Ephemeris {
         public Vector3d GetTranslation () {

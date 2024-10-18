@@ -39,9 +39,9 @@ namespace F7s.Modell.Economics.Trade {
             result += " "
                 + this.Item.ToString()
                 + " @"
-                + Rounding.RoundToFirstInterestingDigit(this.MinPricePerUnit)
+                + Mathematik.RoundToFirstInterestingDigit(this.MinPricePerUnit)
                 + "-"
-                + Rounding.RoundToFirstInterestingDigit(this.MaxPricePerUnit)
+                + Mathematik.RoundToFirstInterestingDigit(this.MaxPricePerUnit)
                 + Chars.yen;
 
             return result;

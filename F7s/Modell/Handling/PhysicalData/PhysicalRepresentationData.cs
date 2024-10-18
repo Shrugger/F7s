@@ -4,9 +4,10 @@ using F7s.Modell.Physical.Localities;
 using F7s.Geometry;
 using System;
 using Stride.Core.Mathematics;
-using F7s.Utility.Geometry;
+using F7s.Utility;
 
-namespace F7s.Modell.Handling.PhysicalData {
+namespace F7s.Modell.Handling.PhysicalData
+{
     public abstract class PhysicalRepresentationData {
         public abstract Locality Locality ();
         public abstract float BoundingRadius ();

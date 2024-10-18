@@ -1,4 +1,13 @@
-﻿namespace F7s.Utility.Geometry {
+﻿using F7s.Geometry;
+using F7s.Utility.Geometry;
+using F7s.Utility.Shapes;
+using Stride.Core.Mathematics;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+
+namespace F7s.Utility {
 
     public static class Geom {
 
@@ -734,12 +743,8 @@
             return true;
         }
 
-        public static bool ValidTransformationCellValue (double value) {
+        public static bool ValidCellValue (double value) {
             return double.IsFinite(value) && !double.IsNaN(value);
-        }
-
-        public static bool SphereSphereIntersection (double radius1, double radius2, double distance) {
-            return distance <= radius1 + radius2;
         }
     }
 

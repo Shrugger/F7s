@@ -13,7 +13,7 @@ namespace F7s.Utility.Shapes {
         }
 
         public override string ToString() {
-            return this.GetType().Name + "(" + Rounding.RoundToFirstInterestingDigit(this.diameter) + "x" + Rounding.RoundToFirstInterestingDigit(this.length) + ")(" + Rounding.RoundToFirstInterestingDigit(this.internalDiameter) + ")";
+            return this.GetType().Name + "(" + Mathematik.RoundToFirstInterestingDigit(this.diameter) + "x" + Mathematik.RoundToFirstInterestingDigit(this.length) + ")(" + Mathematik.RoundToFirstInterestingDigit(this.internalDiameter) + ")";
         }
         public virtual Cylinder InternalNegativeCylinder() {
             return new Cylinder(this.internalDiameter, this.length);

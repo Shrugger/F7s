@@ -39,7 +39,7 @@ namespace F7s.Utility.Shapes {
             return hashCode;
         }
         public override string ToString() {
-            return this.GetType().Name + this.fullExtents.ToString() + "(" + Rounding.RoundToFirstInterestingDigit(this.wallThickness) + ")";
+            return this.GetType().Name + this.fullExtents.ToString() + "(" + Mathematik.RoundToFirstInterestingDigit(this.wallThickness) + ")";
         }
     }
 

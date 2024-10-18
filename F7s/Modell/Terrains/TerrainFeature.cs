@@ -1,8 +1,10 @@
-﻿using F7s.Utility.Geometry;
+﻿using F7s.Utility;
+using F7s.Utility.Geometry;
 using F7s.Utility.Mescherei;
 using Stride.Core.Mathematics;
 
-namespace F7s.Modell.Terrains {
+namespace F7s.Modell.Terrains
+{
 
     public abstract class TerrainFeature {
         public Terrain Terrain { get; private set; }

@@ -1,11 +1,11 @@
-using F7s.Utility.Geometry;
 using F7s.Utility.Shapes.Shapes2D;
 using Stride.Core.Mathematics;
 using System;
 using System;
 using System.Collections.Generic;
 
-namespace F7s.Utility.Shapes {
+namespace F7s.Utility.Shapes
+{
 
 
     public class Cylinder : Capsule {

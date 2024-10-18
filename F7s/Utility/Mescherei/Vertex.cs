@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace F7s.Utility.Mescherei {
+namespace F7s.Utility.Mescherei
+{
     public class Vertex {
 
         public readonly Graph Mesch;

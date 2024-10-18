@@ -1,9 +1,9 @@
 ﻿using F7s.Utility.Geometry;
-using F7s.Utility.Mathematics;
 using Stride.Core.Mathematics;
 using System;
 
-namespace F7s.Utility.Shapes {
+namespace F7s.Utility.Shapes
+{
 
 
     public class PartialOctagonalPipe : CompoundShape {

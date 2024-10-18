@@ -1,5 +1,4 @@
 ﻿using F7s.Geometry;
-using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using Stride.Graphics;
 using Stride.Rendering;
@@ -9,7 +8,8 @@ using System.Diagnostics;
 using System.Linq;
 using Buffer = Stride.Graphics.Buffer;
 
-namespace F7s.Utility.Mescherei {
+namespace F7s.Utility.Mescherei
+{
 
     public class Mesch {
         public readonly Model model;

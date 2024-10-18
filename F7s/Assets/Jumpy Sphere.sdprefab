@@ -1,0 +1,65 @@
+!PrefabAsset
+Id: fd1f0f26-24d6-48e8-a520-c016e0179d6c
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! 456476a0-252f-42dd-b850-5d1cdcbb18e2
+    Parts:
+        -   Entity:
+                Id: 456476a0-252f-42dd-b850-5d1cdcbb18e2
+                Name: Sphere
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: 9d98e705-eb62-4fe6-9acf-502c3465bfa6
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            48a94fd55101ac5dda63e4d5e2c65d0c: ref!! 6f7f4f17-e28b-4dd1-810b-6c5f2fe27ab0
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: e621258d-8933-4939-bba4-b3b6a124104c
+                        Model: d32f9d4c-a7ee-4d8d-8d01-f99f17cc11c0:Sphere
+                        Materials: {}
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: 8b7ad3fd-41eb-472a-be07-f791920ee50d
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: d969c28f-f1ec-476b-b932-136ea436c8a0
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            7e1971b9bdf794ea096c62658e96f7d9: !SphereColliderShapeDesc
+                                Is2D: false
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+        -   Entity:
+                Id: 7def333e-6cd2-4cf1-96f6-6e51cee69073
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: 6f7f4f17-e28b-4dd1-810b-6c5f2fe27ab0
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: 5d14e9fa-8e42-494c-a652-34c33497ce07
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 0.0, B: 0.0}
+                            Radius: 100.0
+                            Shadow:
+                                Size: Small
+                                BiasParameters: {}
+                        Intensity: 100.0

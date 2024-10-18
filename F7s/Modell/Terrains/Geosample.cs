@@ -7,7 +7,8 @@ using System.Diagnostics;
 using System.Linq;
 using F7s.Utility.Geometry;
 
-namespace F7s.Modell.Terrains {
+namespace F7s.Modell.Terrains
+{
     public class Geosample : TerrainFeature {
 
         public readonly Vertex Vertex;

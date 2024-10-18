@@ -1,12 +1,12 @@
 ﻿using F7s.Utility.Geometry;
-using F7s.Utility.Mathematics;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace F7s.Utility.Mescherei {
+namespace F7s.Utility.Mescherei
+{
     public class Triangle {
 
         public readonly Graph Mesch;

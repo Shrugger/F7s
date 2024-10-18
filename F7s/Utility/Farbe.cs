@@ -1,5 +1,4 @@
-﻿using F7s.Utility.Mathematics;
-using Stride.Core.Mathematics;
+﻿using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +15,10 @@ namespace F7s.Utility {
         public Farbe (double r, double g, double b, double a)
             : this(r: (float) r, g: (float) g, b: (float) b, a: (float) a) { }
         public Farbe (float r, float g, float b, float a) {
-            this.R = r;
-            this.G = g;
-            this.B = b;
-            this.A = a;
+            R = r;
+            G = g;
+            B = b;
+            A = a;
         }
 
         public readonly float R;
@@ -54,13 +53,13 @@ namespace F7s.Utility {
 
         public override string ToString () {
             return "(r"
-                 + Rounding.Round(value: this.R, decimals: 1)
+                 + Mathematik.Round(value: R, decimals: 1)
                  + ", g"
-                 + Rounding.Round(value: this.G, decimals: 1)
+                 + Mathematik.Round(value: G, decimals: 1)
                  + ", b"
-                 + Rounding.Round(value: this.B, decimals: 1)
+                 + Mathematik.Round(value: B, decimals: 1)
                  + ", a"
-                 + Rounding.Round(value: this.A, decimals: 1)
+                 + Mathematik.Round(value: A, decimals: 1)
                  + ")";
         }
 
@@ -73,7 +72,7 @@ namespace F7s.Utility {
         }
 
         public Farbe Normalized () {
-            return this /= this.Intensity();
+            return this /= Intensity();
         }
 
         #region custom colours
@@ -186,11 +185,11 @@ namespace F7s.Utility {
         }
 
         public float Luminance () {
-            return 0.2126f * this.R + 0.7152f * this.G + 0.0722f * this.B;
+            return (0.2126f * R) + (0.7152f * G) + (0.0722f * B);
         }
 
         public float Intensity () {
-            return this.AverageValue();
+            return AverageValue();
         }
 
         public static Farbe SetIntensity (Farbe color, float brightness) {
@@ -198,23 +197,23 @@ namespace F7s.Utility {
         }
 
         public Farbe SetRed (float value) {
-            return new Farbe(r: value, g: this.G, b: this.B, a: this.A);
+            return new Farbe(r: value, g: G, b: B, a: A);
         }
         public Farbe SetGreen (float value) {
-            return new Farbe(r: this.R, g: value, b: this.B, a: this.A);
+            return new Farbe(r: R, g: value, b: B, a: A);
         }
         public Farbe SetBlue (float value) {
-            return new Farbe(r: this.R, g: this.G, b: value, a: this.A);
+            return new Farbe(r: R, g: G, b: value, a: A);
         }
         public Farbe SetAlpha (double alpha) {
-            return this.SetAlpha(alpha: (float) alpha);
+            return SetAlpha(alpha: (float) alpha);
         }
         public Farbe SetAlpha (float alpha) {
             return Farbe.SetAlpha(colour: this, alpha: alpha);
         }
 
         public Farbe AddToAlpha (float addition) {
-            return this.SetAlpha(alpha: this.A + addition);
+            return SetAlpha(alpha: A + addition);
         }
 
         public static Farbe SetAlpha (Farbe colour, float alpha) {
@@ -237,15 +236,15 @@ namespace F7s.Utility {
             Vector3 extents = scale / 2;
 
             return new Farbe(
-                             r: position.X / extents.X + 0.5f,
-                             g: position.Y / extents.Y + 0.5f,
-                             b: position.Z / extents.Z + 0.5f
+                             r: (position.X / extents.X) + 0.5f,
+                             g: (position.Y / extents.Y) + 0.5f,
+                             b: (position.Z / extents.Z) + 0.5f
                             );
         }
 
         public static Farbe Lerp (Farbe lhs, Farbe rhs, float rightwardInterpolation) {
 
-            return lhs * (1.0f - rightwardInterpolation) + rhs * rightwardInterpolation;
+            return (lhs * (1.0f - rightwardInterpolation)) + (rhs * rightwardInterpolation);
         }
 
         #endregion
@@ -333,19 +332,19 @@ namespace F7s.Utility {
         }
 
         public float TotalValue () {
-            return this.R + this.G + this.B;
+            return R + G + B;
         }
 
         public float AverageValue () {
-            return (this.R + this.G + this.B) / 3f;
+            return (R + G + B) / 3f;
         }
 
         public float MinValue () {
-            return MathF.Min(MathF.Min(this.R, this.G), this.B);
+            return MathF.Min(MathF.Min(R, G), B);
         }
 
         public float MaxValue () {
-            return MathF.Max(MathF.Max(this.R, this.G), this.B);
+            return MathF.Max(MathF.Max(R, G), B);
         }
 
         public Farbe Lerp (Farbe other, float factor) {

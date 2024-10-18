@@ -1,10 +1,10 @@
 ﻿using F7s.Geometry;
 using F7s.Utility.Lazies;
-using F7s.Utility.Mathematics;
 using Stride.Core.Mathematics;
 using System;
 
-namespace F7s.Utility.Geometry {
+namespace F7s.Utility.Geometry
+{
 
 
     /// <summary>
@@ -239,8 +239,8 @@ namespace F7s.Utility.Geometry {
         #region miscellaneous
 
         public override string ToString () {
-            double lon = Rounding.Round(value: longitude);
-            double lat = Rounding.Round(value: latitude);
+            double lon = Mathematik.Round(value: longitude);
+            double lat = Mathematik.Round(value: latitude);
 
             string lonD = Math.Abs(value: lon - 180)
                         + (lon < 0
@@ -256,7 +256,7 @@ namespace F7s.Utility.Geometry {
                                    ? "S"
                                    : "");
 
-            return "(" + lonD + ", " + latD + ", " + Rounding.Round(value: radialDistance) + ")";
+            return "(" + lonD + ", " + latD + ", " + Mathematik.Round(value: radialDistance) + ")";
         }
         public override bool Equals (object obj) {
             if (obj == null) {

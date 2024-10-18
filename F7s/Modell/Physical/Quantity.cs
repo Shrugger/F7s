@@ -14,7 +14,7 @@ namespace F7s.Modell.Physical {
             return
                 Measurement.MeasureMass(Mass) +
                 ", " + Measurement.MeasureVolume(Volume) +
-                ", D " + Rounding.RoundToFirstInterestingDigit(Density) +
+                ", D " + Mathematik.RoundToFirstInterestingDigit(Density) +
                 (Amount > 1 ? ", " + "x " + Amount : "");
         }
 

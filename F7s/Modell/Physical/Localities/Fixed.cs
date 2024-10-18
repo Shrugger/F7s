@@ -1,11 +1,11 @@
 ﻿using F7s.Geometry;
 using F7s.Utility;
-using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using System;
 using System.Diagnostics;
 
-namespace F7s.Modell.Physical.Localities {
+namespace F7s.Modell.Physical.Localities
+{
 
     public class Fixed : Locality {
 
@@ -160,12 +160,12 @@ namespace F7s.Modell.Physical.Localities {
 
             if (logging) {
                 Console.WriteLine(
-                    Rounding.RoundToFirstInterestingDigit(currentPitch, 3) +
+                    Mathematik.RoundToFirstInterestingDigit(currentPitch, 3) +
                     " + " + (Math.Abs(permittedPitch - additionalPitch) > 0.0001f ?
-                        Rounding.RoundToFirstInterestingDigit(permittedPitch, 3) + " LIMITED" :
-                        Rounding.RoundToFirstInterestingDigit(additionalPitch, 3)
+                        Mathematik.RoundToFirstInterestingDigit(permittedPitch, 3) + " LIMITED" :
+                        Mathematik.RoundToFirstInterestingDigit(additionalPitch, 3)
                     ) +
-                    " = " + Rounding.RoundToFirstInterestingDigit(expectedLegalPitch, 3)
+                    " = " + Mathematik.RoundToFirstInterestingDigit(expectedLegalPitch, 3)
                     );
             }
 

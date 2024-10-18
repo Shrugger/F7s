@@ -1,7 +1,7 @@
-using F7s.Utility.Mathematics;
 using System;
 
-namespace F7s.Utility.Ranges {
+namespace F7s.Utility.Ranges
+{
 
     public struct Uniform : Distribution {
 

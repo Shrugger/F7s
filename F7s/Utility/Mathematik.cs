@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Stride.Core.Mathematics;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace F7s.Utility.Mathematics {
+namespace F7s.Utility {
     public static class Mathematik {
 
         public static float ApproachLogarithmically (float value, float limit = 1, float floor = 0, float speed = 1, float log = 2) {
@@ -26,13 +28,13 @@ namespace F7s.Utility.Mathematics {
                 return floor - Approach(value, floor, limit, speed);
             }
             float range = limit - floor;
-            float polation = range / (value * speed + 1);
+            float polation = range / ((value * speed) + 1);
             float result = limit - polation;
 
             if (float.IsNaN(result)) {
                 throw new Exception();
             }
-            if ((value > 0 && result < floor)) {
+            if (value > 0 && result < floor) {
                 throw new Exception();
             }
             if (result > limit) {
@@ -76,7 +78,7 @@ namespace F7s.Utility.Mathematics {
                 return 0d;
             }
 
-            return 1.0d - (value - to) / (from - to);
+            return 1.0d - ((value - to) / (from - to));
         }
         public static double InverseLerp (double from, double to, double value) {
             if (from == to) {
@@ -90,10 +92,10 @@ namespace F7s.Utility.Mathematics {
                 return value;
             }
 
-            return 1.0d - (value - to) / (from - to);
+            return 1.0d - ((value - to) / (from - to));
         }
         public static double LerpClamped (double from, double to, double t) {
-            return from + (to - from) * Clamp01(value: t);
+            return from + ((to - from) * Clamp01(value: t));
         }
 
 
@@ -132,13 +134,6 @@ namespace F7s.Utility.Mathematics {
             throw new NotImplementedException();
         }
 
-        public static int RoundToInt (double v) {
-            throw new NotImplementedException();
-        }
-        public static int RoundToInt (float v) {
-            throw new NotImplementedException();
-        }
-
         public static int Clamp (int value, int min, int max) {
             throw new NotImplementedException();
         }
@@ -171,6 +166,145 @@ namespace F7s.Utility.Mathematics {
 
         internal static float Wrap (float rotation, float v1, float v2) {
             throw new NotImplementedException();
+        }
+
+        public static double RoundReasonably (double value, int overallDigits) {
+            if (value < 1f) {
+                overallDigits -= 2;
+
+                if (Math.Log10(value) * -1f > overallDigits) {
+                    overallDigits = RoundToInt(Math.Log10(value) * -1);
+                }
+            } else {
+                if (Nachkommastellen(value: Round(value: value, decimals: overallDigits))) {
+                    overallDigits -= 1;
+                }
+
+                overallDigits = RoundToInt(overallDigits - Math.Log10(value));
+            }
+
+            double rounded = Round(value: value, decimals: overallDigits);
+
+            return rounded;
+        }
+
+        public static bool Nachkommastellen (double value) {
+            return value % 1 == 0;
+        }
+
+        public static int RoundToInt (float value) {
+            return RoundToInt(value);
+        }
+        public static int RoundToInt (double value) {
+            return RoundToInt(value);
+        }
+
+        public static float Round (float value, int decimals) {
+            return (float) Round(value: (double) value, decimals: decimals);
+        }
+
+        public static double Round (double value) {
+            return Round(value: value, decimals: 0);
+        }
+
+        public static double Round (double value, int decimals) {
+            return Math.Round(value: value, digits: Clamp(value: decimals, min: 0, max: 15));
+        }
+
+        public static double RoundToFirstInterestingDigit (double value, int additionalDecimals = 0) {
+            double absoluteValue = Math.Abs(value);
+
+            if (absoluteValue < 1) {
+
+                double rawMagnitude = Math.Log10(absoluteValue);
+                double absoluteMagnitude = Math.Abs(rawMagnitude);
+                int roundedMagnitude = RoundToInt(Math.Ceiling(absoluteMagnitude));
+
+                double roundedValue = Round(
+                                                          value: value,
+                                                          decimals: roundedMagnitude + additionalDecimals
+                                                         );
+
+                return roundedValue;
+            }
+
+            if (absoluteValue > 10) {
+                return Round(value: value, decimals: 0);
+            }
+
+            return Round(value: value, decimals: additionalDecimals);
+        }
+
+        public static string Round (Vector3 v) {
+            return "(" + RoundToInt(v.X) + ", " + RoundToInt(v.Y) + ", " + RoundToInt(v.Z) + ")";
+        }
+
+        public static string RoundToFirstInterestingDigit (Vector3 v, int additionalDecimals = 0) {
+            return "(" +
+                RoundToFirstInterestingDigit(v.X, additionalDecimals) + ", " +
+                RoundToFirstInterestingDigit(v.Y, additionalDecimals) + ", " +
+                RoundToFirstInterestingDigit(v.Z, additionalDecimals) +
+                ")";
+        }
+
+        public static char Sum (IEnumerable<char> collection) {
+            char sum = (char) 0;
+
+            foreach (char item in collection) {
+                sum += item;
+            }
+
+            return sum;
+        }
+
+        public static int Sum (IEnumerable<int> collection) {
+            int sum = 0;
+
+            foreach (int item in collection) {
+                sum += item;
+            }
+
+            return sum;
+        }
+
+        public static float Sum (IEnumerable<float> collection) {
+            float sum = 0;
+
+            foreach (float item in collection) {
+                sum += item;
+            }
+
+            return sum;
+        }
+
+        public static double Sum (IEnumerable<double> collection) {
+            double sum = 0;
+
+            foreach (double item in collection) {
+                sum += item;
+            }
+
+            return sum;
+        }
+
+        public static double Sum<SourceType> (IEnumerable<SourceType> collection, Func<SourceType, double> function) {
+            double sum = 0;
+
+            foreach (SourceType item in collection) {
+                sum += function.Invoke(item);
+            }
+
+            return sum;
+        }
+
+        public static float Sum<SourceType> (IEnumerable<SourceType> collection, Func<SourceType, float> function) {
+            float sum = 0;
+
+            foreach (SourceType item in collection) {
+                sum += function.Invoke(item);
+            }
+
+            return sum;
         }
     }
 }
