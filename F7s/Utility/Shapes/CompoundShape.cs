@@ -22,7 +22,7 @@ namespace F7s.Utility.Shapes {
             public Quaternion rotation => this.transform.Basis.GetRotationQuaternion();
 
             public Constituent (Shape3Dim shape, Vector3 position, Vector3? rotation = null, string name = null, Farbe? color = null)
-                : this(shape, position, rotation != null ? GeometryF.DegreesToQuaternion(rotation.Value) : null, name, color) { }
+                : this(shape, position, rotation != null ? Geom.DegreesToQuaternion(rotation.Value) : null, name, color) { }
             public Constituent (Shape3Dim shape, Vector3 position, Quaternion? rotation = null, string name = null, Farbe? color = null) {
                 this.shape = shape;
                 this.transform = new Transform3D(new Basis(rotation ?? Quaternion.Identity), position);
@@ -65,7 +65,7 @@ namespace F7s.Utility.Shapes {
             this.constituents.ForEach(c => action.Invoke(c));
         }
         public Constituent AddConstituent (Shape3Dim shape, Vector3 relativePosition, Vector3 relativeRotation, string name, Farbe? color = null) {
-            return this.AddConstituent(new Constituent(shape, relativePosition, GeometryF.DegreesToQuaternion(relativeRotation), name, color));
+            return this.AddConstituent(new Constituent(shape, relativePosition, Geom.DegreesToQuaternion(relativeRotation), name, color));
         }
         public Constituent AddConstituent (Shape3Dim shape, Vector3 relativePosition, Quaternion relativeRotation, string name, Farbe? color = null) {
             return this.AddConstituent(new Constituent(shape, relativePosition, relativeRotation, name, color));

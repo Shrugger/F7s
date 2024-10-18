@@ -350,7 +350,7 @@ namespace F7s.Utility.Geometry {
         public static double PolarDistanceDouble (Coordinates one, Coordinates other, double projectionRadius = 1.0) {
             PolarCoordinates oneCoordinates = one.Polar();
             PolarCoordinates otherCoordinates = other.Polar();
-            return GeometryD.GreatCircleDistance(oneCoordinates.latitude, oneCoordinates.longitude, otherCoordinates.latitude, otherCoordinates.longitude, projectionRadius);
+            return Geom.GreatCircleDistance(oneCoordinates.latitude, oneCoordinates.longitude, otherCoordinates.latitude, otherCoordinates.longitude, projectionRadius);
         }
 
         public double DirectDistance (PolarCoordinates other) {

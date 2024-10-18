@@ -17,7 +17,7 @@ namespace F7s.Utility.Shapes
         }
 
         public override float SurfaceArea() {
-            return GeometryF.CylinderSurfaceArea(this.diameter / 2.0f, this.BoundingHeight);
+            return Geom.CylinderSurfaceArea(this.diameter / 2.0f, this.BoundingHeight);
         }
 
         public override List<Vector3> RelativeVertices() {

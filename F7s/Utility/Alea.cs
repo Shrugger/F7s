@@ -31,7 +31,7 @@ namespace F7s.Utility {
         #endregion
 
         public static Quaternion AQuaternion () {
-            return GeometryF.DegreesToQuaternion(Vector3() * 180f);
+            return Geom.DegreesToQuaternion(Vector3() * 180f);
         }
 
         public static T Item<T> (List<T> items) {
@@ -311,7 +311,7 @@ namespace F7s.Utility {
             return OnUnitSphere() * Float();
         }
         public static Vector3 OnUnitSphere () {
-            return GeometryF.Normalize(Alea.Vector3());
+            return Geom.Normalize(Alea.Vector3());
         }
 
         public static PolarCoordinates Coordinates (float radius = 1) {

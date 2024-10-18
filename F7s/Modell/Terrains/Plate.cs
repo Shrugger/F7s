@@ -70,7 +70,7 @@ namespace F7s.Modell.Terrains {
             this.RheologicMovement = currents;
 
             // Cap for sanity
-            this.RheologicMovement = GeometryF.Normalize(this.RheologicMovement);
+            this.RheologicMovement = Geom.Normalize(this.RheologicMovement);
         }
 
 

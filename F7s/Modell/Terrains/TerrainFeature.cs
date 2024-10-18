@@ -66,7 +66,7 @@ namespace F7s.Modell.Terrains {
 
         protected double Distance (Vector3 featurePosition, Vector3 position) {
             // TODO: Ignores great-circle.
-            return Vector3.Distance(GeometryF.Normalize(featurePosition), GeometryF.Normalize(position)) * this.Terrain.BaseRadius;
+            return Vector3.Distance(Geom.Normalize(featurePosition), Geom.Normalize(position)) * this.Terrain.BaseRadius;
         }
         protected bool RadiusReaches (double featureRadius, Vertex featureVertex, Vertex vertex) {
             double distance = this.Distance(featureVertex, vertex);

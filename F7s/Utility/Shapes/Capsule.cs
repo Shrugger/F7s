@@ -44,8 +44,8 @@ namespace F7s.Utility.Shapes {
         }
 
         public override float SurfaceArea () {
-            float hemispheres = GeometryF.SphereSurfaceArea(this.diameter);
-            float cylinder = GeometryF.CylinderSideSurfaceArea(this.diameter * 0.5f, this.length);
+            float hemispheres = Geom.SphereSurfaceArea(this.diameter);
+            float cylinder = Geom.CylinderSideSurfaceArea(this.diameter * 0.5f, this.length);
             return hemispheres + cylinder;
         }
 
@@ -69,8 +69,8 @@ namespace F7s.Utility.Shapes {
             float hemispheresLength = this.diameter;
             float cylinderLength = this.length - hemispheresLength;
 
-            float cylinderVolume = GeometryF.CylinderVolume(this.diameter / 2.0f, cylinderLength);
-            float hemispheresVolume = GeometryF.SphereVolumeFromDiameter(this.diameter);
+            float cylinderVolume = Geom.CylinderVolume(this.diameter / 2.0f, cylinderLength);
+            float hemispheresVolume = Geom.SphereVolumeFromDiameter(this.diameter);
 
             return cylinderVolume + hemispheresVolume;
         }
