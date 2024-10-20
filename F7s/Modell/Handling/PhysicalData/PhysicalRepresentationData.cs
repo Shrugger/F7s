@@ -2,7 +2,7 @@
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using F7s.Utility.Geometry;
+using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 using System;
 
@@ -34,7 +34,7 @@ namespace F7s.Modell.Handling.PhysicalData {
         public abstract Vector3 Scale ();
 
         public virtual float DistanceToCamera () {
-            return (float) Kamera.TransformRelativeToCamera(Locality()).Origin.Length();
+            return (float) Kamera.TransformRelativeToCamera(Locality()).TranslationVector.Length();
         }
 
         public Vector2 ScreenSize () {
@@ -49,20 +49,20 @@ namespace F7s.Modell.Handling.PhysicalData {
             return SizeInPixels() < 1;
         }
 
-        public virtual Transform3D ForcedPerspectiveTransform (float desiredDistanceFromCamera) {
+        public virtual MatrixD ForcedPerspectiveTransform (float desiredDistanceFromCamera) {
             return Origin.ForcedPerspectiveTransform(Locality(), desiredDistanceFromCamera);
         }
-        public Transform3D CameraCentricTransform () {
+        public MatrixD CameraCentricTransform () {
             return Kamera.TransformRelativeToCamera(Locality());
         }
-        public Transform3D ForcedPerspectiveBaseTransform () {
+        public MatrixD ForcedPerspectiveBaseTransform () {
             return Origin.ForcedProjectionBaseTransform(Locality());
         }
 
-        public Transform3D OriginCentricTransform () {
+        public MatrixD OriginCentricTransform () {
             return Origin.TransformRelativeToOrigin(Locality());
         }
-        public Transform3D PlayerCentricTransform () {
+        public MatrixD PlayerCentricTransform () {
             return Player.TransformRelativeToPlayer(Locality());
         }
     }

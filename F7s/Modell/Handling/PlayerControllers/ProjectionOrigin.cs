@@ -8,20 +8,20 @@ using F7s.Utility.Geometry;
 namespace F7s.Engine.PlayerControllers {
     public class ProjectionOrigin : Locality {
 
-        private FrameFaul<Transform3D> currentTransform;
+        private FrameFaul<MatrixD> currentTransform;
 
         public ProjectionOrigin () : base(null, GetOriginSuperior()) {
-            this.currentTransform = new FrameFaul<Transform3D>(this.CalculateNewTransform);
+            this.currentTransform = new FrameFaul<MatrixD>(this.CalculateNewTransform);
         }
 
-        private Transform3D CalculateNewTransform () {
+        private MatrixD CalculateNewTransform () {
             Locality anchor = Origin.GetFloatingOriginFloatingAnchor();
-            Transform3D anchorTransform = anchor.GetLocalTransform();
+            MatrixD anchorTransform = anchor.GetLocalTransform();
             Vector3 origin = anchorTransform.Origin.ToVector3();
-            return new Transform3D(origin, Matrix3x3d.Identity);
+            return MatrixD.Transformation(origin, Matrix3x3d.Identity);
         }
 
-        public override Transform3D GetLocalTransform () {
+        public override MatrixD GetLocalTransform () {
             return this.currentTransform.Value;
         }
 

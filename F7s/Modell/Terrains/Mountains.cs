@@ -5,7 +5,7 @@ namespace F7s.Modell.Terrains {
     public class Mountains : SetLinearElevation {
 
 
-        public Mountains(PolarCoordinates coordinates, float radius, float peakElevation) : base(coordinates, radius, peakElevation) {
+        public Mountains(PolarCoordinatesD coordinates, float radius, float peakElevation) : base(coordinates, radius, peakElevation) {
 
         }
 

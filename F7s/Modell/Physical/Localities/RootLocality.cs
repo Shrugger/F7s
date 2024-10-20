@@ -1,4 +1,4 @@
-﻿using F7s.Utility.Geometry;
+﻿using F7s.Utility.Geometry.Double;
 using System;
 
 namespace F7s.Modell.Physical.Localities {
@@ -9,8 +9,8 @@ namespace F7s.Modell.Physical.Localities {
         public RootLocality () : base(null, null) {
         }
 
-        public override Transform3D GetLocalTransform () {
-            return Transform3D.Identity;
+        public override MatrixD GetLocalTransform () {
+            return MatrixD.Identity;
         }
 
         public override Locality HierarchySuperior () {

@@ -21,7 +21,7 @@ namespace F7s.Modell.Physical.Localities {
             base.ReplaceSuperior(replacement);
         }
 
-        public override Transform3D GetLocalTransform () {
+        public override MatrixD GetLocalTransform () {
             throw new NotImplementedException();
         }
     }

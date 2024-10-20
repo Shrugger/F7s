@@ -2689,6 +2689,13 @@ namespace F7s.Utility.Geometry.Double {
             result.M33 = 1.0f - (2.0f * (yy + xx));
         }
 
+        public static MatrixD Transformation (Vector3d translation, QuaternionD rotation) {
+            MatrixD result;
+            Vector3d scale = Vector3d.One;
+            Transformation(ref scale, ref rotation, ref translation, out result);
+            return result;
+        }
+
         /// <summary>
         /// Creates a MatrixD that contains both the X, Y and Z rotation, as well as scaling and translation. Note: This function is NOT thead safe.
         /// </summary>
@@ -3276,7 +3283,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <returns>The result of the conversion.</returns>
         public static implicit operator MatrixD(SlimDX.MatrixD value)
         {
-            return new MatrixD()
+            return MatrixD.Transformation()
             {
                 M11 = value.M11, M12 = value.M12, M13 = value.M13, M14 = value.M14,
                 M21 = value.M21, M22 = value.M22, M23 = value.M23, M24 = value.M24,
@@ -3310,7 +3317,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <returns>The result of the conversion.</returns>
         public static explicit operator MatrixD(System.Windows.Media.Media3D.MatrixD3D value)
         {
-            return new MatrixD()
+            return MatrixD.Transformation()
             {
                 M11 = (double)value.M11, M12 = (double)value.M12, M13 = (double)value.M13, M14 = (double)value.M14,
                 M21 = (double)value.M21, M22 = (double)value.M22, M23 = (double)value.M23, M24 = (double)value.M24,
@@ -3344,7 +3351,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <returns>The result of the conversion.</returns>
         public static implicit operator MatrixD(Microsoft.Xna.Framework.MatrixD value)
         {
-            return new MatrixD()
+            return MatrixD.Transformation()
             {
                 M11 = value.M11, M12 = value.M12, M13 = value.M13, M14 = value.M14,
                 M21 = value.M21, M22 = value.M22, M23 = value.M23, M24 = value.M24,

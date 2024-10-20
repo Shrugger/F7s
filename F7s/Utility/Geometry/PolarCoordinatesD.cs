@@ -1,11 +1,9 @@
-﻿using F7s.Geometry;
-using F7s.Utility.Geometry.Double;
+﻿using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
 using Stride.Core.Mathematics;
 using System;
 
-namespace F7s.Utility.Geometry
-{
+namespace F7s.Utility.Geometry {
 
 
     /// <summary>
@@ -13,7 +11,7 @@ namespace F7s.Utility.Geometry
     ///     longitude, latitude and radial distance.
     /// </summary>
 
-    public class PolarCoordinates : Coordinates {
+    public class PolarCoordinatesD : Coordinates {
 
         /// <summary>
         ///     Azimuthal Angle Phi
@@ -36,7 +34,7 @@ namespace F7s.Utility.Geometry
         /// <param name="longitude"> Longitude in degrees from 0° to 360°. </param>
         /// <param name="latitude"> Latitude in degrees from -90° to 90°. </param>
         /// <param name="radialDistance"> Distance from the center of the sphere. </param>
-        public PolarCoordinates (double longitude, double latitude, double radialDistance) {
+        public PolarCoordinatesD (double longitude, double latitude, double radialDistance) {
             if (double.IsNaN(longitude) || double.IsNaN(latitude) || double.IsNaN(radialDistance)) {
                 throw new ArgumentException(
                                             message: "Longitude: "
@@ -82,7 +80,7 @@ namespace F7s.Utility.Geometry
         }
 
         private void InitializeCartesianBackingLazies () {
-            PolarCoordinates thisCoordinates = this;
+            PolarCoordinatesD thisCoordinates = this;
             asVector3 = new Faul<Vector3>(() => thisCoordinates.ConvertPolarCoordinatesToVector3());
             asVector3d = new Faul<Vector3d>(() => thisCoordinates.ConvertPolarCoordinatesToVector3d());
         }
@@ -100,51 +98,51 @@ namespace F7s.Utility.Geometry
             return longitude;
         }
 
-        public PolarCoordinates SetRadialDistance (double radialDistance) {
-            return new PolarCoordinates(longitude, latitude, radialDistance);
+        public PolarCoordinatesD SetRadialDistance (double radialDistance) {
+            return new PolarCoordinatesD(longitude, latitude, radialDistance);
         }
         #region predefined coordinates
 
         /// <summary>
         ///     0° longitude, 0° latitude, 0 radial distance.
         /// </summary>
-        public static PolarCoordinates zero => new PolarCoordinates(longitude: 0d, latitude: 0d, radialDistance: 0d);
+        public static PolarCoordinatesD zero => new PolarCoordinatesD(longitude: 0d, latitude: 0d, radialDistance: 0d);
 
         /// <summary>
         ///     0° longitude, 1° latitude, 0 radial distance.
         /// </summary>
-        public static PolarCoordinates OneDegreeNorth =>
-            new PolarCoordinates(longitude: 0d, latitude: 1d, radialDistance: 0d);
+        public static PolarCoordinatesD OneDegreeNorth =>
+            new PolarCoordinatesD(longitude: 0d, latitude: 1d, radialDistance: 0d);
 
         /// <summary>
         ///     0° longitude, -1° latitude, 0 radial distance.
         /// </summary>
-        public static PolarCoordinates OneDegreeSouth =>
-            new PolarCoordinates(longitude: 0d, latitude: -1d, radialDistance: 0d);
+        public static PolarCoordinatesD OneDegreeSouth =>
+            new PolarCoordinatesD(longitude: 0d, latitude: -1d, radialDistance: 0d);
 
         /// <summary>
         ///     1° longitude, 0° latitude, 0 radial distance.
         /// </summary>
-        public static PolarCoordinates OneDegreeEast =>
-            new PolarCoordinates(longitude: 1d, latitude: 0d, radialDistance: 0d);
+        public static PolarCoordinatesD OneDegreeEast =>
+            new PolarCoordinatesD(longitude: 1d, latitude: 0d, radialDistance: 0d);
 
         /// <summary>
         ///     -1° longitude, 0° latitude, 0 radial distance.
         /// </summary>
-        public static PolarCoordinates OneDegreeWest =>
-            new PolarCoordinates(longitude: -1d, latitude: 0d, radialDistance: 0d);
+        public static PolarCoordinatesD OneDegreeWest =>
+            new PolarCoordinatesD(longitude: -1d, latitude: 0d, radialDistance: 0d);
 
         /// <summary>
         ///     0° longitude, 0° latitude, 1 radial distance.
         /// </summary>
-        public static PolarCoordinates OneUnitAway =>
-            new PolarCoordinates(longitude: 0d, latitude: 0d, radialDistance: 1d);
+        public static PolarCoordinatesD OneUnitAway =>
+            new PolarCoordinatesD(longitude: 0d, latitude: 0d, radialDistance: 1d);
 
         /// <summary>
         ///     0° longitude, 0° latitude, -1 radial distance.
         /// </summary>
-        public static PolarCoordinates OneUnitTowards =>
-            new PolarCoordinates(longitude: 0d, latitude: 0d, radialDistance: -1d);
+        public static PolarCoordinatesD OneUnitTowards =>
+            new PolarCoordinatesD(longitude: 0d, latitude: 0d, radialDistance: -1d);
 
 
         #endregion
@@ -156,7 +154,7 @@ namespace F7s.Utility.Geometry
         /// </summary>
         /// <param name="polar"> The polar coordinates meant to be converted. </param>
         /// <returns> The converted coordinates, now as a cartesian vector. </returns>
-        public static Vector3d ToCartesian (PolarCoordinates polar) {
+        public static Vector3d ToCartesian (PolarCoordinatesD polar) {
             double phi = Mathematik.DegToRad((polar.longitude + 0) % 360);
             double theta = Mathematik.DegToRad(polar.latitude + 90.0);
             double rho = polar.radialDistance;
@@ -173,31 +171,31 @@ namespace F7s.Utility.Geometry
         /// </summary>
         /// <param name="cartesian"> The cartesian vector meant to be converted. </param>
         /// <returns> The polar coordinates representing the given cartesian position. </returns>
-        public static PolarCoordinates FromCartesian (Vector3d cartesian) {
+        public static PolarCoordinatesD FromCartesian (Vector3d cartesian) {
             if (cartesian.X == 0
              && cartesian.Y == 0
              && cartesian.Z == 0) {
-                return new PolarCoordinates(longitude: 0, latitude: 0, radialDistance: 0);
+                return new PolarCoordinatesD(longitude: 0, latitude: 0, radialDistance: 0);
             }
 
             double x = cartesian.X;
             double y = -cartesian.Y;
             double z = cartesian.Z;
             double phi = (Mathematik.RadToDeg(Math.Atan2(y: x, x: z)) - 0) % 360;
-            double rho = Math.Sqrt(x * x + y * y + z * z);
+            double rho = Math.Sqrt((x * x) + (y * y) + (z * z));
             double theta = Mathematik.RadToDeg(Math.Acos(y / rho)) - 90;
 
-            return new PolarCoordinates(longitude: phi, latitude: theta, radialDistance: rho);
+            return new PolarCoordinatesD(longitude: phi, latitude: theta, radialDistance: rho);
         }
 
         #endregion
 
         #region casts
 
-        private PolarCoordinates ConvertFromCartesianToPolarCoordinates (Vector3d cartesian) {
+        private PolarCoordinatesD ConvertFromCartesianToPolarCoordinates (Vector3d cartesian) {
             return FromCartesian(cartesian);
         }
-        private PolarCoordinates ConvertFromCartesianToPolarCoordinates (Vector3 cartesian) {
+        private PolarCoordinatesD ConvertFromCartesianToPolarCoordinates (Vector3 cartesian) {
             return FromCartesian(cartesian);
         }
         private Vector3d ConvertPolarCoordinatesToVector3d () {
@@ -220,18 +218,18 @@ namespace F7s.Utility.Geometry
         /// </summary>
         /// <param name="v3d"> The cartesian vector meant to be converted. </param>
         /// <returns> The polar coordinates representing the given cartesian position. </returns>
-        public static implicit operator PolarCoordinates (Vector3d v3d) {
+        public static implicit operator PolarCoordinatesD (Vector3d v3d) {
             return FromCartesian(cartesian: v3d);
         }
 
-        public static implicit operator PolarCoordinates (Vector3 v3) {
+        public static implicit operator PolarCoordinatesD (Vector3 v3) {
             return FromCartesian(cartesian: v3);
         }
 
-        public static implicit operator Vector3d (PolarCoordinates polar) {
+        public static implicit operator Vector3d (PolarCoordinatesD polar) {
             return polar.asVector3d;
         }
-        public static implicit operator Vector3 (PolarCoordinates polar) {
+        public static implicit operator Vector3 (PolarCoordinatesD polar) {
             return polar.asVector3;
         }
 
@@ -264,11 +262,11 @@ namespace F7s.Utility.Geometry
                 return false;
             }
 
-            if (obj.GetType() != typeof(PolarCoordinates)) {
+            if (obj.GetType() != typeof(PolarCoordinatesD)) {
                 return false;
             }
 
-            PolarCoordinates other = (PolarCoordinates) obj;
+            PolarCoordinatesD other = (PolarCoordinatesD) obj;
 
             return base.Equals(obj: obj) && longitude == other.longitude && latitude == other.latitude && radialDistance == other.radialDistance;
         }
@@ -279,7 +277,7 @@ namespace F7s.Utility.Geometry
         /// <param name="lhs"> Left-hand side object to compare. </param>
         /// <param name="rhs"> Right-hand side object to compare. </param>
         /// <returns> True if both objects are polar coordinates and represent the same position. </returns>
-        public static bool operator == (PolarCoordinates lhs, PolarCoordinates rhs) {
+        public static bool operator == (PolarCoordinatesD lhs, PolarCoordinatesD rhs) {
             return lhs.Equals(obj: rhs);
         }
 
@@ -289,11 +287,11 @@ namespace F7s.Utility.Geometry
         /// <param name="lhs"> Left-hand side object to compare. </param>
         /// <param name="rhs"> Right-hand side object to compare. </param>
         /// <returns> False if both objects are polar coordinates and represent the same position. </returns>
-        public static bool operator != (PolarCoordinates lhs, PolarCoordinates rhs) {
+        public static bool operator != (PolarCoordinatesD lhs, PolarCoordinatesD rhs) {
             return lhs.Equals(obj: rhs) == false;
         }
 
-        public static bool ApproximatelyEquals (PolarCoordinates lhs, PolarCoordinates rhs) {
+        public static bool ApproximatelyEquals (PolarCoordinatesD lhs, PolarCoordinatesD rhs) {
             return Mathematik.IsEqualApprox(a: lhs.latitude, b: rhs.latitude)
                 && Mathematik.IsEqualApprox(a: lhs.longitude, b: rhs.longitude)
                 && Mathematik.IsEqualApprox(a: lhs.radialDistance, b: rhs.radialDistance);
@@ -307,12 +305,12 @@ namespace F7s.Utility.Geometry
             return base.GetHashCode();
         }
 
-        public PolarCoordinates ShiftRadius (
+        public PolarCoordinatesD ShiftRadius (
             double addition,
             double minRadius = 0,
             double maxRadius = double.MaxValue
         ) {
-            return new PolarCoordinates(
+            return new PolarCoordinatesD(
                                         longitude: longitude,
                                         latitude: latitude,
                                         radialDistance: Math.Clamp(
@@ -329,7 +327,7 @@ namespace F7s.Utility.Geometry
             return asVector3d;
         }
 
-        public PolarCoordinates RelativePolarCoordinatesDouble () {
+        public PolarCoordinatesD RelativePolarCoordinatesDouble () {
             return this;
         }
 
@@ -349,33 +347,33 @@ namespace F7s.Utility.Geometry
             return PolarDistanceDouble(this, other, projectionRadius);
         }
         public static double PolarDistanceDouble (Coordinates one, Coordinates other, double projectionRadius = 1.0) {
-            PolarCoordinates oneCoordinates = one.Polar();
-            PolarCoordinates otherCoordinates = other.Polar();
+            PolarCoordinatesD oneCoordinates = one.Polar();
+            PolarCoordinatesD otherCoordinates = other.Polar();
             return Mathematik.GreatCircleDistance(oneCoordinates.latitude, oneCoordinates.longitude, otherCoordinates.latitude, otherCoordinates.longitude, projectionRadius);
         }
 
-        public double DirectDistance (PolarCoordinates other) {
+        public double DirectDistance (PolarCoordinatesD other) {
             return Vector3d.Distance(a: this, b: other);
         }
 
-        public static double DirectDistance (PolarCoordinates lhs, PolarCoordinates rhs) {
+        public static double DirectDistance (PolarCoordinatesD lhs, PolarCoordinatesD rhs) {
             return lhs.DirectDistance(other: rhs);
         }
 
-        public PolarCoordinates Polar () {
+        public PolarCoordinatesD Polar () {
             return this;
         }
 
-        public static PolarCoordinates operator + (PolarCoordinates a, PolarCoordinates b) {
-            return new PolarCoordinates(
+        public static PolarCoordinatesD operator + (PolarCoordinatesD a, PolarCoordinatesD b) {
+            return new PolarCoordinatesD(
                                         longitude: a.longitude + b.longitude,
                                         latitude: a.latitude + b.latitude,
                                         radialDistance: (a.radialDistance + b.radialDistance) / 2.0
                                        );
         }
 
-        public static PolarCoordinates operator - (PolarCoordinates a, PolarCoordinates b) {
-            PolarCoordinates result = new PolarCoordinates(
+        public static PolarCoordinatesD operator - (PolarCoordinatesD a, PolarCoordinatesD b) {
+            PolarCoordinatesD result = new PolarCoordinatesD(
                                         longitude: a.longitude - b.longitude,
                                         latitude: a.latitude - b.latitude,
                                         radialDistance: (a.radialDistance + b.radialDistance) / 2.0

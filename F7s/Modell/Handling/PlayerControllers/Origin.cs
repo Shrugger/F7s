@@ -1,6 +1,5 @@
 ﻿using F7s.Engine.PlayerControllers;
 using F7s.Modell.Physical.Localities;
-using F7s.Utility.Geometry;
 using System;
 using System.Diagnostics;
 
@@ -44,7 +43,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             originLocality = value;
         }
 
-        public static Transform3D ForcedProjectionBaseTransform (Locality locality) {
+        public static MatrixD ForcedProjectionBaseTransform (Locality locality) {
             InitializeProjectionOrigin();
             if (projectionOrigin == null) {
                 throw new Exception();
@@ -53,8 +52,8 @@ namespace F7s.Modell.Handling.PlayerControllers {
         }
 
 
-        public static Transform3D ForcedPerspectiveTransform (Locality locality, float desiredDistanceFromCamera) {
-            Transform3D forcedPerspectiveBaseTransform = ForcedProjectionBaseTransform(locality);
+        public static MatrixD ForcedPerspectiveTransform (Locality locality, float desiredDistanceFromCamera) {
+            MatrixD forcedPerspectiveBaseTransform = ForcedProjectionBaseTransform(locality);
             Vector3d forcedPerspectiveBaseOrigin = forcedPerspectiveBaseTransform.Origin;
             Debug.Assert(Vector3d.Zero != forcedPerspectiveBaseOrigin);
             Vector3d origin = forcedPerspectiveBaseOrigin.Normalized() * desiredDistanceFromCamera;
@@ -62,7 +61,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             return forcedPerspectiveBaseTransform;
         }
 
-        public static Transform3D TransformRelativeToOrigin (Locality locality) {
+        public static MatrixD TransformRelativeToOrigin (Locality locality) {
             if (originLocality == null) {
                 throw new Exception("You forgot to set an Origin.");
             }
@@ -82,7 +81,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
         }
 
         public static void UseKameraAsOrigin () {
-            Locality newLocality = new Fixed(null, Transform3D.Identity, Kamera.GetLocality());
+            Locality newLocality = new Fixed(null, MatrixD.Identity, Kamera.GetLocality());
             newLocality.Name = "Ori-Cam";
             SetOriginLocality(newLocality);
             if (logOriginSwitchs) {
@@ -108,7 +107,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
         }
 
         public static void UsePlayerAsOrigin () {
-            Locality newLocality = new Fixed(Player.GetPhysicalEntity(), Transform3D.Identity, Player.GetLocality());
+            Locality newLocality = new Fixed(Player.GetPhysicalEntity(), MatrixD.Identity, Player.GetLocality());
             newLocality.Name = "Ori-Ple";
             SetOriginLocality(newLocality);
             if (logOriginSwitchs) {

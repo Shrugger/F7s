@@ -102,9 +102,9 @@ namespace F7s.Utility.Mescherei
 
         public double Length (bool spherical = false, float? projectionRadius = null) {
             if (spherical) {
-                PolarCoordinates a = A.Coordinates;
-                PolarCoordinates b = B.Coordinates;
-                return (float) PolarCoordinates.PolarDistanceDouble(a, b, projectionRadius ?? 1.0f);
+                PolarCoordinatesD a = A.Coordinates;
+                PolarCoordinatesD b = B.Coordinates;
+                return (float) PolarCoordinatesD.PolarDistanceDouble(a, b, projectionRadius ?? 1.0f);
             } else {
                 return Vector3d.Distance(A.Position, B.Position);
             }

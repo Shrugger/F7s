@@ -44,7 +44,7 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
                 Add(new MouseDeltaAction(Player.RotatePlayer));
             }
 
-            Add(new InputVectorAction(() => { Player.SetTransform(Transform3D.Identity); }, new KeyButtonInput(Keys.R, ButtonInput.ButtonStates.Pressed), new KeyButtonInput(Keys.LeftCtrl, ButtonInput.ButtonStates.HeldDown)));
+            Add(new InputVectorAction(() => { Player.SetTransform(MatrixD.Identity); }, new KeyButtonInput(Keys.R, ButtonInput.ButtonStates.Pressed), new KeyButtonInput(Keys.LeftCtrl, ButtonInput.ButtonStates.HeldDown)));
         }
         protected override void OnActivation () {
             base.OnActivation();

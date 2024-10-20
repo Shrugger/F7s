@@ -7,7 +7,7 @@ namespace F7s.Modell.Physical.Localities {
             throw new NotImplementedException();
         }
 
-        public override Transform3D GetLocalTransform () {
+        public override MatrixD GetLocalTransform () {
             throw new NotImplementedException();
         }
 

@@ -3,10 +3,10 @@ using F7s.Utility.Mescherei;
 
 namespace F7s.Modell.Terrains {
     public class SetLinearElevation : TerrainFeature {
-        private PolarCoordinates coordinates;
+        private PolarCoordinatesD coordinates;
         private float featureRadius;
         private float peakElevation;
-        public SetLinearElevation(PolarCoordinates coordinates, float radius, float peakElevation) : base() {
+        public SetLinearElevation(PolarCoordinatesD coordinates, float radius, float peakElevation) : base() {
             this.coordinates = coordinates;
             this.featureRadius = radius;
             this.peakElevation = peakElevation;

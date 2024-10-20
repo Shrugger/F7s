@@ -6,10 +6,10 @@ namespace F7s.Modell.Terrains {
     public class SetFixedElevation : TerrainFeature {
 
         private float elevation;
-        private PolarCoordinates coordinates;
+        private PolarCoordinatesD coordinates;
         private float featureRadius;
 
-        public SetFixedElevation(PolarCoordinates coordinates, float radius, float elevation) : base() {
+        public SetFixedElevation(PolarCoordinatesD coordinates, float radius, float elevation) : base() {
             this.elevation = elevation;
             this.coordinates = coordinates;
             this.featureRadius = radius;

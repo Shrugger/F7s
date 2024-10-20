@@ -4,7 +4,7 @@ using Stride.Core.Mathematics;
 namespace F7s.Modell.Physical.Localities {
     public class Kinematic : Fixed {
         private Vector3 velocity;
-        public Kinematic (PhysicalEntity entity, Transform3D transform, Locality anchor = null, Vector3? velocity = null) : base(entity, transform, anchor) {
+        public Kinematic (PhysicalEntity entity, MatrixD transform, Locality anchor = null, Vector3? velocity = null) : base(entity, transform, anchor) {
             this.velocity = velocity ?? Vector3.Zero;
         }
 
@@ -14,7 +14,7 @@ namespace F7s.Modell.Physical.Localities {
             if (this.velocity.LengthSquared() > 0) {
                 float deltaTimeFloat = (float) deltaTime;
                 Vector3 translation = this.velocity * deltaTimeFloat;
-                Transform3D translated = this.Transform.Translated(translation);
+                MatrixD translated = this.Transform.Translated(translation);
                 this.SetTransform(translated);
                 this.Validate(); // TODO: Remove after debugging.
             }

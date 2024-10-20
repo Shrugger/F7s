@@ -1,6 +1,5 @@
-﻿using F7s.Geometry;
-using F7s.Utility;
-using F7s.Utility.Geometry;
+﻿using F7s.Utility;
+using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
@@ -36,7 +35,7 @@ namespace F7s.Modell.Physical.Localities {
                 Ephemeris ephemeris = orbit.OrbitToRelativeKinematics(date);
                 Locality locality = new Fixed(
                     null,
-                    new Transform3D(ephemeris.GetTranslation().ToVector3(), new Basis(ephemeris.GetRotation())),
+                    MatrixD.Transformation(ephemeris.GetTranslation(), ephemeris.GetRotation()),
                     parent
                     );
                 itinerary.Add(locality);
@@ -49,10 +48,10 @@ namespace F7s.Modell.Physical.Localities {
             return base.GetTime() * OrbitSpeedMultiplier;
         }
 
-        public override Transform3D GetLocalTransform () {
+        public override MatrixD GetLocalTransform () {
             double time = GetTime();
             Ephemeris ephemeris = orbit.OrbitToRelativeKinematics(time);
-            return new Transform3D(ephemeris.GetTranslation().ToVector3(), new Basis(ephemeris.GetRotation()));
+            return MatrixD.Transformation(ephemeris.GetTranslation(), ephemeris.GetRotation());
         }
 
         public override Locality HierarchySuperior () {

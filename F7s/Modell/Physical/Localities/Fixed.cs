@@ -1,5 +1,5 @@
 ﻿using F7s.Utility;
-using F7s.Utility.Geometry;
+using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 using System;
 using System.Diagnostics;
@@ -9,10 +9,10 @@ namespace F7s.Modell.Physical.Localities {
     public class Fixed : Locality {
 
         private Locality anchor;
-        public Transform3D Transform { get; private set; }
+        public MatrixD Transform { get; private set; }
 
-        public Fixed (PhysicalEntity entity, Transform3D transform = null, Locality anchor = null, Vector3? velocity = null) : base(entity, anchor) {
-            Transform = transform ?? Transform3D.Identity;
+        public Fixed (PhysicalEntity entity, MatrixD? transform = null, Locality anchor = null, Vector3? velocity = null) : base(entity, anchor) {
+            Transform = transform ?? MatrixD.Identity;
             this.anchor = anchor;
         }
 
@@ -25,7 +25,7 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public enum ReanchorMethodology { MaintainAbsoluteTransform, MaintainLocalTransform, UseNewTransform }
-        public Fixed Reanchored (Locality newAnchor, ReanchorMethodology methodology = ReanchorMethodology.MaintainAbsoluteTransform, Transform3D newTransform = null) {
+        public Fixed Reanchored (Locality newAnchor, ReanchorMethodology methodology = ReanchorMethodology.MaintainAbsoluteTransform, MatrixD? newTransform = null) {
 
             Debug.Assert(newAnchor != null);
 
@@ -35,7 +35,7 @@ namespace F7s.Modell.Physical.Localities {
             switch (methodology) {
                 case ReanchorMethodology.MaintainAbsoluteTransform:
                     Debug.Assert(null == newTransform);
-                    Transform3D newLocalTransform = CalculateRelativeTransform(newAnchor);
+                    MatrixD newLocalTransform = CalculateRelativeTransform(newAnchor);
                     newLocality = new Fixed(physicalEntity, newLocalTransform, newAnchor);
                     AssertEquivalence(this, newLocality);
                     break;
@@ -45,7 +45,7 @@ namespace F7s.Modell.Physical.Localities {
                     break;
                 case ReanchorMethodology.UseNewTransform:
                     Debug.Assert(newTransform != null);
-                    Debug.Assert(Mathematik.ValidPositional(newTransform));
+                    Debug.Assert(Mathematik.ValidPositional(newTransform.Value));
                     newLocality = new Fixed(physicalEntity, newTransform, newAnchor);
                     break;
                 default:
@@ -74,7 +74,7 @@ namespace F7s.Modell.Physical.Localities {
             base.ReplaceSuperior(replacement);
         }
 
-        public override Transform3D GetLocalTransform () {
+        public override MatrixD GetLocalTransform () {
             return Transform;
         }
 
@@ -86,7 +86,7 @@ namespace F7s.Modell.Physical.Localities {
             }
         }
 
-        public override void SetTransform (Transform3D value) {
+        public override void SetTransform (MatrixD value) {
             if (Mathematik.InvalidPositional(value)) {
                 throw new Exception();
             }
@@ -99,13 +99,13 @@ namespace F7s.Modell.Physical.Localities {
             }
             throw new NotImplementedException(); // TODO: Redo for Stride.
             //this.Transform = this.Transform.TranslatedLocal(relativeOffset);
-            if (Mathematik.Invalid(Transform.Origin)) {
-                throw new Exception(Transform.Origin.ToString());
+            if (Mathematik.Invalid(Transform.TranslationVector)) {
+                throw new Exception(Transform.TranslationVector.ToString());
             }
         }
 
         public override void Rotate (float yaw, float pitch, float roll = 0) {
-            Transform3D entityTransform = GetLocalTransform();
+            MatrixD entityTransform = GetLocalTransform();
 
             throw new NotImplementedException(); // TODO: Redo for Stride.
             // entityTransform.Basis = entityTransform.Basis.Rotated(-Vector3.UnitY, yaw).Rotated(-Vector3.UnitX, pitch).Rotated(Vector3.UnitZ, roll);
@@ -113,7 +113,7 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public override void RotateEcliptic (float yaw, float pitch, float roll = 0) {
-            Transform3D entityTransform = GetLocalTransform();
+            MatrixD entityTransform = GetLocalTransform();
 
             throw new NotImplementedException(); // TODO: Redo for Stride.
             /*
@@ -131,7 +131,7 @@ namespace F7s.Modell.Physical.Localities {
                 Basis pitchBasis = new Basis(-Vector3.UnitX, MathF.DegToRad(permittedPitch));
                 Basis rollBasis = new Basis(Vector3.UnitZ, MathF.DegToRad(roll));
                 Basis newBasis = yawBasis * oldBasis * pitchBasis * rollBasis;
-                entityTransform = new Transform3D(newBasis, entityTransform.Origin);
+                entityTransform = MatrixD.Transformation(newBasis, entityTransform.Origin);
             }
 
             this.SetTransform(entityTransform);

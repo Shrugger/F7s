@@ -4,7 +4,7 @@ using F7s.Modell.Handling.PlayerControllers.ControlSets;
 using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using F7s.Utility.Geometry;
+using F7s.Utility.Geometry.Double;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stride.Core.Mathematics;
 using System;
@@ -58,7 +58,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             return "Player " + gameEntity + " " + physicalEntity;
         }
 
-        public static Transform3D TransformRelativeToPlayer (Locality locality) {
+        public static MatrixD TransformRelativeToPlayer (Locality locality) {
             return locality.GetRelativeTransform(GetLocality());
         }
 
@@ -81,9 +81,9 @@ namespace F7s.Modell.Handling.PlayerControllers {
             }
         }
 
-        public static Transform3D GetAbsoluteTransform () {
+        public static MatrixD GetAbsoluteTransform () {
             if (physicalEntity != null) {
-                return Transform3D.Identity;
+                return MatrixD.Identity;
             } else {
                 throw new Exception();
             }
@@ -104,7 +104,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             physicalEntity.Locality.Translate(relativeOffset);
         }
 
-        public static void SetTransform (Transform3D value) {
+        public static void SetTransform (MatrixD value) {
             physicalEntity.Locality.SetTransform(value);
         }
 

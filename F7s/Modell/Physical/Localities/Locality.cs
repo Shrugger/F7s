@@ -2,7 +2,6 @@
 using F7s.Modell.Abstract;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Utility;
-using F7s.Utility.Geometry;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
 using Stride.Core.Mathematics;
@@ -19,7 +18,7 @@ namespace F7s.Modell.Physical.Localities {
 
         public static double TimeFactor = 1;
 
-        private readonly LazyFrameMonoMemory<Locality, Transform3D> cachedRelativeGeometry;
+        private readonly LazyFrameMonoMemory<Locality, MatrixD> cachedRelativeGeometry;
 
         private List<Locality> hierarchySubordinates = new List<Locality>();
 
@@ -45,7 +44,7 @@ namespace F7s.Modell.Physical.Localities {
             if (entity != null) {
                 SetPhysicalEntity(entity);
             }
-            cachedRelativeGeometry = new LazyFrameMonoMemory<Locality, Transform3D>(CalculateRelativeTransform);
+            cachedRelativeGeometry = new LazyFrameMonoMemory<Locality, MatrixD>(CalculateRelativeTransform);
             anchor?.RegisterHierarchySubordinate(this);
         }
 
@@ -147,19 +146,19 @@ namespace F7s.Modell.Physical.Localities {
             replacement.RegisterHierarchySubordinate(this);
         }
 
-        public Transform3D GetAbsoluteTransform () {
+        public MatrixD GetAbsoluteTransform () {
             Validate();
             return Origin.TransformRelativeToOrigin(this);
         }
 
-        public Transform3D GetRelativeTransform (Locality relativeTo) {
+        public MatrixD GetRelativeTransform (Locality relativeTo) {
             Debug.Assert(null != relativeTo);
             Validate();
             if (relativeTo == this) {
-                return Transform3D.Identity;
+                return MatrixD.Identity;
             } else {
-                Transform3D transform3D = CalculateRelativeTransform(relativeTo); // TODO: REMOVE
-                // TODO: REACTIVATE Transform3D transform3D = this.cachedRelativeMathematik.GetValue(relativeTo);
+                MatrixD transform3D = CalculateRelativeTransform(relativeTo); // TODO: REMOVE
+                // TODO: REACTIVATE MatrixD transform3D = this.cachedRelativeMathematik.GetValue(relativeTo);
                 if (Mathematik.InvalidPositional(transform3D)) {
                     throw new Exception();
                 }
@@ -167,7 +166,7 @@ namespace F7s.Modell.Physical.Localities {
             }
         }
 
-        protected Transform3D CalculateRelativeTransform (Locality relativeTo) {
+        protected MatrixD CalculateRelativeTransform (Locality relativeTo) {
             Debug.Assert(null != relativeTo);
             Validate();
             if (relativeTo == this) {
@@ -180,10 +179,10 @@ namespace F7s.Modell.Physical.Localities {
                 throw new Exception("No common root between " + this + " and " + relativeTo + ".");
             }
 
-            Transform3D absoluteSelf = CalculateRelativeTransformUpToRoot(commonRoot);
-            Transform3D absoluteOther = relativeTo.CalculateRelativeTransformUpToRoot(commonRoot);
+            MatrixD absoluteSelf = CalculateRelativeTransformUpToRoot(commonRoot);
+            MatrixD absoluteOther = relativeTo.CalculateRelativeTransformUpToRoot(commonRoot);
 
-            Transform3D result = absoluteOther.Inverse() * absoluteSelf;
+            MatrixD result = absoluteOther.Inverse() * absoluteSelf;
             result.Basis = result.Basis.Orthonormalized();
 
             if (Mathematik.InvalidPositional(result)) {
@@ -207,20 +206,20 @@ namespace F7s.Modell.Physical.Localities {
             return members;
         }
 
-        private Transform3D CalculateRelativeTransformUpToRoot (Locality root) {
+        private MatrixD CalculateRelativeTransformUpToRoot (Locality root) {
             Validate();
 
             if (this == root) {
-                return Transform3D.Identity;
+                return MatrixD.Identity;
             }
 
-            Transform3D total = default;
+            MatrixD total = default;
             bool initialized = false;
 
             List<Locality> descendingInheritance = GetDescendingInheritance(root);
 
             foreach (Locality child in descendingInheritance) {
-                Transform3D local = child.GetLocalTransform();
+                MatrixD local = child.GetLocalTransform();
                 if (Mathematik.InvalidPositional(local)) {
                     throw new Exception();
                 }
@@ -229,7 +228,7 @@ namespace F7s.Modell.Physical.Localities {
                     initialized = true;
                 } else {
                     bool inheritRotation = child.InheritsRotation();
-                    Transform3D result;
+                    MatrixD result;
                     if (inheritRotation) {
                         result = total * local;
                     } else {
@@ -246,9 +245,9 @@ namespace F7s.Modell.Physical.Localities {
             return total;
         }
 
-        public abstract Transform3D GetLocalTransform ();
+        public abstract MatrixD GetLocalTransform ();
 
-        protected Transform3D GetTransformRelativeToParent () {
+        protected MatrixD GetTransformRelativeToParent () {
             Validate();
             return GetLocalTransform();
         }
@@ -359,7 +358,7 @@ namespace F7s.Modell.Physical.Localities {
             hierarchyDepthBackingField = -1;
         }
 
-        public virtual void SetTransform (Transform3D value) {
+        public virtual void SetTransform (MatrixD value) {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 

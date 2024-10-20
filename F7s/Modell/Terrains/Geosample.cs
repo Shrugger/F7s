@@ -63,7 +63,7 @@ namespace F7s.Modell.Terrains
             foreach (Edge e in this.Vertex.Edges) {
                 if (!this.RTG.currentsMap.ContainsKey(e)) {
                     float currentMagnitude = this.RTG.vertexGeosampleMap[e.A].MantleFlux - this.RTG.vertexGeosampleMap[e.B].MantleFlux;
-                    PolarCoordinates currentCoordinates = e.B.Coordinates - e.A.Coordinates;
+                    PolarCoordinatesD currentCoordinates = e.B.Coordinates - e.A.Coordinates;
                     Vector2 current = Mathematik.Normalize(currentCoordinates.LongLatToVector2()) * currentMagnitude;
                     this.RTG.currentsMap.Add(e, current);
                 }

@@ -4,7 +4,7 @@ using F7s.Utility.Mescherei;
 namespace F7s.Modell.Terrains {
     public class Ocean : SetFixedElevation {
 
-        public Ocean(PolarCoordinates coordinates, float radius) : base(coordinates, radius, 0) {
+        public Ocean(PolarCoordinatesD coordinates, float radius) : base(coordinates, radius, 0) {
         }
 
         protected override void Apply(Vertex vertex) {

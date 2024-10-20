@@ -1,6 +1,5 @@
 ﻿using F7s.Engine;
 using F7s.Modell.Physical.Localities;
-using F7s.Utility.Geometry;
 using System;
 
 namespace F7s.Modell.Handling.PlayerControllers {
@@ -8,7 +7,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
     public class FloatingOrigin : Locality {
         public Locality FloatingAnchor { get; private set; }
         public const float DefaultOriginSnapDistanceLimit = 500;
-        private Transform3D transform;
+        private MatrixD transform;
 
         public float MaximumDistance { get; private set; } = DefaultOriginSnapDistanceLimit;
         public void SetMaximumDistance (float value) {
@@ -34,12 +33,12 @@ namespace F7s.Modell.Handling.PlayerControllers {
             return DistanceTo(FloatingAnchor);
         }
 
-        public override void SetTransform (Transform3D value) {
+        public override void SetTransform (MatrixD value) {
             transform = value;
         }
 
-        public override Transform3D GetLocalTransform () {
-            Transform3D local = transform;
+        public override MatrixD GetLocalTransform () {
+            MatrixD local = transform;
             return local;
         }
 
@@ -67,8 +66,8 @@ namespace F7s.Modell.Handling.PlayerControllers {
             SetTransform(CalculateNewTransform());
         }
 
-        private Transform3D CalculateNewTransform () {
-            return new Transform3D(FloatingAnchor.GetLocalTransform().Origin, Matrix3x3d.Identity);
+        private MatrixD CalculateNewTransform () {
+            return MatrixD.Transformation(FloatingAnchor.GetLocalTransform().Origin, Matrix3x3d.Identity);
         }
 
         public override Locality HierarchySuperior () {

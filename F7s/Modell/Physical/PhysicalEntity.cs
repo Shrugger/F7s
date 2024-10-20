@@ -5,10 +5,8 @@ using F7s.Modell.Handling.PhysicalData;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using F7s.Utility.Geometry;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Measurements;
-using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -151,16 +149,16 @@ namespace F7s.Modell.Physical {
             return UiColor() ?? base.RepresentativeColor();
         }
 
-        public virtual Vector3 Scale () {
+        public virtual Vector3d Scale () {
             throw new Exception(GetType().Name);
         }
 
         public virtual double DistanceToPlayer () {
-            return Player.TransformRelativeToPlayer(this).Origin.Length();
+            return Player.TransformRelativeToPlayer(this).TranslationVector.Length();
         }
 
         public virtual double DistanceToCamera () {
-            return Kamera.TransformRelativeToCamera(this).Origin.Length();
+            return Kamera.TransformRelativeToCamera(this).TranslationVector.Length();
         }
 
         public virtual double DistanceToOrigin () {
@@ -177,7 +175,7 @@ namespace F7s.Modell.Physical {
 
 
         public Vector3d RelativePosition (PhysicalEntity relativeTo) {
-            return Locality.GetRelativeTransform(relativeTo).Origin;
+            return Locality.GetRelativeTransform(relativeTo).TranslationVector;
         }
 
 
@@ -217,12 +215,12 @@ namespace F7s.Modell.Physical {
             return null;
         }
 
-        public Vector3 CalculatePositionAtTime (double time) {
+        public Vector3d CalculatePositionAtTime (double time) {
             throw new NotImplementedException();
         }
 
         public Vector3d RelativePosition (Locality relativeTo) {
-            return Locality.GetRelativeTransform(relativeTo).Origin;
+            return Locality.GetRelativeTransform(relativeTo).TranslationVector;
         }
 
         public override PhysicalRepresentationData GetPhysicalData () {
@@ -233,20 +231,20 @@ namespace F7s.Modell.Physical {
             return entity?.Locality;
         }
 
-        public virtual Transform3D ForcedPerspectiveTransform (float desiredDistanceFromCamera) {
+        public virtual MatrixD ForcedPerspectiveTransform (float desiredDistanceFromCamera) {
             return Origin.ForcedPerspectiveTransform(GetLocality(), desiredDistanceFromCamera);
         }
-        public Transform3D CameraCentricTransform () {
+        public MatrixD CameraCentricTransform () {
             return Kamera.TransformRelativeToCamera(GetLocality());
         }
-        public Transform3D ForcedPerspectiveBaseTransform () {
+        public MatrixD ForcedPerspectiveBaseTransform () {
             return Origin.ForcedProjectionBaseTransform(GetLocality());
         }
 
-        public Transform3D OriginCentricTransform () {
+        public MatrixD OriginCentricTransform () {
             return Origin.TransformRelativeToOrigin(GetLocality());
         }
-        public Transform3D PlayerCentricTransform () {
+        public MatrixD PlayerCentricTransform () {
             return Player.TransformRelativeToPlayer(GetLocality());
         }
     }

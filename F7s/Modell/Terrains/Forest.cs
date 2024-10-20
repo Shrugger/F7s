@@ -4,12 +4,12 @@ using F7s.Utility.Geometry;
 
 namespace F7s.Modell.Terrains {
     public class Forest : TerrainFeature {
-        private PolarCoordinates coordinates;
+        private PolarCoordinatesD coordinates;
         private float featureRadius;
         private readonly Farbe color;
         private readonly float height;
 
-        public Forest (PolarCoordinates coordinates, float featureRadius, Farbe color, float height) {
+        public Forest (PolarCoordinatesD coordinates, float featureRadius, Farbe color, float height) {
             this.coordinates = coordinates;
             this.featureRadius = featureRadius;
             this.color = color;

@@ -53,12 +53,12 @@ namespace F7s.Modell.Terrains
 
         protected abstract void Apply (Vertex vertex);
 
-        protected bool RadiusReaches (double featureRadius, PolarCoordinates featureCoordinates, PolarCoordinates positionCoordinates) {
+        protected bool RadiusReaches (double featureRadius, PolarCoordinatesD featureCoordinates, PolarCoordinatesD positionCoordinates) {
             double distance = this.Distance(featureCoordinates, positionCoordinates);
             return distance <= featureRadius;
         }
 
-        protected double Distance (PolarCoordinates featureCoordinates, PolarCoordinates positionCoordinates) {
+        protected double Distance (PolarCoordinatesD featureCoordinates, PolarCoordinatesD positionCoordinates) {
             return featureCoordinates.PolarDistanceDouble(positionCoordinates, this.Terrain.BaseRadius);
         }
         protected bool RadiusReaches (double featureRadius, Vector3 featurePosition, Vector3 position) {
@@ -82,7 +82,7 @@ namespace F7s.Modell.Terrains
             return this.ProximityFactor((float) this.Distance(from, to), reach);
         }
 
-        protected float ProximityFactor (PolarCoordinates from, PolarCoordinates to, float reach) {
+        protected float ProximityFactor (PolarCoordinatesD from, PolarCoordinatesD to, float reach) {
             return this.ProximityFactor((float) this.Distance(from, to), reach);
         }
 

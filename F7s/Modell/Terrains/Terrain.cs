@@ -127,7 +127,7 @@ namespace F7s.Modell.Terrains {
             }
         }
 
-        private PolarCoordinates RandomCoordinates () {
+        private PolarCoordinatesD RandomCoordinates () {
             return Alea.Coordinates(BaseRadius);
         }
 

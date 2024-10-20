@@ -315,8 +315,8 @@ namespace F7s.Utility
             return Mathematik.Normalize(Alea.Vector3());
         }
 
-        public static PolarCoordinates Coordinates (float radius = 1) {
-            return new PolarCoordinates(Alea.Float(-180, 180), Alea.Float(-90, 90), radius);
+        public static PolarCoordinatesD Coordinates (float radius = 1) {
+            return new PolarCoordinatesD(Alea.Float(-180, 180), Alea.Float(-90, 90), radius);
         }
 
         public static Vector2 Vector2 (float min, float max) {

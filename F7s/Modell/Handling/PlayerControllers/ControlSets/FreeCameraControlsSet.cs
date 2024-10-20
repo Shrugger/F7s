@@ -1,6 +1,5 @@
 ﻿using F7s.Engine;
 using F7s.Engine.InputHandling;
-using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using Stride.Input;
 using System;
@@ -70,7 +69,7 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
                 Add(new MouseDeltaAction(Player.RotateCamera));
             }
 
-            Add(new InputVectorAction(() => { Kamera.SetTransform(Transform3D.Identity); }, new KeyButtonInput(Keys.R, ButtonInput.ButtonStates.Pressed), new KeyButtonInput(Keys.LeftCtrl, ButtonInput.ButtonStates.HeldDown)));
+            Add(new InputVectorAction(() => { Kamera.SetTransform(MatrixD.Identity); }, new KeyButtonInput(Keys.R, ButtonInput.ButtonStates.Pressed), new KeyButtonInput(Keys.LeftCtrl, ButtonInput.ButtonStates.HeldDown)));
         }
 
         protected override void OnActivation () {

@@ -14,7 +14,7 @@ namespace F7s.Utility.Mescherei
 
         public int Index = -1;
         public Vector3 Position { get; private set; }
-        public PolarCoordinates Coordinates { get; private set; }
+        public PolarCoordinatesD Coordinates { get; private set; }
         private Vector3 Normal;
         public Vector2? UV { get; private set; }
         public Farbe Color { get; private set; }
@@ -181,10 +181,10 @@ namespace F7s.Utility.Mescherei
         public void SetPosition (Vector3 position) {
             MarkDirty();
             Position = position;
-            Coordinates = PolarCoordinates.FromCartesian(position);
+            Coordinates = PolarCoordinatesD.FromCartesian(position);
         }
 
-        public void SetCoordinates (PolarCoordinates coordinates) {
+        public void SetCoordinates (PolarCoordinatesD coordinates) {
             MarkDirty();
             Coordinates = coordinates;
             Position = coordinates.ToVector3();

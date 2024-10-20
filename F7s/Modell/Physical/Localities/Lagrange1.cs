@@ -19,10 +19,10 @@ namespace F7s.Modell.Physical.Localities {
             return this.primary;
         }
 
-        public override Transform3D GetLocalTransform () {
+        public override MatrixD GetLocalTransform () {
             float factor = 0.5f; // TODO: L1 Formula.
             Vector3d origin = this.secondary.Locality.GetRelativeTransform(this.primary).Origin * factor;
-            return new Transform3D(origin, new Basis(this.rotation));
+            return MatrixD.Transformation(origin, new Basis(this.rotation));
         }
 
         public override bool InheritsRotation () {

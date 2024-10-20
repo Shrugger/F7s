@@ -5,11 +5,11 @@ using F7s.Utility.Geometry;
 namespace F7s.Modell.Terrains {
     public class ImpactCrater : TerrainFeature {
 
-        private readonly PolarCoordinates center;
+        private readonly PolarCoordinatesD center;
         private readonly float radius;
         private readonly float depth;
 
-        public ImpactCrater (PolarCoordinates center, float radius, float depth) {
+        public ImpactCrater (PolarCoordinatesD center, float radius, float depth) {
             this.center = center;
             this.radius = radius;
             this.depth = depth;

@@ -1,6 +1,6 @@
 ﻿using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
-using F7s.Utility.Geometry;
+using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 using System;
@@ -31,7 +31,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
                 Locality fallback = Player.GetLocality();
                 if (fallback != null) {
                     fallback.Validate();
-                    locality = new Fixed(null, Transform3D.Identity, fallback);
+                    locality = new Fixed(null, MatrixD.Identity, fallback);
                     locality.Name = "Camera Locality";
                 } else {
                     throw new Exception("No player locality and no fallback found.");
@@ -40,7 +40,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             return locality;
         }
 
-        public static Transform3D TransformRelativeToCamera (Locality locality) {
+        public static MatrixD TransformRelativeToCamera (Locality locality) {
             return locality.GetRelativeTransform(GetLocality());
         }
 
@@ -49,14 +49,14 @@ namespace F7s.Modell.Handling.PlayerControllers {
             UpdateCameraNodeTransform();
         }
 
-        public static void SetTransform (Transform3D value) {
+        public static void SetTransform (MatrixD value) {
             GetLocality().SetTransform(value);
         }
 
         private static void UpdateCameraNodeTransform () {
-            Transform3D localityTransform = GetLocality().GetAbsoluteTransform();
-            Transform3D parentTransform = new Transform3D(localityTransform.Origin, Matrix3x3d.Identity);
-            Transform3D cameraTransform = new Transform3D(Vector3d.Zero, localityTransform.Basis);
+            MatrixD localityTransform = GetLocality().GetAbsoluteTransform();
+            MatrixD parentTransform = MatrixD.Transformation(localityTransform.TranslationVector, Matrix3x3d.Identity);
+            MatrixD cameraTransform = MatrixD.Transformation(Vector3d.Zero, localityTransform.Basis);
 
             throw new NotImplementedException(); // See below.
             // MainNode.Instance.CameraParent.Transform = parentTransform; // TODO: redo for Stride.
@@ -97,22 +97,22 @@ namespace F7s.Modell.Handling.PlayerControllers {
             if (cameraFixedLocality != null) {
                 SetLocality(cameraFixedLocality.Reanchored(playerLocality.HierarchySuperior()));
             } else {
-                Fixed newCameraLocality = new Fixed(null, Transform3D.Identity, playerLocality.HierarchySuperior());
+                Fixed newCameraLocality = new Fixed(null, MatrixD.Identity, playerLocality.HierarchySuperior());
                 newCameraLocality.Name = "Cam-Loc";
                 SetLocality(newCameraLocality);
             }
         }
 
-        public static void SetAnchor (Locality locality, Fixed.ReanchorMethodology methodology, Transform3D newTransform) {
+        public static void SetAnchor (Locality locality, Fixed.ReanchorMethodology methodology, MatrixD newTransform) {
             Fixed oldLocality = GetLocality();
             SetLocality(oldLocality.Reanchored(locality, methodology, newTransform));
         }
 
         public static void View (PhysicalEntity entity, Vector3d desiredRelativePosition, Vector3? up = null) {
             Debug.Assert(Vector3d.Zero != desiredRelativePosition);
-            Transform3D newTransform = new Transform3D(desiredRelativePosition, locality.Transform.Basis);
+            MatrixD newTransform = MatrixD.Transformation(desiredRelativePosition, Mathematik.ExtractRotation(locality.Transform));
             SetAnchor(entity.Locality, Fixed.ReanchorMethodology.UseNewTransform, newTransform);
-            LookAt(-newTransform.Origin.ToVector3(), up);
+            LookAt(-newTransform.TranslationVector.ToVector3(), up);
         }
     }
 }

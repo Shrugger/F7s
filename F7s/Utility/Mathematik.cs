@@ -1,4 +1,4 @@
-﻿using F7s.Utility.Geometry;
+﻿using F7s.Utility.Geometry.Double;
 using F7s.Utility.Shapes;
 using Stride.Core.Mathematics;
 using System;
@@ -936,6 +936,9 @@ namespace F7s.Utility {
         public static bool Valid (Quaternion q) {
             return float.IsFinite(q.X) && float.IsFinite(q.Y) && float.IsFinite(q.Z) && float.IsFinite(q.W);
         }
+        public static bool Valid (QuaternionD q) {
+            return double.IsFinite(q.X) && double.IsFinite(q.Y) && double.IsFinite(q.Z) && double.IsFinite(q.W);
+        }
 
         public static bool Invalid (Vector3 v) {
             return !Valid(v);
@@ -984,40 +987,40 @@ namespace F7s.Utility {
         public static bool ApproximatelyEqual (object column01, object column02, float delta) {
             throw new NotImplementedException();
         }
-        public static bool ApproximatelyEqual (Transform3D a, Transform3D b, float delta = 0.001f) {
+        public static bool ApproximatelyEqual (MatrixD a, MatrixD b, float delta = 0.001f) {
             bool origin = ApproximatelyEqual(a.Origin, b.Origin, delta);
             bool basis = Matrix3x3d.ApproximatelyEqual(a.Basis, b.Basis, delta);
             return origin && basis;
         }
 
-        public static void AssertEqual (Transform3D a, Transform3D b, float delta = 0.001f) {
+        public static void AssertEqual (MatrixD a, MatrixD b, float delta = 0.001f) {
             Debug.Assert(ApproximatelyEqual(a, b, delta));
         }
 
         private const float DefaultValidationTolerance = 0.0001f;
 
-        public static void ValidatePositional (Transform3D transform, float tolerance = DefaultValidationTolerance) {
+        public static void ValidatePositional (MatrixD transform, float tolerance = DefaultValidationTolerance) {
             if (InvalidPositional(transform, tolerance)) {
                 throw new Exception(transform.ToString());
             }
         }
 
-        public static bool InvalidPositional (Transform3D transform, float tolerance = DefaultValidationTolerance) {
+        public static bool InvalidPositional (MatrixD transform, float tolerance = DefaultValidationTolerance) {
             return !ValidPositional(transform, tolerance);
         }
-        public static bool InvalidScaled (Transform3D transform) {
+        public static bool InvalidScaled (MatrixD transform) {
             return !ValidScaled(transform);
         }
 
-        public static bool ValidPositional (Transform3D transform, float tolerance = DefaultValidationTolerance) {
+        public static bool ValidPositional (MatrixD transform, float tolerance = DefaultValidationTolerance) {
             return Valid(transform, true, tolerance);
         }
 
-        public static bool ValidScaled (Transform3D transform) {
+        public static bool ValidScaled (MatrixD transform) {
             return Valid(transform, false, 0);
         }
 
-        private static bool Valid (Transform3D transform, bool expectUniformScale, float tolerance = DefaultValidationTolerance) {
+        private static bool Valid (MatrixD transform, bool expectUniformScale, float tolerance = DefaultValidationTolerance) {
             if (Invalid(transform.Origin)) {
                 return false;
             }
@@ -1105,6 +1108,22 @@ namespace F7s.Utility {
             static double Fract (double value) {
                 return value - Math.Floor(value);
             }
+        }
+
+        internal static QuaternionD DegreesToQuaternionD (Vector3d vector3) {
+            throw new NotImplementedException();
+        }
+
+        internal static QuaternionD ExtractRotation (MatrixD transform) {
+            QuaternionD rotation;
+            transform.Decompose(out _, out rotation, out _);
+            return rotation;
+        }
+
+        internal static Quaternion ExtractRotation (Matrix transform) {
+            Quaternion rotation;
+            transform.Decompose(out _, out rotation, out _);
+            return rotation;
         }
     }
 }
