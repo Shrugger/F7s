@@ -28,22 +28,22 @@ namespace F7s.Modell.Abstract {
 
         public GameEntity (string name = null) {
             if (name != null) {
-                this.SetName(name);
+                SetName(name);
             }
             gameEntities.Add(this);
-            this.lastUpdateDate = currentSimulationDate;
-            this.EnqueueForUpdate();
+            lastUpdateDate = currentSimulationDate;
+            EnqueueForUpdate();
         }
 
         public virtual void Delete () {
             Console.WriteLine("Deleting GE " + this + ".");
-            this.Deleted = true;
+            Deleted = true;
             gameEntities.Remove(this);
-            this.SetName("DELETED " + this.GetName());
+            SetName("DELETED " + GetName());
         }
 
         public override string ToString () {
-            return this.Name ?? this.GetType().Name;
+            return Name ?? GetType().Name;
         }
 
         /// <summary>
@@ -73,9 +73,9 @@ namespace F7s.Modell.Abstract {
         }
 
         public string Name {
-            get { return this.GetName(); }
+            get { return GetName(); }
             set {
-                this.SetName(value);
+                SetName(value);
             }
         }
         private string name;
@@ -83,7 +83,7 @@ namespace F7s.Modell.Abstract {
             this.name = name;
         }
         public string GetName () {
-            return this.name ?? this.GetType().Name;
+            return name ?? GetType().Name;
         }
 
         public virtual int UiHierarchyIndentationLevel () {
@@ -91,22 +91,22 @@ namespace F7s.Modell.Abstract {
         }
         public virtual string UiHierarchyIndentation () {
             string indentation = "";
-            for (int i = 0; i < this.UiHierarchyIndentationLevel(); i++) {
+            for (int i = 0; i < UiHierarchyIndentationLevel(); i++) {
                 indentation += " ";
             }
             return indentation;
         }
 
         public void ScheduledUpdate () {
-            if (this.Deleted) {
+            if (Deleted) {
                 return;
             }
 
-            double deltaTime = currentSimulationDate - this.lastUpdateDate;
-            this.lastUpdateDate = currentSimulationDate;
-            this.Update(deltaTime);
+            double deltaTime = currentSimulationDate - lastUpdateDate;
+            lastUpdateDate = currentSimulationDate;
+            Update(deltaTime);
 
-            this.EnqueueForUpdate();
+            EnqueueForUpdate();
         }
 
         public virtual void RenderUpdate (double deltaTime) {
@@ -114,7 +114,7 @@ namespace F7s.Modell.Abstract {
         }
 
         public virtual void PhysicsUpdate (double deltaTime) {
-            this.GetLocality()?.Update(deltaTime);
+            GetLocality()?.Update(deltaTime);
 
         }
 
@@ -123,7 +123,7 @@ namespace F7s.Modell.Abstract {
         }
 
         private static double CurrentEngineTime () {
-            throw new NotImplementedException();
+            return Zeit.GetEngineTimeSeconds();
         }
 
         private double CalculateDateOfNextUpdate () {
@@ -132,10 +132,10 @@ namespace F7s.Modell.Abstract {
         }
 
         private void EnqueueForUpdate () {
-            updateQueue.Enqueue(this, this.CalculateDateOfNextUpdate());
+            updateQueue.Enqueue(this, CalculateDateOfNextUpdate());
         }
 
-        public static void OnEngineUpdate (double engineDeltaTime, double speedFactor, bool skipToNextDate) {
+        public static void OnEngineUpdate (double speedFactor, bool skipToNextDate) {
 
             if (Zeit.Paused) {
                 return;
@@ -146,7 +146,7 @@ namespace F7s.Modell.Abstract {
                 currentSimulationDate = nextDate;
             } else {
                 double maximumDeltaTime = updateQueue.Count > 0 ? PeekUpdatePriority() - currentSimulationDate : double.MaxValue;
-                double simulationDeltaTime = Math.Clamp(engineDeltaTime * speedFactor, 0, maximumDeltaTime);
+                double simulationDeltaTime = Math.Clamp(Zeit.DeltaTimeSeconds() * speedFactor, 0, maximumDeltaTime);
                 currentSimulationDate += simulationDeltaTime;
             }
 
@@ -212,8 +212,8 @@ namespace F7s.Modell.Abstract {
         }
 
         public virtual void ConfigureInfoblock (Infoblock infoblock) {
-            infoblock.Text = this.Name;
-            infoblock.TooltipText = this.Name;
+            infoblock.Text = Name;
+            infoblock.TooltipText = Name;
             return;
         }
         public virtual void ConfigureContextMenu (ContextMenu contextMenu) {

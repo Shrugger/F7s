@@ -1,6 +1,6 @@
 ﻿using F7s.Engine;
 using F7s.Engine.InputHandling;
-using F7s.Geometry;
+using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using Stride.Input;
 using System;
@@ -8,7 +8,7 @@ using System;
 namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
     public class FreeCameraControlsSet : InputSet {
         public FreeCameraControlsSet () {
-            this.Add(new InputVectorAction(Player.ActivateUiControls, new KeyButtonInput(Keys.Tab, ButtonInput.ButtonStates.Pressed)));
+            Add(new InputVectorAction(Player.ActivateUiControls, new KeyButtonInput(Keys.Tab, ButtonInput.ButtonStates.Pressed)));
 
             {
                 void MoveLeft () {

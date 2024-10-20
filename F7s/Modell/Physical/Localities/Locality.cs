@@ -1,9 +1,9 @@
 ﻿using F7s.Engine;
-using F7s.Geometry;
 using F7s.Modell.Abstract;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Utility;
 using F7s.Utility.Geometry;
+using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
 using Stride.Core.Mathematics;
 using System;

@@ -3,14 +3,14 @@ using F7s.Modell.Abstract;
 using F7s.Modell.Handling.PlayerControllers.ControlSets;
 using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
-using F7s.Geometry;
+using F7s.Utility;
+using F7s.Utility.Geometry;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stride.Core.Mathematics;
 using System;
 using System.Diagnostics;
-using F7s.Utility;
 
-namespace F7s.Modell.Handling.PlayerControllers
-{
+namespace F7s.Modell.Handling.PlayerControllers {
 
     /// <summary>
     /// Handles control of the player entity, or blocks it in favor of controlling the camera or the UI.
@@ -30,12 +30,23 @@ namespace F7s.Modell.Handling.PlayerControllers
         private static InputSet fallbackControlSet = null;
 
         public static void SetGameEntity (GameEntity entity) {
+            Assert.IsNotNull(entity);
             gameEntity = entity;
         }
 
         public static void SetPhysicalEntity (PhysicalEntity entity) {
+            Assert.IsNotNull(entity);
             physicalEntity = entity;
             Player.SetGameEntity(entity);
+        }
+
+        public static void UnsetPhysicalEntity () {
+            physicalEntity = null;
+            UnsetGameEntity();
+        }
+
+        public static void UnsetGameEntity () {
+            gameEntity = null;
         }
 
         static Player () {

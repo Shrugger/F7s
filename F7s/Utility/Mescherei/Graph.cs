@@ -1,47 +1,13 @@
 ﻿using F7s.Geometry;
+using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using Stride.Graphics;
-using Stride.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Buffer = Stride.Graphics.Buffer;
 
 namespace F7s.Utility.Mescherei {
-
-    public class Mesch {
-        public readonly Model model;
-        public readonly Mesh mesh;
-
-        public Mesch () {
-            model = new Model();
-            mesh = new Mesh();
-            model.Meshes.Add(mesh);
-            mesh.Draw = new MeshDraw();
-        }
-
-        public static Mesch FromGraph (Graph graph, GraphicsDevice graphicsDevice, GraphicsResourceUsage graphicsResourceUsage) {
-            Mesch mesch = new Mesch();
-
-            MeshDraw draw = mesch.mesh.Draw;
-
-            draw.PrimitiveType = Stride.Graphics.PrimitiveType.TriangleList;
-            int indicesCount = graph.TriangleCount * 3;
-            draw.DrawCount = indicesCount;
-
-            VertexPositionNormalColor[] vertices = graph.GetVertexArray();
-            int[] indices = graph.GetIndexArray();
-
-            Buffer vertexBuffer = Buffer.Vertex.New(graphicsDevice, vertices, graphicsResourceUsage);
-            Buffer indexBuffer = Buffer.Index.New(graphicsDevice, indices, graphicsResourceUsage);
-
-            draw.VertexBuffers = new VertexBufferBinding[] { new VertexBufferBinding(vertexBuffer, VertexPositionNormalColor.Layout, vertexBuffer.ElementCount) };
-            draw.IndexBuffer = new IndexBufferBinding(indexBuffer, true, indexBuffer.ElementCount);
-
-            return mesch;
-        }
-    }
 
     public class Graph {
 
@@ -50,7 +16,7 @@ namespace F7s.Utility.Mescherei {
         private List<Edge> edges = new List<Edge>();
         public List<Vertex> Vertices { get { return vertices; } }
         private VertexPositionNormalColor[] vertexArray = null;
-        private readonly int[] indexArray = null;
+        private int[] indexArray = null;
 
         public List<Triangle> Triangles { get { return triangles; } }
         public List<Edge> Edges { get { return edges; } }
@@ -74,6 +40,9 @@ namespace F7s.Utility.Mescherei {
         public VertexPositionNormalColor[] GetVertexArray () {
             if (vertexArray == null) {
                 vertexArray = BakeVertexArray();
+                if (vertexArray == null) {
+                    throw new Exception();
+                }
             }
             return vertexArray;
         }
@@ -82,7 +51,10 @@ namespace F7s.Utility.Mescherei {
         }
         public int[] GetIndexArray () {
             if (indexArray == null) {
-                BakeIndexArray();
+                indexArray = BakeIndexArray();
+                if (indexArray == null) {
+                    throw new Exception();
+                }
             }
             return indexArray;
         }
@@ -91,7 +63,8 @@ namespace F7s.Utility.Mescherei {
             foreach (Triangle t in triangles) {
                 indices.AddRange(t.VertexIndices());
             }
-            return indices.ToArray();
+            int[] indexArray = indices.ToArray();
+            return indexArray;
         }
 
         public override string ToString () {
@@ -220,8 +193,8 @@ namespace F7s.Utility.Mescherei {
         }
 
         public Vector3 RotatedVertexPosition (Vector3 position, Vector3 rotation) {
-            Transform3D old = new Transform3D(Basis.Identity, position);
-            Transform3D transformation = new Transform3D(Basis.FromEuler(rotation), Vector3.Zero);
+            Transform3D old = new Transform3D(position, Basis.Identity);
+            Transform3D transformation = new Transform3D(Vector3.Zero, Basis.FromEuler(rotation));
             Vector3 result = (transformation * old).Origin.ToVector3();
             return result;
         }

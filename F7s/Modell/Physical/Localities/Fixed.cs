@@ -1,11 +1,10 @@
-﻿using F7s.Geometry;
-using F7s.Utility;
+﻿using F7s.Utility;
+using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using System;
 using System.Diagnostics;
 
-namespace F7s.Modell.Physical.Localities
-{
+namespace F7s.Modell.Physical.Localities {
 
     public class Fixed : Locality {
 

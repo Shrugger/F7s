@@ -26,7 +26,7 @@ namespace F7s.Utility.Shapes
                 : this(shape, position, rotation != null ? Mathematik.DegreesToQuaternion(rotation.Value) : null, name, color) { }
             public Constituent (Shape3Dim shape, Vector3 position, Quaternion? rotation = null, string name = null, Farbe? color = null) {
                 this.shape = shape;
-                this.transform = new Transform3D(new Basis(rotation ?? Quaternion.Identity), position);
+                this.transform = new Transform3D(position, new Basis(rotation ?? Quaternion.Identity));
                 this.name = name;
                 this.externalVolume = shape.ExternalVolume();
                 this.substantialVolume = shape.SubstantialVolume();

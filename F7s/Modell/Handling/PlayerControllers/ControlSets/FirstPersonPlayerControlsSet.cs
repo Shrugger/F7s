@@ -1,6 +1,6 @@
 ﻿using F7s.Engine;
 using F7s.Engine.InputHandling;
-using F7s.Geometry;
+using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using Stride.Input;
 

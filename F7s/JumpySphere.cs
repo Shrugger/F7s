@@ -17,14 +17,14 @@ namespace F7s {
             double delta = (float) Game.UpdateTime.Elapsed.TotalSeconds;
             cooldown -= delta;
             if (cooldown < 0) {
-                cooldown = Alea.Float() * 5;
+                cooldown = 1 + (Alea.Float() * 4);
                 Jump();
             }
         }
 
         private void Jump () {
             // Jump!
-            Entity.Get<RigidbodyComponent>().ApplyImpulse(Alea.Vector3() * 20);
+            Entity.Get<RigidbodyComponent>().ApplyImpulse(Alea.Vector3() * 10);
             Console.WriteLine("Jump!");
         }
     }

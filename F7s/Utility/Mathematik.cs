@@ -1,5 +1,4 @@
-﻿using F7s.Geometry;
-using F7s.Utility.Geometry;
+﻿using F7s.Utility.Geometry;
 using F7s.Utility.Shapes;
 using Stride.Core.Mathematics;
 using System;

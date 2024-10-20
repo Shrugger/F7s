@@ -1,0 +1,952 @@
+!PrefabAsset
+Id: d0395e2c-b734-4ea2-a84f-f3605080cb7f
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! c588d044-8c76-4472-98f8-aaa4d502e037
+    Parts:
+        -   Entity:
+                Id: 040d9894-8f9b-4b37-bf66-854513fd2267
+                Name: JumpyShape
+                Components:
+                    18119bbb498b283c6ec054fde44bf6f7: !TransformComponent
+                        Id: d0d5644c-15ff-4547-9f58-a19ae5ee7ba1
+                        Position: {X: 0.0, Y: 1.4794654, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            426a29818abdb9f08e7792ced1bc7153: ref!! 9129b8be-4bb5-4a34-a415-1a9e24b6b7b3
+        -   Entity:
+                Id: 08fe7e06-63f7-4e01-a970-55f1201ca95c
+                Name: JumpyBox
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: 9129b8be-4bb5-4a34-a415-1a9e24b6b7b3
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            48a94fd55101ac5dda63e4d5e2c65d0c: ref!! fbbc5903-9cda-44f7-9e08-cca740ffa644
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: 1648868e-c580-410e-9894-794f1edbf37d
+                        Model: efeb72e3-bc54-454f-8c0f-e6bf359fe4bb:box
+                        Materials:
+                            209b9a9219fc15772624ef77bd076c9c~0: e0fd85b9-4d1a-4f86-aecc-fd310e6da743:Materials/wood_gloss/wood_gloss
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: 6a46273b-6ef1-44fa-a524-33c7ad9c2122
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: b54e0efc-cc50-445f-974e-b6e06101fbc5
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            4e81f8ea2d39066076e888c5dc24b3ca: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 1.0, Y: 1.0, Z: 1.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+            Base:
+                BasePartAsset: 8bdd3d54-1cc8-4302-a60f-0e083c0a1d73:JumpyShape
+                BasePartId: 190c772b-71ba-4997-8036-7028146b1373
+                InstanceId: 7f519970-a967-408b-9648-0e29404467a4
+        -   Entity:
+                Id: 1955faa1-b4fa-4dff-8d4b-4492a90bce5a
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: 1ea95489-345f-4349-8d2f-ef3efff71f7c
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: 00c35a71-fd29-43bd-8fe4-096af0fb54eb
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.51875, G: 0.14756007, B: 0.100507826}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 7def333e-6cd2-4cf1-96f6-6e51cee69073
+                InstanceId: 51ae1d45-5441-46b1-8ab8-9e20b2335a27
+        -   Entity:
+                Id: 265b368a-327e-46d6-be82-4cb4be1d9536
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: c36bd8a6-ff14-484f-9de7-831431c6d8a0
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: b02c4164-dd00-4905-b87c-0444a3819b02
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.51875, G: 0.14756007, B: 0.100507826}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 7def333e-6cd2-4cf1-96f6-6e51cee69073
+                InstanceId: bb7e32fe-90e4-4929-b0dc-57ab0964f741
+        -   Folder: null
+            Entity:
+                Id: 2baefa9b-a75f-4b6e-b704-104ccdd95469
+                Name: JumpyBox
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: ae623931-5c42-4deb-a30f-d083f8995736
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            48a94fd55101ac5dda63e4d5e2c65d0c: ref!! 8f02651c-557f-4de9-beef-4f4c8ea6c0f5
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: 990fc74c-822a-4dc7-8783-4abc59888a11
+                        Model: efeb72e3-bc54-454f-8c0f-e6bf359fe4bb:box
+                        Materials:
+                            209b9a9219fc15772624ef77bd076c9c~0: e0fd85b9-4d1a-4f86-aecc-fd310e6da743:Materials/wood_gloss/wood_gloss
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: be8fb4be-625d-4bc7-b347-9aa275cc4955
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: 0a5c1e3e-bf6f-428b-87d3-6230713e7ddd
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            4e81f8ea2d39066076e888c5dc24b3ca: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 1.0, Y: 1.0, Z: 1.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+            Base:
+                BasePartAsset: 8bdd3d54-1cc8-4302-a60f-0e083c0a1d73:JumpyShape
+                BasePartId: 190c772b-71ba-4997-8036-7028146b1373
+                InstanceId: efc37f56-3c0f-420b-b55c-2a61da074323
+        -   Entity:
+                Id: 2d668ebe-55f5-4f0c-976b-d1f3b8558cae
+                Name: Jumpers
+                Components:
+                    ed6f08f4f038bfdc0c0dc0de9139979f: !TransformComponent
+                        Id: 52db628c-c6cd-4c22-8c4f-b9105879d6d0
+                        Position: {X: 0.0, Y: 0.0, Z: -5.590808}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            0d46bb54d24418b546086ba435ce972d: ref!! fe61e165-a953-4959-8588-a018dbfadffd
+                            ab21f3b267fa2e75285191c33aec39fb: ref!! afc79fb3-6dbf-4406-a0e4-62bd27efc674
+                            597df1e4f7107c5f78ac00063fa5acd5: ref!! 8a9f958c-36a0-47da-a050-5340ec6afdfc
+                            5c627e4f4416007ddba4539066c335b3: ref!! 96854cb5-a5fb-4255-89e3-50ec35468607
+                            c9bcd519a0cb84f2d5a15e36c7e017d7: ref!! 5906483a-3d24-4211-95fb-867270fcea68
+                            69b272cfe1d269d9597fd13dd3376de9: ref!! 51f8ffda-355c-40a0-801e-31bfb134d42c
+                            fc117f0efd64c09e9ec05ec705dcd322: ref!! d0d5644c-15ff-4547-9f58-a19ae5ee7ba1
+                            bc12add68be3cf7adaa40f1d7ef59d9c: ref!! dd569cc0-7baa-4ddb-9d5a-556a48629f44
+                            6a348164a7cc5ff029f7b1a1eac7c5b4: ref!! 066cf4fc-2c9e-4a98-a1dd-37e2ba674c25
+                            beaa0295ba60f481543f2c889f2321fe: ref!! 52b99815-4fb1-45b3-b2ef-0091558b4f39
+        -   Entity:
+                Id: 352eb205-c5b9-468c-a7de-aeac2f7b26de
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: ac3665a8-085d-46d5-b814-8db1023f284b
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: 1b6133cb-77d2-4c83-be5c-b4d2ba635236
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.51875, G: 0.14756007, B: 0.100507826}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 7def333e-6cd2-4cf1-96f6-6e51cee69073
+                InstanceId: cd006757-5a9e-4f74-bab3-6d697bedbe80
+        -   Entity:
+                Id: 373715a2-b64c-4ab2-a84f-01cb2b102b42
+                Name: Walls
+                Components:
+                    8ca36b35e31821f1d1bf795e3af67d8f: !TransformComponent
+                        Id: 3818051f-8ac0-41a1-b5e8-c2683c6d3958
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            e22624eb5517deeb182bc55ae0c9f4ec: ref!! 11c4f34e-2b38-4123-9e99-d4596f5e6f57
+                            3fc8a37c8ec88556099de8a4848b0217: ref!! 27f45004-ebd3-4e32-b64f-a169c530b056
+                            319f45d3533ea9451c0ee136920da5c6: ref!! 7cd0939c-4ee8-42f0-b42d-3bb870016d25
+                            cfad4ea0174ac48865046314336615a8: ref!! 1cadfdc4-87ed-440c-9d0d-24a4b23fe77b
+        -   Entity:
+                Id: 45d369f2-4894-4cf8-9931-0620a34ce6e9
+                Name: JumpyShape
+                Components:
+                    18119bbb498b283c6ec054fde44bf6f7: !TransformComponent
+                        Id: 52b99815-4fb1-45b3-b2ef-0091558b4f39
+                        Position: {X: -3.7795954, Y: 1.4794654, Z: 5.7321544}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            426a29818abdb9f08e7792ced1bc7153: ref!! 0559d81b-f617-4711-a793-c32c7eca8662
+        -   Entity:
+                Id: 477828b3-0271-4aad-83ae-5012f4843286
+                Name: box
+                Components:
+                    2e0fbebfd5a26e7f280e56e22e2c1be3: !TransformComponent
+                        Id: 11c4f34e-2b38-4123-9e99-d4596f5e6f57
+                        Position*: {X: 0.0, Y: 0.0, Z: 10.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 20.0, Y: 20.0, Z: 0.01}
+                        Children: {}
+                    8d64674d5f3a675ce03a28de63948997: !ModelComponent
+                        Id: 13075457-1db0-42c9-afa7-b5aca9d113e5
+                        Model: b36be3fb-1496-44c7-97ea-2d523feff017:Models/Box1x1x1
+                        Materials: {}
+                    ec91f2c316573614a9179a9543df6510: !StaticColliderComponent
+                        Id: 6e0f17c6-54b4-4882-95b7-38a45a47432a
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            dcadd6c569dcf5429349d610d0d329bc: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 1.0, Y: 1.0, Z: 1.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+            Base:
+                BasePartAsset: 18c35d7b-01f4-4345-836e-0e651fa349dc:JumpyWall
+                BasePartId: 7b747fe5-1a05-4cda-b4ab-a991c125bdb5
+                InstanceId: f0e53639-d11c-4490-8c25-7cb19eaca5c8
+        -   Entity:
+                Id: 4855befa-d0b8-4731-9046-939fedec7aa6
+                Name: Sphere
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: 96854cb5-a5fb-4255-89e3-50ec35468607
+                        Position*: {X: 2.9395611, Y: 2.6979847, Z: 5.5287676}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            7af0f0b3436c43652bc6e3757e13e26e: ref!! ac3665a8-085d-46d5-b814-8db1023f284b
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: f7860e37-2f25-4c50-b373-892dfed37519
+                        Model: d32f9d4c-a7ee-4d8d-8d01-f99f17cc11c0:Sphere
+                        Materials: {}
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: dc14f97e-9aa7-4a11-9aea-ccb8c3a542bb
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: 08c1f460-b658-4409-96ea-03e0c4e58440
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            7e1971b9bdf794ea096c62658e96f7d9: !SphereColliderShapeDesc
+                                Is2D: false
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 456476a0-252f-42dd-b850-5d1cdcbb18e2
+                InstanceId: cd006757-5a9e-4f74-bab3-6d697bedbe80
+        -   Folder: null
+            Entity:
+                Id: 6950306d-b5b3-4821-92b1-f2d40c027267
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: 091bca2b-ab29-43d5-9143-41257c9d5c36
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: c4ea1e78-ccf0-4117-ab16-f7e367f5517e
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.19703124, G: 0.49883002, B: 0.60625}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: 8bdd3d54-1cc8-4302-a60f-0e083c0a1d73:JumpyShape
+                BasePartId: 5f520e39-9749-4b24-98e2-36fad7538664
+                InstanceId: cb358578-417c-4208-b01c-6b474ed56483
+        -   Entity:
+                Id: 6ddd7cbe-8e8d-422b-ad2a-6b5369af49c5
+                Name: Sphere
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: fe61e165-a953-4959-8588-a018dbfadffd
+                        Position*: {X: 2.9395611, Y: 4.1619983, Z: 12.816679}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            b8a55c845a800c5e4093fdc79ece0c52: ref!! 1ea95489-345f-4349-8d2f-ef3efff71f7c
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: 4ed99ccf-a094-4660-9eb4-26ae44eded2e
+                        Model: d32f9d4c-a7ee-4d8d-8d01-f99f17cc11c0:Sphere
+                        Materials: {}
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: 9bc04845-7cc0-454a-818b-9cbe9025271d
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: a7cae10b-2c28-4458-b7d1-951a41aa9b97
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            7e1971b9bdf794ea096c62658e96f7d9: !SphereColliderShapeDesc
+                                Is2D: false
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 456476a0-252f-42dd-b850-5d1cdcbb18e2
+                InstanceId: 51ae1d45-5441-46b1-8ab8-9e20b2335a27
+        -   Entity:
+                Id: 7b2c03ff-9384-488c-966b-e2ead2c14206
+                Name: Sphere
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: afc79fb3-6dbf-4406-a0e4-62bd27efc674
+                        Position*: {X: -2.9147284, Y: 2.876906, Z: 5.5287676}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            d96edd0409835fcbde3a5f06ef6617ed: ref!! 0bb65739-56eb-4f4b-b2c2-a827b82aa1d4
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: 725504e5-44d8-415e-bc61-dbe7657cecb4
+                        Model: d32f9d4c-a7ee-4d8d-8d01-f99f17cc11c0:Sphere
+                        Materials: {}
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: 92877405-c1eb-4014-9d7f-a6ed2ecda106
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: eedadaf3-fd48-4fef-a4d9-07f64e53ba43
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            7e1971b9bdf794ea096c62658e96f7d9: !SphereColliderShapeDesc
+                                Is2D: false
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 456476a0-252f-42dd-b850-5d1cdcbb18e2
+                InstanceId: c90fb59b-6d50-47ff-ae23-38dfc520317f
+        -   Entity:
+                Id: 7f0f7aff-ef2c-4066-b5d2-8533d9b0c521
+                Name: Sphere
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: 8a9f958c-36a0-47da-a050-5340ec6afdfc
+                        Position*: {X: 5.8174915, Y: 2.9024463, Z: 5.5287676}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            4af78b1ec21c47b56860dadd244db260: ref!! c36bd8a6-ff14-484f-9de7-831431c6d8a0
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: df16700f-2dd6-46d0-aa21-1f8b9ac744c8
+                        Model: d32f9d4c-a7ee-4d8d-8d01-f99f17cc11c0:Sphere
+                        Materials: {}
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: c9c4254d-a26f-4c56-97b2-d54f80fb152c
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: 748eab3b-2b9d-4f5a-9f5c-ffbc18c01f32
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            7e1971b9bdf794ea096c62658e96f7d9: !SphereColliderShapeDesc
+                                Is2D: false
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 456476a0-252f-42dd-b850-5d1cdcbb18e2
+                InstanceId: bb7e32fe-90e4-4929-b0dc-57ab0964f741
+        -   Folder: null
+            Entity:
+                Id: 800c948a-1fbd-4552-a69b-6daea8a09d1c
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: d57dfce4-8147-446a-a69d-90e2491fc7d3
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: 67225d0c-d4d3-4e56-a244-3449bf4eadd4
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.19703124, G: 0.49883002, B: 0.60625}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: 8bdd3d54-1cc8-4302-a60f-0e083c0a1d73:JumpyShape
+                BasePartId: 5f520e39-9749-4b24-98e2-36fad7538664
+                InstanceId: ca2d22a2-086c-4bb1-82b2-d2665becb287
+        -   Entity:
+                Id: 8b21636e-4f38-47e5-aa93-ef64854810df
+                Name: Ground
+                Components:
+                    f6052d683d204cd11b13ac2389085a95: !TransformComponent
+                        Id: 73801f7f-e5e0-4713-9869-5fd159a44c54
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 10.0, Y: 10.0, Z: 10.0}
+                        Children: {}
+                    f207f3d301eae01e391727a508e0064e: !ModelComponent
+                        Id: 16665dfc-2cf8-4471-b8db-6e638333f9ce
+                        Model: 1392fb19-5415-492d-bbcd-1c8580305b50:Ground
+                        Materials:
+                            a235bb259dc937eea391b659f5b48866~0: e488d12f-87d2-431b-9391-c12f8af065dd:Ground Material
+                    9e7fae118a677a2c016c34f0800ecb85: !StaticColliderComponent
+                        Id: 4a862fd4-74e6-4c98-9b09-a8cdf5c0e1df
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            119e64bc4d236892ef798dc38cf53702: !StaticPlaneColliderShapeDesc
+                                Normal: {X: 0.0, Y: 1.0, Z: 0.0}
+                                Offset: 0.0
+        -   Entity:
+                Id: 8c2734f0-a9ee-40a5-ac26-fd3c3ac2ca5c
+                Name*: Sphere
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: 51f8ffda-355c-40a0-801e-31bfb134d42c
+                        Position*: {X: 2.9395611, Y: 3.6933146, Z: 9.115614}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            69e6c8d0a55fcf3cc7f5b7b8b6718ab1: ref!! 9a225ac1-8a28-4d74-91b4-c67cb5b94ab3
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: a4beb0bf-9098-4314-975b-688f338f2712
+                        Model: d32f9d4c-a7ee-4d8d-8d01-f99f17cc11c0:Sphere
+                        Materials: {}
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: 52e6c439-7ade-443b-9a92-a754813aae68
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: 15e91047-5c4c-42c9-8111-79fbafed50f6
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            7e1971b9bdf794ea096c62658e96f7d9: !SphereColliderShapeDesc
+                                Is2D: false
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 456476a0-252f-42dd-b850-5d1cdcbb18e2
+                InstanceId: 20cbbc48-d905-427a-bada-fb704ee2d811
+        -   Entity:
+                Id: 99eecfb4-f650-473c-b7e0-200f38e36042
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: fbbc5903-9cda-44f7-9e08-cca740ffa644
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: 3a46cad7-4127-4adc-b029-e88954b4af5e
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.19703124, G: 0.49883002, B: 0.60625}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: 8bdd3d54-1cc8-4302-a60f-0e083c0a1d73:JumpyShape
+                BasePartId: 5f520e39-9749-4b24-98e2-36fad7538664
+                InstanceId: 7f519970-a967-408b-9648-0e29404467a4
+        -   Folder: null
+            Entity:
+                Id: ad171502-84ae-4726-8081-e9cee673fe1f
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: 8f02651c-557f-4de9-beef-4f4c8ea6c0f5
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: fa2b15d3-f3d0-41db-b22a-b6f7d156b6eb
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.19703124, G: 0.49883002, B: 0.60625}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: 8bdd3d54-1cc8-4302-a60f-0e083c0a1d73:JumpyShape
+                BasePartId: 5f520e39-9749-4b24-98e2-36fad7538664
+                InstanceId: efc37f56-3c0f-420b-b55c-2a61da074323
+        -   Entity:
+                Id: c0d5ae2b-2f0e-4024-9f09-9e241bbcb0ce
+                Name: box
+                Components:
+                    2e0fbebfd5a26e7f280e56e22e2c1be3: !TransformComponent
+                        Id: 1cadfdc4-87ed-440c-9d0d-24a4b23fe77b
+                        Position*: {X: -10.0, Y: 0.0, Z: 0.0}
+                        Rotation*: {X: 0.0, Y: 0.70710677, Z: 0.0, W: 0.70710677}
+                        Scale: {X: 20.0, Y: 20.0, Z: 0.01}
+                        Children: {}
+                    8d64674d5f3a675ce03a28de63948997: !ModelComponent
+                        Id: 0aa5f249-ec6b-4669-bff9-43e5fda77420
+                        Model: b36be3fb-1496-44c7-97ea-2d523feff017:Models/Box1x1x1
+                        Materials: {}
+                    ec91f2c316573614a9179a9543df6510: !StaticColliderComponent
+                        Id: 675ed495-5501-4db6-97e9-a2e564360b93
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            dcadd6c569dcf5429349d610d0d329bc: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 1.0, Y: 1.0, Z: 1.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+            Base:
+                BasePartAsset: 18c35d7b-01f4-4345-836e-0e651fa349dc:JumpyWall
+                BasePartId: 7b747fe5-1a05-4cda-b4ab-a991c125bdb5
+                InstanceId: 5aa524e4-4785-4657-861c-cc135cb7a575
+        -   Entity:
+                Id: c588d044-8c76-4472-98f8-aaa4d502e037
+                Name: ChildsPlay
+                Components:
+                    26924f3135287e2e4bc1ced1e80b708d: !TransformComponent
+                        Id: aa2e33ed-157f-4af8-bfb3-92f357446ab3
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            4e49b6977cd0c50596e9f9ef1280d94d: ref!! 52db628c-c6cd-4c22-8c4f-b9105879d6d0
+                            493af951f62f7ba8cac32a93520982bf: ref!! 3818051f-8ac0-41a1-b5e8-c2683c6d3958
+                            e9738140eb844a4260d2514c40088b71: ref!! 73801f7f-e5e0-4713-9869-5fd159a44c54
+        -   Entity:
+                Id: d2f89dc8-6696-4243-a784-5bf39c18f44b
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: 9a225ac1-8a28-4d74-91b4-c67cb5b94ab3
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: a19bdd2a-670e-407d-8cb9-e27f7948fc0e
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.51875, G: 0.14756007, B: 0.100507826}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 7def333e-6cd2-4cf1-96f6-6e51cee69073
+                InstanceId: 20cbbc48-d905-427a-bada-fb704ee2d811
+        -   Entity:
+                Id: d3262223-7dd6-4326-976a-b9a5a299a04a
+                Name: JumpyShape
+                Components:
+                    18119bbb498b283c6ec054fde44bf6f7: !TransformComponent
+                        Id: dd569cc0-7baa-4ddb-9d5a-556a48629f44
+                        Position: {X: 0.0, Y: 1.4794654, Z: 6.340103}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            426a29818abdb9f08e7792ced1bc7153: ref!! ae623931-5c42-4deb-a30f-d083f8995736
+        -   Folder: null
+            Entity:
+                Id: d8bf3f44-3254-42d6-9b17-62b5534d839a
+                Name: JumpyBox
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: 0559d81b-f617-4711-a793-c32c7eca8662
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            48a94fd55101ac5dda63e4d5e2c65d0c: ref!! 091bca2b-ab29-43d5-9143-41257c9d5c36
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: 7c552ce1-cade-4b14-aa32-edae9b34fa1d
+                        Model: efeb72e3-bc54-454f-8c0f-e6bf359fe4bb:box
+                        Materials:
+                            209b9a9219fc15772624ef77bd076c9c~0: e0fd85b9-4d1a-4f86-aecc-fd310e6da743:Materials/wood_gloss/wood_gloss
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: f7b518f7-dffc-4276-9a09-a4cc0b972ce2
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: 053206d1-d60d-4319-a9a2-c3ada2934788
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            4e81f8ea2d39066076e888c5dc24b3ca: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 1.0, Y: 1.0, Z: 1.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+            Base:
+                BasePartAsset: 8bdd3d54-1cc8-4302-a60f-0e083c0a1d73:JumpyShape
+                BasePartId: 190c772b-71ba-4997-8036-7028146b1373
+                InstanceId: cb358578-417c-4208-b01c-6b474ed56483
+        -   Folder: null
+            Entity:
+                Id: daf696cd-be90-4e93-bb1e-8f92fb687799
+                Name: JumpyBox
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: 49a390a7-09ee-49ae-b3d0-ba9d6aa6618a
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            48a94fd55101ac5dda63e4d5e2c65d0c: ref!! d57dfce4-8147-446a-a69d-90e2491fc7d3
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: 989bbe9c-3ca0-4944-9939-066860d3d8fe
+                        Model: efeb72e3-bc54-454f-8c0f-e6bf359fe4bb:box
+                        Materials:
+                            209b9a9219fc15772624ef77bd076c9c~0: e0fd85b9-4d1a-4f86-aecc-fd310e6da743:Materials/wood_gloss/wood_gloss
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: 40b67ddb-65ca-48b0-86c4-749dbd20283c
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: 3430c881-8b40-44c8-a404-1dc6a58b5f94
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            4e81f8ea2d39066076e888c5dc24b3ca: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 1.0, Y: 1.0, Z: 1.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+            Base:
+                BasePartAsset: 8bdd3d54-1cc8-4302-a60f-0e083c0a1d73:JumpyShape
+                BasePartId: 190c772b-71ba-4997-8036-7028146b1373
+                InstanceId: ca2d22a2-086c-4bb1-82b2-d2665becb287
+        -   Entity:
+                Id: e5667627-4e0b-47d6-a90a-0939aa98b9d8
+                Name: box
+                Components:
+                    2e0fbebfd5a26e7f280e56e22e2c1be3: !TransformComponent
+                        Id: 7cd0939c-4ee8-42f0-b42d-3bb870016d25
+                        Position*: {X: 10.0, Y: 0.0, Z: 0.0}
+                        Rotation*: {X: 0.0, Y: 0.70710677, Z: 0.0, W: 0.70710677}
+                        Scale: {X: 20.0, Y: 20.0, Z: 0.01}
+                        Children: {}
+                    8d64674d5f3a675ce03a28de63948997: !ModelComponent
+                        Id: 0a96b6b5-1e0e-44bd-b755-71bf32f1dbb3
+                        Model: b36be3fb-1496-44c7-97ea-2d523feff017:Models/Box1x1x1
+                        Materials: {}
+                    ec91f2c316573614a9179a9543df6510: !StaticColliderComponent
+                        Id: 438b72f1-d9db-4ac6-84dd-a88d0a806a78
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            dcadd6c569dcf5429349d610d0d329bc: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 1.0, Y: 1.0, Z: 1.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+            Base:
+                BasePartAsset: 18c35d7b-01f4-4345-836e-0e651fa349dc:JumpyWall
+                BasePartId: 7b747fe5-1a05-4cda-b4ab-a991c125bdb5
+                InstanceId: 2c7ba8e2-eeea-471c-9d10-93fc003590b0
+        -   Entity:
+                Id: f21344e0-1825-48b7-a259-accd9f230c36
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: 0bb65739-56eb-4f4b-b2c2-a827b82aa1d4
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: a6a14ec8-8c6e-4def-b77b-c0d6788183e2
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.51875, G: 0.14756007, B: 0.100507826}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 7def333e-6cd2-4cf1-96f6-6e51cee69073
+                InstanceId: c90fb59b-6d50-47ff-ae23-38dfc520317f
+        -   Entity:
+                Id: f78e0f57-7c18-4539-b90e-e407d237e633
+                Name: Point light
+                Components:
+                    7c8ed9317b125ef04380e7969ab94768: !TransformComponent
+                        Id: eb986321-f7a0-4e21-a56f-dffddc660f62
+                        Position: {X: 0.0, Y: 1.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e9e2c314f8f58bc131d6908912dbdbb3: !LightComponent
+                        Id: a5df23ea-a801-40ee-93ef-16f4b78acfb7
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 0.51875, G: 0.14756007, B: 0.100507826}
+                            Radius: 100.0
+                            Shadow:
+                                Enabled: true
+                                Size: Small
+                                BiasParameters: {}
+                                Type: DualParaboloid
+                        Intensity: 100.0
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 7def333e-6cd2-4cf1-96f6-6e51cee69073
+                InstanceId: c5145113-7a9a-4f8b-8945-69864fb3324f
+        -   Entity:
+                Id: fb5e6539-6864-44d0-8701-86d21e959d44
+                Name: box
+                Components:
+                    2e0fbebfd5a26e7f280e56e22e2c1be3: !TransformComponent
+                        Id: 27f45004-ebd3-4e32-b64f-a169c530b056
+                        Position*: {X: 0.0, Y: 0.0, Z: -10.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 20.0, Y: 20.0, Z: 0.01}
+                        Children: {}
+                    8d64674d5f3a675ce03a28de63948997: !ModelComponent
+                        Id: a542f120-1c02-4187-879b-d68df0872215
+                        Model: b36be3fb-1496-44c7-97ea-2d523feff017:Models/Box1x1x1
+                        Materials: {}
+                    ec91f2c316573614a9179a9543df6510: !StaticColliderComponent
+                        Id: 82fa8e63-ee5e-4198-8146-4d38b634f779
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            dcadd6c569dcf5429349d610d0d329bc: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 1.0, Y: 1.0, Z: 1.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+            Base:
+                BasePartAsset: 18c35d7b-01f4-4345-836e-0e651fa349dc:JumpyWall
+                BasePartId: 7b747fe5-1a05-4cda-b4ab-a991c125bdb5
+                InstanceId: 89907d40-d764-4ed9-88d4-f24adf2acc1f
+        -   Entity:
+                Id: fc5be365-b5f3-4956-8189-3fcbf551607f
+                Name: JumpyShape
+                Components:
+                    18119bbb498b283c6ec054fde44bf6f7: !TransformComponent
+                        Id: 066cf4fc-2c9e-4a98-a1dd-37e2ba674c25
+                        Position: {X: -3.5968904, Y: 1.4794654, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            426a29818abdb9f08e7792ced1bc7153: ref!! 49a390a7-09ee-49ae-b3d0-ba9d6aa6618a
+        -   Entity:
+                Id: fe8e19ba-bb58-47a9-91fb-d1c0d28c381a
+                Name: Sphere
+                Components:
+                    6adaa54e28a94fd28be96588f6183be3: !TransformComponent
+                        Id: 5906483a-3d24-4211-95fb-867270fcea68
+                        Position*: {X: 5.7577767, Y: 2.6979847, Z: 9.000496}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            346bdcf504554df62faeee8e1c2fb535: ref!! eb986321-f7a0-4e21-a56f-dffddc660f62
+                    39f0718de5a4bea7a0c45ab29be1b9a4: !ModelComponent
+                        Id: 0db7118e-88f8-403a-a013-b13c0a183c79
+                        Model: d32f9d4c-a7ee-4d8d-8d01-f99f17cc11c0:Sphere
+                        Materials: {}
+                    73da1eb44621f3cd812a01ad6f5d2b41: !F7s.JumpySphere,F7s
+                        Id: 0f0d84ee-197e-4b22-b94e-31f382735af8
+                    5cfd3b3886de1e90bc401b94d435007f: !RigidbodyComponent
+                        Id: 624c5ce7-340b-4c68-b20e-ee63855f4bd2
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            7e1971b9bdf794ea096c62658e96f7d9: !SphereColliderShapeDesc
+                                Is2D: false
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+            Base:
+                BasePartAsset: fd1f0f26-24d6-48e8-a520-c016e0179d6c:Jumpy Sphere
+                BasePartId: 456476a0-252f-42dd-b850-5d1cdcbb18e2
+                InstanceId: c5145113-7a9a-4f8b-8945-69864fb3324f

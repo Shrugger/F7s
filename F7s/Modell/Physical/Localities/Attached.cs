@@ -1,4 +1,4 @@
-﻿using F7s.Geometry;
+﻿using F7s.Utility.Geometry;
 
 namespace F7s.Modell.Physical.Localities {
     public class Attached : Fixed {

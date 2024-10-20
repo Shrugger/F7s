@@ -1,4 +1,4 @@
-﻿using F7s.Geometry;
+﻿using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Physical.Localities {

@@ -1,11 +1,11 @@
 ﻿using System;
+using F7s.Utility.Geometry;
 using Stride.Core;
 using Stride.Core.Mathematics;
 using Stride.Engine;
 using Stride.Input;
 
-namespace F7s
-{
+namespace F7s {
     /// <summary>
     /// A script that allows to move and rotate an entity through keyboard, mouse and touch input to provide basic camera navigation.
     /// </summary>

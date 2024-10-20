@@ -5,7 +5,6 @@ using F7s.Modell.Conceptual.Agents.GroupDistributions;
 using F7s.Modell.Conceptual.Cultures;
 using F7s.Modell.Economics.Agriculture;
 using F7s.Modell.Economics.Scavenging;
-using F7s.Modell.Handling;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Physical;
 using F7s.Modell.Physical.Bodies;
@@ -13,7 +12,7 @@ using F7s.Modell.Physical.Celestial;
 using F7s.Modell.Physical.Localities;
 using F7s.Modell.Terrains;
 using F7s.Utility;
-using F7s.Geometry;
+using F7s.Utility.Geometry;
 using F7s.Utility.Measurements;
 using Stride.Core.Mathematics;
 using Stride.Input;
@@ -22,18 +21,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace F7s.Modell.Populators
-{
+namespace F7s.Modell.Populators {
 
 
     public class FilamentPopulator : Populator {
-
-        const float scale = 1f;
+        private const float scale = 1f;
 
         private Star coer;
         private SolidPlanet lun;
 
-        private Terrain terrain;
+        private readonly Terrain terrain;
         private CelestialBody lastViewedCelestialBody;
 
         public static FilamentPopulator Instance { get; private set; }
@@ -67,7 +64,7 @@ namespace F7s.Modell.Populators
 
             for (int s = 1; s <= 1; s++) {
                 Locality locality = new Fixed(null,
-                    new Transform3D(Matrix3x3d.Identity, -Vector3.UnitX * 200),
+                    new Transform3D(-Vector3.UnitX * 200, Matrix3x3d.Identity),
                     Player.GetLocalityParent().HierarchySuperior()
                     );
                 Group scavengerCommunity = locals.EstablishSubgroup("Scavengers #" + s, new GroupComposition(100, locality));
@@ -76,7 +73,7 @@ namespace F7s.Modell.Populators
             }
             for (int f = 1; f <= 1; f++) {
                 Locality locality = new Fixed(null,
-                    new Transform3D(Matrix3x3d.Identity, Vector3.UnitX * 10),
+                    new Transform3D(Vector3.UnitX * 10, Matrix3x3d.Identity),
                     Player.GetLocalityParent().HierarchySuperior()
                     );
                 Group farmingCommunity = locals.EstablishSubgroup("Farmers #" + f, new GroupComposition(100, locality));
@@ -131,11 +128,11 @@ namespace F7s.Modell.Populators
             megastructure.SetQuantity(new Quantity(1000000 * massScale));
 
             Body terminusStation = new Body("Terminus Station", new Vector3(1000, 2000, 1000) * scale, new Farbe(0.25f, 0.25f, 0.25f, 1));
-            new Attached(terminusStation, plonat, new Transform3D(Matrix3x3d.Identity, Vector3.UnitX * (float) plonat.radius * 1.5f));
+            new Attached(terminusStation, plonat, new Transform3D(Vector3.UnitX * (float) plonat.radius * 1.5f, Matrix3x3d.Identity));
             terminusStation.SetQuantity(new Quantity(1000000000 * massScale));
 
             Body terminusThrone = new Body("Terminus Throne", new Vector3(10, 5, 10), new Farbe(0.25f, 0.25f, 0.25f, 1));
-            new Attached(terminusThrone, terminusStation, new Transform3D(Matrix3x3d.Identity, new Vector3(0, 1000 * scale + 2.5f, 0)));
+            new Attached(terminusThrone, terminusStation, new Transform3D(new Vector3(0, (1000 * scale) + 2.5f, 0), Matrix3x3d.Identity));
 
             CornerTerminus(new Vector3(1, 1, 1));
             CornerTerminus(new Vector3(-1, 1, 1));
@@ -143,12 +140,12 @@ namespace F7s.Modell.Populators
             CornerTerminus(new Vector3(-1, 1, -1));
             void CornerTerminus (Vector3 axis) {
                 Body terminusCorner = new Body("Terminus Corner", new Vector3(50, 500, 50), new Farbe(0.25f, 0.25f, 0.25f, 1));
-                new Attached(terminusCorner, terminusStation, new Transform3D(Matrix3x3d.Identity,
-                    new Vector3(axis.X * 500 * scale, axis.Y * 1000 * scale, axis.Z * 500 * scale)
-                    ));
+                new Attached(terminusCorner, terminusStation, new Transform3D(new Vector3(axis.X * 500 * scale, axis.Y * 1000 * scale, axis.Z * 500 * scale)
+,
+                    Matrix3x3d.Identity));
             }
 
-            Locality playerLocation = new Fixed(null, new Transform3D(Matrix3x3d.Identity, new Vector3(0, 6, 0) * scale), terminusThrone);
+            Locality playerLocation = new Fixed(null, new Transform3D(new Vector3(0, 6, 0) * scale, Matrix3x3d.Identity), terminusThrone);
             playerLocation.Name = "Player Location";
             PhysicalEntity playerEntity = new Body("Player", new Vector3(1.0f, 2.0f, 0.5f), new Farbe(0.0f, 0.5f, 0.25f));
             Locality playerEntityLocation = new Fixed(playerEntity, Transform3D.Identity, playerLocation);

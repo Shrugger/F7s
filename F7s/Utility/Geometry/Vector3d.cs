@@ -408,7 +408,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public override bool Equals (object other) {
-            if ((other is Vector3d) == false && (other is Vector3) == false) {
+            if (other is Vector3d == false && other is Vector3 == false) {
                 return false;
             }
 
@@ -541,16 +541,16 @@ namespace F7s.Utility.Geometry {
             } else if (ApproximatelyEquals(this, Direction.Left)) {
                 return Direction.Left;
             } else
-              if (ApproximatelyEquals(this, Direction.Up)) {
+                if (ApproximatelyEquals(this, Direction.Up)) {
                 return Direction.Up;
             } else
-              if (ApproximatelyEquals(this, Direction.Down)) {
+                if (ApproximatelyEquals(this, Direction.Down)) {
                 return Direction.Down;
             } else
-              if (ApproximatelyEquals(this, Direction.Forward)) {
+                if (ApproximatelyEquals(this, Direction.Forward)) {
                 return Direction.Forward;
             } else
-              if (ApproximatelyEquals(this, Direction.Back)) {
+                if (ApproximatelyEquals(this, Direction.Back)) {
                 return Direction.Back;
             }
             throw new Exception(this + " does not correspond to a known direction.");

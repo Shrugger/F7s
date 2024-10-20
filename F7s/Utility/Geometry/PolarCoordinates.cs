@@ -1,4 +1,5 @@
 ﻿using F7s.Geometry;
+using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
 using Stride.Core.Mathematics;
 using System;

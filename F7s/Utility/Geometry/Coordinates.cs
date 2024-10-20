@@ -1,5 +1,6 @@
 ﻿
 using F7s.Utility.Geometry;
+using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 
 namespace F7s.Geometry {

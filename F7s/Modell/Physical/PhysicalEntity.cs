@@ -5,13 +5,13 @@ using F7s.Modell.Handling.PhysicalData;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using F7s.Geometry;
+using F7s.Utility.Geometry;
+using F7s.Utility.Geometry.Double;
 using F7s.Utility.Measurements;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using F7s.Utility.Geometry;
 
 namespace F7s.Modell.Physical {
 
@@ -32,18 +32,18 @@ namespace F7s.Modell.Physical {
 
 
         public void AddStructure (Structure structure) {
-            if (!this.structures.Contains(structure)) {
-                this.structures.Add(structure);
+            if (!structures.Contains(structure)) {
+                structures.Add(structure);
                 structure.SetPhysicalEntity(this);
             }
         }
 
         public double DistanceFromSuperior () {
-            return this.GetLocality().DistanceFromSuperior();
+            return GetLocality().DistanceFromSuperior();
         }
 
         public double DistanceFromSuperiorBounds () {
-            PhysicalEntity superior = this.GetLocality()?.HierarchySuperior()?.physicalEntity;
+            PhysicalEntity superior = GetLocality()?.HierarchySuperior()?.physicalEntity;
             if (superior == null) {
                 throw new Exception();
             } else {
@@ -55,8 +55,8 @@ namespace F7s.Modell.Physical {
             base.ConfigureInfoblock(infoblock);
 
 
-            if (this.structures.Count > 0) {
-                foreach (Structure structure in this.structures) {
+            if (structures.Count > 0) {
+                foreach (Structure structure in structures) {
                     infoblock.AddInformation(structure);
                 }
             }
@@ -70,26 +70,26 @@ namespace F7s.Modell.Physical {
 
 
         public void SetLocality (Locality value) {
-            if (this.Locality) {
+            if (Locality) {
                 throw new Exception(this + " already has a " + value.GetType().Name + " assigned.");
             } else {
-                this.Locality?.Delete();
-                this.Locality = value;
+                Locality?.Delete();
+                Locality = value;
             }
         }
 
         public bool Touches (PhysicalEntity other, float bias = 0) {
-            if (bias <= -(this.BoundingRadius() + other.BoundingRadius())) {
+            if (bias <= -(BoundingRadius() + other.BoundingRadius())) {
                 throw new Exception("Excesive bias; contact impossible.");
             }
-            return this.BoundsDistance(other) <= 0 - bias;
+            return BoundsDistance(other) <= 0 - bias;
         }
 
         public override Locality GetLocality () {
-            if (this.Locality == null) {
+            if (Locality == null) {
                 throw new NullReferenceException();
             }
-            return this.Locality;
+            return Locality;
         }
 
         public override int SubentityCount () {
@@ -101,7 +101,7 @@ namespace F7s.Modell.Physical {
         }
 
         public List<PhysicalEntity> PhysicalSubEntities () {
-            return this.Locality?.HierarchySubordinates().Where(s => s.HasPhysicalEntity()).Select(s => s.physicalEntity).ToList();
+            return Locality?.HierarchySubordinates().Where(s => s.HasPhysicalEntity()).Select(s => s.physicalEntity).ToList();
         }
 
         public List<PhysicalEntity> SubentitiesRecursive () {
@@ -117,7 +117,7 @@ namespace F7s.Modell.Physical {
         }
 
         public virtual void SetQuantity (Quantity quantity) {
-            this.Quantity = quantity;
+            Quantity = quantity;
         }
 
         public static void TransferMass (PhysicalEntity source, PhysicalEntity target, double mass) {
@@ -126,21 +126,21 @@ namespace F7s.Modell.Physical {
         }
 
         public virtual double AlterMass (double alteration) {
-            double properMass = this.ProperMass();
+            double properMass = ProperMass();
             if (alteration <= -properMass) {
                 // Consume entirely.
-                this.SetQuantity(new Quantity(0));
-                this.Delete();
+                SetQuantity(new Quantity(0));
+                Delete();
                 return properMass;
             } else {
                 double resultingMass = properMass + alteration;
-                this.SetQuantity(new Quantity(resultingMass));
+                SetQuantity(new Quantity(resultingMass));
                 return -alteration;
             }
         }
 
         public override GameEntity UiHierarchyParent () {
-            return this.GetLocality().HierarchySuperior()?.physicalEntity;
+            return GetLocality().HierarchySuperior()?.physicalEntity;
         }
 
         public virtual float BoundingRadius () {
@@ -148,11 +148,11 @@ namespace F7s.Modell.Physical {
         }
 
         public override Farbe RepresentativeColor () {
-            return this.UiColor() ?? base.RepresentativeColor();
+            return UiColor() ?? base.RepresentativeColor();
         }
 
         public virtual Vector3 Scale () {
-            throw new Exception(this.GetType().Name);
+            throw new Exception(GetType().Name);
         }
 
         public virtual double DistanceToPlayer () {
@@ -168,30 +168,30 @@ namespace F7s.Modell.Physical {
         }
 
         public double CenterDistance (PhysicalEntity other) {
-            return this.Locality.DistanceTo(other);
+            return Locality.DistanceTo(other);
         }
 
         public double BoundsDistance (PhysicalEntity other) {
-            return this.CenterDistance(other) - this.BoundingRadius() - other.BoundingRadius();
+            return CenterDistance(other) - BoundingRadius() - other.BoundingRadius();
         }
 
 
         public Vector3d RelativePosition (PhysicalEntity relativeTo) {
-            return this.Locality.GetRelativeTransform(relativeTo).Origin;
+            return Locality.GetRelativeTransform(relativeTo).Origin;
         }
 
 
         public override int UiHierarchyIndentationLevel () {
-            return this.Locality.hierarchyDepth;
+            return Locality.hierarchyDepth;
         }
 
         public string GetGeographicInformation () {
-            return Measurement.MeasureLength(this.DistanceToCamera());
+            return Measurement.MeasureLength(DistanceToCamera());
         }
 
         public double CollectiveMass () {
-            List<PhysicalEntity> contents = this.ImmediateContents();
-            double properMass = this.ProperMass();
+            List<PhysicalEntity> contents = ImmediateContents();
+            double properMass = ProperMass();
             if (contents != null && contents.Count > 0) {
                 return properMass + contents.Sum(c => c.CollectiveMass());
             } else {
@@ -200,13 +200,13 @@ namespace F7s.Modell.Physical {
         }
 
         public double ProperMass () {
-            if (this.Quantity == null) {
-                this.Quantity = this.CalculateFallbackQuantity();
+            if (Quantity == null) {
+                Quantity = CalculateFallbackQuantity();
             }
-            if (this.Quantity == null) {
+            if (Quantity == null) {
                 return 0;
             }
-            return this.Quantity.Mass;
+            return Quantity.Mass;
         }
 
         protected virtual Quantity CalculateFallbackQuantity () {
@@ -222,7 +222,7 @@ namespace F7s.Modell.Physical {
         }
 
         public Vector3d RelativePosition (Locality relativeTo) {
-            return this.Locality.GetRelativeTransform(relativeTo).Origin;
+            return Locality.GetRelativeTransform(relativeTo).Origin;
         }
 
         public override PhysicalRepresentationData GetPhysicalData () {

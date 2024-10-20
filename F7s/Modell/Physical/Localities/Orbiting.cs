@@ -1,5 +1,6 @@
-﻿using F7s.Utility;
-using F7s.Geometry;
+﻿using F7s.Geometry;
+using F7s.Utility;
+using F7s.Utility.Geometry;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace F7s.Modell.Physical.Localities {
         public static float OrbitSpeedMultiplier = 1;
 
         public Orbiting (PhysicalEntity orbiter, double semimajorAxis, PhysicalEntity orbitee) : base(orbiter, orbitee) {
-            this.orbit = new Orbit(0, 0, 0, 0, semimajorAxis, Alea.AngleDouble(), orbitee, angularVelocity: Vector3.UnitY * rotationSpeed / OrbitSpeedMultiplier);
-            this.orbit.SetOrbiter(orbiter);
+            orbit = new Orbit(0, 0, 0, 0, semimajorAxis, Alea.AngleDouble(), orbitee, angularVelocity: Vector3.UnitY * rotationSpeed / OrbitSpeedMultiplier);
+            orbit.SetOrbiter(orbiter);
         }
 
         public override Visualizabilities Visualizability () {
@@ -24,7 +25,7 @@ namespace F7s.Modell.Physical.Localities {
 
         public override List<Locality> PredictedItinerary (int legs, Locality parent, double? duration = null) {
             if (!duration.HasValue) {
-                duration = this.orbit.OrbitalPeriod();
+                duration = orbit.OrbitalPeriod();
             }
             double legLength = duration.Value / legs;
             List<Locality> itinerary = new List<Locality>();
@@ -32,10 +33,10 @@ namespace F7s.Modell.Physical.Localities {
             double currentDate = GetTime();
             for (int i = 0; i < legs; i++) {
                 double date = currentDate + (legLength * i);
-                Ephemeris ephemeris = this.orbit.OrbitToRelativeKinematics(date);
+                Ephemeris ephemeris = orbit.OrbitToRelativeKinematics(date);
                 Locality locality = new Fixed(
                     null,
-                    new Transform3D(new Basis(ephemeris.GetRotation()), ephemeris.GetTranslation().ToVector3()),
+                    new Transform3D(ephemeris.GetTranslation().ToVector3(), new Basis(ephemeris.GetRotation())),
                     parent
                     );
                 itinerary.Add(locality);
@@ -50,23 +51,23 @@ namespace F7s.Modell.Physical.Localities {
 
         public override Transform3D GetLocalTransform () {
             double time = GetTime();
-            Ephemeris ephemeris = this.orbit.OrbitToRelativeKinematics(time);
-            return new Transform3D(new Basis(ephemeris.GetRotation()), ephemeris.GetTranslation().ToVector3());
+            Ephemeris ephemeris = orbit.OrbitToRelativeKinematics(time);
+            return new Transform3D(ephemeris.GetTranslation().ToVector3(), new Basis(ephemeris.GetRotation()));
         }
 
         public override Locality HierarchySuperior () {
-            return this.orbit?.GetParent();
+            return orbit?.GetParent();
         }
 
         public override string ToString () {
-            return base.ToString() + " around " + this.orbit.GetParent();
+            return base.ToString() + " around " + orbit.GetParent();
         }
         public override bool InheritsRotation () {
             return false;
         }
 
         public override void Rotate (float yaw, float pitch, float roll = 0) {
-            this.orbit.rotationOffset += new Vector3(pitch, yaw, roll);
+            orbit.rotationOffset += new Vector3(pitch, yaw, roll);
         }
 
         public override void Translate (Vector3 relativeOffset) {
@@ -74,7 +75,7 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public override void RotateEcliptic (float yaw, float pitch, float roll = 0) {
-            this.Rotate(yaw, pitch);
+            Rotate(yaw, pitch);
         }
         protected override void ReplaceSuperior (Locality replacement) {
             throw new Exception("Does this even make sense?");

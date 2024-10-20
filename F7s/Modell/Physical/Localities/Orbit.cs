@@ -1,13 +1,12 @@
 ﻿using F7s.Utility;
-using F7s.Geometry;
 using F7s.Utility.Lazies;
 using F7s.Utility.Measurements;
 using Stride.Core.Mathematics;
 using System;
 using F7s.Utility.Geometry;
+using F7s.Utility.Geometry.Double;
 
-namespace F7s.Modell.Physical.Localities
-{
+namespace F7s.Modell.Physical.Localities {
 
     public class Ephemeris {
         public Vector3d GetTranslation () {

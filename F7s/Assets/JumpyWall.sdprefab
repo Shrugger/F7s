@@ -12,13 +12,13 @@ Hierarchy:
                 Components:
                     2e0fbebfd5a26e7f280e56e22e2c1be3: !TransformComponent
                         Id: 85e2593f-eac9-41a1-b9ac-b69d6f89f478
-                        Position: {X: 0.0, Y: 0.0, Z: 10.0}
+                        Position: {X: 0.0, Y: 10.0, Z: 10.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 20.0, Y: 5.0, Z: 0.01}
+                        Scale: {X: 20.0, Y: 20.0, Z: 0.01}
                         Children: {}
                     8d64674d5f3a675ce03a28de63948997: !ModelComponent
                         Id: b27829dd-6678-44fc-9aa9-dee9dc5f4b95
-                        Model: efeb72e3-bc54-454f-8c0f-e6bf359fe4bb:box
+                        Model: b36be3fb-1496-44c7-97ea-2d523feff017:Models/Box1x1x1
                         Materials: {}
                     ec91f2c316573614a9179a9543df6510: !StaticColliderComponent
                         Id: 653633bf-44ea-4b5e-9c2f-05c116faef01

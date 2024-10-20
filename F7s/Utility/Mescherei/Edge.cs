@@ -1,8 +1,10 @@
 ﻿using F7s.Utility.Geometry;
+using F7s.Utility.Geometry.Double;
 using System;
 using System.Collections.Generic;
 
-namespace F7s.Utility.Mescherei {
+namespace F7s.Utility.Mescherei
+{
     public class Edge {
 
         public readonly Graph Mesch;

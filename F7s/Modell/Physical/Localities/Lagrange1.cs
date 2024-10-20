@@ -1,5 +1,6 @@
 ﻿using F7s.Geometry;
 using F7s.Utility.Geometry;
+using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 using System;
 
@@ -21,7 +22,7 @@ namespace F7s.Modell.Physical.Localities {
         public override Transform3D GetLocalTransform () {
             float factor = 0.5f; // TODO: L1 Formula.
             Vector3d origin = this.secondary.Locality.GetRelativeTransform(this.primary).Origin * factor;
-            return new Transform3D(new Basis(this.rotation), origin);
+            return new Transform3D(origin, new Basis(this.rotation));
         }
 
         public override bool InheritsRotation () {

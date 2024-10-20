@@ -1,11 +1,8 @@
-﻿using F7s.Utility;
-using F7s.Utility.Geometry;
-using Stride.Core.Mathematics;
+﻿using Stride.Core.Mathematics;
 using System;
 
-namespace F7s.Geometry
-{
-
+namespace F7s.Utility.Geometry {
+    [Obsolete("Replace with Stride rotation Matrix.")]
     public struct Matrix3x3d {
 
         public double m00;
@@ -33,15 +30,15 @@ namespace F7s.Geometry
             double i21,
             double i22
         ) {
-            this.m00 = i00;
-            this.m01 = i01;
-            this.m02 = i02;
-            this.m10 = i10;
-            this.m11 = i11;
-            this.m12 = i12;
-            this.m20 = i20;
-            this.m21 = i21;
-            this.m22 = i22;
+            m00 = i00;
+            m01 = i01;
+            m02 = i02;
+            m10 = i10;
+            m11 = i11;
+            m12 = i12;
+            m20 = i20;
+            m21 = i21;
+            m22 = i22;
         }
 
         public static Matrix3x3d operator * (Matrix3x3d m1, Matrix3x3d m2) {
@@ -59,9 +56,9 @@ namespace F7s.Geometry
         }
 
         public static Vector3d operator * (Matrix3x3d m, Vector3d v) {
-            return new Vector3d(x: m.m00, y: m.m10, z: m.m20) * v.X
-                 + new Vector3d(x: m.m01, y: m.m11, z: m.m21) * v.Y
-                 + new Vector3d(x: m.m02, y: m.m12, z: m.m22) * v.Z;
+            return (new Vector3d(x: m.m00, y: m.m10, z: m.m20) * v.X)
+                 + (new Vector3d(x: m.m01, y: m.m11, z: m.m21) * v.Y)
+                 + (new Vector3d(x: m.m02, y: m.m12, z: m.m22) * v.Z);
         }
 
         public static string ToString (Matrix3x3d m) {

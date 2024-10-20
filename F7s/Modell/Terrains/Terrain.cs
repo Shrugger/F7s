@@ -1,15 +1,16 @@
-﻿using F7s.Utility;
+﻿using F7s.Engine;
+using F7s.Utility;
+using F7s.Utility.Geometry;
 using F7s.Utility.Mescherei;
 using F7s.Utility.Time;
 using Stride.Engine;
+using Stride.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using F7s.Utility.Geometry;
 
-namespace F7s.Modell.Terrains
-{
+namespace F7s.Modell.Terrains {
 
     public class Terrain {
 
@@ -38,31 +39,31 @@ namespace F7s.Modell.Terrains
 
         public Terrain (string name, float radius, int resolution, Entity parent, PlanetologyData planetology) {
             this.name = name;
-            this.BaseRadius = radius;
-            this.Planetology = planetology;
-            this.RheologyExaggeration = planetology.Rheology;
-            this.TectonicsExaggeration = planetology.Tectonics;
+            BaseRadius = radius;
+            Planetology = planetology;
+            RheologyExaggeration = planetology.Rheology;
+            TectonicsExaggeration = planetology.Tectonics;
 
             string resourceKey = name + "-" + resolution;
 
 
-            this.Graph = Icosahedra.IcosphereGraph(resolution: resolution, radius: radius);
+            Graph = Icosahedra.IcosphereGraph(resolution: resolution, radius: radius);
 
-            this.Graph.Vertices.ForEach(v => Debug.Assert(Mathematik.IsEqualApprox(radius, v.GetRadius(), radius / 1000f)));
+            Graph.Vertices.ForEach(v => Debug.Assert(Mathematik.IsEqualApprox(radius, v.GetRadius(), radius / 1000f)));
 
-            this.RTG = new RheoTecGeo(name, resolution, radius);
+            RTG = new RheoTecGeo(name, resolution, radius);
 
-            this.AddFeature(new BaseTerrain(null), 0);
+            AddFeature(new BaseTerrain(null), 0);
 
             Stoppuhr stoppuhr = new Stoppuhr();
-            this.RTG.Geosamples().ForEach(gs => {
-                this.AddFeature(gs, 1);
+            RTG.Geosamples().ForEach(gs => {
+                AddFeature(gs, 1);
             }
             );
 
             for (int impact = 0; impact < 2; impact++) {
                 float force = Alea.Float(100000, 500000);
-                this.AddFeature(new ImpactCrater(this.RandomCoordinates(), force, force / 10), Alea.Int(500, 1000));
+                AddFeature(new ImpactCrater(RandomCoordinates(), force, force / 10), Alea.Int(500, 1000));
             }
 
             if (planetology.Atmosphere) {
@@ -70,68 +71,72 @@ namespace F7s.Modell.Terrains
             } else {
                 for (int impact = 0; impact < 3; impact++) {
                     float force = Alea.Float(10000, 100000);
-                    this.AddFeature(new ImpactCrater(this.RandomCoordinates(), force, force / 10), Alea.Int(900, 1000));
+                    AddFeature(new ImpactCrater(RandomCoordinates(), force, force / 10), Alea.Int(900, 1000));
                 }
             }
 
             if (planetology.Biosphere) {
-                this.AddFeature(new OrganicForests(), 950);
+                AddFeature(new OrganicForests(), 950);
             }
             if (planetology.SeaLevel.HasValue) {
-                this.AddFeature(new Snow(), 1000);
-                this.AddFeature(new Oceans(planetology.SeaLevel.Value), 975);
+                AddFeature(new Snow(), 1000);
+                AddFeature(new Oceans(planetology.SeaLevel.Value), 975);
             }
 
-            this.ApplyAllFeaturesToAllVertices();
+            ApplyAllFeaturesToAllVertices();
 
             stoppuhr.Print("Generating terrain for " + name + " took ", 0.1f);
 
-            this.DownscaleVertexRadii(); // Visible scaling is then done by MeschInstande3D parentage - a roundabout system that needs to be deprecated.
+            DownscaleVertexRadii(); // Visible scaling is then done by MeschInstande3D parentage - TODO: a roundabout system that needs to be deprecated.
+        }
+
+        public Mesch Render (GraphicsDevice graphicsDevice, GraphicsResourceUsage graphicsResourceUsage) {
+            return Mesch.FromGraph(Graph, graphicsDevice, graphicsResourceUsage);
         }
 
         public override string ToString () {
-            return this.name;
+            return name;
         }
 
         private void DownscaleVertexRadii () {
-            this.Graph.ApplyToAllVertices(v => v.SetRadius(v.GetRadius() / this.BaseRadius));
+            Graph.ApplyToAllVertices(v => v.SetRadius(v.GetRadius() / BaseRadius));
         }
 
         public void Clear () {
-            this.Graph?.Delete();
-            this.Graph = null;
-            this.RTG?.Delete();
-            this.RTG = null;
-            this.TerrainFeatures?.Clear();
-            this.TerrainFeatures = null;
+            Graph?.Delete();
+            Graph = null;
+            RTG?.Delete();
+            RTG = null;
+            TerrainFeatures?.Clear();
+            TerrainFeatures = null;
         }
 
-        void AddPlaceholderFeatures () {
-            float size = this.BaseRadius * 0.1f;
+        private void AddPlaceholderFeatures () {
+            float size = BaseRadius * 0.1f;
             for (int mesa = 0; mesa < 2; mesa++) {
-                this.AddFeature(new Mesas(this.RandomCoordinates(), size * Alea.Float(0.5f, 4.0f), Alea.Float(size * 0.25f, size * 0.5f)), 500);
+                AddFeature(new Mesas(RandomCoordinates(), size * Alea.Float(0.5f, 4.0f), Alea.Float(size * 0.25f, size * 0.5f)), 500);
             }
             for (int ocean = 0; ocean < 4; ocean++) {
-                this.AddFeature(new Ocean(this.RandomCoordinates(), size * Alea.Float(2f, 8.0f)), 600);
+                AddFeature(new Ocean(RandomCoordinates(), size * Alea.Float(2f, 8.0f)), 600);
             }
             for (int mountain = 0; mountain < 2; mountain++) {
-                this.AddFeature(new Mountains(this.RandomCoordinates(), size * Alea.Float(0.5f, 4.0f), Alea.Float(size, size * 2)), 400);
+                AddFeature(new Mountains(RandomCoordinates(), size * Alea.Float(0.5f, 4.0f), Alea.Float(size, size * 2)), 400);
             }
             for (int forest = 0; forest < 5; forest++) {
-                this.AddFeature(new Forest(this.RandomCoordinates(), size * Alea.Float(0.5f, 4.0f), Colors.Forest, Alea.Float(size * 0.05f, size * 0.2f)), 1500);
+                AddFeature(new Forest(RandomCoordinates(), size * Alea.Float(0.5f, 4.0f), Colors.Forest, Alea.Float(size * 0.05f, size * 0.2f)), 1500);
             }
         }
 
         private PolarCoordinates RandomCoordinates () {
-            return Alea.Coordinates(this.BaseRadius);
+            return Alea.Coordinates(BaseRadius);
         }
 
         public float CalculateSurfaceTemperature (Vertex vertex) {
-            float latitude = this.AbsoluteSurfaceLatitude(vertex);
-            float elevation = this.CalculateSurfaceElevation(vertex);
+            float latitude = AbsoluteSurfaceLatitude(vertex);
+            float elevation = CalculateSurfaceElevation(vertex);
 
-            float equatorialSeaLevelTemperature = 35 + this.Planetology.baseTemperature;
-            float polarSeaLevelTemperature = -50 + this.Planetology.baseTemperature;
+            float equatorialSeaLevelTemperature = 35 + Planetology.baseTemperature;
+            float polarSeaLevelTemperature = -50 + Planetology.baseTemperature;
             float solarInflux = MathF.Cos(latitude / 90f * MathF.PI / 2f);
             float latitudeFactor = Mathematik.Lerp(polarSeaLevelTemperature, equatorialSeaLevelTemperature, solarInflux);
             float elevationFactor = -elevation * 0.0001f;
@@ -141,10 +146,10 @@ namespace F7s.Modell.Terrains
         }
 
         public float CalculateSurfaceElevation (Vertex vertex) {
-            return this.CalculateSurfaceElevation((float) vertex.GetRadius());
+            return CalculateSurfaceElevation((float) vertex.GetRadius());
         }
         public float CalculateSurfaceElevation (float rawElevation) {
-            return rawElevation - this.BaseRadius;
+            return rawElevation - BaseRadius;
         }
 
         public float SurfaceLatitude (Vertex vertex) {
@@ -160,20 +165,20 @@ namespace F7s.Modell.Terrains
         }
 
         private Vertex GetVertex (int index) {
-            return this.Graph.Vertices[index];
+            return Graph.Vertices[index];
         }
 
 
         public void AddFeature (TerrainFeature feature, double date) {
             feature.SetTerrain(this);
             feature.SetDate(date);
-            this.TerrainFeatures.Add(feature);
+            TerrainFeatures.Add(feature);
         }
 
         private void ApplyAllFeaturesToAllVertices () {
-            this.TerrainFeatures = this.TerrainFeatures.OrderBy(f => f.Date).ToList();
-            foreach (TerrainFeature feature in this.TerrainFeatures) {
-                foreach (Vertex vertex in this.Graph.Vertices) {
+            TerrainFeatures = TerrainFeatures.OrderBy(f => f.Date).ToList();
+            foreach (TerrainFeature feature in TerrainFeatures) {
+                foreach (Vertex vertex in Graph.Vertices) {
                     feature.ApplyIfApplicable(vertex);
                 }
             }
