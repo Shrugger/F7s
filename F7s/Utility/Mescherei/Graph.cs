@@ -1,4 +1,4 @@
-﻿using F7s.Geometry;
+﻿using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 using Stride.Graphics;
 using System;
@@ -194,7 +194,7 @@ namespace F7s.Utility.Mescherei {
         public Vector3 RotatedVertexPosition (Vector3 position, Vector3 rotation) {
             MatrixD old = MatrixD.Transformation(position, Basis.Identity);
             MatrixD transformation = MatrixD.Transformation(Vector3.Zero, Basis.FromEuler(rotation));
-            Vector3 result = (transformation * old).Origin.ToVector3();
+            Vector3 result = (transformation * old).TranslationVector.ToVector3();
             return result;
         }
 

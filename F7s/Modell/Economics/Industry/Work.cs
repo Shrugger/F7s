@@ -1,5 +1,5 @@
 ﻿using F7s.Modell.Abstract;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Economics.Industry {
     public class Work : GameEntity {

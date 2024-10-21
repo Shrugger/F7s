@@ -27,7 +27,7 @@
 * THE SOFTWARE.
 */
 using Stride.Core;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;

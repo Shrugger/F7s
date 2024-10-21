@@ -1,6 +1,6 @@
-using Stride.Core.Mathematics;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
 using Stride.Input;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 
 namespace F7s.Engine.InputHandling {

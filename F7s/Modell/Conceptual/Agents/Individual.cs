@@ -1,6 +1,6 @@
 ﻿using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Conceptual {
     public abstract class Individual : Agent {

@@ -141,7 +141,7 @@ namespace F7s.Modell.Physical {
             return GetLocality().HierarchySuperior()?.physicalEntity;
         }
 
-        public virtual float BoundingRadius () {
+        public virtual double BoundingRadius () {
             return 0;
         }
 
@@ -162,7 +162,7 @@ namespace F7s.Modell.Physical {
         }
 
         public virtual double DistanceToOrigin () {
-            return Origin.TransformRelativeToOrigin(this).Origin.Length();
+            return Origin.TransformRelativeToOrigin(this).TranslationVector.Length();
         }
 
         public double CenterDistance (PhysicalEntity other) {

@@ -1,5 +1,5 @@
 ﻿using F7s.Utility.Geometry;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Physical.Localities {
     public class Rigidbody : Locality {

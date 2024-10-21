@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Engine.InputHandling {
 

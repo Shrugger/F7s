@@ -1,28 +1,25 @@
-﻿using F7s.Modell.Handling.PlayerControllers;
-using F7s.Modell.Physical.Localities;
-using F7s.Geometry;
+﻿using F7s.Modell.Physical.Localities;
+using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
-using Stride.Core.Mathematics;
-using F7s.Utility.Geometry;
 
-namespace F7s.Engine.PlayerControllers {
+namespace F7s.Modell.Handling.PlayerControllers {
     public class ProjectionOrigin : Locality {
 
-        private FrameFaul<MatrixD> currentTransform;
+        private readonly FrameFaul<MatrixD> currentTransform;
 
         public ProjectionOrigin () : base(null, GetOriginSuperior()) {
-            this.currentTransform = new FrameFaul<MatrixD>(this.CalculateNewTransform);
+            currentTransform = new FrameFaul<MatrixD>(CalculateNewTransform);
         }
 
         private MatrixD CalculateNewTransform () {
             Locality anchor = Origin.GetFloatingOriginFloatingAnchor();
             MatrixD anchorTransform = anchor.GetLocalTransform();
-            Vector3 origin = anchorTransform.Origin.ToVector3();
-            return MatrixD.Transformation(origin, Matrix3x3d.Identity);
+            Vector3d origin = anchorTransform.TranslationVector;
+            return MatrixD.Transformation(origin, QuaternionD.Identity);
         }
 
         public override MatrixD GetLocalTransform () {
-            return this.currentTransform.Value;
+            return currentTransform.Value;
         }
 
         public override Locality HierarchySuperior () {

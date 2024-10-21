@@ -1,6 +1,6 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Modell.Conceptual.Agents;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 
 namespace F7s.Modell.Conceptual.Cultures {

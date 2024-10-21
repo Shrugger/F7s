@@ -1,7 +1,7 @@
 ﻿using F7s.Engine;
 using F7s.Modell.Physical.Localities;
+using F7s.Utility.Geometry.Double;
 using System;
-
 namespace F7s.Modell.Handling.PlayerControllers {
 
     public class FloatingOrigin : Locality {
@@ -67,7 +67,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
         }
 
         private MatrixD CalculateNewTransform () {
-            return MatrixD.Transformation(FloatingAnchor.GetLocalTransform().Origin, Matrix3x3d.Identity);
+            return MatrixD.Transformation(FloatingAnchor.GetLocalTransform().TranslationVector, QuaternionD.Identity);
         }
 
         public override Locality HierarchySuperior () {

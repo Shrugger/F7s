@@ -1,7 +1,7 @@
 ﻿using F7s.Engine;
 using F7s.Engine.InputHandling;
 using Stride.Input;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Handling.PlayerControllers.ControlSets
 {

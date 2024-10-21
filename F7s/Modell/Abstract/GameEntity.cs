@@ -3,8 +3,8 @@ using F7s.Modell.Handling;
 using F7s.Modell.Handling.PhysicalData;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using Stride.Core.Mathematics;
-using System;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 
 namespace F7s.Modell.Abstract {

@@ -1,11 +1,10 @@
 ﻿using F7s.Modell.Handling;
 using F7s.Modell.Physical.Bodies;
 using F7s.Utility;
-using Stride.Core.Mathematics;
+using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 
-namespace F7s.Modell.Physical.Celestial
-{
+namespace F7s.Modell.Physical.Celestial {
 
 
     public class CelestialBody : Body {
@@ -19,7 +18,7 @@ namespace F7s.Modell.Physical.Celestial
         }
 
 
-        public CelestialBody (string name, double radius, Farbe color) : base(name, Vector3.One * (float) radius, color) {
+        public CelestialBody (string name, double radius, Farbe color) : base(name, Vector3d.One * radius, color) {
             this.radius = radius;
             AllCelestialBodies.Add(this);
         }
@@ -29,16 +28,16 @@ namespace F7s.Modell.Physical.Celestial
             AllCelestialBodies.Remove(this);
         }
 
-        public override float BoundingRadius () {
-            return (float) this.radius;
+        public override double BoundingRadius () {
+            return radius;
         }
 
         protected override Farbe Color () {
-            return this.color;
+            return color;
         }
 
         protected override Quantity CalculateFallbackQuantity () {
-            return new Quantity(Mathematik.VolumeFromSphereRadius(this.BoundingRadius()), this.FallbackDensity());
+            return new Quantity(Mathematik.VolumeFromSphereRadius(BoundingRadius()), FallbackDensity());
         }
 
         protected virtual float FallbackDensity () {

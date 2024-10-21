@@ -3,7 +3,7 @@ using F7s.Modell.Conceptual.Agents;
 using F7s.Modell.Conceptual.Agents.GroupDistributions;
 using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 
 namespace F7s.Modell.Conceptual {

@@ -1,5 +1,5 @@
 ﻿using F7s.Engine;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 using System.Threading.Tasks;
 
 namespace F7s.Utility

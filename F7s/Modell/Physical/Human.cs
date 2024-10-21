@@ -3,8 +3,8 @@ using F7s.Modell.Economics.Resources;
 using F7s.Modell.Physical.Bodies;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using System;
-using Stride.Core.Mathematics;
+using System; using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Physical {
 

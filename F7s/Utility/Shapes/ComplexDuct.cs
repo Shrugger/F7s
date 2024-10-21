@@ -1,5 +1,5 @@
-﻿using Stride.Core.Mathematics;
-using System;
+﻿using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double;
 namespace F7s.Utility.Shapes {
     
     public class ComplexDuct : ComplexHollowBox {

@@ -1,6 +1,6 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Modell.Physical.Localities;
-using Stride.Core.Mathematics;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Handling.PhysicalData {
     public class PresumedPhysicalData : PhysicalRepresentationData {

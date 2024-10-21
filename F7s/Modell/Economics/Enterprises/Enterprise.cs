@@ -2,7 +2,7 @@
 using F7s.Modell.Conceptual;
 using F7s.Modell.Economics.Agents;
 using F7s.Modell.Economics.Facilities;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Economics.Enterprises
 {

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 using System.Linq;
 

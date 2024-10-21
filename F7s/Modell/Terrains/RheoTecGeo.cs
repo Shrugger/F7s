@@ -1,8 +1,8 @@
 ﻿using F7s.Utility;
 using F7s.Utility.Mescherei;
 using F7s.Utility.Time;
-using Stride.Core.Mathematics;
-using System;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;

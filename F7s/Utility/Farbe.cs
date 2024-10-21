@@ -1,5 +1,5 @@
-﻿using Stride.Core.Mathematics;
-using System;
+﻿using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 using System.Linq;
 

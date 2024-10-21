@@ -1,7 +1,7 @@
 using Assets.Utility.Measurements;
 using F7s.Modell.Physical;
 using F7s.Utility.Lazies;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Utility.Measurements.Units {
 

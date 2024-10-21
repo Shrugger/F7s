@@ -5,13 +5,13 @@ using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 using System;
-
 namespace F7s.Modell.Handling.PhysicalData {
     public abstract class PhysicalRepresentationData {
         public abstract Locality Locality ();
-        public abstract float BoundingRadius ();
+        public abstract double BoundingRadius ();
+
         public float AngularSize () {
-            return Mathematik.AngularDiameterInDegreesFromDistanceAndRadius(DistanceToCamera(), BoundingRadius());
+            return (float) Mathematik.AngularDiameterInDegreesFromDistanceAndRadius(DistanceToCamera(), BoundingRadius());
         }
 
         private static float GetMainCameraFieldOfView () {
@@ -19,8 +19,8 @@ namespace F7s.Modell.Handling.PhysicalData {
         }
 
         public float SizeInPixels () {
-            float boundingDiameter = BoundingRadius() * 2;
-            float distance = DistanceToCamera();
+            double boundingDiameter = BoundingRadius() * 2;
+            double distance = DistanceToCamera();
             float screenSize = ScreenSizeLength();
             float fieldOfView = GetMainCameraFieldOfView();
 
@@ -31,10 +31,10 @@ namespace F7s.Modell.Handling.PhysicalData {
         protected float ScreenSizeLength () {
             return ScreenSize().Length();
         }
-        public abstract Vector3 Scale ();
+        public abstract Vector3d Scale ();
 
-        public virtual float DistanceToCamera () {
-            return (float) Kamera.TransformRelativeToCamera(Locality()).TranslationVector.Length();
+        public virtual double DistanceToCamera () {
+            return Kamera.TransformRelativeToCamera(Locality()).TranslationVector.Length();
         }
 
         public Vector2 ScreenSize () {

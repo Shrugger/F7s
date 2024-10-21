@@ -1,7 +1,7 @@
 ﻿using F7s.Utility.Geometry;
-using Stride.Core.Mathematics;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
 using Stride.Graphics;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;

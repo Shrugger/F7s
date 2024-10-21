@@ -327,12 +327,8 @@ namespace F7s.Utility {
         public const double Deg2RadDouble = 0.01745329;
         public const double Rad2DegDouble = 57.29578;
 
-        public static double AngularSizeOfPixel (double screenSize, double fieldOfView) {
-            return screenSize / fieldOfView;
-        }
-
-        public static double AngularSizeInPixels (double realDiameter, double distance, double screenSize, double fieldOfView) {
-            double realAngularSize = realDiameter / distance * Rad2DegDouble;
+        public static float AngularSizeInPixels (double realDiameter, double distance, float screenSize, float fieldOfView) {
+            float realAngularSize = (float) (realDiameter / distance) * Rad2Deg;
             return realAngularSize * AngularSizeOfPixel(screenSize, fieldOfView);
         }
 
@@ -458,26 +454,16 @@ namespace F7s.Utility {
             return fractions * 360f;
         }
 
-        public static Quaternion DegreesToQuaternion (Vector3d degrees) {
-            if (degrees == Vector3d.Zero) {
-                return Quaternion.Identity;
-            } else {
-                if (degrees.ContainsNaN()) {
-                    throw new Exception("Degrees euler vector contains NaN: " + degrees);
-                }
-                return DegreesToQuaternion(degrees.ToVector3());
-            }
-        }
 
-        public static Quaternion FractionsToQuaternion (Vector3d fractions) {
+        public static QuaternionD FractionsToQuaternion (Vector3d fractions) {
             return DegreesToQuaternion(degrees: FractionsToDegrees(fractions: fractions));
         }
 
-        public static Vector3d QuaternionToDegreesDouble (Quaternion quaternion) {
+        public static Vector3d QuaternionToDegreesDouble (QuaternionD quaternion) {
             return QuaternionToDegrees(quaternion);
         }
 
-        public static Vector3d QuaternionToFractionsDouble (Quaternion quaternion) {
+        public static Vector3d QuaternionToFractionsDouble (QuaternionD quaternion) {
             return DegreesToFractions(degrees: QuaternionToDegreesDouble(quaternion));
         }
 
@@ -531,8 +517,15 @@ namespace F7s.Utility {
             return Math.PI * radius * 2.0f;
         }
 
+        public static float Angle (Vector3 a, Vector3 b) {
+            return MathF.Acos(Vector3.Dot(a, b) / (a.Length() * b.Length()));
+        }
+        public static double Angle (Vector3d a, Vector3d b) {
+            return Math.Acos(Vector3d.Dot(a, b) / (a.Length() * b.Length()));
+        }
+
         public static bool FacesTowards (Vector3d position, Vector3d facing, Vector3d observer) {
-            return Vector3d.Angle(facing, observer - position) < 90;
+            return Angle(facing, observer - position) < 90;
         }
 
         public static double CircleArea (double radius) {
@@ -597,7 +590,7 @@ namespace F7s.Utility {
         }
 
         public static Vector3d InvertRotation (Vector3d rotationInDegrees) {
-            return QuaternionToDegreesDouble(Inverse(DegreesToQuaternion(rotationInDegrees.ToVector3())));
+            return QuaternionToDegreesDouble(Inverse(DegreesToQuaternion(rotationInDegrees)));
         }
 
 
@@ -766,6 +759,13 @@ namespace F7s.Utility {
                 throw new NotImplementedException();
             }
         }
+        public static QuaternionD DegreesToQuaternion (Vector3d degrees) {
+            if (degrees == Vector3d.Zero) {
+                return QuaternionD.Identity;
+            } else {
+                throw new NotImplementedException();
+            }
+        }
 
         public static Quaternion FractionsToQuaternion (Vector3 fractions) {
             return DegreesToQuaternion(degrees: FractionsToDegrees(fractions: fractions));
@@ -776,6 +776,13 @@ namespace F7s.Utility {
         }
 
         public static Vector3 QuaternionToFractions (Quaternion quaternion) {
+            return DegreesToFractions(degrees: QuaternionToDegrees(quaternion));
+        }
+        public static Vector3d QuaternionToDegrees (QuaternionD quaternion) {
+            throw new NotImplementedException();
+        }
+
+        public static Vector3d QuaternionToFractions (QuaternionD quaternion) {
             return DegreesToFractions(degrees: QuaternionToDegrees(quaternion));
         }
 
@@ -822,10 +829,6 @@ namespace F7s.Utility {
             return Angle(facing, observer - position) < 90;
         }
 
-        private static int Angle (Vector3 a, Vector3 b) {
-            throw new NotImplementedException();
-        }
-
         public static float CircleArea (float radius) {
             return radius * radius * MathF.PI;
         }
@@ -851,6 +854,9 @@ namespace F7s.Utility {
         }
 
         private static Quaternion Inverse (Quaternion quaternion) {
+            throw new NotImplementedException();
+        }
+        private static QuaternionD Inverse (QuaternionD quaternion) {
             throw new NotImplementedException();
         }
 
@@ -894,6 +900,10 @@ namespace F7s.Utility {
 
         public static bool ApproximatelyEqual (float a, float b, float delta) {
             return MathF.Abs(a - b) < delta;
+        }
+
+        public static bool ApproximatelyEqual (double a, double b, double delta) {
+            return Math.Abs(a - b) < delta;
         }
 
         public static Vector2 Normalize (Vector2 v) {
@@ -984,13 +994,46 @@ namespace F7s.Utility {
             throw new NotImplementedException();
         }
 
-        public static bool ApproximatelyEqual (object column01, object column02, float delta) {
-            throw new NotImplementedException();
+
+        public static bool ApproximatelyEqual (MatrixD a, MatrixD b, double delta = 0.001) {
+            return
+                ApproximatelyEqual(a.M11, b.M11, delta) &&
+                ApproximatelyEqual(a.M12, b.M12, delta) &&
+                ApproximatelyEqual(a.M13, b.M13, delta) &&
+                ApproximatelyEqual(a.M14, b.M14, delta) &&
+                ApproximatelyEqual(a.M21, b.M21, delta) &&
+                ApproximatelyEqual(a.M22, b.M22, delta) &&
+                ApproximatelyEqual(a.M23, b.M23, delta) &&
+                ApproximatelyEqual(a.M24, b.M24, delta) &&
+                ApproximatelyEqual(a.M31, b.M31, delta) &&
+                ApproximatelyEqual(a.M32, b.M32, delta) &&
+                ApproximatelyEqual(a.M33, b.M33, delta) &&
+                ApproximatelyEqual(a.M34, b.M34, delta) &&
+                ApproximatelyEqual(a.M41, b.M41, delta) &&
+                ApproximatelyEqual(a.M42, b.M42, delta) &&
+                ApproximatelyEqual(a.M43, b.M43, delta) &&
+                ApproximatelyEqual(a.M44, b.M44, delta);
         }
-        public static bool ApproximatelyEqual (MatrixD a, MatrixD b, float delta = 0.001f) {
-            bool origin = ApproximatelyEqual(a.Origin, b.Origin, delta);
-            bool basis = Matrix3x3d.ApproximatelyEqual(a.Basis, b.Basis, delta);
-            return origin && basis;
+
+
+        public static bool ApproximatelyEqual (Matrix a, Matrix b, float delta = 0.001f) {
+            return
+                ApproximatelyEqual(a.M11, b.M11, delta) &&
+                ApproximatelyEqual(a.M12, b.M12, delta) &&
+                ApproximatelyEqual(a.M13, b.M13, delta) &&
+                ApproximatelyEqual(a.M14, b.M14, delta) &&
+                ApproximatelyEqual(a.M21, b.M21, delta) &&
+                ApproximatelyEqual(a.M22, b.M22, delta) &&
+                ApproximatelyEqual(a.M23, b.M23, delta) &&
+                ApproximatelyEqual(a.M24, b.M24, delta) &&
+                ApproximatelyEqual(a.M31, b.M31, delta) &&
+                ApproximatelyEqual(a.M32, b.M32, delta) &&
+                ApproximatelyEqual(a.M33, b.M33, delta) &&
+                ApproximatelyEqual(a.M34, b.M34, delta) &&
+                ApproximatelyEqual(a.M41, b.M41, delta) &&
+                ApproximatelyEqual(a.M42, b.M42, delta) &&
+                ApproximatelyEqual(a.M43, b.M43, delta) &&
+                ApproximatelyEqual(a.M44, b.M44, delta);
         }
 
         public static void AssertEqual (MatrixD a, MatrixD b, float delta = 0.001f) {
@@ -1020,36 +1063,74 @@ namespace F7s.Utility {
             return Valid(transform, false, 0);
         }
 
-        private static bool Valid (MatrixD transform, bool expectUniformScale, float tolerance = DefaultValidationTolerance) {
-            if (Invalid(transform.Origin)) {
+        public static bool Valid (Matrix m, bool expectUniformScale, float tolerance = DefaultValidationTolerance) {
+            if (Matrix.Zero == m) {
                 return false;
             }
-            if (transform.Basis.m00 == 0 && transform.Basis.m10 == 0 && transform.Basis.m20 == 0) {
-                return false;
+
+            bool ValidCell (float cell) {
+                return !double.IsNaN(cell) && double.IsFinite(cell);
             }
-            if (transform.Basis.m00 == 0 && transform.Basis.m10 == 0 && transform.Basis.m20 == 0) {
-                return false;
-            }
-            if (transform.Basis.m00 == 0 && transform.Basis.m10 == 0 && transform.Basis.m20 == 0) {
-                return false;
-            }
-            if (!ValidCellValue(transform.Basis.m00) || !ValidCellValue(transform.Basis.m01) || !ValidCellValue(transform.Basis.m02)) {
-                return false;
-            }
-            if (!ValidCellValue(transform.Basis.m10) || !ValidCellValue(transform.Basis.m11) || !ValidCellValue(transform.Basis.m12)) {
-                return false;
-            }
-            if (!ValidCellValue(transform.Basis.m20) || !ValidCellValue(transform.Basis.m21) || !ValidCellValue(transform.Basis.m22)) {
-                return false;
-            }
-            if (Invalid(transform.Basis.Scale)) {
-                return false;
-            }
-            if (expectUniformScale && !AllPositivellOrNegativeOne(transform.Basis.Scale, tolerance)) {
+
+            if (!AllCells(m, ValidCell)) {
                 return false;
             }
 
             return true;
+        }
+        public static bool Valid (MatrixD m, bool expectUniformScale, double tolerance = DefaultValidationTolerance) {
+            if (MatrixD.Zero == m) {
+                return false;
+            }
+
+            bool ValidCell (double cell) {
+                return !double.IsNaN(cell) && double.IsFinite(cell);
+            }
+
+            if (!AllCells(m, ValidCell)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool AllCells (Matrix m, Func<float, bool> f) {
+            return
+                f.Invoke(m.M11) &&
+                f.Invoke(m.M12) &&
+                f.Invoke(m.M13) &&
+                f.Invoke(m.M14) &&
+                f.Invoke(m.M21) &&
+                f.Invoke(m.M22) &&
+                f.Invoke(m.M23) &&
+                f.Invoke(m.M24) &&
+                f.Invoke(m.M31) &&
+                f.Invoke(m.M32) &&
+                f.Invoke(m.M33) &&
+                f.Invoke(m.M34) &&
+                f.Invoke(m.M41) &&
+                f.Invoke(m.M42) &&
+                f.Invoke(m.M43) &&
+                f.Invoke(m.M44);
+        }
+        public static bool AllCells (MatrixD m, Func<double, bool> f) {
+            return
+                f.Invoke(m.M11) &&
+                f.Invoke(m.M12) &&
+                f.Invoke(m.M13) &&
+                f.Invoke(m.M14) &&
+                f.Invoke(m.M21) &&
+                f.Invoke(m.M22) &&
+                f.Invoke(m.M23) &&
+                f.Invoke(m.M24) &&
+                f.Invoke(m.M31) &&
+                f.Invoke(m.M32) &&
+                f.Invoke(m.M33) &&
+                f.Invoke(m.M34) &&
+                f.Invoke(m.M41) &&
+                f.Invoke(m.M42) &&
+                f.Invoke(m.M43) &&
+                f.Invoke(m.M44);
         }
 
         public static bool ValidCellValue (double value) {
@@ -1124,6 +1205,10 @@ namespace F7s.Utility {
             Quaternion rotation;
             transform.Decompose(out _, out rotation, out _);
             return rotation;
+        }
+
+        internal static MatrixD Inverse (MatrixD absoluteOther) {
+            throw new NotImplementedException();
         }
     }
 }

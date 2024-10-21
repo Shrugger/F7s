@@ -1,6 +1,6 @@
 using Assets.Utility.Measurements;
 using F7s.Utility.Measurements.Units;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 
 namespace F7s.Utility.Measurements {

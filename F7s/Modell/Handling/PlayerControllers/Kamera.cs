@@ -55,7 +55,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
 
         private static void UpdateCameraNodeTransform () {
             MatrixD localityTransform = GetLocality().GetAbsoluteTransform();
-            MatrixD parentTransform = MatrixD.Transformation(localityTransform.TranslationVector, Matrix3x3d.Identity);
+            MatrixD parentTransform = MatrixD.Transformation(localityTransform.TranslationVector, QuaternionD.Identity);
             MatrixD cameraTransform = MatrixD.Transformation(Vector3d.Zero, localityTransform.Basis);
 
             throw new NotImplementedException(); // See below.

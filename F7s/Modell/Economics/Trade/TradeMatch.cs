@@ -1,6 +1,6 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Modell.Physical;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 using static F7s.Modell.Economics.Trade.TradeItemMatch;
 using static F7s.Modell.Economics.Trade.TradeProposalMatch;
 

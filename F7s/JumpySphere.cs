@@ -1,7 +1,7 @@
 ﻿using F7s.Utility;
 using Stride.Engine;
 using Stride.Physics;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s {
     public class JumpySphere : SyncScript {

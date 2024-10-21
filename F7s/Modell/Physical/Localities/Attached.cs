@@ -1,4 +1,4 @@
-﻿using F7s.Utility.Geometry;
+﻿using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Physical.Localities {
     public class Attached : Fixed {
@@ -6,14 +6,14 @@ namespace F7s.Modell.Physical.Localities {
         private PhysicalEntity anchorEntity;
 
         public Attached (PhysicalEntity entity, PhysicalEntity anchor, MatrixD offset) : base(entity, offset, anchor) {
-            this.anchorEntity = anchor;
+            anchorEntity = anchor;
         }
 
         public override Locality HierarchySuperior () {
-            return this.anchorEntity;
+            return anchorEntity;
         }
         protected override void ReplaceSuperior (Locality replacement) {
-            this.anchorEntity = replacement.physicalEntity;
+            anchorEntity = replacement.physicalEntity;
             base.ReplaceSuperior(replacement);
         }
 

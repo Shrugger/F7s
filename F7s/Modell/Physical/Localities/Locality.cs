@@ -4,7 +4,6 @@ using F7s.Modell.Handling.PlayerControllers;
 using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
-using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -182,8 +181,8 @@ namespace F7s.Modell.Physical.Localities {
             MatrixD absoluteSelf = CalculateRelativeTransformUpToRoot(commonRoot);
             MatrixD absoluteOther = relativeTo.CalculateRelativeTransformUpToRoot(commonRoot);
 
-            MatrixD result = absoluteOther.Inverse() * absoluteSelf;
-            result.Basis = result.Basis.Orthonormalized();
+            MatrixD result = Mathematik.Inverse(absoluteOther) * absoluteSelf;
+            result.Orthonormalize(); // TODO: Verify that this actually works. MatrixD is a struct after all.
 
             if (Mathematik.InvalidPositional(result)) {
                 throw new Exception("Invalid relative transform of " + this + " to " + relativeTo + ": " + result);
@@ -232,11 +231,13 @@ namespace F7s.Modell.Physical.Localities {
                     if (inheritRotation) {
                         result = total * local;
                     } else {
-                        result = local.Translated(total.Origin);
+                        result = MatrixD.Translation(total.TranslationVector) * local;
                     }
-                    result.Basis = result.Basis.Orthonormalized();
+                    result.Orthonormalize(); // TODO: Verify that this actually works. MatrixD is a struct after all.
                     if (Mathematik.InvalidPositional(result)) {
-                        throw new Exception("Scale " + result.Basis.Scale + ". Whole Transform: " + result);
+                        Vector3d scale;
+                        result.Decompose(out scale, out _);
+                        throw new Exception("Scale " + scale + ". Whole Transform: " + result);
                     }
                     total = result;
                 }
@@ -335,7 +336,7 @@ namespace F7s.Modell.Physical.Localities {
 
         public double DistanceTo (Locality locality) {
             Validate();
-            Vector3d relativePosition = GetRelativeTransform(locality).Origin;
+            Vector3d relativePosition = GetRelativeTransform(locality).TranslationVector;
             double distance = relativePosition.Length();
 
             if (double.IsFinite(distance)) {
@@ -362,27 +363,27 @@ namespace F7s.Modell.Physical.Localities {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual void Translate (Vector3 relativeOffset) {
+        public virtual void Translate (Vector3d relativeOffset) {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual void Rotate (float yaw, float pitch, float roll = 0) {
+        public virtual void Rotate (double yaw, double pitch, double roll = 0) {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual void RotateEcliptic (float yaw, float pitch, float roll = 0) {
+        public virtual void RotateEcliptic (double yaw, double pitch, double roll = 0) {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual void AddLocalVelocity (Vector3 forceVector) {
+        public virtual void AddLocalVelocity (Vector3d forceVector) {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual void SetLocalVelocity (Vector3 forceVector) {
+        public virtual void SetLocalVelocity (Vector3d forceVector) {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual Vector3 GetLocalVelocity () {
+        public virtual Vector3d GetLocalVelocity () {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 

@@ -2,7 +2,7 @@
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
 using F7s.Utility.Measurements;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Physical.Localities {
 

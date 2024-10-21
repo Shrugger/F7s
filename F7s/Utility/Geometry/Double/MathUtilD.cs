@@ -27,8 +27,8 @@
 * THE SOFTWARE.
 */
 
-using Stride.Core.Mathematics;
-using System;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double;
 using System.Runtime.CompilerServices;
 
 namespace F7s.Utility.Geometry.Double {

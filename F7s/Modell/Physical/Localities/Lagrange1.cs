@@ -1,8 +1,8 @@
 ﻿using F7s.Geometry;
 using F7s.Utility.Geometry;
 using F7s.Utility.Geometry.Double;
-using Stride.Core.Mathematics;
-using System;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Physical.Localities {
     public class Lagrange1 : Locality {
@@ -21,7 +21,7 @@ namespace F7s.Modell.Physical.Localities {
 
         public override MatrixD GetLocalTransform () {
             float factor = 0.5f; // TODO: L1 Formula.
-            Vector3d origin = this.secondary.Locality.GetRelativeTransform(this.primary).Origin * factor;
+            Vector3d origin = this.secondary.Locality.GetRelativeTransform(this.primary).TranslationVector * factor;
             return MatrixD.Transformation(origin, new Basis(this.rotation));
         }
 

@@ -5,7 +5,7 @@ using F7s.Utility.Mescherei;
 using F7s.Utility.Time;
 using Stride.Engine;
 using Stride.Graphics;
-using System;
+using System; using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;

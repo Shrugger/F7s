@@ -1,5 +1,5 @@
 using Stride.CommunityToolkit.Engine;
-using Stride.Core.Mathematics;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
 using Stride.Engine;
 using Stride.Games;
 using Stride.Graphics;

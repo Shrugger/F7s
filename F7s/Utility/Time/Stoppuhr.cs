@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System; using F7s.Utility.Geometry.Double;
 using F7s.Engine;
 
 namespace F7s.Utility.Time
