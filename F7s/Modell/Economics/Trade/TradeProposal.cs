@@ -1,7 +1,7 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Utility;
 using F7s.Utility.Ranges;
-using System; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Economics.Trade {
     public abstract class TradeProposal : GameEntity {

@@ -356,11 +356,11 @@ namespace F7s.Utility {
             return volume;
         }
 
-        public static double TriangleSurfaceArea (Vector3d v1, Vector3d v2, Vector3d v3) {
+        public static double TriangleSurfaceArea (Double3 v1, Double3 v2, Double3 v3) {
 
-            double side1 = Vector3d.Distance(v1, v2);
-            double side2 = Vector3d.Distance(v2, v3);
-            double side3 = Vector3d.Distance(v3, v1);
+            double side1 = Double3.Distance(v1, v2);
+            double side2 = Double3.Distance(v2, v3);
+            double side3 = Double3.Distance(v3, v1);
             double s = (side1 + side2 + side3) / 2.0f;
             double preArea = s * (s - side1) * (s - side2) * (s - side3);
             double area = Math.Sqrt(preArea);
@@ -395,9 +395,9 @@ namespace F7s.Utility {
             return result;
         }
 
-        public static bool PointIsOnLine (Vector3d point, Vector3d lineStart, Vector3d lineEnd) {
-            double pointDistance = Vector3d.Distance(lineStart, point) + Vector3d.Distance(lineEnd, point);
-            double lineLength = Vector3d.Distance(lineStart, lineEnd);
+        public static bool PointIsOnLine (Double3 point, Double3 lineStart, Double3 lineEnd) {
+            double pointDistance = Double3.Distance(lineStart, point) + Double3.Distance(lineEnd, point);
+            double lineLength = Double3.Distance(lineStart, lineEnd);
             if (Mathematik.IsEqualApprox(lineLength, pointDistance)) {
                 return true; // C is on the line.
             }
@@ -438,32 +438,32 @@ namespace F7s.Utility {
             return Math.Pow(diameter * 0.5f, 2) * Math.PI * 4f;
         }
 
-        public static double CubeVolumeFromDimensions (Vector3d dimensions) {
+        public static double CubeVolumeFromDimensions (Double3 dimensions) {
             return dimensions.X * dimensions.Y * dimensions.Z;
         }
 
-        public static double CylinderVolumeFromDimensions (Vector3d dimensions) {
+        public static double CylinderVolumeFromDimensions (Double3 dimensions) {
             return dimensions.Y * Math.PI * Math.Pow(0.5f * dimensions.X, 2);
         }
 
-        public static Vector3d DegreesToFractions (Vector3d degrees) {
+        public static Double3 DegreesToFractions (Double3 degrees) {
             return degrees / 360f;
         }
 
-        public static Vector3d FractionsToDegrees (Vector3d fractions) {
+        public static Double3 FractionsToDegrees (Double3 fractions) {
             return fractions * 360f;
         }
 
 
-        public static QuaternionD FractionsToQuaternion (Vector3d fractions) {
+        public static QuaternionD FractionsToQuaternion (Double3 fractions) {
             return DegreesToQuaternion(degrees: FractionsToDegrees(fractions: fractions));
         }
 
-        public static Vector3d QuaternionToDegreesDouble (QuaternionD quaternion) {
+        public static Double3 QuaternionToDegreesDouble (QuaternionD quaternion) {
             return QuaternionToDegrees(quaternion);
         }
 
-        public static Vector3d QuaternionToFractionsDouble (QuaternionD quaternion) {
+        public static Double3 QuaternionToFractionsDouble (QuaternionD quaternion) {
             return DegreesToFractions(degrees: QuaternionToDegreesDouble(quaternion));
         }
 
@@ -497,11 +497,11 @@ namespace F7s.Utility {
             return s > 0 && t > 0 && s + t < a;
         }
 
-        public static Vector3d ScaleBoxToVolume (Vector3d boxExtents, double volume) {
-            double originalVolume = Box.Volume(fullExtents: boxExtents.ToVector3());
+        public static Double3 ScaleBoxToVolume (Double3 boxExtents, double volume) {
+            double originalVolume = Box.Volume(fullExtents: (Vector3) boxExtents);
             double scaleFactor = volume / originalVolume;
             double factorRoot = Math.Pow(scaleFactor, 1.0 / 3.0);
-            Vector3d scaledExtents = boxExtents * factorRoot;
+            Double3 scaledExtents = boxExtents * factorRoot;
 
             return scaledExtents;
         }
@@ -520,11 +520,11 @@ namespace F7s.Utility {
         public static float Angle (Vector3 a, Vector3 b) {
             return MathF.Acos(Vector3.Dot(a, b) / (a.Length() * b.Length()));
         }
-        public static double Angle (Vector3d a, Vector3d b) {
-            return Math.Acos(Vector3d.Dot(a, b) / (a.Length() * b.Length()));
+        public static double Angle (Double3 a, Double3 b) {
+            return Math.Acos(Double3.Dot(a, b) / (a.Length() * b.Length()));
         }
 
-        public static bool FacesTowards (Vector3d position, Vector3d facing, Vector3d observer) {
+        public static bool FacesTowards (Double3 position, Double3 facing, Double3 observer) {
             return Angle(facing, observer - position) < 90;
         }
 
@@ -581,15 +581,15 @@ namespace F7s.Utility {
 
             return false;
         }
-        public static bool OneCardinalDirectionOnly (Vector3d vector) {
+        public static bool OneCardinalDirectionOnly (Double3 vector) {
             return (vector.X != 0 ? 1 : 0) + (vector.Y != 0 ? 1 : 0) + (vector.Z != 0 ? 1 : 0) == 1;
         }
 
-        public static double DistanceOfPointToRay (Vector3d point, Vector3d rayOrigin, Vector3d rayDirection) {
-            return Vector3d.Cross(rayDirection, point - rayOrigin).Length();
+        public static double DistanceOfPointToRay (Double3 point, Double3 rayOrigin, Double3 rayDirection) {
+            return Double3.Cross(rayDirection, point - rayOrigin).Length();
         }
 
-        public static Vector3d InvertRotation (Vector3d rotationInDegrees) {
+        public static Double3 InvertRotation (Double3 rotationInDegrees) {
             return QuaternionToDegreesDouble(Inverse(DegreesToQuaternion(rotationInDegrees)));
         }
 
@@ -759,8 +759,8 @@ namespace F7s.Utility {
                 throw new NotImplementedException();
             }
         }
-        public static QuaternionD DegreesToQuaternion (Vector3d degrees) {
-            if (degrees == Vector3d.Zero) {
+        public static QuaternionD DegreesToQuaternion (Double3 degrees) {
+            if (degrees == Double3.Zero) {
                 return QuaternionD.Identity;
             } else {
                 throw new NotImplementedException();
@@ -778,11 +778,11 @@ namespace F7s.Utility {
         public static Vector3 QuaternionToFractions (Quaternion quaternion) {
             return DegreesToFractions(degrees: QuaternionToDegrees(quaternion));
         }
-        public static Vector3d QuaternionToDegrees (QuaternionD quaternion) {
+        public static Double3 QuaternionToDegrees (QuaternionD quaternion) {
             throw new NotImplementedException();
         }
 
-        public static Vector3d QuaternionToFractions (QuaternionD quaternion) {
+        public static Double3 QuaternionToFractions (QuaternionD quaternion) {
             return DegreesToFractions(degrees: QuaternionToDegrees(quaternion));
         }
 
@@ -875,8 +875,8 @@ namespace F7s.Utility {
         public static Vector3 Normalize (Vector3 v) {
             return Vector3.Normalize(v);
         }
-        public static Vector3d Normalize (Vector3d v) {
-            return Vector3d.Normalize(v);
+        public static Double3 Normalize (Double3 v) {
+            return Double3.Normalize(v);
         }
 
         public static Vector3 Cross (Vector3 a, Vector3 b) {
@@ -929,7 +929,7 @@ namespace F7s.Utility {
 
             return true;
         }
-        public static bool Valid (Vector3d v) {
+        public static bool Valid (Double3 v) {
 
             double x = v.X;
             double y = v.Y;
@@ -956,7 +956,7 @@ namespace F7s.Utility {
         public static bool Invalid (Vector3 v) {
             return !Valid(v);
         }
-        public static bool Invalid (Vector3d v) {
+        public static bool Invalid (Double3 v) {
             return !Valid(v);
         }
 
@@ -993,7 +993,7 @@ namespace F7s.Utility {
             return ApproximatelyEqual(Vector3.One, scale, tolerance) || ApproximatelyEqual(-Vector3.One, scale, tolerance);
         }
 
-        public static bool ApproximatelyEqual (Vector3d origin1, Vector3d origin2, float delta) {
+        public static bool ApproximatelyEqual (Double3 origin1, Double3 origin2, float delta) {
             throw new NotImplementedException();
         }
 
@@ -1194,7 +1194,7 @@ namespace F7s.Utility {
             }
         }
 
-        public static QuaternionD DegreesToQuaternionD (Vector3d vector3) {
+        public static QuaternionD DegreesToQuaternionD (Double3 vector3) {
             throw new NotImplementedException();
         }
 
@@ -1220,9 +1220,9 @@ namespace F7s.Utility {
             Matrix.Transformation(ref scale, ref rotation, ref translation, out result);
             return result;
         }
-        public static MatrixD Transformation (Vector3d translation, QuaternionD rotation) {
+        public static MatrixD Transformation (Double3 translation, QuaternionD rotation) {
             MatrixD result;
-            Vector3d scale = Vector3d.One;
+            Double3 scale = Double3.One;
             MatrixD.Transformation(ref scale, ref rotation, ref translation, out result);
             return result;
         }

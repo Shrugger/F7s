@@ -1,7 +1,7 @@
 ﻿using F7s.Modell.Handling;
 using F7s.Modell.Physical.Bodies;
 using F7s.Utility;
-using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 using System.Collections.Generic;
 
 namespace F7s.Modell.Physical.Celestial {
@@ -18,7 +18,7 @@ namespace F7s.Modell.Physical.Celestial {
         }
 
 
-        public CelestialBody (string name, double radius, Farbe color) : base(name, Vector3d.One * radius, color) {
+        public CelestialBody (string name, double radius, Farbe color) : base(name, Double3.One * radius, color) {
             this.radius = radius;
             AllCelestialBodies.Add(this);
         }

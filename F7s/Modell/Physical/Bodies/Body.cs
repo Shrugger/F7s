@@ -1,13 +1,13 @@
 ﻿using F7s.Utility;
-using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Physical.Bodies {
     public class Body : PhysicalEntity {
 
-        public Vector3d scale { get; protected set; }
+        public Double3 scale { get; protected set; }
         public Farbe color { get; private set; }
 
-        public Body (string name, Vector3d scale, Farbe color) : base(name) {
+        public Body (string name, Double3 scale, Farbe color) : base(name) {
             this.scale = scale;
             SetColor(color);
         }
@@ -23,7 +23,7 @@ namespace F7s.Modell.Physical.Bodies {
             return color;
         }
 
-        public override Vector3d Scale () {
+        public override Double3 Scale () {
             return scale;
         }
 

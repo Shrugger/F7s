@@ -3,20 +3,21 @@ using F7s.Utility.Geometry;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
 using F7s.Utility.Measurements;
+using Stride.Core.Mathematics;
 using System;
 
 namespace F7s.Modell.Physical.Localities {
 
     public class Ephemeris {
-        public Vector3d GetTranslation () {
+        public Double3 GetTranslation () {
             return absolutePosition;
         }
 
-        public Vector3d GetLinearVelocity () {
+        public Double3 GetLinearVelocity () {
             return linearVelocity;
         }
 
-        public Vector3d GetAngularVelocity () {
+        public Double3 GetAngularVelocity () {
             return angularVelocity;
         }
 
@@ -31,12 +32,12 @@ namespace F7s.Modell.Physical.Localities {
             return "Ephemeris " + absolutePosition + " + " + linearVelocity + ", " + absoluteRotation.ToString() + " + " + angularVelocity;
         }
 
-        private readonly Vector3d absolutePosition;
-        private readonly Vector3d linearVelocity;
+        private readonly Double3 absolutePosition;
+        private readonly Double3 linearVelocity;
         private readonly QuaternionD absoluteRotation;
-        private readonly Vector3d angularVelocity;
+        private readonly Double3 angularVelocity;
 
-        public Ephemeris (Vector3d absolutePosition, Vector3d linearVelocity, QuaternionD absoluteRotation, Vector3d angularVelocity) {
+        public Ephemeris (Double3 absolutePosition, Double3 linearVelocity, QuaternionD absoluteRotation, Double3 angularVelocity) {
             this.absolutePosition = absolutePosition;
             this.linearVelocity = linearVelocity;
             this.absoluteRotation = absoluteRotation;
@@ -54,8 +55,8 @@ namespace F7s.Modell.Physical.Localities {
         private readonly double trueAnomaly;
         public double startingTrueAnomaly;
 
-        public Vector3d rotationOffset;
-        public Vector3d angularVelocity;
+        public Double3 rotationOffset;
+        public Double3 angularVelocity;
 
         private PhysicalEntity orbiter;
         private readonly PhysicalEntity parent;
@@ -111,7 +112,7 @@ namespace F7s.Modell.Physical.Localities {
         /// <param name="semimajorAxis">In meters.</param>
         /// <param name="trueAnomaly">In degrees.</param>
         /// <param name="parent">The dominant gravity well.</param>
-        public Orbit (double inclination, double longitudeOfAscendingNode, double argumentOfPeriapsis, double eccentricity, double semimajorAxis, double trueAnomaly, PhysicalEntity parent, Vector3d? angularVelocity = null) {
+        public Orbit (double inclination, double longitudeOfAscendingNode, double argumentOfPeriapsis, double eccentricity, double semimajorAxis, double trueAnomaly, PhysicalEntity parent, Double3? angularVelocity = null) {
 
             if (parent == null) {
                 throw new Exception();
@@ -163,9 +164,9 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public static Orbit KinematicsToOrbit (Ephemeris kinematics, double mu, double time, PhysicalEntity parent) {
-            Vector3d p = kinematics.GetTranslation();                                                 //Position
-            Vector3d v = kinematics.GetLinearVelocity();                                                          //Velocity
-            Vector3d l = Vector3d.Cross(p, v);                                                              //Specific Angular Momentum
+            Double3 p = kinematics.GetTranslation();                                                 //Position
+            Double3 v = kinematics.GetLinearVelocity();                                                          //Velocity
+            Double3 l = Double3.Cross(p, v);                                                              //Specific Angular Momentum
             double r = p.Length();                                                                     //Radius	
             double en = (v.Length() * v.Length() / 2.0) - (mu / r);                                     //Specific Energy
             double a = -1 * (mu / (2 * en));                                                                //Semi-Major Axis
@@ -246,8 +247,8 @@ namespace F7s.Modell.Physical.Localities {
             if (double.IsNaN(fSin)) {
                 throw new Exception("From " + f);
             }
-            Vector3d x = new Vector3d(fCos, 0, fSin) * r;
-            Vector3d v = new Vector3d(-fSin, 0, e + fCos) * Math.Sqrt(mu / (a * (1 - (e * e))));
+            Double3 x = new Double3(fCos, 0, fSin) * r;
+            Double3 v = new Double3(-fSin, 0, e + fCos) * Math.Sqrt(mu / (a * (1 - (e * e))));
 
             double wf = orbit.GetArgumentOfPeriapsis() * Mathematik.Deg2Rad;
             /*Matrix3x3d m1 = new Matrix3x3d	(	Math.Cos(om * Geometry.Deg2Rad),	-Math.Sin(om * Geometry.Deg2Rad),	0,
@@ -266,23 +267,23 @@ namespace F7s.Modell.Physical.Localities {
                                             (Math.Sin(om) * Math.Cos(wf)) + (Math.Cos(om) * Math.Sin(wf) * Math.Cos(i)), (-Math.Sin(om) * Math.Sin(wf)) + (Math.Cos(om) * Math.Cos(wf) * Math.Cos(i)), -Math.Cos(om) * Math.Sin(i),
                                             Math.Sin(wf) * Math.Sin(i), Math.Cos(wf) * Math.Sin(i), Math.Cos(i));
 
-            Vector3d x2 = mF2 * new Vector3d(x.X, x.Z, x.Y);
-            x = new Vector3d(x2.X, x2.Z, x2.Y);
+            Double3 x2 = mF2 * new Double3(x.X, x.Z, x.Y);
+            x = new Double3(x2.X, x2.Z, x2.Y);
             /*double xMag = x.Length();
-			x = new Vector3d(	xMag * (Math.Cos(om * Geometry.Deg2Rad) * Math.Cos(wf) - Math.Sin(om * Geometry.Deg2Rad) * Math.Sin(wf) * Math.Cos(i * Geometry.Deg2Rad)), 
+			x = new Double3(	xMag * (Math.Cos(om * Geometry.Deg2Rad) * Math.Cos(wf) - Math.Sin(om * Geometry.Deg2Rad) * Math.Sin(wf) * Math.Cos(i * Geometry.Deg2Rad)), 
 								xMag * (Math.Sin(wf) * Math.Sin(i * Geometry.Deg2Rad)), 
 								xMag * (Math.Sin(om * Geometry.Deg2Rad) * Math.Cos(wf) + Math.Cos(om * Geometry.Deg2Rad) * Math.Sin(wf) * Math.Cos(i * Geometry.Deg2Rad)));
 			*/
 
-            Vector3d parentPosition = absolute ? orbit.GetParent().CalculatePositionAtTime(time) : Vector3d.Zero;
+            Double3 parentPosition = absolute ? orbit.GetParent().CalculatePositionAtTime(time) : Double3.Zero;
             return new Ephemeris(x + parentPosition, v, orbit.GetRotation(time), orbit.angularVelocity);
         }
 
-        public Vector3d CalculateRelativePositionAtTime (double time) {
+        public Double3 CalculateRelativePositionAtTime (double time) {
             return OrbitToRelativeKinematics(time).GetTranslation();
         }
 
-        public Vector3d CalculateAbsolutePositionAtTime (double time) {
+        public Double3 CalculateAbsolutePositionAtTime (double time) {
             return OrbitToAbsoluteKinematics(time).GetTranslation();
         }
 

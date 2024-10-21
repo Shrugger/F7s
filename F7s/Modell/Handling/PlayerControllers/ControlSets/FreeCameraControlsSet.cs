@@ -1,6 +1,7 @@
 ﻿using F7s.Engine;
 using F7s.Engine.InputHandling;
 using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 using Stride.Input;
 using System;
 namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
@@ -10,22 +11,22 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
 
             {
                 void MoveLeft () {
-                    Kamera.Translate(-Vector3d.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(-Double3.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveRight () {
-                    Kamera.Translate(Vector3d.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(Double3.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveForward () {
-                    Kamera.Translate(Vector3d.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(Double3.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveBackward () {
-                    Kamera.Translate(-Vector3d.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(-Double3.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveUp () {
-                    Kamera.Translate(Vector3d.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(Double3.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveDown () {
-                    Kamera.Translate(-Vector3d.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(-Double3.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 const float RollSensitivity = 50;
                 void RollLeft () {

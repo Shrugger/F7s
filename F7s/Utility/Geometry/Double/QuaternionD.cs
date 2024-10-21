@@ -27,7 +27,8 @@
 * THE SOFTWARE.
 */
 using Stride.Core;
-using System; using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
+using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -96,7 +97,7 @@ namespace F7s.Utility.Geometry.Double {
         /// Initializes a new instance of the <see cref="QuaternionD"/> struct.
         /// </summary>
         /// <param name="value">A vector containing the values with which to initialize the components.</param>
-        public QuaternionD (Vector4d value) {
+        public QuaternionD (Double4 value) {
             X = value.X;
             Y = value.Y;
             Z = value.Z;
@@ -108,7 +109,7 @@ namespace F7s.Utility.Geometry.Double {
         /// </summary>
         /// <param name="value">A vector containing the values with which to initialize the X, Y, and Z components.</param>
         /// <param name="w">Initial value for the W component of the quaternion.</param>
-        public QuaternionD (Vector3d value, double w) {
+        public QuaternionD (Double3 value, double w) {
             X = value.X;
             Y = value.Y;
             Z = value.Z;
@@ -121,7 +122,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="value">A vector containing the values with which to initialize the X and Y components.</param>
         /// <param name="z">Initial value for the Z component of the quaternion.</param>
         /// <param name="w">Initial value for the W component of the quaternion.</param>
-        public QuaternionD (Vector2d value, double z, double w) {
+        public QuaternionD (Double2 value, double z, double w) {
             X = value.X;
             Y = value.Y;
             Z = z;
@@ -195,23 +196,23 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets the axis components of the quaternion.
         /// </summary>
         /// <value>The axis components of the quaternion.</value>
-        public Vector3d Axis {
+        public Double3 Axis {
             get {
                 double length = (X * X) + (Y * Y) + (Z * Z);
                 if (length < MathUtilD.ZeroTolerance)
-                    return Vector3d.UnitX;
+                    return Double3.UnitX;
 
                 double inv = 1.0f / length;
-                return new Vector3d(X * inv, Y * inv, Z * inv);
+                return new Double3(X * inv, Y * inv, Z * inv);
             }
         }
 
         /// <summary>
         /// Gets yaw/pitch/roll equivalent of the quaternion
         /// </summary>
-        public Vector3d YawPitchRoll {
+        public Double3 YawPitchRoll {
             get {
-                Vector3d yawPitchRoll;
+                Double3 yawPitchRoll;
                 RotationYawPitchRoll(ref this, out yawPitchRoll.X, out yawPitchRoll.Y, out yawPitchRoll.Z);
                 return yawPitchRoll;
             }
@@ -657,9 +658,9 @@ namespace F7s.Utility.Geometry.Double {
         /// Returns a rotation whose facing direction points towards <paramref name="forward"/>
         /// and whose up direction points as close as possible to <paramref name="up"/>.
         /// </summary>
-        public static QuaternionD LookRotation (in Vector3d forward, in Vector3d up) {
-            var right = Vector3d.Normalize(Vector3d.Cross(up, forward));
-            var orthoUp = Vector3d.Cross(forward, right);
+        public static QuaternionD LookRotation (in Double3 forward, in Double3 up) {
+            var right = Double3.Normalize(Double3.Cross(up, forward));
+            var orthoUp = Double3.Cross(forward, right);
             var m = new MatrixD {
                 M11 = right.X,
                 M12 = right.Y,
@@ -733,10 +734,10 @@ namespace F7s.Utility.Geometry.Double {
         }
 
         /// <summary>
-        /// Rotates a Vector3d by the specified quaternion rotation.
+        /// Rotates a Double3 by the specified quaternion rotation.
         /// </summary>
         /// <param name="vector">The vector to rotate.</param>
-        public readonly void Rotate (ref Vector3d vector) {
+        public readonly void Rotate (ref Double3 vector) {
             var pureQuaternionD = new QuaternionD(vector, 0);
             pureQuaternionD = Conjugate(this) * pureQuaternionD * this;
 
@@ -751,9 +752,9 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="axis">The axis of rotation.</param>
         /// <param name="angle">The angle of rotation.</param>
         /// <param name="result">When the method completes, contains the newly created quaternion.</param>
-        public static void RotationAxis (ref readonly Vector3d axis, double angle, out QuaternionD result) {
-            Vector3d normalized;
-            Vector3d.Normalize(in axis, out normalized);
+        public static void RotationAxis (ref readonly Double3 axis, double angle, out QuaternionD result) {
+            Double3 normalized;
+            Double3.Normalize(in axis, out normalized);
 
             double half = angle * 0.5f;
             double sin = Sin(half);
@@ -771,7 +772,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="axis">The axis of rotation.</param>
         /// <param name="angle">The angle of rotation.</param>
         /// <returns>The newly created quaternion.</returns>
-        public static QuaternionD RotationAxis (Vector3d axis, double angle) {
+        public static QuaternionD RotationAxis (Double3 axis, double angle) {
             QuaternionD result;
             RotationAxis(ref axis, angle, out result);
             return result;
@@ -997,7 +998,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="source">The source vector of the transformation.</param>
         /// <param name="target">The target vector of the transformation.</param>
         /// <returns>The resulting quaternion corresponding to the transformation of the source vector to the target vector.</returns>
-        public static QuaternionD BetweenDirections (Vector3d source, Vector3d target) {
+        public static QuaternionD BetweenDirections (Double3 source, Double3 target) {
             QuaternionD result;
             BetweenDirections(ref source, ref target, out result);
             return result;
@@ -1009,9 +1010,9 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="source">The source vector of the transformation.</param>
         /// <param name="target">The target vector of the transformation.</param>
         /// <param name="result">The resulting quaternion corresponding to the transformation of the source vector to the target vector.</param>
-        public static void BetweenDirections (ref readonly Vector3d source, ref readonly Vector3d target, out QuaternionD result) {
+        public static void BetweenDirections (ref readonly Double3 source, ref readonly Double3 target, out QuaternionD result) {
             var norms = Math.Sqrt(source.LengthSquared() * target.LengthSquared());
-            var real = norms + Vector3d.Dot(source, target);
+            var real = norms + Double3.Dot(source, target);
             if (real < MathUtilD.ZeroTolerance * norms) {
                 // If source and target are exactly opposite, rotate 180 degrees around an arbitrary orthogonal axis.
                 // Axis normalisation can happen later, when we normalise the quaternion.
@@ -1020,7 +1021,7 @@ namespace F7s.Utility.Geometry.Double {
                     : new QuaternionD(0.0f, -source.Z, source.Y, 0.0f);
             } else {
                 // Otherwise, build quaternion the standard way.
-                var axis = Vector3d.Cross(source, target);
+                var axis = Double3.Cross(source, target);
                 result = new QuaternionD(axis, real);
             }
             result.Normalize();
@@ -1232,10 +1233,10 @@ namespace F7s.Utility.Geometry.Double {
         /// <remarks>
         /// Shorthand for <see cref="Rotate"/>
         /// </remarks>
-        public static Vector3d operator * (in QuaternionD left, in Vector3d right) {
+        public static Double3 operator * (in QuaternionD left, in Double3 right) {
             var pureQuaternionD = new QuaternionD(right, 0);
             pureQuaternionD = Conjugate(left) * pureQuaternionD * left;
-            return new Vector3d(pureQuaternionD.X, pureQuaternionD.Y, pureQuaternionD.Z);
+            return new Double3(pureQuaternionD.X, pureQuaternionD.Y, pureQuaternionD.Z);
         }
 
         /// <summary>

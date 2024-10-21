@@ -1,4 +1,4 @@
-﻿using F7s.Utility.Geometry.Double;
+﻿using Stride.Core.Mathematics;
 
 namespace F7s.Utility.Geometry {
 
@@ -50,10 +50,10 @@ namespace F7s.Utility.Geometry {
                                  );
         }
 
-        public static Vector3d operator * (Matrix3x3d m, Vector3d v) {
-            return (new Vector3d(x: m.m00, y: m.m10, z: m.m20) * v.X)
-                 + (new Vector3d(x: m.m01, y: m.m11, z: m.m21) * v.Y)
-                 + (new Vector3d(x: m.m02, y: m.m12, z: m.m22) * v.Z);
+        public static Double3 operator * (Matrix3x3d m, Double3 v) {
+            return (new Double3(x: m.m00, y: m.m10, z: m.m20) * v.X)
+                 + (new Double3(x: m.m01, y: m.m11, z: m.m21) * v.Y)
+                 + (new Double3(x: m.m02, y: m.m12, z: m.m22) * v.Z);
         }
 
         public static string ToString (Matrix3x3d m) {

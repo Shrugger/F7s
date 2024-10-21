@@ -1,6 +1,6 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Resources.Interfaces;
-using System; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Handling;
 

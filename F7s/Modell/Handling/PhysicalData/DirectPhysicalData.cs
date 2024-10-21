@@ -1,6 +1,6 @@
 ﻿using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
-using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Handling.PhysicalData {
     public class DirectPhysicalData : PhysicalRepresentationData {
@@ -18,7 +18,7 @@ namespace F7s.Modell.Handling.PhysicalData {
             return entity.GetLocality();
         }
 
-        public override Vector3d Scale () {
+        public override Double3 Scale () {
             return entity.Scale();
         }
     }

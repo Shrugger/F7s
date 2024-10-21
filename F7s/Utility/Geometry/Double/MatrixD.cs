@@ -228,8 +228,8 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets or sets the first row in the MatrixD; that is M11, M12, M13, and M14.
         /// </summary>
         [DataMemberIgnore]
-        public Vector4d Row1 {
-            get { return new Vector4d(M11, M12, M13, M14); }
+        public Double4 Row1 {
+            get { return new Double4(M11, M12, M13, M14); }
             set { M11 = value.X; M12 = value.Y; M13 = value.Z; M14 = value.W; }
         }
 
@@ -237,8 +237,8 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets or sets the second row in the MatrixD; that is M21, M22, M23, and M24.
         /// </summary>
         [DataMemberIgnore]
-        public Vector4d Row2 {
-            get { return new Vector4d(M21, M22, M23, M24); }
+        public Double4 Row2 {
+            get { return new Double4(M21, M22, M23, M24); }
             set { M21 = value.X; M22 = value.Y; M23 = value.Z; M24 = value.W; }
         }
 
@@ -246,8 +246,8 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets or sets the third row in the MatrixD; that is M31, M32, M33, and M34.
         /// </summary>
         [DataMemberIgnore]
-        public Vector4d Row3 {
-            get { return new Vector4d(M31, M32, M33, M34); }
+        public Double4 Row3 {
+            get { return new Double4(M31, M32, M33, M34); }
             set { M31 = value.X; M32 = value.Y; M33 = value.Z; M34 = value.W; }
         }
 
@@ -255,8 +255,8 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets or sets the fourth row in the MatrixD; that is M41, M42, M43, and M44.
         /// </summary>
         [DataMemberIgnore]
-        public Vector4d Row4 {
-            get { return new Vector4d(M41, M42, M43, M44); }
+        public Double4 Row4 {
+            get { return new Double4(M41, M42, M43, M44); }
             set { M41 = value.X; M42 = value.Y; M43 = value.Z; M44 = value.W; }
         }
 
@@ -264,8 +264,8 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets or sets the first column in the MatrixD; that is M11, M21, M31, and M41.
         /// </summary>
         [DataMemberIgnore]
-        public Vector4d Column1 {
-            get { return new Vector4d(M11, M21, M31, M41); }
+        public Double4 Column1 {
+            get { return new Double4(M11, M21, M31, M41); }
             set { M11 = value.X; M21 = value.Y; M31 = value.Z; M41 = value.W; }
         }
 
@@ -273,8 +273,8 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets or sets the second column in the MatrixD; that is M12, M22, M32, and M42.
         /// </summary>
         [DataMemberIgnore]
-        public Vector4d Column2 {
-            get { return new Vector4d(M12, M22, M32, M42); }
+        public Double4 Column2 {
+            get { return new Double4(M12, M22, M32, M42); }
             set { M12 = value.X; M22 = value.Y; M32 = value.Z; M42 = value.W; }
         }
 
@@ -282,8 +282,8 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets or sets the third column in the MatrixD; that is M13, M23, M33, and M43.
         /// </summary>
         [DataMemberIgnore]
-        public Vector4d Column3 {
-            get { return new Vector4d(M13, M23, M33, M43); }
+        public Double4 Column3 {
+            get { return new Double4(M13, M23, M33, M43); }
             set { M13 = value.X; M23 = value.Y; M33 = value.Z; M43 = value.W; }
         }
 
@@ -291,8 +291,8 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets or sets the fourth column in the MatrixD; that is M14, M24, M34, and M44.
         /// </summary>
         [DataMemberIgnore]
-        public Vector4d Column4 {
-            get { return new Vector4d(M14, M24, M34, M44); }
+        public Double4 Column4 {
+            get { return new Double4(M14, M24, M34, M44); }
             set { M14 = value.X; M24 = value.Y; M34 = value.Z; M44 = value.W; }
         }
 
@@ -300,8 +300,8 @@ namespace F7s.Utility.Geometry.Double {
         /// Gets or sets the translation of the MatrixD; that is M41, M42, and M43.
         /// </summary>
         [DataMemberIgnore]
-        public Vector3d TranslationVector {
-            get { return new Vector3d(M41, M42, M43); }
+        public Double3 TranslationVector {
+            get { return new Double3(M41, M42, M43); }
             set { M41 = value.X; M42 = value.Y; M43 = value.Z; }
         }
 
@@ -310,62 +310,62 @@ namespace F7s.Utility.Geometry.Double {
         /// </summary>
         /// <remarks>This property does not do any computation and will return a correct scale vector only if the MatrixD is a scale MatrixD.</remarks>
         [DataMemberIgnore]
-        public Vector3d ScaleVector {
-            get { return new Vector3d(M11, M22, M33); }
+        public Double3 ScaleVector {
+            get { return new Double3(M11, M22, M33); }
             set { M11 = value.X; M22 = value.Y; M33 = value.Z; }
         }
 
         /// <summary>
-        /// Gets or sets the up <see cref="Vector3d"/> of the MatrixD; that is M21, M22, and M23.
+        /// Gets or sets the up <see cref="Double3"/> of the MatrixD; that is M21, M22, and M23.
         /// </summary>
         [DataMemberIgnore]
-        public Vector3d Up {
-            get { return new Vector3d(M21, M22, M23); }
+        public Double3 Up {
+            get { return new Double3(M21, M22, M23); }
             set { M21 = value.X; M22 = value.Y; M23 = value.Z; }
         }
 
         /// <summary>
-        /// Gets or sets the down <see cref="Vector3d"/> of the MatrixD; that is -M21, -M22, and -M23.
+        /// Gets or sets the down <see cref="Double3"/> of the MatrixD; that is -M21, -M22, and -M23.
         /// </summary>
         [DataMemberIgnore]
-        public Vector3d Down {
-            get { return new Vector3d(-M21, -M22, -M23); }
+        public Double3 Down {
+            get { return new Double3(-M21, -M22, -M23); }
             set { M21 = -value.X; M22 = -value.Y; M23 = -value.Z; }
         }
 
         /// <summary>
-        /// Gets or sets the right <see cref="Vector3d"/> of the MatrixD; that is M11, M12, and M13.
+        /// Gets or sets the right <see cref="Double3"/> of the MatrixD; that is M11, M12, and M13.
         /// </summary>
         [DataMemberIgnore]
-        public Vector3d Right {
-            get { return new Vector3d(M11, M12, M13); }
+        public Double3 Right {
+            get { return new Double3(M11, M12, M13); }
             set { M11 = value.X; M12 = value.Y; M13 = value.Z; }
         }
 
         /// <summary>
-        /// Gets or sets the left <see cref="Vector3d"/> of the MatrixD; that is -M11, -M12, and -M13.
+        /// Gets or sets the left <see cref="Double3"/> of the MatrixD; that is -M11, -M12, and -M13.
         /// </summary>
         [DataMemberIgnore]
-        public Vector3d Left {
-            get { return new Vector3d(-M11, -M12, -M13); }
+        public Double3 Left {
+            get { return new Double3(-M11, -M12, -M13); }
             set { M11 = -value.X; M12 = -value.Y; M13 = -value.Z; }
         }
 
         /// <summary>
-        /// Gets or sets the forward <see cref="Vector3d"/> of the MatrixD; that is -M31, -M32, and -M33.
+        /// Gets or sets the forward <see cref="Double3"/> of the MatrixD; that is -M31, -M32, and -M33.
         /// </summary>
         [DataMemberIgnore]
-        public Vector3d Forward {
-            get { return new Vector3d(-M31, -M32, -M33); }
+        public Double3 Forward {
+            get { return new Double3(-M31, -M32, -M33); }
             set { M31 = -value.X; M32 = -value.Y; M33 = -value.Z; }
         }
 
         /// <summary>
-        /// Gets or sets the backward <see cref="Vector3d"/> of the MatrixD; that is M31, M32, and M33.
+        /// Gets or sets the backward <see cref="Double3"/> of the MatrixD; that is M31, M32, and M33.
         /// </summary>
         [DataMemberIgnore]
-        public Vector3d Backward {
-            get { return new Vector3d(M31, M32, M33); }
+        public Double3 Backward {
+            get { return new Double3(M31, M32, M33); }
             set { M31 = value.X; M32 = value.Y; M33 = value.Z; }
         }
 
@@ -612,19 +612,19 @@ namespace F7s.Utility.Geometry.Double {
             Q.Transpose();
 
             R = new MatrixD();
-            R.M11 = Vector4d.Dot(Q.Column1, Column1);
-            R.M12 = Vector4d.Dot(Q.Column1, Column2);
-            R.M13 = Vector4d.Dot(Q.Column1, Column3);
-            R.M14 = Vector4d.Dot(Q.Column1, Column4);
+            R.M11 = Double4.Dot(Q.Column1, Column1);
+            R.M12 = Double4.Dot(Q.Column1, Column2);
+            R.M13 = Double4.Dot(Q.Column1, Column3);
+            R.M14 = Double4.Dot(Q.Column1, Column4);
 
-            R.M22 = Vector4d.Dot(Q.Column2, Column2);
-            R.M23 = Vector4d.Dot(Q.Column2, Column3);
-            R.M24 = Vector4d.Dot(Q.Column2, Column4);
+            R.M22 = Double4.Dot(Q.Column2, Column2);
+            R.M23 = Double4.Dot(Q.Column2, Column3);
+            R.M24 = Double4.Dot(Q.Column2, Column4);
 
-            R.M33 = Vector4d.Dot(Q.Column3, Column3);
-            R.M34 = Vector4d.Dot(Q.Column3, Column4);
+            R.M33 = Double4.Dot(Q.Column3, Column3);
+            R.M34 = Double4.Dot(Q.Column3, Column4);
 
-            R.M44 = Vector4d.Dot(Q.Column4, Column4);
+            R.M44 = Double4.Dot(Q.Column4, Column4);
         }
 
         /// <summary>
@@ -636,19 +636,19 @@ namespace F7s.Utility.Geometry.Double {
             Orthonormalize(ref this, out Q);
 
             L = new MatrixD();
-            L.M11 = Vector4d.Dot(Q.Row1, Row1);
+            L.M11 = Double4.Dot(Q.Row1, Row1);
 
-            L.M21 = Vector4d.Dot(Q.Row1, Row2);
-            L.M22 = Vector4d.Dot(Q.Row2, Row2);
+            L.M21 = Double4.Dot(Q.Row1, Row2);
+            L.M22 = Double4.Dot(Q.Row2, Row2);
 
-            L.M31 = Vector4d.Dot(Q.Row1, Row3);
-            L.M32 = Vector4d.Dot(Q.Row2, Row3);
-            L.M33 = Vector4d.Dot(Q.Row3, Row3);
+            L.M31 = Double4.Dot(Q.Row1, Row3);
+            L.M32 = Double4.Dot(Q.Row2, Row3);
+            L.M33 = Double4.Dot(Q.Row3, Row3);
 
-            L.M41 = Vector4d.Dot(Q.Row1, Row4);
-            L.M42 = Vector4d.Dot(Q.Row2, Row4);
-            L.M43 = Vector4d.Dot(Q.Row3, Row4);
-            L.M44 = Vector4d.Dot(Q.Row4, Row4);
+            L.M41 = Double4.Dot(Q.Row1, Row4);
+            L.M42 = Double4.Dot(Q.Row2, Row4);
+            L.M43 = Double4.Dot(Q.Row3, Row4);
+            L.M44 = Double4.Dot(Q.Row4, Row4);
         }
 
         /// <summary>
@@ -676,7 +676,7 @@ namespace F7s.Utility.Geometry.Double {
         /// MatrixD.RotationX(rotation.X) * MatrixD.RotationY(rotation.Y) * MatrixD.RotationZ(rotation.Z) should represent the same rotation.
         /// </summary>
         /// <param name="rotation">The vector containing the 3 rotations angles to be applied in order.</param>
-        public void DecomposeXYZ (out Vector3d rotation) {
+        public void DecomposeXYZ (out Double3 rotation) {
             rotation.Y = Math.Asin(-M13);
             double test = Math.Cos(rotation.Y);
             if (test > 1e-6f) {
@@ -695,7 +695,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="translation">When the method completes, contains the translation component of the decomposed MatrixD.</param>
         /// <returns><c>true</c> if a rotation exist for this MatrixD, <c>false</c> otherwise.</returns>
         /// <remarks>This method is designed to decompose an SRT transformation MatrixD only.</remarks>
-        public bool Decompose (out Vector3d scale, out Vector3d translation) {
+        public bool Decompose (out Double3 scale, out Double3 translation) {
             //Source: Unknown
             //References: http://www.gamedev.net/community/forums/topic.asp?topic_id=441695
 
@@ -728,7 +728,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <remarks>
         /// This method is designed to decompose an SRT transformation MatrixD only.
         /// </remarks>
-        public bool Decompose (out Vector3d scale, out QuaternionD rotation, out Vector3d translation) {
+        public bool Decompose (out Double3 scale, out QuaternionD rotation, out Double3 translation) {
             MatrixD rotationMatrixD;
             Decompose(out scale, out rotationMatrixD, out translation);
             QuaternionD.RotationMatrixD(ref rotationMatrixD, out rotation);
@@ -744,7 +744,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <remarks>
         /// This method is designed to decompose an SRT transformation MatrixD only.
         /// </remarks>
-        public bool Decompose (out Vector3d scale, out MatrixD rotation, out Vector3d translation) {
+        public bool Decompose (out Double3 scale, out MatrixD rotation, out Double3 translation) {
             //Source: Unknown
             //References: http://www.gamedev.net/community/forums/topic.asp?topic_id=441695
 
@@ -767,9 +767,9 @@ namespace F7s.Utility.Geometry.Double {
             }
 
             // Calculate an perfect orthonormal MatrixD (no reflections)
-            var at = new Vector3d(M31 / scale.Z, M32 / scale.Z, M33 / scale.Z);
-            var up = Vector3d.Cross(at, new Vector3d(M11 / scale.X, M12 / scale.X, M13 / scale.X));
-            var right = Vector3d.Cross(up, at);
+            var at = new Double3(M31 / scale.Z, M32 / scale.Z, M33 / scale.Z);
+            var up = Double3.Cross(at, new Double3(M11 / scale.X, M12 / scale.X, M13 / scale.X));
+            var right = Double3.Cross(up, at);
 
             rotation = Identity;
             rotation.Right = right;
@@ -777,9 +777,9 @@ namespace F7s.Utility.Geometry.Double {
             rotation.Backward = at;
 
             // In case of reflexions
-            scale.X = Vector3d.Dot(right, Right) > 0.0f ? scale.X : -scale.X;
-            scale.Y = Vector3d.Dot(up, Up) > 0.0f ? scale.Y : -scale.Y;
-            scale.Z = Vector3d.Dot(at, Backward) > 0.0f ? scale.Z : -scale.Z;
+            scale.X = Double3.Dot(right, Right) > 0.0f ? scale.X : -scale.X;
+            scale.Y = Double3.Dot(up, Up) > 0.0f ? scale.Y : -scale.Y;
+            scale.Z = Double3.Dot(at, Backward) > 0.0f ? scale.Z : -scale.Z;
 
             return true;
         }
@@ -1463,14 +1463,14 @@ namespace F7s.Utility.Geometry.Double {
             var row3 = result.Row3;
             var row4 = result.Row4;
 
-            row2 = row2 - (Vector4d.Dot(row1, row2) / Vector4d.Dot(row1, row1) * row1);
+            row2 = row2 - (Double4.Dot(row1, row2) / Double4.Dot(row1, row1) * row1);
 
-            row3 = row3 - (Vector4d.Dot(row1, row3) / Vector4d.Dot(row1, row1) * row1);
-            row3 = row3 - (Vector4d.Dot(row2, row3) / Vector4d.Dot(row2, row2) * row2);
+            row3 = row3 - (Double4.Dot(row1, row3) / Double4.Dot(row1, row1) * row1);
+            row3 = row3 - (Double4.Dot(row2, row3) / Double4.Dot(row2, row2) * row2);
 
-            row4 = row4 - (Vector4d.Dot(row1, row4) / Vector4d.Dot(row1, row1) * row1);
-            row4 = row4 - (Vector4d.Dot(row2, row4) / Vector4d.Dot(row2, row2) * row2);
-            row4 = row4 - (Vector4d.Dot(row3, row4) / Vector4d.Dot(row3, row3) * row3);
+            row4 = row4 - (Double4.Dot(row1, row4) / Double4.Dot(row1, row1) * row1);
+            row4 = row4 - (Double4.Dot(row2, row4) / Double4.Dot(row2, row2) * row2);
+            row4 = row4 - (Double4.Dot(row3, row4) / Double4.Dot(row3, row3) * row3);
 
             result.Row2 = row2;
             result.Row3 = row3;
@@ -1534,16 +1534,16 @@ namespace F7s.Utility.Geometry.Double {
 
             row1.Normalize();
 
-            row2 = row2 - (Vector4d.Dot(row1, row2) * row1);
+            row2 = row2 - (Double4.Dot(row1, row2) * row1);
             row2.Normalize();
 
-            row3 = row3 - (Vector4d.Dot(row1, row3) * row1);
-            row3 = row3 - (Vector4d.Dot(row2, row3) * row2);
+            row3 = row3 - (Double4.Dot(row1, row3) * row1);
+            row3 = row3 - (Double4.Dot(row2, row3) * row2);
             row3.Normalize();
 
-            row4 = row4 - (Vector4d.Dot(row1, row4) * row1);
-            row4 = row4 - (Vector4d.Dot(row2, row4) * row2);
-            row4 = row4 - (Vector4d.Dot(row3, row4) * row3);
+            row4 = row4 - (Double4.Dot(row1, row4) * row1);
+            row4 = row4 - (Double4.Dot(row2, row4) * row2);
+            row4 = row4 - (Double4.Dot(row3, row4) * row3);
             row4.Normalize();
 
             result = default;
@@ -1808,7 +1808,7 @@ namespace F7s.Utility.Geometry.Double {
         /// the <paramref name="augmentResult"/> will contain the solution for the system. It is up to the user
         /// to analyze both the input and the result to determine if a solution really exists.</para>
         /// </remarks>
-        public static void ReducedRowEchelonForm (ref MatrixD value, ref Vector4d augment, out MatrixD result, out Vector4d augmentResult) {
+        public static void ReducedRowEchelonForm (ref MatrixD value, ref Double4 augment, out MatrixD result, out Double4 augmentResult) {
             //Source: http://rosettacode.org
             //Reference: http://rosettacode.org/wiki/Reduced_row_echelon_form
 
@@ -1917,10 +1917,10 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="cameraUpVector">The up vector of the camera.</param>
         /// <param name="cameraForwardVector">The forward vector of the camera.</param>
         /// <param name="result">When the method completes, contains the created billboard MatrixD.</param>
-        public static void Billboard (ref Vector3d objectPosition, ref Vector3d cameraPosition, ref Vector3d cameraUpVector, ref Vector3d cameraForwardVector, out MatrixD result) {
-            Vector3d crossed;
-            Vector3d final;
-            Vector3d difference = objectPosition - cameraPosition;
+        public static void Billboard (ref Double3 objectPosition, ref Double3 cameraPosition, ref Double3 cameraUpVector, ref Double3 cameraForwardVector, out MatrixD result) {
+            Double3 crossed;
+            Double3 final;
+            Double3 difference = objectPosition - cameraPosition;
 
             double lengthSq = difference.LengthSquared();
             if (lengthSq < MathUtil.ZeroTolerance)
@@ -1928,9 +1928,9 @@ namespace F7s.Utility.Geometry.Double {
             else
                 difference *= (double) (1.0 / Math.Sqrt(lengthSq));
 
-            Vector3d.Cross(ref cameraUpVector, ref difference, out crossed);
+            Double3.Cross(ref cameraUpVector, ref difference, out crossed);
             crossed.Normalize();
-            Vector3d.Cross(ref difference, ref crossed, out final);
+            Double3.Cross(ref difference, ref crossed, out final);
 
             result.M11 = crossed.X;
             result.M12 = crossed.Y;
@@ -1958,7 +1958,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="cameraUpVector">The up vector of the camera.</param>
         /// <param name="cameraForwardVector">The forward vector of the camera.</param>
         /// <returns>The created billboard MatrixD.</returns>
-        public static MatrixD Billboard (Vector3d objectPosition, Vector3d cameraPosition, Vector3d cameraUpVector, Vector3d cameraForwardVector) {
+        public static MatrixD Billboard (Double3 objectPosition, Double3 cameraPosition, Double3 cameraUpVector, Double3 cameraForwardVector) {
             MatrixD result;
             Billboard(ref objectPosition, ref cameraPosition, ref cameraUpVector, ref cameraForwardVector, out result);
             return result;
@@ -1971,13 +1971,13 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="target">The camera look-at target.</param>
         /// <param name="up">The camera's up vector.</param>
         /// <param name="result">When the method completes, contains the created look-at MatrixD.</param>
-        public static void LookAtLH (ref Vector3d eye, ref Vector3d target, ref Vector3d up, out MatrixD result) {
-            Vector3d xaxis, yaxis, zaxis;
-            Vector3d.Subtract(ref target, ref eye, out zaxis);
+        public static void LookAtLH (ref Double3 eye, ref Double3 target, ref Double3 up, out MatrixD result) {
+            Double3 xaxis, yaxis, zaxis;
+            Double3.Subtract(ref target, ref eye, out zaxis);
             zaxis.Normalize();
-            Vector3d.Cross(ref up, ref zaxis, out xaxis);
+            Double3.Cross(ref up, ref zaxis, out xaxis);
             xaxis.Normalize();
-            Vector3d.Cross(ref zaxis, ref xaxis, out yaxis);
+            Double3.Cross(ref zaxis, ref xaxis, out yaxis);
 
             result = Identity;
             result.M11 = xaxis.X;
@@ -1990,9 +1990,9 @@ namespace F7s.Utility.Geometry.Double {
             result.M23 = zaxis.Y;
             result.M33 = zaxis.Z;
 
-            Vector3d.Dot(ref xaxis, ref eye, out result.M41);
-            Vector3d.Dot(ref yaxis, ref eye, out result.M42);
-            Vector3d.Dot(ref zaxis, ref eye, out result.M43);
+            Double3.Dot(ref xaxis, ref eye, out result.M41);
+            Double3.Dot(ref yaxis, ref eye, out result.M42);
+            Double3.Dot(ref zaxis, ref eye, out result.M43);
 
             result.M41 = -result.M41;
             result.M42 = -result.M42;
@@ -2006,7 +2006,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="target">The camera look-at target.</param>
         /// <param name="up">The camera's up vector.</param>
         /// <returns>The created look-at MatrixD.</returns>
-        public static MatrixD LookAtLH (Vector3d eye, Vector3d target, Vector3d up) {
+        public static MatrixD LookAtLH (Double3 eye, Double3 target, Double3 up) {
             MatrixD result;
             LookAtLH(ref eye, ref target, ref up, out result);
             return result;
@@ -2019,13 +2019,13 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="target">The camera look-at target.</param>
         /// <param name="up">The camera's up vector.</param>
         /// <param name="result">When the method completes, contains the created look-at MatrixD.</param>
-        public static void LookAtRH (ref Vector3d eye, ref Vector3d target, ref Vector3d up, out MatrixD result) {
-            Vector3d xaxis, yaxis, zaxis;
-            Vector3d.Subtract(ref eye, ref target, out zaxis);
+        public static void LookAtRH (ref Double3 eye, ref Double3 target, ref Double3 up, out MatrixD result) {
+            Double3 xaxis, yaxis, zaxis;
+            Double3.Subtract(ref eye, ref target, out zaxis);
             zaxis.Normalize();
-            Vector3d.Cross(ref up, ref zaxis, out xaxis);
+            Double3.Cross(ref up, ref zaxis, out xaxis);
             xaxis.Normalize();
-            Vector3d.Cross(ref zaxis, ref xaxis, out yaxis);
+            Double3.Cross(ref zaxis, ref xaxis, out yaxis);
 
             result = Identity;
             result.M11 = xaxis.X;
@@ -2038,9 +2038,9 @@ namespace F7s.Utility.Geometry.Double {
             result.M23 = zaxis.Y;
             result.M33 = zaxis.Z;
 
-            Vector3d.Dot(ref xaxis, ref eye, out result.M41);
-            Vector3d.Dot(ref yaxis, ref eye, out result.M42);
-            Vector3d.Dot(ref zaxis, ref eye, out result.M43);
+            Double3.Dot(ref xaxis, ref eye, out result.M41);
+            Double3.Dot(ref yaxis, ref eye, out result.M42);
+            Double3.Dot(ref zaxis, ref eye, out result.M43);
 
             result.M41 = -result.M41;
             result.M42 = -result.M42;
@@ -2054,7 +2054,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="target">The camera look-at target.</param>
         /// <param name="up">The camera's up vector.</param>
         /// <returns>The created look-at MatrixD.</returns>
-        public static MatrixD LookAtRH (Vector3d eye, Vector3d target, Vector3d up) {
+        public static MatrixD LookAtRH (Double3 eye, Double3 target, Double3 up) {
             MatrixD result;
             LookAtRH(ref eye, ref target, ref up, out result);
             return result;
@@ -2431,7 +2431,7 @@ namespace F7s.Utility.Geometry.Double {
         /// W component is 1, the light is a point light.</param>
         /// <param name="plane">The plane onto which to project the geometry as a shadow. This parameter is assumed to be normalized.</param>
         /// <param name="result">When the method completes, contains the shadow MatrixD.</param>
-        public static void Shadow (ref Vector4d light, ref Plane plane, out MatrixD result) {
+        public static void Shadow (ref Double4 light, ref Plane plane, out MatrixD result) {
             double dot = (plane.Normal.X * light.X) + (plane.Normal.Y * light.Y) + (plane.Normal.Z * light.Z) + (plane.D * light.W);
             double x = -plane.Normal.X;
             double y = -plane.Normal.Y;
@@ -2463,7 +2463,7 @@ namespace F7s.Utility.Geometry.Double {
         /// W component is 1, the light is a point light.</param>
         /// <param name="plane">The plane onto which to project the geometry as a shadow. This parameter is assumed to be normalized.</param>
         /// <returns>The shadow MatrixD.</returns>
-        public static MatrixD Shadow (Vector4d light, Plane plane) {
+        public static MatrixD Shadow (Double4 light, Plane plane) {
             MatrixD result;
             Shadow(ref light, ref plane, out result);
             return result;
@@ -2474,7 +2474,7 @@ namespace F7s.Utility.Geometry.Double {
         /// </summary>
         /// <param name="scale">Scaling factor for all three axes.</param>
         /// <param name="result">When the method completes, contains the created scaling MatrixD.</param>
-        public static void Scaling (ref Vector3d scale, out MatrixD result) {
+        public static void Scaling (ref Double3 scale, out MatrixD result) {
             Scaling(scale.X, scale.Y, scale.Z, out result);
         }
 
@@ -2483,7 +2483,7 @@ namespace F7s.Utility.Geometry.Double {
         /// </summary>
         /// <param name="scale">Scaling factor for all three axes.</param>
         /// <returns>The created scaling MatrixD.</returns>
-        public static MatrixD Scaling (Vector3d scale) {
+        public static MatrixD Scaling (Double3 scale) {
             MatrixD result;
             Scaling(ref scale, out result);
             return result;
@@ -2624,7 +2624,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="axis">The axis around which to rotate. This parameter is assumed to be normalized.</param>
         /// <param name="angle">Angle of rotation in radians. Angles are measured clockwise when looking along the rotation axis toward the origin.</param>
         /// <param name="result">When the method completes, contains the created rotation MatrixD.</param>
-        public static void RotationAxis (ref Vector3d axis, double angle, out MatrixD result) {
+        public static void RotationAxis (ref Double3 axis, double angle, out MatrixD result) {
             double x = axis.X;
             double y = axis.Y;
             double z = axis.Z;
@@ -2655,7 +2655,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="axis">The axis around which to rotate. This parameter is assumed to be normalized.</param>
         /// <param name="angle">Angle of rotation in radians. Angles are measured clockwise when looking along the rotation axis toward the origin.</param>
         /// <returns>The created rotation MatrixD.</returns>
-        public static MatrixD RotationAxis (Vector3d axis, double angle) {
+        public static MatrixD RotationAxis (Double3 axis, double angle) {
             MatrixD result;
             RotationAxis(ref axis, angle, out result);
             return result;
@@ -2689,7 +2689,7 @@ namespace F7s.Utility.Geometry.Double {
             result.M33 = 1.0f - (2.0f * (yy + xx));
         }
 
-        public static MatrixD Transformation (Vector3d translation, QuaternionD rotation) {
+        public static MatrixD Transformation (Double3 translation, QuaternionD rotation) {
             return Mathematik.Transformation(translation, rotation);
         }
 
@@ -2700,7 +2700,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">Angle of rotation in radians. Angles are measured clockwise when looking along the rotation axis toward the origin.</param>
         /// <param name="translation">The translation.</param>
         /// <param name="result">When the method completes, contains the created rotation MatrixD.</param>
-        public static void Transformation (ref Vector3d scaling, ref QuaternionD rotation, ref Vector3d translation, out MatrixD result) {
+        public static void Transformation (ref Double3 scaling, ref QuaternionD rotation, ref Double3 translation, out MatrixD result) {
             // Equivalent to:
             //result =
             //    MatrixD.Scaling(scaling)
@@ -2799,7 +2799,7 @@ namespace F7s.Utility.Geometry.Double {
         /// </summary>
         /// <param name="value">The offset for all three coordinate planes.</param>
         /// <param name="result">When the method completes, contains the created translation MatrixD.</param>
-        public static void Translation (ref Vector3d value, out MatrixD result) {
+        public static void Translation (ref Double3 value, out MatrixD result) {
             Translation(value.X, value.Y, value.Z, out result);
         }
 
@@ -2808,7 +2808,7 @@ namespace F7s.Utility.Geometry.Double {
         /// </summary>
         /// <param name="value">The offset for all three coordinate planes.</param>
         /// <returns>The created translation MatrixD.</returns>
-        public static MatrixD Translation (Vector3d value) {
+        public static MatrixD Translation (Double3 value) {
             MatrixD result;
             Translation(ref value, out result);
             return result;
@@ -2848,7 +2848,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <param name="result">When the method completes, contains the created affine transformation MatrixD.</param>
-        public static void AffineTransformation (double scaling, ref QuaternionD rotation, ref Vector3d translation, out MatrixD result) {
+        public static void AffineTransformation (double scaling, ref QuaternionD rotation, ref Double3 translation, out MatrixD result) {
             result = Scaling(scaling) * RotationQuaternionD(rotation) * Translation(translation);
         }
 
@@ -2859,7 +2859,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <returns>The created affine transformation MatrixD.</returns>
-        public static MatrixD AffineTransformation (double scaling, QuaternionD rotation, Vector3d translation) {
+        public static MatrixD AffineTransformation (double scaling, QuaternionD rotation, Double3 translation) {
             MatrixD result;
             AffineTransformation(scaling, ref rotation, ref translation, out result);
             return result;
@@ -2873,7 +2873,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <param name="result">When the method completes, contains the created affine transformation MatrixD.</param>
-        public static void AffineTransformation (double scaling, ref Vector3d rotationCenter, ref QuaternionD rotation, ref Vector3d translation, out MatrixD result) {
+        public static void AffineTransformation (double scaling, ref Double3 rotationCenter, ref QuaternionD rotation, ref Double3 translation, out MatrixD result) {
             result = Scaling(scaling) * Translation(-rotationCenter) * RotationQuaternionD(rotation) *
                 Translation(rotationCenter) * Translation(translation);
         }
@@ -2886,7 +2886,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <returns>The created affine transformation MatrixD.</returns>
-        public static MatrixD AffineTransformation (double scaling, Vector3d rotationCenter, QuaternionD rotation, Vector3d translation) {
+        public static MatrixD AffineTransformation (double scaling, Double3 rotationCenter, QuaternionD rotation, Double3 translation) {
             MatrixD result;
             AffineTransformation(scaling, ref rotationCenter, ref rotation, ref translation, out result);
             return result;
@@ -2899,8 +2899,8 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <param name="result">When the method completes, contains the created affine transformation MatrixD.</param>
-        public static void AffineTransformation2D (double scaling, double rotation, ref Vector2d translation, out MatrixD result) {
-            result = Scaling(scaling, scaling, 1.0f) * RotationZ(rotation) * Translation((Vector3d) translation);
+        public static void AffineTransformation2D (double scaling, double rotation, ref Double2 translation, out MatrixD result) {
+            result = Scaling(scaling, scaling, 1.0f) * RotationZ(rotation) * Translation((Double3) translation);
         }
 
         /// <summary>
@@ -2910,7 +2910,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <returns>The created affine transformation MatrixD.</returns>
-        public static MatrixD AffineTransformation2D (double scaling, double rotation, Vector2d translation) {
+        public static MatrixD AffineTransformation2D (double scaling, double rotation, Double2 translation) {
             MatrixD result;
             AffineTransformation2D(scaling, rotation, ref translation, out result);
             return result;
@@ -2924,9 +2924,9 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <param name="result">When the method completes, contains the created affine transformation MatrixD.</param>
-        public static void AffineTransformation2D (double scaling, ref Vector2d rotationCenter, double rotation, ref Vector2d translation, out MatrixD result) {
-            result = Scaling(scaling, scaling, 1.0f) * Translation((Vector3d) (-rotationCenter)) * RotationZ(rotation) *
-                Translation((Vector3d) rotationCenter) * Translation((Vector3d) translation);
+        public static void AffineTransformation2D (double scaling, ref Double2 rotationCenter, double rotation, ref Double2 translation, out MatrixD result) {
+            result = Scaling(scaling, scaling, 1.0f) * Translation((Double3) (-rotationCenter)) * RotationZ(rotation) *
+                Translation((Double3) rotationCenter) * Translation((Double3) translation);
         }
 
         /// <summary>
@@ -2937,7 +2937,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <returns>The created affine transformation MatrixD.</returns>
-        public static MatrixD AffineTransformation2D (double scaling, Vector2d rotationCenter, double rotation, Vector2d translation) {
+        public static MatrixD AffineTransformation2D (double scaling, Double2 rotationCenter, double rotation, Double2 translation) {
             MatrixD result;
             AffineTransformation2D(scaling, ref rotationCenter, rotation, ref translation, out result);
             return result;
@@ -2953,7 +2953,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <param name="result">When the method completes, contains the created transformation MatrixD.</param>
-        public static void Transformation (ref Vector3d scalingCenter, ref QuaternionD scalingRotation, ref Vector3d scaling, ref Vector3d rotationCenter, ref QuaternionD rotation, ref Vector3d translation, out MatrixD result) {
+        public static void Transformation (ref Double3 scalingCenter, ref QuaternionD scalingRotation, ref Double3 scaling, ref Double3 rotationCenter, ref QuaternionD rotation, ref Double3 translation, out MatrixD result) {
             MatrixD sr = RotationQuaternionD(scalingRotation);
 
             result = Translation(-scalingCenter) * Transpose(sr) * Scaling(scaling) * sr * Translation(scalingCenter) * Translation(-rotationCenter) *
@@ -2970,7 +2970,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <returns>The created transformation MatrixD.</returns>
-        public static MatrixD Transformation (Vector3d scalingCenter, QuaternionD scalingRotation, Vector3d scaling, Vector3d rotationCenter, QuaternionD rotation, Vector3d translation) {
+        public static MatrixD Transformation (Double3 scalingCenter, QuaternionD scalingRotation, Double3 scaling, Double3 rotationCenter, QuaternionD rotation, Double3 translation) {
             MatrixD result;
             Transformation(ref scalingCenter, ref scalingRotation, ref scaling, ref rotationCenter, ref rotation, ref translation, out result);
             return result;
@@ -2986,9 +2986,9 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <param name="result">When the method completes, contains the created transformation MatrixD.</param>
-        public static void Transformation2D (ref Vector2d scalingCenter, double scalingRotation, ref Vector2d scaling, ref Vector2d rotationCenter, double rotation, ref Vector2d translation, out MatrixD result) {
-            result = Translation((Vector3d) (-scalingCenter)) * RotationZ(-scalingRotation) * Scaling((Vector3d) scaling) * RotationZ(scalingRotation) * Translation((Vector3d) scalingCenter) *
-                Translation((Vector3d) (-rotationCenter)) * RotationZ(rotation) * Translation((Vector3d) rotationCenter) * Translation((Vector3d) translation);
+        public static void Transformation2D (ref Double2 scalingCenter, double scalingRotation, ref Double2 scaling, ref Double2 rotationCenter, double rotation, ref Double2 translation, out MatrixD result) {
+            result = Translation((Double3) (-scalingCenter)) * RotationZ(-scalingRotation) * Scaling((Double3) scaling) * RotationZ(scalingRotation) * Translation((Double3) scalingCenter) *
+                Translation((Double3) (-rotationCenter)) * RotationZ(rotation) * Translation((Double3) rotationCenter) * Translation((Double3) translation);
 
             result.M33 = 1f;
             result.M44 = 1f;
@@ -3004,7 +3004,7 @@ namespace F7s.Utility.Geometry.Double {
         /// <param name="rotation">The rotation of the transformation.</param>
         /// <param name="translation">The translation factor of the transformation.</param>
         /// <returns>The created transformation MatrixD.</returns>
-        public static MatrixD Transformation2D (Vector2d scalingCenter, double scalingRotation, Vector2d scaling, Vector2d rotationCenter, double rotation, Vector2d translation) {
+        public static MatrixD Transformation2D (Double2 scalingCenter, double scalingRotation, Double2 scaling, Double2 rotationCenter, double rotation, Double2 translation) {
             MatrixD result;
             Transformation2D(ref scalingCenter, scalingRotation, ref scaling, ref rotationCenter, rotation, ref translation, out result);
             return result;

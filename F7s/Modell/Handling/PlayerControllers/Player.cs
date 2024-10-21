@@ -100,7 +100,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             return gameEntity == entity;
         }
 
-        public static void Translate (Vector3d relativeOffset) {
+        public static void Translate (Double3 relativeOffset) {
             physicalEntity.Locality.Translate(relativeOffset);
         }
 

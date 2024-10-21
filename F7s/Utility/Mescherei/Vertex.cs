@@ -1,13 +1,12 @@
 ﻿using F7s.Utility.Geometry;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 using Stride.Graphics;
-using System; using F7s.Utility.Geometry.Double;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace F7s.Utility.Mescherei
-{
+namespace F7s.Utility.Mescherei {
     public class Vertex {
 
         public readonly Graph Mesch;
@@ -22,9 +21,9 @@ namespace F7s.Utility.Mescherei
         private static int nextNameIndex = 1;
         public readonly string name = "V" + nextNameIndex++;
 
-        private List<Vertex> neighbors = new List<Vertex>();
-        private List<Triangle> triangles = new List<Triangle>();
-        private List<Edge> edges = new List<Edge>();
+        private readonly List<Vertex> neighbors = new List<Vertex>();
+        private readonly List<Triangle> triangles = new List<Triangle>();
+        private readonly List<Edge> edges = new List<Edge>();
 
         public List<Edge> Edges { get { return edges; } }
 
@@ -212,7 +211,7 @@ namespace F7s.Utility.Mescherei
         }
 
         public VertexPositionNormalColor ToStride () {
-            return new VertexPositionNormalColor(this.Position, this.Normal, this.Color);
+            return new VertexPositionNormalColor(Position, Normal, Color);
         }
     }
 

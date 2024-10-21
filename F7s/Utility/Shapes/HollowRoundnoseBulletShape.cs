@@ -1,5 +1,5 @@
 ﻿using F7s.Utility.Shapes.Shapes2D;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double; using System; using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics; using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 
 namespace F7s.Utility.Shapes {
     

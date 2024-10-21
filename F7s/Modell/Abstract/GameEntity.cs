@@ -3,7 +3,6 @@ using F7s.Modell.Handling;
 using F7s.Modell.Handling.PhysicalData;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
@@ -204,7 +203,7 @@ namespace F7s.Modell.Abstract {
         public virtual PhysicalRepresentationData GetPhysicalData () {
             PresumedPhysicalData data = new PresumedPhysicalData(this);
             data.boundingRadius = 1;
-            data.scale = new Vector3d(1, 1, 1);
+            data.scale = new Double3(1, 1, 1);
             return data;
         }
 

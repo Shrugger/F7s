@@ -1,5 +1,4 @@
-﻿using F7s.Utility.Geometry.Double;
-using F7s.Utility.Lazies;
+﻿using F7s.Utility.Lazies;
 using Stride.Core.Mathematics;
 using System;
 namespace F7s.Utility.Geometry {
@@ -28,7 +27,7 @@ namespace F7s.Utility.Geometry {
         public readonly double radialDistance;
 
         private Faul<Vector3> asVector3;
-        private Faul<Vector3d> asVector3d;
+        private Faul<Double3> asDouble3;
 
         /// <param name="longitude"> Longitude in degrees from 0° to 360°. </param>
         /// <param name="latitude"> Latitude in degrees from -90° to 90°. </param>
@@ -81,7 +80,7 @@ namespace F7s.Utility.Geometry {
         private void InitializeCartesianBackingLazies () {
             PolarCoordinatesD thisCoordinates = this;
             asVector3 = new Faul<Vector3>(() => thisCoordinates.ConvertPolarCoordinatesToVector3());
-            asVector3d = new Faul<Vector3d>(() => thisCoordinates.ConvertPolarCoordinatesToVector3d());
+            asDouble3 = new Faul<Double3>(() => thisCoordinates.ConvertPolarCoordinatesToDouble3());
         }
 
         public static double ConvertToLongitude (double raw) {
@@ -153,7 +152,7 @@ namespace F7s.Utility.Geometry {
         /// </summary>
         /// <param name="polar"> The polar coordinates meant to be converted. </param>
         /// <returns> The converted coordinates, now as a cartesian vector. </returns>
-        public static Vector3d ToCartesian (PolarCoordinatesD polar) {
+        public static Double3 ToCartesian (PolarCoordinatesD polar) {
             double phi = Mathematik.DegToRad((polar.longitude + 0) % 360);
             double theta = Mathematik.DegToRad(polar.latitude + 90.0);
             double rho = polar.radialDistance;
@@ -162,10 +161,10 @@ namespace F7s.Utility.Geometry {
             double y = rho * Math.Cos(theta);
             double x = rho * sinTheta * Math.Sin(a: phi);
 
-            return new Vector3d(x: x, y: -y, z: z); // I don't think y should be negative, actually.
+            return new Double3(x: x, y: -y, z: z); // I don't think y should be negative, actually.
         }
 
-        public static PolarCoordinatesD FromCartesian (Vector3d cartesian) {
+        public static PolarCoordinatesD FromCartesian (Double3 cartesian) {
             return FromCartesian(cartesian.X, cartesian.Y, cartesian.Z);
         }
 
@@ -194,18 +193,18 @@ namespace F7s.Utility.Geometry {
 
         #region casts
 
-        private PolarCoordinatesD ConvertFromCartesianToPolarCoordinates (Vector3d cartesian) {
+        private PolarCoordinatesD ConvertFromCartesianToPolarCoordinates (Double3 cartesian) {
             return FromCartesian(cartesian);
         }
         private PolarCoordinatesD ConvertFromCartesianToPolarCoordinates (Vector3 cartesian) {
             return FromCartesian(cartesian);
         }
 
-        private Vector3d ConvertPolarCoordinatesToVector3d () {
+        private Double3 ConvertPolarCoordinatesToDouble3 () {
             return ToCartesian(this);
         }
         private Vector3 ConvertPolarCoordinatesToVector3 () {
-            return ConvertPolarCoordinatesToVector3d().ToVector3();
+            return (Vector3) ConvertPolarCoordinatesToDouble3();
         }
 
         /// <summary>
@@ -221,7 +220,7 @@ namespace F7s.Utility.Geometry {
         /// </summary>
         /// <param name="v3d"> The cartesian vector meant to be converted. </param>
         /// <returns> The polar coordinates representing the given cartesian position. </returns>
-        public static implicit operator PolarCoordinatesD (Vector3d v3d) {
+        public static implicit operator PolarCoordinatesD (Double3 v3d) {
             return FromCartesian(cartesian: v3d);
         }
 
@@ -229,8 +228,8 @@ namespace F7s.Utility.Geometry {
             return FromCartesian(cartesian: v3);
         }
 
-        public static implicit operator Vector3d (PolarCoordinatesD polar) {
-            return polar.asVector3d;
+        public static implicit operator Double3 (PolarCoordinatesD polar) {
+            return polar.asDouble3;
         }
         public static implicit operator Vector3 (PolarCoordinatesD polar) {
             return polar.asVector3;
@@ -326,8 +325,8 @@ namespace F7s.Utility.Geometry {
 
         #endregion
 
-        public Vector3d ToVector3d () {
-            return asVector3d;
+        public Double3 ToDouble3 () {
+            return asDouble3;
         }
 
         public PolarCoordinatesD RelativePolarCoordinatesDouble () {
@@ -356,7 +355,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public double DirectDistance (PolarCoordinatesD other) {
-            return Vector3d.Distance(this, other);
+            return Double3.Distance(this, other);
         }
 
         public static double DirectDistance (PolarCoordinatesD lhs, PolarCoordinatesD rhs) {

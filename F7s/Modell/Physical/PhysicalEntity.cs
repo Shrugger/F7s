@@ -7,6 +7,7 @@ using F7s.Modell.Physical.Localities;
 using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Measurements;
+using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -149,7 +150,7 @@ namespace F7s.Modell.Physical {
             return UiColor() ?? base.RepresentativeColor();
         }
 
-        public virtual Vector3d Scale () {
+        public virtual Double3 Scale () {
             throw new Exception(GetType().Name);
         }
 
@@ -174,7 +175,7 @@ namespace F7s.Modell.Physical {
         }
 
 
-        public Vector3d RelativePosition (PhysicalEntity relativeTo) {
+        public Double3 RelativePosition (PhysicalEntity relativeTo) {
             return Locality.GetRelativeTransform(relativeTo).TranslationVector;
         }
 
@@ -215,11 +216,11 @@ namespace F7s.Modell.Physical {
             return null;
         }
 
-        public Vector3d CalculatePositionAtTime (double time) {
+        public Double3 CalculatePositionAtTime (double time) {
             throw new NotImplementedException();
         }
 
-        public Vector3d RelativePosition (Locality relativeTo) {
+        public Double3 RelativePosition (Locality relativeTo) {
             return Locality.GetRelativeTransform(relativeTo).TranslationVector;
         }
 

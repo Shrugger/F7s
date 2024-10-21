@@ -1,10 +1,11 @@
 ﻿using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Physical.Localities {
     public class Kinematic : Fixed {
-        private Vector3d velocity;
-        public Kinematic (PhysicalEntity entity, MatrixD transform, Locality anchor = null, Vector3d? velocity = null) : base(entity, transform, anchor) {
-            this.velocity = velocity ?? Vector3d.Zero;
+        private Double3 velocity;
+        public Kinematic (PhysicalEntity entity, MatrixD transform, Locality anchor = null, Double3? velocity = null) : base(entity, transform, anchor) {
+            this.velocity = velocity ?? Double3.Zero;
         }
 
 
@@ -12,20 +13,20 @@ namespace F7s.Modell.Physical.Localities {
             base.Update(deltaTime);
             if (velocity.LengthSquared() > 0) {
                 float deltaTimeFloat = (float) deltaTime;
-                Vector3d translation = velocity * deltaTimeFloat;
+                Double3 translation = velocity * deltaTimeFloat;
                 MatrixD translated = MatrixD.Translation(translation) * Transform;
                 SetTransform(translated);
                 Validate(); // TODO: Remove after debugging.
             }
         }
 
-        public override Vector3d GetLocalVelocity () {
+        public override Double3 GetLocalVelocity () {
             return velocity;
         }
-        public override void AddLocalVelocity (Vector3d additionalVelocity) {
+        public override void AddLocalVelocity (Double3 additionalVelocity) {
             velocity += additionalVelocity;
         }
-        public override void SetLocalVelocity (Vector3d value) {
+        public override void SetLocalVelocity (Double3 value) {
             velocity = value;
         }
     }

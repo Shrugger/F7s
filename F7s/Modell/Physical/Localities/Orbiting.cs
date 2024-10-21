@@ -1,5 +1,6 @@
 ﻿using F7s.Utility;
 using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ namespace F7s.Modell.Physical.Localities {
         public static double OrbitSpeedMultiplier = 1;
 
         public Orbiting (PhysicalEntity orbiter, double semimajorAxis, PhysicalEntity orbitee) : base(orbiter, orbitee) {
-            orbit = new Orbit(0, 0, 0, 0, semimajorAxis, Alea.AngleDouble(), orbitee, angularVelocity: Vector3d.UnitY * rotationSpeed / OrbitSpeedMultiplier);
+            orbit = new Orbit(0, 0, 0, 0, semimajorAxis, Alea.AngleDouble(), orbitee, angularVelocity: Double3.UnitY * rotationSpeed / OrbitSpeedMultiplier);
             orbit.SetOrbiter(orbiter);
         }
 
@@ -65,10 +66,10 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public override void Rotate (double yaw, double pitch, double roll = 0) {
-            orbit.rotationOffset += new Vector3d(pitch, yaw, roll);
+            orbit.rotationOffset += new Double3(pitch, yaw, roll);
         }
 
-        public override void Translate (Vector3d relativeOffset) {
+        public override void Translate (Double3 relativeOffset) {
             throw new System.Exception("Translation is not applicable to orbits.");
         }
 

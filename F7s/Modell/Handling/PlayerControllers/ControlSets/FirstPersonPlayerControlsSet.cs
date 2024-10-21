@@ -1,6 +1,7 @@
 ﻿using F7s.Engine;
 using F7s.Engine.InputHandling;
 using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 using Stride.Input;
 
 namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
@@ -11,22 +12,22 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
 
             {
                 void MoveLeft () {
-                    Player.Translate(-Vector3d.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Player.Translate(-Double3.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveRight () {
-                    Player.Translate(Vector3d.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Player.Translate(Double3.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveForward () {
-                    Player.Translate(Vector3d.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Player.Translate(Double3.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveBackward () {
-                    Player.Translate(-Vector3d.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Player.Translate(-Double3.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveUp () {
-                    Player.Translate(Vector3d.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Player.Translate(Double3.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
                 void MoveDown () {
-                    Player.Translate(-Vector3d.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Player.Translate(-Double3.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
 
                 Add(new InputVectorAction(MoveLeft, Keys.A));

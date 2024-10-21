@@ -1,6 +1,6 @@
 ﻿using F7s.Modell.Economics.Resources;
 using F7s.Modell.Handling;
-using System; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Economics.Operations {
 

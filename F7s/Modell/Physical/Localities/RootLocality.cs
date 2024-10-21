@@ -1,6 +1,5 @@
 ﻿using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
-
+using System;
 namespace F7s.Modell.Physical.Localities {
     public class RootLocality : Locality {
 

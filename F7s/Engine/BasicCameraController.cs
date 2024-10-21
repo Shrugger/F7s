@@ -1,7 +1,7 @@
-﻿using System; using F7s.Utility.Geometry.Double;
+﻿using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 using F7s.Utility.Geometry;
 using Stride.Core;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 using Stride.Engine;
 using Stride.Input;
 

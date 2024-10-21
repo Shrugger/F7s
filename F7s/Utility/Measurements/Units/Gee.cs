@@ -1,5 +1,5 @@
 using F7s.Modell.Physical;
-using System; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 
 namespace F7s.Utility.Measurements.Units {
 

@@ -31,7 +31,7 @@ namespace F7s.Modell.Handling.PhysicalData {
         protected float ScreenSizeLength () {
             return ScreenSize().Length();
         }
-        public abstract Vector3d Scale ();
+        public abstract Double3 Scale ();
 
         public virtual double DistanceToCamera () {
             return Kamera.TransformRelativeToCamera(Locality()).TranslationVector.Length();

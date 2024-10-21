@@ -1,9 +1,7 @@
 ﻿using F7s.Utility.Geometry;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
-
-namespace F7s.Utility.Shapes
-{
+using Stride.Core.Mathematics;
+using System;
+namespace F7s.Utility.Shapes {
 
     public class CompoundTube : CompoundShape {
         public readonly Tube tubeShape;

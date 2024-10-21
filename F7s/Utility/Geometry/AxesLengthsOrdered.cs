@@ -1,5 +1,4 @@
-﻿using F7s.Utility.Geometry.Double;
-using Stride.Core.Mathematics;
+﻿using Stride.Core.Mathematics;
 using System;
 
 namespace F7s.Utility.Geometry {
@@ -11,7 +10,7 @@ namespace F7s.Utility.Geometry {
         public readonly double intermediateAxisLength;
         public readonly double shortestAxisLength;
 
-        public AxesLengthsOrdered (Vector3d axes)
+        public AxesLengthsOrdered (Double3 axes)
             : this(x: axes.X, y: axes.Y, z: axes.Z) { }
         public AxesLengthsOrdered (Vector3 axes)
             : this(x: axes.X, y: axes.Y, z: axes.Z) { }
@@ -55,7 +54,7 @@ namespace F7s.Utility.Geometry {
             }
         }
 
-        public static implicit operator AxesLengthsOrdered (Vector3d vector) {
+        public static implicit operator AxesLengthsOrdered (Double3 vector) {
             return new AxesLengthsOrdered(vector);
         }
         public static implicit operator AxesLengthsOrdered (Vector3 vector) {

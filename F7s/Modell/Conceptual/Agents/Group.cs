@@ -1,19 +1,18 @@
 using F7s.Modell.Abstract;
-using F7s.Modell.Conceptual.Agents;
 using F7s.Modell.Conceptual.Agents.GroupDistributions;
 using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
-using System; using F7s.Utility.Geometry.Double;
+using System;
 using System.Collections.Generic;
 
-namespace F7s.Modell.Conceptual {
+namespace F7s.Modell.Conceptual.Agents {
 
     public class Group : Agent, Hierarchical<Group> {
 
         // Groups are agents so that one needn't constantly generate individual agents to make group behavior happen. It's an abstraction. It may need to be handled with some care. The group may carry out its own roles until a suitable lower-level agent is found.
 
         private readonly List<Agent> members = new List<Agent>();
-        private GroupComposition composition;
+        private readonly GroupComposition composition;
         private GameValue<long> abstractMembersCount {
             get { return composition.abstractMembersCount; }
             set { composition.SetMemberCount(value); }
@@ -30,39 +29,39 @@ namespace F7s.Modell.Conceptual {
         }
 
         public Group EstablishSubgroup (string name, long memberCount) {
-            if (this.abstractMembersCount <= memberCount) {
+            if (abstractMembersCount <= memberCount) {
                 throw new Exception();
             }
-            GroupComposition groupComposition = this.composition.Copy();
+            GroupComposition groupComposition = composition.Copy();
             groupComposition.SetMemberCount(memberCount);
             return EstablishSubgroup(name, groupComposition);
         }
         public Group EstablishSubgroup (string name, GroupComposition composition) {
-            this.abstractMembersCount -= composition.abstractMembersCount;
+            abstractMembersCount -= composition.abstractMembersCount;
             Group subgroup = new Group(name, composition);
             subgroup.AssignToGroup(this);
-            this.AddMember(subgroup);
+            AddMember(subgroup);
             return subgroup;
         }
 
         public Agent ManifestMember (string name, Locality locality) {
-            if (this.abstractMembersCount <= 0) {
+            if (abstractMembersCount <= 0) {
                 throw new Exception();
             }
-            this.abstractMembersCount -= 1;
+            abstractMembersCount -= 1;
             Agent individualMember;
             if (composition.humans) {
                 individualMember = new Human(name, locality);
             } else {
                 throw new NotImplementedException();
             }
-            this.AddMember(individualMember);
+            AddMember(individualMember);
             individualMember.AddToGroup(this);
             return individualMember;
         }
 
         public override Locality GetLocality () {
-            return this.composition.GetRepresentativeLocality();
+            return composition.GetRepresentativeLocality();
         }
 
         public List<Role> UnassignedRoles () {
@@ -78,15 +77,15 @@ namespace F7s.Modell.Conceptual {
         }
 
         public void AddMember (Agent agent) {
-            if (this.members.Contains(agent)) {
+            if (members.Contains(agent)) {
                 throw new Exception();
             } else {
-                this.members.Add(agent);
+                members.Add(agent);
             }
         }
 
         public bool RemoveMember (Agent agent) {
-            return this.members.Remove(agent);
+            return members.Remove(agent);
         }
 
         public override void FoldIntoSupergroup () {
@@ -130,7 +129,7 @@ namespace F7s.Modell.Conceptual {
         }
 
         public override List<GameEntity> SubEntities () {
-            return this.members.ConvertAll<GameEntity>(a => a);
+            return members.ConvertAll<GameEntity>(a => a);
         }
     }
 }

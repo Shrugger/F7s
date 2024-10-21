@@ -1,6 +1,7 @@
 ﻿using F7s.Modell.Physical.Localities;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
+using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Handling.PlayerControllers {
     public class ProjectionOrigin : Locality {
@@ -14,7 +15,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
         private MatrixD CalculateNewTransform () {
             Locality anchor = Origin.GetFloatingOriginFloatingAnchor();
             MatrixD anchorTransform = anchor.GetLocalTransform();
-            Vector3d origin = anchorTransform.TranslationVector;
+            Double3 origin = anchorTransform.TranslationVector;
             return MatrixD.Transformation(origin, QuaternionD.Identity);
         }
 

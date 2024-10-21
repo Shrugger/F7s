@@ -1,10 +1,8 @@
+using F7s.Utility.Geometry;
 using F7s.Utility.Shapes.Shapes2D;
 using Stride.Core.Mathematics;
-using F7s.Utility.Geometry.Double;
 using System;
-using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
-using F7s.Utility.Geometry;
 
 namespace F7s.Utility.Shapes {
 
@@ -13,7 +11,7 @@ namespace F7s.Utility.Shapes {
 
 
         public virtual Circle GetCircularCrossSection () {
-            throw new Exception("Shape type " + this.GetType().Name + " has no circular cross-section.");
+            throw new Exception("Shape type " + GetType().Name + " has no circular cross-section.");
         }
 
 
@@ -56,7 +54,7 @@ namespace F7s.Utility.Shapes {
         }
 
         public virtual float ExternalVolume () {
-            return this.SubstantialVolume();
+            return SubstantialVolume();
         }
 
 
@@ -170,7 +168,7 @@ namespace F7s.Utility.Shapes {
         }
 
         public virtual bool CanContain (Shape3Dim prospectiveContent) {
-            Shape3Dim internalNegativeSpace = this.GetInternalNegativeSpace();
+            Shape3Dim internalNegativeSpace = GetInternalNegativeSpace();
 
             if (internalNegativeSpace == null) {
                 return false;
@@ -180,7 +178,7 @@ namespace F7s.Utility.Shapes {
         }
 
         protected virtual bool CanContainIfIsNegativeSpace (Shape3Dim prospectiveContent) {
-            AxesLengthsOrdered thisExtents = this.FullExtents();
+            AxesLengthsOrdered thisExtents = FullExtents();
             AxesLengthsOrdered otherExtents = prospectiveContent.FullExtents();
 
             return AxesLengthsOrdered.CanFitInside(thisExtents, otherExtents);
@@ -247,8 +245,8 @@ namespace F7s.Utility.Shapes {
 
 
         public virtual Shape3Dim GetBestBoundingShape () {
-            Box bb = this.GetBoundingBox();
-            Sphere bs = this.GetBoundingSphere();
+            Box bb = GetBoundingBox();
+            Sphere bs = GetBoundingSphere();
 
             if (bb.SubstantialVolume() < bs.SubstantialVolume()) {
                 return bb;
@@ -258,11 +256,11 @@ namespace F7s.Utility.Shapes {
         }
 
         public virtual Box GetBoundingBox () {
-            return new Box(fullExtents: this.FullExtents());
+            return new Box(fullExtents: FullExtents());
         }
 
         public virtual Sphere GetBoundingSphere () {
-            return new Sphere(radius: this.GetBoundingRadius());
+            return new Sphere(radius: GetBoundingRadius());
         }
 
         public abstract Vector3 RandomPointWithin ();
@@ -271,35 +269,35 @@ namespace F7s.Utility.Shapes {
             return false;
         }
         public virtual Vector3 HalfExtents () {
-            return this.FullExtents() / 2.0f;
+            return FullExtents() / 2.0f;
         }
 
         public virtual float LongestAxisLength () {
-            return Math.Max(Math.Max(this.FullExtents().X, this.FullExtents().Y), this.FullExtents().Z);
+            return Math.Max(Math.Max(FullExtents().X, FullExtents().Y), FullExtents().Z);
         }
 
         public virtual AxesLengthsOrdered OrderedAxisLengths () {
-            return new AxesLengthsOrdered(axes: this.FullExtents());
+            return new AxesLengthsOrdered(axes: FullExtents());
         }
 
         public Shape3Dim GetShapePlusEpsilonVolume () {
-            return this.GetShapePlusSize(addition: Shape3Dim.EpsilonVolume);
+            return GetShapePlusSize(addition: Shape3Dim.EpsilonVolume);
         }
 
         public abstract Shape3Dim GetShapePlusSize (float addition);
 
         public Shape3Dim GetShapeMinusEpsilonVolume () {
-            return this.GetShapeMinusVolume(subtraction: Shape3Dim.EpsilonVolume);
+            return GetShapeMinusVolume(subtraction: Shape3Dim.EpsilonVolume);
         }
 
         private const float EpsilonVolume = 0.00001f;
 
-        public float BoundingWidth { get { return this.FullExtents().X; } }
-        public float BoundingHeight { get { return this.FullExtents().Y; } }
-        public float BoundingLength { get { return this.FullExtents().Z; } }
+        public float BoundingWidth { get { return FullExtents().X; } }
+        public float BoundingHeight { get { return FullExtents().Y; } }
+        public float BoundingLength { get { return FullExtents().Z; } }
 
         public Shape3Dim GetShapeMinusVolume (float subtraction) {
-            return this.GetShapePlusSize(addition: -subtraction);
+            return GetShapePlusSize(addition: -subtraction);
         }
 
         public virtual bool UnityColliderIsPitchedForward () {
@@ -316,7 +314,7 @@ namespace F7s.Utility.Shapes {
         public abstract bool IsConvex ();
 
         public virtual float GetBoundingRadius () {
-            float magnitude = this.FullExtents().Length();
+            float magnitude = FullExtents().Length();
             if (magnitude <= 0) {
                 throw new Exception(this + " has magnitude " + magnitude + ".");
             }
@@ -324,31 +322,31 @@ namespace F7s.Utility.Shapes {
         }
 
         public virtual float GetBoundingDiameter () {
-            return this.FullExtents().Length();
+            return FullExtents().Length();
         }
 
         public float MinX () {
-            return -this.HalfExtents().X;
+            return -HalfExtents().X;
         }
 
         public float MaxX () {
-            return this.HalfExtents().X;
+            return HalfExtents().X;
         }
 
         public float MinY () {
-            return -this.HalfExtents().Y;
+            return -HalfExtents().Y;
         }
 
         public float MaxY () {
-            return this.HalfExtents().Y;
+            return HalfExtents().Y;
         }
 
         public float MinZ () {
-            return -this.HalfExtents().Z;
+            return -HalfExtents().Z;
         }
 
         public float MaxZ () {
-            return this.HalfExtents().Z;
+            return HalfExtents().Z;
         }
 
         public virtual void Normalize () {
@@ -365,12 +363,12 @@ namespace F7s.Utility.Shapes {
 
 
         public override string ToString () {
-            return this.GetType().Name;
+            return GetType().Name;
         }
 
         public override bool Equals (object obj) {
             Shape3Dim other = obj as Shape3Dim;
-            return base.Equals(obj) || (this.GetType() == other.GetType() && Mathematik.ApproximatelyEqual(this.FullExtents(), other.FullExtents()));
+            return base.Equals(obj) || (GetType() == other.GetType() && Mathematik.ApproximatelyEqual(FullExtents(), other.FullExtents()));
         }
 
         public override int GetHashCode () {

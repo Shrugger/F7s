@@ -1,7 +1,7 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Utility;
 using F7s.Utility.Measurements;
-using System; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Physical {
     public class Quantity : AbstractGameValue {

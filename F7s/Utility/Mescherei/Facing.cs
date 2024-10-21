@@ -1,4 +1,4 @@
-﻿using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+﻿using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 
 namespace F7s.Utility.Mescherei {
     public struct Facing {

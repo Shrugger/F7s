@@ -3,7 +3,9 @@ using F7s.Modell.Conceptual.Agents;
 using F7s.Modell.Conceptual.Cultures;
 using F7s.Modell.Economics.Resources;
 using F7s.Modell.Handling;
-using System; using F7s.Utility.Geometry.Double;
+using System;
+using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 using System.Collections.Generic;
 
 namespace F7s.Modell.Conceptual {

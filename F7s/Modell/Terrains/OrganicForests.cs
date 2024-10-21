@@ -1,7 +1,7 @@
 ﻿using F7s.Utility;
 using F7s.Utility.Lazies;
 using F7s.Utility.Mescherei;
-using System; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Terrains {
 

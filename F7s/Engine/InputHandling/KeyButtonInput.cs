@@ -1,5 +1,5 @@
 ﻿using Stride.Input;
-using System; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 
 namespace F7s.Engine.InputHandling {
     public class KeyButtonInput : ButtonInput {

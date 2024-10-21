@@ -1,6 +1,6 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Modell.Physical.Localities;
-using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 
 namespace F7s.Modell.Handling.PhysicalData {
     public class PresumedPhysicalData : PhysicalRepresentationData {
@@ -8,7 +8,7 @@ namespace F7s.Modell.Handling.PhysicalData {
         private readonly GameEntity entity;
 
         public double boundingRadius;
-        public Vector3d scale;
+        public Double3 scale;
 
         public PresumedPhysicalData (GameEntity entity) {
             this.entity = entity;
@@ -22,7 +22,7 @@ namespace F7s.Modell.Handling.PhysicalData {
             return entity.GetLocality();
         }
 
-        public override Vector3d Scale () {
+        public override Double3 Scale () {
             return scale;
         }
     }

@@ -4,6 +4,7 @@ using F7s.Modell.Handling.PlayerControllers;
 using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
+using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -235,7 +236,7 @@ namespace F7s.Modell.Physical.Localities {
                     }
                     result.Orthonormalize(); // TODO: Verify that this actually works. MatrixD is a struct after all.
                     if (Mathematik.InvalidPositional(result)) {
-                        Vector3d scale;
+                        Double3 scale;
                         result.Decompose(out scale, out _);
                         throw new Exception("Scale " + scale + ". Whole Transform: " + result);
                     }
@@ -336,7 +337,7 @@ namespace F7s.Modell.Physical.Localities {
 
         public double DistanceTo (Locality locality) {
             Validate();
-            Vector3d relativePosition = GetRelativeTransform(locality).TranslationVector;
+            Double3 relativePosition = GetRelativeTransform(locality).TranslationVector;
             double distance = relativePosition.Length();
 
             if (double.IsFinite(distance)) {
@@ -363,7 +364,7 @@ namespace F7s.Modell.Physical.Localities {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual void Translate (Vector3d relativeOffset) {
+        public virtual void Translate (Double3 relativeOffset) {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
@@ -375,15 +376,15 @@ namespace F7s.Modell.Physical.Localities {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual void AddLocalVelocity (Vector3d forceVector) {
+        public virtual void AddLocalVelocity (Double3 forceVector) {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual void SetLocalVelocity (Vector3d forceVector) {
+        public virtual void SetLocalVelocity (Double3 forceVector) {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 
-        public virtual Vector3d GetLocalVelocity () {
+        public virtual Double3 GetLocalVelocity () {
             throw new NotImplementedException("Not implemented for type " + GetType().Name + ".");
         }
 

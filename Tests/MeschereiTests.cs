@@ -1,8 +1,3 @@
-using F7s.Utility;
-using F7s.Utility.Mescherei;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
-using System.Diagnostics;
-
 namespace Tests;
 
 public class MeschereiTests {

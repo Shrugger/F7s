@@ -1,6 +1,7 @@
 ﻿using F7s.Modell.Physical.Localities;
 using F7s.Utility;
 using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 using System;
 using System.Diagnostics;
 
@@ -55,9 +56,9 @@ namespace F7s.Modell.Handling.PlayerControllers {
 
         public static MatrixD ForcedPerspectiveTransform (Locality locality, float desiredDistanceFromCamera) {
             MatrixD forcedPerspectiveBaseTransform = ForcedProjectionBaseTransform(locality);
-            Vector3d forcedPerspectiveBaseOrigin = forcedPerspectiveBaseTransform.TranslationVector;
-            Debug.Assert(Vector3d.Zero != forcedPerspectiveBaseOrigin);
-            Vector3d origin = Mathematik.Normalize(forcedPerspectiveBaseOrigin) * desiredDistanceFromCamera;
+            Double3 forcedPerspectiveBaseOrigin = forcedPerspectiveBaseTransform.TranslationVector;
+            Debug.Assert(Double3.Zero != forcedPerspectiveBaseOrigin);
+            Double3 origin = Mathematik.Normalize(forcedPerspectiveBaseOrigin) * desiredDistanceFromCamera;
             forcedPerspectiveBaseTransform.TranslationVector = origin;
             return forcedPerspectiveBaseTransform;
         }

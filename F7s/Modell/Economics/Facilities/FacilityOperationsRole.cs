@@ -1,4 +1,4 @@
-﻿using System; using F7s.Utility.Geometry.Double;
+﻿using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 using F7s.Modell.Conceptual.Agents;
 using F7s.Modell.Economics.Facilities;
 

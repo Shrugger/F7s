@@ -1,7 +1,7 @@
 ﻿using F7s.Modell.Abstract;
 using F7s.Modell.Economics.Industry;
 using F7s.Modell.Economics.Markets;
-using System; using F7s.Utility.Geometry.Double;
+using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
 using System.Reflection.Metadata.Ecma335;
 
 namespace F7s.Modell.Economics.Trade

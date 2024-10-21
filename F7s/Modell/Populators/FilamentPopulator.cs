@@ -1,6 +1,6 @@
 ﻿using F7s.Engine;
 using F7s.Engine.InputHandling;
-using F7s.Modell.Conceptual;
+using F7s.Modell.Conceptual.Agents;
 using F7s.Modell.Conceptual.Agents.GroupDistributions;
 using F7s.Modell.Conceptual.Cultures;
 using F7s.Modell.Economics.Industries.Agriculture;
@@ -14,6 +14,7 @@ using F7s.Modell.Terrains;
 using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Measurements;
+using Stride.Core.Mathematics;
 using Stride.Input;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace F7s.Modell.Populators {
 
             for (int s = 1; s <= 1; s++) {
                 Locality locality = new Fixed(null,
-                    MatrixD.Transformation(-Vector3d.UnitX * 200, QuaternionD.Identity),
+                    MatrixD.Transformation(-Double3.UnitX * 200, QuaternionD.Identity),
                     Player.GetLocalityParent().HierarchySuperior()
                     );
                 Group scavengerCommunity = locals.EstablishSubgroup("Scavengers #" + s, new GroupComposition(100, locality));
@@ -72,7 +73,7 @@ namespace F7s.Modell.Populators {
             }
             for (int f = 1; f <= 1; f++) {
                 Locality locality = new Fixed(null,
-                    MatrixD.Transformation(Vector3d.UnitX * 10, QuaternionD.Identity),
+                    MatrixD.Transformation(Double3.UnitX * 10, QuaternionD.Identity),
                     Player.GetLocalityParent().HierarchySuperior()
                     );
                 Group farmingCommunity = locals.EstablishSubgroup("Farmers #" + f, new GroupComposition(100, locality));
@@ -122,31 +123,31 @@ namespace F7s.Modell.Populators {
             new Lagrange1(pml1, plonat, moon);
             pml1.SetQuantity(new Quantity(Constants.MassOfEarth * 0.5 * massScale));
 
-            Body megastructure = new Body("Megastructure", new Vector3d(2000, 500, 4000) * scale, new Farbe(0.25f, 0.25f, 0.25f, 1));
+            Body megastructure = new Body("Megastructure", new Double3(2000, 500, 4000) * scale, new Farbe(0.25f, 0.25f, 0.25f, 1));
             new Fixed(megastructure, MatrixD.Identity, pml1);
             megastructure.SetQuantity(new Quantity(1000000 * massScale));
 
-            Body terminusStation = new Body("Terminus Station", new Vector3d(1000, 2000, 1000) * scale, new Farbe(0.25f, 0.25f, 0.25f, 1));
-            new Attached(terminusStation, plonat, MatrixD.Transformation(Vector3d.UnitX * (float) plonat.radius * 1.5f, QuaternionD.Identity));
+            Body terminusStation = new Body("Terminus Station", new Double3(1000, 2000, 1000) * scale, new Farbe(0.25f, 0.25f, 0.25f, 1));
+            new Attached(terminusStation, plonat, MatrixD.Transformation(Double3.UnitX * (float) plonat.radius * 1.5f, QuaternionD.Identity));
             terminusStation.SetQuantity(new Quantity(1000000000 * massScale));
 
-            Body terminusThrone = new Body("Terminus Throne", new Vector3d(10, 5, 10), new Farbe(0.25f, 0.25f, 0.25f, 1));
-            new Attached(terminusThrone, terminusStation, MatrixD.Transformation(new Vector3d(0, (1000 * scale) + 2.5f, 0), QuaternionD.Identity));
+            Body terminusThrone = new Body("Terminus Throne", new Double3(10, 5, 10), new Farbe(0.25f, 0.25f, 0.25f, 1));
+            new Attached(terminusThrone, terminusStation, MatrixD.Transformation(new Double3(0, (1000 * scale) + 2.5f, 0), QuaternionD.Identity));
 
-            CornerTerminus(new Vector3d(1, 1, 1));
-            CornerTerminus(new Vector3d(-1, 1, 1));
-            CornerTerminus(new Vector3d(1, 1, -1));
-            CornerTerminus(new Vector3d(-1, 1, -1));
-            void CornerTerminus (Vector3d axis) {
-                Body terminusCorner = new Body("Terminus Corner", new Vector3d(50, 500, 50), new Farbe(0.25f, 0.25f, 0.25f, 1));
-                new Attached(terminusCorner, terminusStation, MatrixD.Transformation(new Vector3d(axis.X * 500 * scale, axis.Y * 1000 * scale, axis.Z * 500 * scale)
+            CornerTerminus(new Double3(1, 1, 1));
+            CornerTerminus(new Double3(-1, 1, 1));
+            CornerTerminus(new Double3(1, 1, -1));
+            CornerTerminus(new Double3(-1, 1, -1));
+            void CornerTerminus (Double3 axis) {
+                Body terminusCorner = new Body("Terminus Corner", new Double3(50, 500, 50), new Farbe(0.25f, 0.25f, 0.25f, 1));
+                new Attached(terminusCorner, terminusStation, MatrixD.Transformation(new Double3(axis.X * 500 * scale, axis.Y * 1000 * scale, axis.Z * 500 * scale)
 ,
                     QuaternionD.Identity));
             }
 
-            Locality playerLocation = new Fixed(null, MatrixD.Transformation(new Vector3d(0, 6, 0) * scale, QuaternionD.Identity), terminusThrone);
+            Locality playerLocation = new Fixed(null, MatrixD.Transformation(new Double3(0, 6, 0) * scale, QuaternionD.Identity), terminusThrone);
             playerLocation.Name = "Player Location";
-            PhysicalEntity playerEntity = new Body("Player", new Vector3d(1.0f, 2.0f, 0.5f), new Farbe(0.0f, 0.5f, 0.25f));
+            PhysicalEntity playerEntity = new Body("Player", new Double3(1.0f, 2.0f, 0.5f), new Farbe(0.0f, 0.5f, 0.25f));
             Locality playerEntityLocation = new Fixed(playerEntity, MatrixD.Identity, playerLocation);
             playerEntityLocation.Name = "Player Entity Location";
             playerEntity.SetQuantity(new Quantity(100 * massScale));
@@ -160,7 +161,7 @@ namespace F7s.Modell.Populators {
             for (int a = 1; a <= 10; a++) {
                 Body rockyAsteroid = new Body(
                     "Rocky Asteroid #" + a,
-                    new Vector3d(Alea.Float(0.5f, 2.0f), Alea.Float(0.5f, 2.0f), Alea.Float(0.5f, 2.0f)) * Alea.Float(1000, 1000000) * scale,
+                    new Double3(Alea.Float(0.5f, 2.0f), Alea.Float(0.5f, 2.0f), Alea.Float(0.5f, 2.0f)) * Alea.Float(1000, 1000000) * scale,
                     Farbe.Randomise(new Farbe(0.6f, 0.5f, 0.4f), 0.2f)
                     );
                 new Orbiting(rockyAsteroid, Constants.AstronomicUnit * scale * 2f * Alea.Float(0.95f, 1.1f), coer);
@@ -169,7 +170,7 @@ namespace F7s.Modell.Populators {
             for (int a = 1; a <= 5; a++) {
                 Body iceAsteroid = new Body(
                     "Ice Asteroid #" + a,
-                    new Vector3d(Alea.Float(0.5f, 2.0f), Alea.Float(0.5f, 2.0f), Alea.Float(0.5f, 2.0f)) * Alea.Float(1000, 1000000) * scale,
+                    new Double3(Alea.Float(0.5f, 2.0f), Alea.Float(0.5f, 2.0f), Alea.Float(0.5f, 2.0f)) * Alea.Float(1000, 1000000) * scale,
                     Farbe.Randomise(new Farbe(0.4f, 0.5f, 0.6f), 0.2f)
                     );
                 new Orbiting(iceAsteroid, Constants.AstronomicUnit * scale * 2f * Alea.Float(0.95f, 1.1f), coer);
@@ -185,7 +186,7 @@ namespace F7s.Modell.Populators {
             for (int m = 1; m <= 4; m++) {
                 Body moonlet = new Body(
                     "Moonlet #" + m,
-                    new Vector3d(Alea.Float(0.5f, 1.5f), Alea.Float(0.5f, 1.5f), Alea.Float(0.5f, 1.5f)) * Alea.Float(10000, 10000000) * scale,
+                    new Double3(Alea.Float(0.5f, 1.5f), Alea.Float(0.5f, 1.5f), Alea.Float(0.5f, 1.5f)) * Alea.Float(10000, 10000000) * scale,
                     Farbe.Randomise(new Farbe(0.5f, 0.5f, 0.5f), 0.25f)
                     );
                 new Orbiting(moonlet, spiritus.radius * Alea.Float(1.5f, 3.5f), spiritus);
@@ -195,7 +196,7 @@ namespace F7s.Modell.Populators {
             for (int p = 1; p <= 3; p++) {
                 Body planetoid = new Body(
                     "Planetoid #" + p,
-                    new Vector3d(Alea.Float(0.5f, 1.5f), Alea.Float(0.5f, 1.5f), Alea.Float(0.5f, 1.5f)) * Alea.Float(10000, 10000000) * scale,
+                    new Double3(Alea.Float(0.5f, 1.5f), Alea.Float(0.5f, 1.5f), Alea.Float(0.5f, 1.5f)) * Alea.Float(10000, 10000000) * scale,
                     Farbe.Randomise(new Farbe(0.5f, 0.5f, 0.5f), 0.25f)
                     );
                 new Orbiting(planetoid, Constants.AstronomicUnit * scale * Alea.Float(3f, 4f), coer);
@@ -205,7 +206,7 @@ namespace F7s.Modell.Populators {
             // TODO: Star Cör B and its randomized planets
             // TODO: Some randomized neighboring stars
 
-            //this.brownPopulator = new BrownPopulator(new Fixed(null, MatrixD.Transformation(QuaternionD.Identity, new Vector3d(0, 16, 0) * scale), terminusThrone));
+            //this.brownPopulator = new BrownPopulator(new Fixed(null, MatrixD.Transformation(QuaternionD.Identity, new Double3(0, 16, 0) * scale), terminusThrone));
 
         }
 
@@ -257,14 +258,14 @@ namespace F7s.Modell.Populators {
                 " from Distance " + Measurement.MeasureLength(distance) +
                 " (" + Mathematik.RoundToFirstInterestingDigit(distance / radius, 2) + ")"
                 );
-            Vector3d direction;
+            Double3 direction;
             if (physicalEntity != Instance.coer) {
                 direction = Instance.coer.RelativePosition(physicalEntity);
             } else {
-                direction = new Vector3d(Alea.Float(), 0, Alea.Float());
+                direction = new Double3(Alea.Float(), 0, Alea.Float());
             }
             double finalDistance = radius + distance;
-            Vector3d position = Mathematik.Normalize(direction) * finalDistance;
+            Double3 position = Mathematik.Normalize(direction) * finalDistance;
             Kamera.View(physicalEntity, position);
             Player.SetPanSpeed((float) distance / 1.0f);
         }
@@ -281,7 +282,7 @@ namespace F7s.Modell.Populators {
                     ViewPhysicalEntity(entity);
                 }
             } else {
-                Kamera.View(entity, Vector3d.UnitY * furthestOutDistance, Vector3d.UnitZ);
+                Kamera.View(entity, Double3.UnitY * furthestOutDistance, Double3.UnitZ);
                 Player.SetPanSpeed(furthestOutDistance);
             }
         }
