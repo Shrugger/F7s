@@ -1,11 +1,12 @@
-using F7s.Geometry;
 using F7s.Utility.Shapes.Shapes2D;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
+using F7s.Utility.Geometry.Double;
+using System;
+using F7s.Utility.Geometry.Double;
 using System.Collections.Generic;
+using F7s.Utility.Geometry;
 
-namespace F7s.Utility.Shapes
-{
+namespace F7s.Utility.Shapes {
 
 
     public abstract class Shape3Dim {

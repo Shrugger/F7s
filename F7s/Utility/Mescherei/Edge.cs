@@ -1,16 +1,15 @@
 ﻿using F7s.Utility.Geometry;
-using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
+using System;
 using System.Collections.Generic;
 
-namespace F7s.Utility.Mescherei
-{
+namespace F7s.Utility.Mescherei {
     public class Edge {
 
         public readonly Graph Mesch;
 
-        private List<Vertex> vertices;
-        private List<Triangle> triangles;
+        private readonly List<Vertex> vertices;
+        private readonly List<Triangle> triangles;
 
         public bool IsSplit { get; private set; }
         public Vertex SplitVertex { get; private set; }
@@ -106,7 +105,7 @@ namespace F7s.Utility.Mescherei
                 PolarCoordinatesD b = B.Coordinates;
                 return (float) PolarCoordinatesD.PolarDistanceDouble(a, b, projectionRadius ?? 1.0f);
             } else {
-                return Vector3d.Distance(A.Position, B.Position);
+                return Vector3.Distance(A.Position, B.Position);
             }
         }
     }

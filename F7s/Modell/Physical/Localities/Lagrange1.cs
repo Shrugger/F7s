@@ -1,14 +1,10 @@
-﻿using F7s.Geometry;
-using F7s.Utility.Geometry;
-using F7s.Utility.Geometry.Double;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
-
+﻿using F7s.Utility.Geometry.Double;
+using System;
 namespace F7s.Modell.Physical.Localities {
     public class Lagrange1 : Locality {
         public readonly PhysicalEntity primary;
         public readonly PhysicalEntity secondary;
-        private Quaternion rotation = Quaternion.Identity;
+        private QuaternionD rotation = QuaternionD.Identity;
 
         public Lagrange1 (PhysicalEntity entity, PhysicalEntity primary, PhysicalEntity secondary) : base(entity, primary) {
             this.primary = primary;
@@ -16,13 +12,13 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public override Locality HierarchySuperior () {
-            return this.primary;
+            return primary;
         }
 
         public override MatrixD GetLocalTransform () {
             float factor = 0.5f; // TODO: L1 Formula.
-            Vector3d origin = this.secondary.Locality.GetRelativeTransform(this.primary).TranslationVector * factor;
-            return MatrixD.Transformation(origin, new Basis(this.rotation));
+            Vector3d origin = secondary.Locality.GetRelativeTransform(primary).TranslationVector * factor;
+            return MatrixD.Transformation(origin, rotation);
         }
 
         public override bool InheritsRotation () {

@@ -3,22 +3,22 @@ using F7s.Modell.Economics.Resources;
 using F7s.Modell.Physical.Bodies;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using System; using F7s.Utility.Geometry.Double;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using F7s.Utility.Geometry.Double;
+using System;
 
 namespace F7s.Modell.Physical {
 
     public class Human : Individual {
 
-        private HumanBody humanBody;
+        private readonly HumanBody humanBody;
 
         public Human (string name, Locality locality) : base(name) {
-            this.constantDemands.Add(new Resource(ResourceType.LifeSupportNecessities, 10));
+            constantDemands.Add(new Resource(ResourceType.LifeSupportNecessities, 10));
 
-            HumanBody body = new HumanBody(name, new Vector3(0.4f, 1.75f, 0.2f), Farbe.white);
+            HumanBody body = new HumanBody(name, new Vector3d(0.4, 1.75, 0.2), Farbe.white);
             locality.SetPhysicalEntity(body);
 
-            this.humanBody = body;
+            humanBody = body;
             base.SetBody(body);
         }
 
@@ -30,7 +30,7 @@ namespace F7s.Modell.Physical {
 
     public class HumanBody : Body {
         // TODO: Make HumanBody a subclass of Structure rather than of Body.
-        public HumanBody (string name, Vector3 scale, Farbe color) : base(name, scale, color) {
+        public HumanBody (string name, Vector3d scale, Farbe color) : base(name, scale, color) {
         }
 
         public float Age { get; private set; }

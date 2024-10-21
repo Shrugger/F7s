@@ -1,8 +1,8 @@
 ﻿using F7s.Utility.Geometry.Double;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
+using System;
 
-namespace F7s.Geometry {
+namespace F7s.Utility.Geometry {
 
     public struct AxesLengthsOrdered {
 
@@ -13,38 +13,40 @@ namespace F7s.Geometry {
 
         public AxesLengthsOrdered (Vector3d axes)
             : this(x: axes.X, y: axes.Y, z: axes.Z) { }
+        public AxesLengthsOrdered (Vector3 axes)
+            : this(x: axes.X, y: axes.Y, z: axes.Z) { }
 
         public AxesLengthsOrdered (double x, double y, double z) {
             if (x >= y && x >= z) {
-                this.longestAxisLength = x;
+                longestAxisLength = x;
                 if (y >= z) {
-                    this.intermediateAxisLength = y;
-                    this.shortestAxisLength = z;
+                    intermediateAxisLength = y;
+                    shortestAxisLength = z;
                 } else if (z >= y) {
-                    this.intermediateAxisLength = z;
-                    this.shortestAxisLength = y;
+                    intermediateAxisLength = z;
+                    shortestAxisLength = y;
                 } else {
                     throw new Exception(x + " " + y + " " + z);
                 }
             } else if (y >= x && y >= z) {
-                this.longestAxisLength = y;
+                longestAxisLength = y;
                 if (x >= z) {
-                    this.intermediateAxisLength = x;
-                    this.shortestAxisLength = z;
+                    intermediateAxisLength = x;
+                    shortestAxisLength = z;
                 } else if (z >= x) {
-                    this.intermediateAxisLength = z;
-                    this.shortestAxisLength = x;
+                    intermediateAxisLength = z;
+                    shortestAxisLength = x;
                 } else {
                     throw new Exception(x + " " + y + " " + z);
                 }
             } else if (z >= x && z >= y) {
-                this.longestAxisLength = z;
+                longestAxisLength = z;
                 if (y >= x) {
-                    this.intermediateAxisLength = y;
-                    this.shortestAxisLength = x;
+                    intermediateAxisLength = y;
+                    shortestAxisLength = x;
                 } else if (x >= y) {
-                    this.intermediateAxisLength = x;
-                    this.shortestAxisLength = y;
+                    intermediateAxisLength = x;
+                    shortestAxisLength = y;
                 } else {
                     throw new Exception(x + " " + y + " " + z);
                 }

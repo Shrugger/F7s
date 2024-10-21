@@ -2690,10 +2690,7 @@ namespace F7s.Utility.Geometry.Double {
         }
 
         public static MatrixD Transformation (Vector3d translation, QuaternionD rotation) {
-            MatrixD result;
-            Vector3d scale = Vector3d.One;
-            Transformation(ref scale, ref rotation, ref translation, out result);
-            return result;
+            return Mathematik.Transformation(translation, rotation);
         }
 
         /// <summary>

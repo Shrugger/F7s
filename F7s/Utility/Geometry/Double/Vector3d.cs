@@ -1660,6 +1660,8 @@ namespace F7s.Utility.Geometry.Double {
             return new Vector3((float) X, (float) Y, (float) Z);
         }
 
+
+
 #if WPFInterop
         /// <summary>
         /// Performs an implicit conversion from <see cref="Stride.Core.Mathematics.Vector3d"/> to <see cref="System.Windows.Media.Media3D.Vector3dD"/>.

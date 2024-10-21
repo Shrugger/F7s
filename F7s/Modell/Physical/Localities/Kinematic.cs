@@ -13,7 +13,7 @@ namespace F7s.Modell.Physical.Localities {
             if (velocity.LengthSquared() > 0) {
                 float deltaTimeFloat = (float) deltaTime;
                 Vector3d translation = velocity * deltaTimeFloat;
-                MatrixD translated = Transform.Translated(translation);
+                MatrixD translated = MatrixD.Translation(translation) * Transform;
                 SetTransform(translated);
                 Validate(); // TODO: Remove after debugging.
             }

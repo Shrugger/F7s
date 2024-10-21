@@ -6,8 +6,8 @@ using F7s.Modell.Physical.Localities;
 using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
+using System;
 using System.Diagnostics;
 
 namespace F7s.Modell.Handling.PlayerControllers {
@@ -100,7 +100,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             return gameEntity == entity;
         }
 
-        public static void Translate (Vector3 relativeOffset) {
+        public static void Translate (Vector3d relativeOffset) {
             physicalEntity.Locality.Translate(relativeOffset);
         }
 

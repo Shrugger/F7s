@@ -1,14 +1,14 @@
 ﻿using F7s.Modell.Conceptual;
 using F7s.Modell.Conceptual.Agents.GroupDistributions;
 using F7s.Modell.Conceptual.Cultures;
-using F7s.Modell.Economics.Agriculture;
+using F7s.Modell.Economics.Industries.Agriculture;
 using F7s.Modell.Economics.Scavenging;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Physical;
 using F7s.Modell.Physical.Bodies;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
+using F7s.Utility.Geometry.Double;
 
 namespace F7s.Modell.Populators {
     public class PerduePopulator : Populator {
@@ -32,7 +32,7 @@ namespace F7s.Modell.Populators {
 
             for (int s = 1; s <= 1; s++) {
                 Locality scavengerCommunityLocality = new Fixed(null,
-                    MatrixD.Transformation(-Vector3.UnitX * 200, QuaternionD.Identity),
+                    MatrixD.Transformation(-Vector3d.UnitX * 200, QuaternionD.Identity),
                     RootLocality.Instance
                     );
                 Group scavengerCommunity = locals.EstablishSubgroup("Scavengers #" + s, new GroupComposition(100, scavengerCommunityLocality));
@@ -41,7 +41,7 @@ namespace F7s.Modell.Populators {
             }
             for (int f = 1; f <= 1; f++) {
                 Locality farmingCommunityLocality = new Fixed(null,
-                    MatrixD.Transformation(Vector3.UnitX * 10, QuaternionD.Identity),
+                    MatrixD.Transformation(Vector3d.UnitX * 10, QuaternionD.Identity),
                     RootLocality.Instance
                     );
                 Group farmingCommunity = locals.EstablishSubgroup("Farmers #" + f, new GroupComposition(100, farmingCommunityLocality));
@@ -52,9 +52,9 @@ namespace F7s.Modell.Populators {
 
         private void GeneratePlayer () {
 
-            Locality playerLocation = new Fixed(null, MatrixD.Transformation(new Vector3(0, 6, 0), QuaternionD.Identity), RootLocality.Instance);
+            Locality playerLocation = new Fixed(null, MatrixD.Transformation(new Vector3d(0, 6, 0), QuaternionD.Identity), RootLocality.Instance);
             playerLocation.Name = "Player Location";
-            PhysicalEntity playerEntity = new Body("Player", new Vector3(1.0f, 2.0f, 0.5f), new Farbe(0.0f, 0.5f, 0.25f));
+            PhysicalEntity playerEntity = new Body("Player", new Vector3d(1.0, 2.0, 0.5), new Farbe(0.0f, 0.5f, 0.25f));
             Locality playerEntityLocation = new Fixed(playerEntity, MatrixD.Identity, playerLocation);
             playerEntityLocation.Name = "Player Entity Location";
             playerEntity.SetQuantity(new Quantity(100));

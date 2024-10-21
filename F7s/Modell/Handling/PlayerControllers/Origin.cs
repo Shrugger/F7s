@@ -1,4 +1,5 @@
 ﻿using F7s.Modell.Physical.Localities;
+using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using System;
 using System.Diagnostics;
@@ -56,7 +57,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             MatrixD forcedPerspectiveBaseTransform = ForcedProjectionBaseTransform(locality);
             Vector3d forcedPerspectiveBaseOrigin = forcedPerspectiveBaseTransform.TranslationVector;
             Debug.Assert(Vector3d.Zero != forcedPerspectiveBaseOrigin);
-            Vector3d origin = forcedPerspectiveBaseOrigin.Normalized() * desiredDistanceFromCamera;
+            Vector3d origin = Mathematik.Normalize(forcedPerspectiveBaseOrigin) * desiredDistanceFromCamera;
             forcedPerspectiveBaseTransform.TranslationVector = origin;
             return forcedPerspectiveBaseTransform;
         }

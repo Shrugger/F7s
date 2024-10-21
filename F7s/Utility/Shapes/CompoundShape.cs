@@ -189,7 +189,7 @@ namespace F7s.Utility.Shapes {
         }
 
         public override List<Vector3> RelativeVertices () {
-            return constituents.SelectMany(c => c.shape.RelativeVertices().Select(v => c.transform * v)).ToList(); // TODO: The Transform(Vector) method in this case is the matrix * vector multiplication.
+            return constituents.SelectMany(c => c.shape.RelativeVertices().Select(v => (Matrix.Translation(v) * c.transform).TranslationVector)).ToList();
         }
 
 

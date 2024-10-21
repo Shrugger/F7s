@@ -1,8 +1,7 @@
 ﻿using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
-
+using Stride.Core.Mathematics;
+using System;
 namespace F7s.Utility.Geometry {
 
 
@@ -166,21 +165,24 @@ namespace F7s.Utility.Geometry {
             return new Vector3d(x: x, y: -y, z: z); // I don't think y should be negative, actually.
         }
 
-        /// <summary>
-        ///     Convert a cartesian position to polar coordinates.
-        /// </summary>
-        /// <param name="cartesian"> The cartesian vector meant to be converted. </param>
-        /// <returns> The polar coordinates representing the given cartesian position. </returns>
         public static PolarCoordinatesD FromCartesian (Vector3d cartesian) {
-            if (cartesian.X == 0
-             && cartesian.Y == 0
-             && cartesian.Z == 0) {
+            return FromCartesian(cartesian.X, cartesian.Y, cartesian.Z);
+        }
+
+        public static PolarCoordinatesD FromCartesian (Vector3 cartesian) {
+            return FromCartesian(cartesian.X, cartesian.Y, cartesian.Z);
+        }
+
+        public static PolarCoordinatesD FromCartesian (double X, double Y, double Z) {
+            if (X == 0
+             && Y == 0
+             && Z == 0) {
                 return new PolarCoordinatesD(longitude: 0, latitude: 0, radialDistance: 0);
             }
 
-            double x = cartesian.X;
-            double y = -cartesian.Y;
-            double z = cartesian.Z;
+            double x = X;
+            double y = -Y;
+            double z = Z;
             double phi = (Mathematik.RadToDeg(Math.Atan2(y: x, x: z)) - 0) % 360;
             double rho = Math.Sqrt((x * x) + (y * y) + (z * z));
             double theta = Mathematik.RadToDeg(Math.Acos(y / rho)) - 90;
@@ -198,6 +200,7 @@ namespace F7s.Utility.Geometry {
         private PolarCoordinatesD ConvertFromCartesianToPolarCoordinates (Vector3 cartesian) {
             return FromCartesian(cartesian);
         }
+
         private Vector3d ConvertPolarCoordinatesToVector3d () {
             return ToCartesian(this);
         }
@@ -353,7 +356,7 @@ namespace F7s.Utility.Geometry {
         }
 
         public double DirectDistance (PolarCoordinatesD other) {
-            return Vector3d.Distance(a: this, b: other);
+            return Vector3d.Distance(this, other);
         }
 
         public static double DirectDistance (PolarCoordinatesD lhs, PolarCoordinatesD rhs) {

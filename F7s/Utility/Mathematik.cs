@@ -875,6 +875,9 @@ namespace F7s.Utility {
         public static Vector3 Normalize (Vector3 v) {
             return Vector3.Normalize(v);
         }
+        public static Vector3d Normalize (Vector3d v) {
+            return Vector3d.Normalize(v);
+        }
 
         public static Vector3 Cross (Vector3 a, Vector3 b) {
             return Vector3.Cross(a, b);
@@ -1191,24 +1194,38 @@ namespace F7s.Utility {
             }
         }
 
-        internal static QuaternionD DegreesToQuaternionD (Vector3d vector3) {
+        public static QuaternionD DegreesToQuaternionD (Vector3d vector3) {
             throw new NotImplementedException();
         }
 
-        internal static QuaternionD ExtractRotation (MatrixD transform) {
+        public static QuaternionD ExtractRotation (MatrixD transform) {
             QuaternionD rotation;
             transform.Decompose(out _, out rotation, out _);
             return rotation;
         }
 
-        internal static Quaternion ExtractRotation (Matrix transform) {
+        public static Quaternion ExtractRotation (Matrix transform) {
             Quaternion rotation;
             transform.Decompose(out _, out rotation, out _);
             return rotation;
         }
 
-        internal static MatrixD Inverse (MatrixD absoluteOther) {
+        public static MatrixD Inverse (MatrixD absoluteOther) {
             throw new NotImplementedException();
         }
+
+        public static Matrix Transformation (Vector3 translation, Quaternion rotation) {
+            Matrix result;
+            Vector3 scale = Vector3.One;
+            Matrix.Transformation(ref scale, ref rotation, ref translation, out result);
+            return result;
+        }
+        public static MatrixD Transformation (Vector3d translation, QuaternionD rotation) {
+            MatrixD result;
+            Vector3d scale = Vector3d.One;
+            MatrixD.Transformation(ref scale, ref rotation, ref translation, out result);
+            return result;
+        }
+
     }
 }

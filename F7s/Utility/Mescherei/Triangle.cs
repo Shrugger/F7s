@@ -1,6 +1,5 @@
-﻿using F7s.Utility.Geometry.Double;
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
+﻿using Stride.Core.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -161,7 +160,7 @@ namespace F7s.Utility.Mescherei {
             Vector3 surfaceNormal = GetFaceNormal();
             Vector3 shapeToTriangleVector = triangleCenter - shapeCentre;
 
-            double angle = Vector3d.Angle(from: Mathematik.Normalize(shapeToTriangleVector), to: surfaceNormal); // Using double-precision angle calculation works better for very small angles.
+            double angle = Mathematik.Angle(Mathematik.Normalize(shapeToTriangleVector), surfaceNormal); // Using double-precision angle calculation works better for very small angles.
 
             if (angle < 0) {
                 throw new Exception("Angle " + angle + " < 0.");

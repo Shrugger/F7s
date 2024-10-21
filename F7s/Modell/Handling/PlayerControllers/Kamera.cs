@@ -44,7 +44,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             return locality.GetRelativeTransform(GetLocality());
         }
 
-        public static void Translate (Vector3 offset) {
+        public static void Translate (Vector3d offset) {
             GetLocality().Translate(offset);
             UpdateCameraNodeTransform();
         }
@@ -56,7 +56,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
         private static void UpdateCameraNodeTransform () {
             MatrixD localityTransform = GetLocality().GetAbsoluteTransform();
             MatrixD parentTransform = MatrixD.Transformation(localityTransform.TranslationVector, QuaternionD.Identity);
-            MatrixD cameraTransform = MatrixD.Transformation(Vector3d.Zero, localityTransform.Basis);
+            MatrixD cameraTransform = MatrixD.Transformation(Vector3d.Zero, Mathematik.ExtractRotation(localityTransform));
 
             throw new NotImplementedException(); // See below.
             // MainNode.Instance.CameraParent.Transform = parentTransform; // TODO: redo for Stride.
@@ -80,8 +80,8 @@ namespace F7s.Modell.Handling.PlayerControllers {
             GetLocality().RotateEcliptic(yaw, pitch, roll);
         }
 
-        public static void LookAt (Vector3 relativePosition, Vector3? up = null) {
-            locality.LookAt(relativePosition, up ?? Vector3.UnitY);
+        public static void LookAt (Vector3d relativePosition, Vector3d? up = null) {
+            locality.LookAt(relativePosition, up ?? Vector3d.UnitY);
         }
 
         public static void AttachToPlayer () {
@@ -108,11 +108,11 @@ namespace F7s.Modell.Handling.PlayerControllers {
             SetLocality(oldLocality.Reanchored(locality, methodology, newTransform));
         }
 
-        public static void View (PhysicalEntity entity, Vector3d desiredRelativePosition, Vector3? up = null) {
+        public static void View (PhysicalEntity entity, Vector3d desiredRelativePosition, Vector3d? up = null) {
             Debug.Assert(Vector3d.Zero != desiredRelativePosition);
             MatrixD newTransform = MatrixD.Transformation(desiredRelativePosition, Mathematik.ExtractRotation(locality.Transform));
             SetAnchor(entity.Locality, Fixed.ReanchorMethodology.UseNewTransform, newTransform);
-            LookAt(-newTransform.TranslationVector.ToVector3(), up);
+            LookAt(-newTransform.TranslationVector, up);
         }
     }
 }
