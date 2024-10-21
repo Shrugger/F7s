@@ -1,8 +1,9 @@
 ﻿using F7s.Utility;
+using F7s.Utility.Geometry;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Lazies;
 using F7s.Utility.Measurements;
-using System; using F7s.Utility.Geometry.Double;
+using System;
 
 namespace F7s.Modell.Physical.Localities {
 
@@ -274,7 +275,7 @@ namespace F7s.Modell.Physical.Localities {
 			*/
 
             Vector3d parentPosition = absolute ? orbit.GetParent().CalculatePositionAtTime(time) : Vector3d.Zero;
-            return new Ephemeris((x + parentPosition).ToVector3d(), v.ToVector3d(), orbit.GetRotation(time), orbit.angularVelocity);
+            return new Ephemeris(x + parentPosition, v, orbit.GetRotation(time), orbit.angularVelocity);
         }
 
         public Vector3d CalculateRelativePositionAtTime (double time) {
