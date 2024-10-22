@@ -518,7 +518,23 @@ namespace F7s.Utility {
         }
 
         public static float Angle (Vector3 a, Vector3 b) {
-            return MathF.Acos(Vector3.Dot(a, b) / (a.Length() * b.Length()));
+            if (a == b) {
+                throw new Exception();
+            }
+            float aLength = a.Length();
+            if (aLength == 0) {
+                throw new Exception();
+            }
+            float bLength = b.Length();
+            if (bLength == 0) {
+                throw new Exception();
+            }
+            float dot = Vector3.Dot(a, b);
+            float lengthProduct = aLength * bLength;
+            float ratio = dot / lengthProduct;
+            float clampedRatio = Clamp(ratio, -1f, 1f);
+            float result = MathF.Acos(clampedRatio);
+            return result;
         }
         public static double Angle (Double3 a, Double3 b) {
             return Math.Acos(Double3.Dot(a, b) / (a.Length() * b.Length()));

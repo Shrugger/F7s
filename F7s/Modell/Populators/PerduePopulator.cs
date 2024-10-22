@@ -16,6 +16,10 @@ namespace F7s.Modell.Populators {
         public PerduePopulator () {
             GeneratePlayer();
             GenerateGroups();
+
+            Origin.UseKameraAsFloatingOrigin();
+            Player.ActivateFreeCameraControls();
+            Kamera.DetachFromPlayer();
         }
 
         private void GenerateGroups () {

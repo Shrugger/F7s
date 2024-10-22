@@ -159,8 +159,9 @@ namespace F7s.Utility.Mescherei {
             Vector3 triangleCenter = CartesianCenter();
             Vector3 surfaceNormal = GetFaceNormal();
             Vector3 shapeToTriangleVector = triangleCenter - shapeCentre;
+            Vector3 normalizedShapeToTriangleVector = Mathematik.Normalize(shapeToTriangleVector);
 
-            double angle = Mathematik.Angle(Mathematik.Normalize(shapeToTriangleVector), surfaceNormal); // Using double-precision angle calculation works better for very small angles.
+            double angle = Mathematik.Angle(normalizedShapeToTriangleVector, surfaceNormal); // Using double-precision angle calculation works better for very small angles.
 
             if (angle < 0) {
                 throw new Exception("Angle " + angle + " < 0.");
