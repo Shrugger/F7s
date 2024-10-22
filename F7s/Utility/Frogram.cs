@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace F7s.Utility;
 public abstract class Frogram {
@@ -6,6 +7,12 @@ public abstract class Frogram {
 
     protected Frogram () {
         frograms.Add(this);
+
+        Console.WriteLine("Launched " + this + ".");
+    }
+
+    public override string ToString () {
+        return GetType().Name;
     }
 
     public void Quit () {

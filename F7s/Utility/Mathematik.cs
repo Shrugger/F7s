@@ -1214,20 +1214,22 @@ namespace F7s.Utility {
             throw new NotImplementedException();
         }
 
-        public static QuaternionD ExtractRotation (MatrixD transform) {
+        public static QuaternionD ExtractRotation (MatrixD m) {
             QuaternionD rotation;
-            transform.Decompose(out _, out rotation, out _);
+            m.Decompose(out _, out rotation, out _);
             return rotation;
         }
 
-        public static Quaternion ExtractRotation (Matrix transform) {
+        public static Quaternion ExtractRotation (Matrix m) {
             Quaternion rotation;
-            transform.Decompose(out _, out rotation, out _);
+            m.Decompose(out _, out rotation, out _);
             return rotation;
         }
 
-        public static MatrixD Inverse (MatrixD absoluteOther) {
-            throw new NotImplementedException();
+        public static MatrixD Inverse (MatrixD m) {
+            MatrixD result;
+            MatrixD.Invert(ref m, out result);
+            return result;
         }
 
         public static Matrix Transformation (Vector3 translation, Quaternion rotation) {
@@ -1243,5 +1245,13 @@ namespace F7s.Utility {
             return result;
         }
 
+        public static Matrix Downscale (MatrixD m) {
+            return new Matrix(
+                (float) m.M11, (float) m.M12, (float) m.M13, (float) m.M14,
+                (float) m.M21, (float) m.M22, (float) m.M23, (float) m.M24,
+                (float) m.M31, (float) m.M32, (float) m.M33, (float) m.M34,
+                (float) m.M41, (float) m.M42, (float) m.M43, (float) m.M44
+                );
+        }
     }
 }

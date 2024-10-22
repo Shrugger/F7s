@@ -1,8 +1,10 @@
-﻿using F7s.Modell.Physical;
+﻿using F7s.Mains;
+using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
+using Stride.Engine;
 using System;
 using System.Diagnostics;
 
@@ -55,12 +57,11 @@ namespace F7s.Modell.Handling.PlayerControllers {
 
         private static void UpdateCameraNodeTransform () {
             MatrixD localityTransform = GetLocality().GetAbsoluteTransform();
-            MatrixD parentTransform = MatrixD.Transformation(localityTransform.TranslationVector, QuaternionD.Identity);
-            MatrixD cameraTransform = MatrixD.Transformation(Double3.Zero, Mathematik.ExtractRotation(localityTransform));
+            Matrix parentTransform = Mathematik.Downscale(MatrixD.Transformation(localityTransform.TranslationVector, QuaternionD.Identity));
+            Matrix cameraTransform = Mathematik.Downscale(MatrixD.Transformation(Double3.Zero, Mathematik.ExtractRotation(localityTransform)));
 
-            throw new NotImplementedException(); // See below.
-            // MainNode.Instance.CameraParent.Transform = parentTransform; // TODO: redo for Stride.
-            // MainNode.Instance.Camera.Transform = cameraTransform;
+            MainSync.CameraParentEntity.Get<TransformComponent>().LocalMatrix = parentTransform;
+            MainSync.CameraEntity.Get<TransformComponent>().LocalMatrix = cameraTransform;
         }
 
         public static Vector3 CameraNodeGlobalPosition () {

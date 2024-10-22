@@ -7,11 +7,14 @@ using Stride.Rendering;
 using Stride.UI;
 using Stride.UI.Controls;
 using Stride.UI.Panels;
+using System.Threading.Tasks;
+
 
 using var game = new Game();
 game.Run(start: Start, update: Update);
 
 void Start (Scene scene) {
+
 
     SpriteFont? font = null;
     font = game.Content.Load<SpriteFont>("StrideDefaultFont");
@@ -41,6 +44,17 @@ void Start (Scene scene) {
     };
 
     uiEntity.Scene = scene;
+
+    game.Script.Scheduler.Add(Dissolve);
+    async Task Dissolve () {
+
+        while (true) {
+            uiEntity.Remove();
+            uiEntity.Dispose();
+            await game.Script.NextFrame();
+        }
+
+    }
 }
 
 void Update (Scene scene, GameTime time) {

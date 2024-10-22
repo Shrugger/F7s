@@ -1,10 +1,19 @@
 ﻿using Stride.Engine;
 using System.Threading.Tasks;
 
-namespace F7s {
+namespace F7s.Mains {
     public class MainAsync : AsyncScript {
-        // Declared public member fields and properties will show in the game studio
-        public bool thisIsAPublicBooleanField;
+
+        private static MainAsync instance;
+
+        public MainAsync () {
+
+            if (instance != null) {
+                throw new System.Exception();
+            } else {
+                instance = this;
+            }
+        }
 
         public override async Task Execute () {
             while (Game.IsRunning) {

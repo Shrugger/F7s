@@ -72,19 +72,17 @@ namespace F7s.Engine.InputHandling {
 
         public static void LockMousePosition () {
             strideInputManager.LockMousePosition();
-            strideInputManager.Mouse.LockPosition();
         }
         public static void UnlockMousePosition () {
             strideInputManager.UnlockMousePosition();
-            strideInputManager.Mouse.UnlockPosition();
         }
 
         public static void SetMouseVisible () {
-            Main.Game.IsMouseVisible = true;
+            MainSync.game.IsMouseVisible = true;
         }
 
         public static void SetMouseInvisible () {
-            Main.Game.IsMouseVisible = false;
+            MainSync.game.IsMouseVisible = false;
         }
 
         public static void SetMousePosition (Vector2 position) {
