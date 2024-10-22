@@ -54,7 +54,7 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
                 }
 
                 Add(
-                    new MouseWheelAction((int v) => {
+                    new MouseWheelAction((float v) => {
                         if (v > 0) {
                             AlterGlobalScaleFactor(2.0f);
                         } else if (v < 0) {

@@ -1,6 +1,6 @@
 ﻿
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
-using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
+using Stride.Core.Mathematics;
+using System;
 
 namespace F7s.Engine.InputHandling {
     public class MouseDeltaAction : AbstractInputAction {
@@ -16,7 +16,8 @@ namespace F7s.Engine.InputHandling {
         public override void Register () {
             InputHandler.RegisterMouseDeltaAction(this);
         }
-        public void Trigger (Vector2 value) {
+        public void Trigger () {
+            Vector2 value = InputHandler.GetMouseDelta();
             action.Invoke(value);
             Triggered();
         }

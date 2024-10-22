@@ -1,5 +1,4 @@
-﻿using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
-
+﻿using System;
 namespace F7s.Engine.InputHandling {
 
     public abstract class AbstractInputAction {
@@ -13,7 +12,7 @@ namespace F7s.Engine.InputHandling {
         }
 
         protected void Triggered () {
-            Console.WriteLine("Input: " + this.ToString());
+            Console.WriteLine("Input: " + ToString());
         }
 
         public abstract void Register ();

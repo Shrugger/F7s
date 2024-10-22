@@ -1,9 +1,9 @@
 ﻿using F7s.Engine;
-using F7s.Engine.InputHandling;
 using F7s.Modell.Abstract;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Populators;
 using F7s.Modell.Terrains;
+using F7s.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stride.Engine;
 using Stride.Physics;
@@ -26,11 +26,11 @@ namespace F7s.Main {
         }
 
         private void PrePhysicsUpdate (Simulation sender, float tick) {
-
+            Frogram.PrePhysicsUpdateAll(sender, tick);
         }
 
         private void PostPhysicsUpdate (Simulation sender, float tick) {
-
+            Frogram.PostPhysicsUpdateAll(sender, tick);
         }
 
         private void InitializeSimulationUpdateListeners () {
@@ -47,7 +47,7 @@ namespace F7s.Main {
         public override void Update () {
             InitializeSimulationUpdateListeners();
 
-            InputHandler.Update();
+            Frogram.UpdateAll();
 
             double deltaTime = Zeit.DeltaTimeSeconds();
             Origin.Update(deltaTime);

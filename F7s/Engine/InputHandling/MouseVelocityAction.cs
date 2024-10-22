@@ -1,6 +1,5 @@
-﻿using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
-using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
-
+﻿using Stride.Core.Mathematics;
+using System;
 namespace F7s.Engine.InputHandling {
     public class MouseVelocityAction : AbstractInputAction {
         public readonly Action<Vector2> action;
@@ -15,7 +14,8 @@ namespace F7s.Engine.InputHandling {
         public override void Register () {
             InputHandler.RegisterMouseVelocityAction(this);
         }
-        public void Trigger (Vector2 value) {
+        public void Trigger () {
+            Vector2 value = InputHandler.GetMouseVelocity();
             action.Invoke(value);
             Triggered();
         }

@@ -1,30 +1,41 @@
-using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
+using F7s.Utility;
+using Stride.Core.Mathematics;
 using Stride.Input;
-using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
+using System;
 using System.Collections.Generic;
 
 namespace F7s.Engine.InputHandling {
 
-    public static class InputHandler {
+    public class InputHandler : Frogram {
 
         // TODO: Make sure that all AbstractInputActions are actually registered, triggerable and handled.
 
-        private static InputManager strideInputManager = new InputManager();
+        private static readonly InputManager strideInputManager = new InputManager();
 
         private static readonly List<InputVectorAction> eventActions = new List<InputVectorAction>();
         private static readonly List<InputVectorAction> keyHoldActionsOnUpdate = new List<InputVectorAction>();
-        private static readonly List<InputVectorAction> keyHoldActionsOnPhysicsUpdate = new List<InputVectorAction>();
+        private static readonly List<InputVectorAction> keyHoldActionsBeforePhysicsUpdate = new List<InputVectorAction>();
         private static readonly List<MouseDeltaAction> onMouseMoveDelta = new List<MouseDeltaAction>();
         private static readonly List<MouseVelocityAction> onMouseMoveVelocity = new List<MouseVelocityAction>();
+        private static readonly List<MouseWheelAction> mouseWheelActions = new List<MouseWheelAction>();
 
-        public static void Update () {
+        protected override void Update () {
             if (strideInputManager.KeyEvents.Count > 0) {
                 keyHoldActionsOnUpdate.ForEach(a => a.TriggerIfMatch());
             }
+            eventActions.ForEach(a => a.TriggerIfMatch());
+            onMouseMoveDelta.ForEach(a => a.Trigger());
+            onMouseMoveVelocity.ForEach(a => a.Trigger());
+            mouseWheelActions.ForEach(a => a.Trigger());
         }
 
-        public static void PhysicsUpdate () {
-            keyHoldActionsOnPhysicsUpdate.ForEach(a => a.TriggerIfMatch());
+        protected override void PrePhysicsUpdate (Stride.Physics.Simulation sender, float tick) {
+            if (strideInputManager.KeyEvents.Count > 0) {
+                keyHoldActionsBeforePhysicsUpdate.ForEach(a => a.TriggerIfMatch());
+            }
+        }
+
+        protected override void PostPhysicsUpdate (Stride.Physics.Simulation sender, float tick) {
         }
 
         public static void RegisterEventAction (InputVectorAction action) {
@@ -33,17 +44,17 @@ namespace F7s.Engine.InputHandling {
         public static void DeregisterEventAction (InputVectorAction action) {
             eventActions.Remove(action);
         }
-        public static void RegisterKeyHoldActionOnProcess (InputVectorAction action) {
+        public static void RegisterKeyHoldActionOnUpdate (InputVectorAction action) {
             keyHoldActionsOnUpdate.Add(action);
         }
-        public static void DeregisterKeyHoldActionOnProcess (InputVectorAction action) {
+        public static void DeregisterKeyHoldActionOnUpdate (InputVectorAction action) {
             keyHoldActionsOnUpdate.Remove(action);
         }
-        public static void RegisterKeyHoldActionOnPhysicsProcess (InputVectorAction action) {
-            keyHoldActionsOnPhysicsUpdate.Add(action);
+        public static void RegisterKeyHoldActionBeforePhysicsUpdate (InputVectorAction action) {
+            keyHoldActionsBeforePhysicsUpdate.Add(action);
         }
-        public static void DeregisterKeyHoldActionOnPhysicsProcess (InputVectorAction action) {
-            keyHoldActionsOnPhysicsUpdate.Remove(action);
+        public static void DeregisterKeyHoldActionBeforePhysicsUpdate (InputVectorAction action) {
+            keyHoldActionsBeforePhysicsUpdate.Remove(action);
         }
         public static void RegisterMouseDeltaAction (MouseDeltaAction action) {
             onMouseMoveDelta.Add(action);
@@ -134,6 +145,17 @@ namespace F7s.Engine.InputHandling {
             return strideInputManager.IsKeyReleased(key);
         }
 
+        public static Vector2 GetMouseVelocity () {
+            throw new NotImplementedException();
+        }
+
+        public static void RegisterMouseWheelAction (MouseWheelAction mouseWheelAction) {
+            mouseWheelActions.Add(mouseWheelAction);
+        }
+
+        public static void DeregisterMouseWheelAction (MouseWheelAction mouseWheelAction) {
+            mouseWheelActions.Remove(mouseWheelAction);
+        }
     }
 
 }
