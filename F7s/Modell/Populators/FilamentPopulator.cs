@@ -39,7 +39,7 @@ namespace F7s.Modell.Populators {
             Instance = this;
 
             Orbiting.OrbitSpeedMultiplier = 10000;
-            Zeit.SetSimulationDateGetter(() => Zeit.GetEngineTimeMilliseconds() * 1);
+            Zeit.SetSimulationDateGetter(() => Zeit.GetEngineTimeSeconds() * 1);
 
             PopulateLocalStarSystem();
             GenerateGroups();

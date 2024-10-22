@@ -16,7 +16,6 @@ namespace F7s.Modell.Abstract {
         private static readonly List<GameEntity> gameEntities = new List<GameEntity>();
         private static readonly PriorityQueue<GameEntity, double> updateQueue = new PriorityQueue<GameEntity, double>();
 
-
         public static string ReportEntities () {
             return
                 "Sim Date: " + Math.Round(currentSimulationDate) + "\n" +
@@ -25,6 +24,8 @@ namespace F7s.Modell.Abstract {
 
         public bool Deleted { get; private set; }
         private double lastUpdateDate = 0;
+        public double nextUpdateDate { get; private set; } = -1;
+
 
         public GameEntity (string name = null) {
             if (name != null) {
@@ -132,7 +133,8 @@ namespace F7s.Modell.Abstract {
         }
 
         private void EnqueueForUpdate () {
-            updateQueue.Enqueue(this, CalculateDateOfNextUpdate());
+            nextUpdateDate = CalculateDateOfNextUpdate();
+            updateQueue.Enqueue(this, nextUpdateDate);
         }
 
         public static void OnEngineUpdate (double speedFactor, bool skipToNextDate) {
@@ -158,7 +160,7 @@ namespace F7s.Modell.Abstract {
         }
 
         private double GetUpdatePriority () {
-            throw new NotImplementedException();
+            return nextUpdateDate;
         }
 
         public static void OnRenderUpdate (double deltaTime) {
@@ -176,7 +178,7 @@ namespace F7s.Modell.Abstract {
         private static void UpdateScheduledEntities () {
             bool abort = false;
 
-            ulong startTime = Zeit.GetTicksMsec();
+            double startTime = Zeit.GetRealTimeSeconds();
 
             while (!abort) {
                 GameEntity toUpdate = null;
@@ -193,7 +195,7 @@ namespace F7s.Modell.Abstract {
                 }
 
 
-                ulong timeElapsed = Zeit.GetTicksMsec() - startTime;
+                double timeElapsed = Zeit.GetRealTimeSeconds() - startTime;
                 if (timeElapsed > 100) {
                     abort = true;
                 }

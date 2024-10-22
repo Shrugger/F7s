@@ -1,7 +1,6 @@
 ﻿using F7s.Utility.Measurements;
 using Stride.Games;
-using System; using F7s.Utility.Geometry.Double;
-
+using System;
 namespace F7s.Engine {
 
     public static class Zeit {
@@ -14,7 +13,7 @@ namespace F7s.Engine {
         private static double timePaused = 0;
         private static double realDateOfLastPausing = 0;
 
-        private static GameTime StrideGameTime = new GameTime();
+        private static readonly GameTime StrideGameTime = new GameTime();
 
         public static string Timestamp () {
             return "F+" + GetCurrentFrame() + " T+" + Measurement.MeasureTime(GetEngineTimeSeconds()) + ": ";
@@ -36,25 +35,23 @@ namespace F7s.Engine {
             return StrideGameTime.Elapsed.TotalSeconds;
         }
 
-        public static void SetSimulationDateGetter (Func<double> ticksMsec) {
-            simulationDateGetter = ticksMsec;
+        public static void SetSimulationDateGetter (Func<double> seconds) {
+            simulationDateGetter = seconds;
         }
+
 
         public static double GetSimulationDateSeconds () {
-            return GetSimulationDateMilliseconds() / 1000.0;
-        }
-
-        public static double GetSimulationDateMilliseconds () {
             if (simulationDateGetter == null) {
-                return GetEngineTimeMilliseconds();
+                return GetEngineTimeSeconds();
             } else {
                 return simulationDateGetter();
             }
         }
 
-        public static double GetEngineTimeMilliseconds () {
-            return StrideGameTime.WarpElapsed.TotalMilliseconds;
+        public static double GetRealTimeSeconds () {
+            return StrideGameTime.Total.Seconds;
         }
+
         public static double GetEngineTimeSeconds () {
             return StrideGameTime.WarpElapsed.TotalSeconds;
         }
@@ -62,18 +59,14 @@ namespace F7s.Engine {
         public static void TogglePause () {
             Paused = !Paused;
             if (Paused) {
-                double currentSimulationDate = GetSimulationDateMilliseconds();
+                double currentSimulationDate = GetSimulationDateSeconds();
                 SetSimulationDateGetter(() => currentSimulationDate);
-                realDateOfLastPausing = GetEngineTimeMilliseconds();
+                realDateOfLastPausing = GetEngineTimeSeconds();
             } else {
-                double currentRealDate = GetEngineTimeMilliseconds();
+                double currentRealDate = GetEngineTimeSeconds();
                 timePaused += currentRealDate - realDateOfLastPausing;
-                SetSimulationDateGetter(() => GetEngineTimeMilliseconds() - timePaused);
+                SetSimulationDateGetter(() => currentRealDate - timePaused);
             }
-        }
-
-        public static ulong GetTicksMsec () {
-            throw new NotImplementedException();
         }
     }
 }
