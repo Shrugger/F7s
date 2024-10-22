@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stride.Engine;
 using Stride.Physics;
 
-namespace F7s.Main {
+namespace F7s.Mains {
 
     public class MainSync : SyncScript {
 
@@ -19,7 +19,7 @@ namespace F7s.Main {
         public override void Start () {
 
             Terrain terrain = new Terrain("Tiny Planet", 1, 2, Entity, new PlanetologyData(1, 1, 1, true, true, 5)); // TODO: Reactivate after child's play.
-            Engine.Mesch terrainMesch = terrain.Render(GraphicsDevice, Stride.Graphics.GraphicsResourceUsage.Default);
+            Mesch terrainMesch = terrain.Render(GraphicsDevice, Stride.Graphics.GraphicsResourceUsage.Default);
             Assert.IsNotNull(terrainMesch);
 
             populator = new PerduePopulator();

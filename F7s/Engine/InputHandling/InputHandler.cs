@@ -1,3 +1,4 @@
+using F7s.Mains;
 using F7s.Utility;
 using Stride.Core.Mathematics;
 using Stride.Input;
@@ -79,11 +80,11 @@ namespace F7s.Engine.InputHandling {
         }
 
         public static void SetMouseVisible () {
-            throw new NotImplementedException();
+            Main.Game.IsMouseVisible = true;
         }
 
         public static void SetMouseInvisible () {
-            throw new NotImplementedException();
+            Main.Game.IsMouseVisible = false;
         }
 
         public static void SetMousePosition (Vector2 position) {
