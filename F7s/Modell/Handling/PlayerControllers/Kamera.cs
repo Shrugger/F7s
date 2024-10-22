@@ -4,7 +4,6 @@ using F7s.Modell.Physical.Localities;
 using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
-using Stride.Engine;
 using System;
 using System.Diagnostics;
 
@@ -60,8 +59,10 @@ namespace F7s.Modell.Handling.PlayerControllers {
             Matrix parentTransform = Mathematik.Downscale(MatrixD.Transformation(localityTransform.TranslationVector, QuaternionD.Identity));
             Matrix cameraTransform = Mathematik.Downscale(MatrixD.Transformation(Double3.Zero, Mathematik.ExtractRotation(localityTransform)));
 
-            MainSync.CameraParentEntity.Get<TransformComponent>().LocalMatrix = parentTransform;
-            MainSync.CameraEntity.Get<TransformComponent>().LocalMatrix = cameraTransform;
+            MainSync.CameraParentEntity.Transform.UseTRS = false;
+            MainSync.CameraParentEntity.Transform.LocalMatrix = parentTransform;
+            MainSync.CameraEntity.Transform.UseTRS = false;
+            MainSync.CameraEntity.Transform.LocalMatrix = cameraTransform;
         }
 
         public static Vector3 CameraNodeGlobalPosition () {
