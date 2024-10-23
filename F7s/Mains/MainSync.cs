@@ -5,12 +5,15 @@ using F7s.Modell.Populators;
 using F7s.Modell.Terrains;
 using F7s.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Stride.CommunityToolkit.Engine;
+using Stride.CommunityToolkit.Rendering.Compositing;
+using Stride.CommunityToolkit.Rendering.ProceduralModels;
 using Stride.Core.Mathematics;
 using Stride.Engine;
-using Stride.Games;
 using Stride.Graphics;
 using Stride.Physics;
 using Stride.Rendering;
+using Stride.Rendering.Lights;
 using Stride.UI;
 using Stride.UI.Controls;
 using Stride.UI.Panels;
@@ -24,7 +27,7 @@ namespace F7s.Mains {
 
         private Populator populator;
 
-        public static IGame game { get; private set; }
+        public static Game game { get; private set; }
 
         private static MainSync instance;
 
@@ -42,6 +45,21 @@ namespace F7s.Mains {
 
             Console.WriteLine("Starting.");
 
+
+            {
+                game = (Game) Game;
+                Assert.IsNotNull(game);
+            }
+
+            {
+                game.AddGraphicsCompositor().AddCleanUIStage();
+                //game.Add3DCamera().Add3DCameraController();
+                game.AddDirectionalLight();
+                game.Add3DGround();
+                game.AddProfiler();
+                game.AddGroundGizmo(position: new Vector3(-5, 0.1f, -5), showAxisName: true);
+            }
+
             Entity.Add(new MainAsync());
 
             {
@@ -53,12 +71,43 @@ namespace F7s.Mains {
 
                 Camera = new CameraComponent();
                 CameraEntity.Add(Camera);
+                Camera.Slot = SceneSystem.GraphicsCompositor.Cameras[0].ToSlotId();
 
-
+                CameraEntity.Add3DCameraController();
             }
 
-            game = Game;
-            Assert.IsNotNull(game);
+            {
+                Entity lightEntity = new Entity("Light Entity");
+                lightEntity.Scene = Entity.Scene;
+                LightComponent lightComponent = new LightComponent();
+                lightEntity.Add(lightComponent);
+                lightComponent.Type = new LightDirectional();
+                lightComponent.Intensity = 1;
+                lightComponent.SetColor(new Color3(1, 1, 1));
+            }
+
+            {
+                for (int x = -100; x <= 100; x += 25) {
+
+                    for (int y = -100; y <= 100; y += 25) {
+
+                        for (int z = -100; z <= 100; z += 25) {
+                            Vector3 location = new Vector3(x, y, z);
+                            if (location.Length() < 10) {
+                                continue;
+                            }
+
+                            Entity marker = game.Create3DPrimitive(PrimitiveModelType.Cube, new() {
+                                Material = game.CreateMaterial(Color.Gold),
+                                IncludeCollider = false // No collider for simple movement
+                            });
+                            marker.Name = "Marker " + x + " " + y + " " + z;
+                            marker.Scene = Entity.Scene;
+                            ;
+                        }
+                    }
+                }
+            }
 
             {
                 Terrain terrain = new Terrain("Tiny Planet", 1, 2, Entity, new PlanetologyData(1, 1, 1, true, true, 5)); // TODO: Reactivate after child's play.

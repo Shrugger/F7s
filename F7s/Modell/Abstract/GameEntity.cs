@@ -6,6 +6,7 @@ using F7s.Utility;
 using Stride.Core.Mathematics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace F7s.Modell.Abstract {
 
@@ -178,7 +179,8 @@ namespace F7s.Modell.Abstract {
         private static void UpdateScheduledEntities () {
             bool abort = false;
 
-            double startTime = Zeit.GetRealTimeSeconds();
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
 
             while (!abort) {
                 GameEntity toUpdate = null;
@@ -194,9 +196,7 @@ namespace F7s.Modell.Abstract {
                     toUpdate.ScheduledUpdate();
                 }
 
-
-                double timeElapsed = Zeit.GetRealTimeSeconds() - startTime;
-                if (timeElapsed > 100) {
+                if (timer.ElapsedMilliseconds > 100) {
                     abort = true;
                 }
             }

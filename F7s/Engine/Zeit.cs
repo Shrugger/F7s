@@ -48,10 +48,6 @@ namespace F7s.Engine {
             }
         }
 
-        public static double GetRealTimeSeconds () {
-            return StrideGameTime.Total.Seconds;
-        }
-
         public static double GetEngineTimeSeconds () {
             return StrideGameTime.WarpElapsed.TotalSeconds;
         }
