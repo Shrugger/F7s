@@ -40,7 +40,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
                 return;
             }
             if (originLocality != null) {
-                Console.WriteLine("Setting Origin from " + (originLocality?.ToString() ?? "NULL") + " to " + value + ".");
+                System.Diagnostics.Debug.WriteLine("Setting Origin from " + (originLocality?.ToString() ?? "NULL") + " to " + value + ".");
             }
             originLocality = value;
         }
@@ -87,7 +87,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             newLocality.Name = "Ori-Cam";
             SetOriginLocality(newLocality);
             if (logOriginSwitchs) {
-                Console.WriteLine("Origin set to Camera.");
+                System.Diagnostics.Debug.WriteLine("Origin set to Camera.");
             }
         }
 
@@ -104,7 +104,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             SetOriginLocality(newLocality);
 
             if (logOriginSwitchs) {
-                Console.WriteLine("Floating origin set to Camera.");
+                System.Diagnostics.Debug.WriteLine("Floating origin set to Camera.");
             }
         }
 
@@ -113,7 +113,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             newLocality.Name = "Ori-Ple";
             SetOriginLocality(newLocality);
             if (logOriginSwitchs) {
-                Console.WriteLine("Origin set to Player.");
+                System.Diagnostics.Debug.WriteLine("Origin set to Player.");
             }
         }
 
@@ -130,7 +130,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             SetOriginLocality(newLocality);
 
             if (logOriginSwitchs) {
-                Console.WriteLine("Floating origin set to Player.");
+                System.Diagnostics.Debug.WriteLine("Floating origin set to Player.");
             }
         }
 

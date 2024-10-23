@@ -38,7 +38,7 @@ namespace F7s.Modell.Abstract {
         }
 
         public virtual void Delete () {
-            Console.WriteLine("Deleting GE " + this + ".");
+            System.Diagnostics.Debug.WriteLine("Deleting GE " + this + ".");
             Deleted = true;
             gameEntities.Remove(this);
             SetName("DELETED " + GetName());

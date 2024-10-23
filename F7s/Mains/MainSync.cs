@@ -17,7 +17,6 @@ using Stride.Rendering.Lights;
 using Stride.UI;
 using Stride.UI.Controls;
 using Stride.UI.Panels;
-using System;
 
 namespace F7s.Mains {
 
@@ -43,7 +42,7 @@ namespace F7s.Mains {
                 instance = this;
             }
 
-            Console.WriteLine("Starting.");
+            System.Diagnostics.Debug.WriteLine("Starting " + this + " with game " + game + " in scene " + Entity.Scene + ".");
 
 
             {

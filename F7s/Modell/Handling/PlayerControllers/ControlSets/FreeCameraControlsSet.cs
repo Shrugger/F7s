@@ -50,7 +50,7 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
                 void AlterGlobalScaleFactor (float multiplier) {
                     float oldScaleFactor = RepresentationSettings.GlobalScaleFactor;
                     RepresentationSettings.SetGlobalScaleFactor(oldScaleFactor * multiplier);
-                    Console.WriteLine("Global Scale Factor " + oldScaleFactor + " * " + multiplier + " => " + RepresentationSettings.GlobalScaleFactor + ".");
+                    System.Diagnostics.Debug.WriteLine("Global Scale Factor " + oldScaleFactor + " * " + multiplier + " => " + RepresentationSettings.GlobalScaleFactor + ".");
                 }
 
                 Add(

@@ -1,3 +1,4 @@
+using F7s.Mains;
 using Stride.CommunityToolkit.Engine;
 using Stride.Core.Mathematics;
 using Stride.Engine;
@@ -15,6 +16,11 @@ game.Run(start: Start, update: Update);
 
 void Start (Scene scene) {
 
+    Entity originEntity = new Entity("Origin");
+    originEntity.Scene = scene;
+    originEntity.Add(new MainSync());
+
+    System.Diagnostics.Debug.WriteLine("Starting game " + game + " in scene " + scene + ".");
 
     SpriteFont? font = null;
     font = game.Content.Load<SpriteFont>("StrideDefaultFont");

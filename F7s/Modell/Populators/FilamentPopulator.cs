@@ -252,7 +252,7 @@ namespace F7s.Modell.Populators {
             double radius = physicalEntity.BoundingRadius();
             double distance = radius;
             Debug.Assert(!double.IsNaN(distance));
-            Console.WriteLine(
+            System.Diagnostics.Debug.WriteLine(
                 "Viewing " + physicalEntity +
                 " with Radius " + Measurement.MeasureLength(radius) +
                 " from Distance " + Measurement.MeasureLength(distance) +

@@ -47,7 +47,7 @@ namespace F7s.Utility.Shapes {
                                                 );
 
             if (overlapIfSmaller == false) {
-                Console.WriteLine(shape1 + " is too far from " + shape2 + " to be adjacent." + "\n");
+                System.Diagnostics.Debug.WriteLine(shape1 + " is too far from " + shape2 + " to be adjacent." + "\n");
             }
 
             return overlapIfSmaller == false && overlapIfLarger;

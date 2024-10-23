@@ -398,7 +398,7 @@ namespace F7s.Utility
                 words[i] = words[i].Trim('(', ')');
             }
 
-            Console.WriteLine(text + " -> " + words);
+            System.Diagnostics.Debug.WriteLine(text + " -> " + words);
 
             return words;
         }

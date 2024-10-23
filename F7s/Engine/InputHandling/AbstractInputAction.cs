@@ -12,7 +12,7 @@ namespace F7s.Engine.InputHandling {
         }
 
         protected void Triggered () {
-            Console.WriteLine("Input: " + ToString());
+            System.Diagnostics.Debug.WriteLine("Input: " + ToString());
         }
 
         public abstract void Register ();

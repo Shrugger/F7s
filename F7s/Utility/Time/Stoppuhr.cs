@@ -33,7 +33,7 @@ namespace F7s.Utility.Time
             if (measuredTime == null || measuredTime.Length == 0) {
                 throw new Exception();
             }
-            Console.WriteLine(message + " " + measuredTime);
+            System.Diagnostics.Debug.WriteLine(message + " " + measuredTime);
         }
 
         public void Reset () {

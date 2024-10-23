@@ -25,7 +25,7 @@ namespace F7s {
         private void Jump () {
             // Jump!
             Entity.Get<RigidbodyComponent>().ApplyImpulse(Alea.Vector3() * 10);
-            Console.WriteLine("Jump!");
+            System.Diagnostics.Debug.WriteLine("Jump!");
         }
     }
 }

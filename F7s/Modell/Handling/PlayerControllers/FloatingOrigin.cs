@@ -15,7 +15,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
                 return;
             }
             MaximumDistance = value;
-            Console.WriteLine("Setting Origin Snap Distance of " + this + " from " + MaximumDistance + " to " + value + ".");
+            System.Diagnostics.Debug.WriteLine("Setting Origin Snap Distance of " + this + " from " + MaximumDistance + " to " + value + ".");
         }
 
         public FloatingOrigin (Locality floatingAnchor, float maxDistance = DefaultOriginSnapDistanceLimit) : base(null, floatingAnchor) {
@@ -61,7 +61,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
         private void Snap (double? distance = null) {
             bool logOriginSnaps = false;
             if (logOriginSnaps) {
-                Console.WriteLine(Zeit.Stempel + this + ": Origin snap over distance " + distance + " / " + MaximumDistance + " to " + FloatingAnchor + ".");
+                System.Diagnostics.Debug.WriteLine(Zeit.Stempel + this + ": Origin snap over distance " + distance + " / " + MaximumDistance + " to " + FloatingAnchor + ".");
             }
             SetTransform(CalculateNewTransform());
         }

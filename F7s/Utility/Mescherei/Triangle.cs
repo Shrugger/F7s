@@ -201,7 +201,7 @@ namespace F7s.Utility.Mescherei {
         }
 
         public void Invert () {
-            Console.WriteLine("Inverting " + this + ".");
+            System.Diagnostics.Debug.WriteLine("Inverting " + this + ".");
             Mesch.MarkDirty();
             Vertices.Reverse();
             faceNormal *= -1;

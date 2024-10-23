@@ -5,18 +5,5 @@ Tags: []
 ChildrenIds: []
 Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
-    RootParts:
-        - ref!! f7a7ce5b-cc34-4d21-8228-58305fc8be5f
-    Parts:
-        -   Entity:
-                Id: f7a7ce5b-cc34-4d21-8228-58305fc8be5f
-                Name: Origin
-                Components:
-                    b3944414b5f6c81f3bbe0c750f432948: !TransformComponent
-                        Id: 7bcef94c-b981-47a6-bc07-1e79ac8d1550
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    87181c4ba4537cbe323bfd539c224c12: !F7s.Mains.MainSync,F7s
-                        Id: 4e7ae603-b240-4d5d-837a-62afdcb6cf0d
+    RootParts: []
+    Parts: []

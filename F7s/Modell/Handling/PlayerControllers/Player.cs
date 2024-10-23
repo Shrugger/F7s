@@ -129,7 +129,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             activeControlSet?.Deactivate();
             controlSet.Activate();
             activeControlSet = controlSet;
-            Console.WriteLine("Control mode: " + controlSet);
+            System.Diagnostics.Debug.WriteLine("Control mode: " + controlSet);
         }
 
         public static void RotatePlayer (Vector2 mouseDelta) {

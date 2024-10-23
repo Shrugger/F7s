@@ -8,7 +8,7 @@ public abstract class Frogram {
     protected Frogram () {
         frograms.Add(this);
 
-        Console.WriteLine("Launched " + this + ".");
+        System.Diagnostics.Debug.WriteLine("Launched " + this + ".");
     }
 
     public override string ToString () {

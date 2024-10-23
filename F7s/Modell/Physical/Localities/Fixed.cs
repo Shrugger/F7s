@@ -158,7 +158,7 @@ namespace F7s.Modell.Physical.Localities {
             }
 
             if (logging) {
-                Console.WriteLine(
+                System.Diagnostics.Debug.WriteLine(
                     Mathematik.RoundToFirstInterestingDigit(currentPitch, 3) +
                     " + " + (Math.Abs(permittedPitch - additionalPitch) > 0.0001f ?
                         Mathematik.RoundToFirstInterestingDigit(permittedPitch, 3) + " LIMITED" :
