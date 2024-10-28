@@ -28,8 +28,6 @@ namespace F7s.Mains {
         public static Game game { get; private set; }
 
         private static MainSync instance;
-
-        public CameraComponent camera;
         public static CameraComponent Camera { get; private set; }
         public static Entity CameraEntity { get; private set; }
         public static Entity CameraParentEntity { get; private set; }
@@ -59,7 +57,7 @@ namespace F7s.Mains {
 
             Entity.Add(new MainAsync());
 
-            // InitializeCamera(); // TODO: Reactivate
+            InitializeCamera();
             void InitializeCamera () {
                 CameraParentEntity = new Entity("Camera Yawer");
                 SceneSystemEntities.Add(CameraParentEntity);
@@ -94,12 +92,13 @@ namespace F7s.Mains {
                             }
 
                             Entity marker = new Entity("Marker " + x + " " + y + " " + z, new Vector3(x, y, z));
-                            // SceneSystemEntities.Add(marker);
-                            marker.Scene = Entity.Scene;
+                            SceneSystemEntities.Add(marker);
+
                             ModelComponent modelComponent = new ModelComponent();
                             marker.Add(modelComponent);
 
                             Graph graph = Icosahedra.IcosphereGraph();
+                            graph.ApplyToAllVertices((Vertex v) => v.SetColor(new Farbe(v.Position.X, v.Position.Y, v.Position.Z)));
                             modelComponent.Model = Mesch.FromGraph(graph, GraphicsResourceUsage.Immutable).model;
 
                         }
@@ -176,22 +175,14 @@ namespace F7s.Mains {
 
         public override void Update () {
 
-            if (camera != null) {
-                // TODO: Remove these.
-                Camera = camera;
-                CameraEntity = camera.Entity;
-                CameraParentEntity = CameraEntity;
-            }
-
             InitializeSimulationUpdateListeners();
 
             Frogram.UpdateAll();
 
             double deltaTime = Zeit.DeltaTimeSeconds();
             Origin.Update(deltaTime);
-
             Player.Update(deltaTime);
-            // Kamera.Update(deltaTime); // TODO: Reactivate
+            Kamera.Update(deltaTime);
 
             if (!Zeit.Paused) {
                 GameEntity.OnEngineUpdate(1.0, false);
