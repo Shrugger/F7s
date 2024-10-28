@@ -6,7 +6,6 @@ using System.Diagnostics;
 
 namespace F7s.Engine;
 
-[Obsolete("Unfortunately, Stride's ContentManager does not work like Godot does. It saves to some nebulous runtime DB that's inaccessible for practical purposes.")]
 public class ReusableAssets {
 
     private static ContentManager contentManager;

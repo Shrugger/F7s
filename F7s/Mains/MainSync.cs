@@ -1,4 +1,5 @@
 ﻿using F7s.Engine;
+using F7s.Engine.InputHandling;
 using F7s.Modell.Abstract;
 using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Populators;
@@ -152,6 +153,8 @@ namespace F7s.Mains {
 
                 SceneSystemEntities.Add(uiEntity);
             }
+
+            new InputHandler();
         }
 
         private void PrePhysicsUpdate (Simulation sender, float tick) {

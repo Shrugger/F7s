@@ -25,9 +25,16 @@ namespace F7s.Engine.InputHandling {
                 keyHoldActionsOnUpdate.ForEach(a => a.TriggerIfMatch());
             }
             eventActions.ForEach(a => a.TriggerIfMatch());
-            onMouseMoveDelta.ForEach(a => a.Trigger());
-            onMouseMoveVelocity.ForEach(a => a.Trigger());
-            mouseWheelActions.ForEach(a => a.Trigger());
+
+            if (InputHandler.GetMouseDelta() != Vector2.Zero) {
+                onMouseMoveDelta.ForEach(a => a.Trigger());
+                onMouseMoveVelocity.ForEach(a => a.Trigger());
+            }
+
+            float mouseWheelDelta = InputHandler.GetMouseWheelDelta();
+            if (mouseWheelDelta != 0) {
+                mouseWheelActions.ForEach(a => a.Trigger(mouseWheelDelta));
+            }
         }
 
         protected override void PrePhysicsUpdate (Stride.Physics.Simulation sender, float tick) {

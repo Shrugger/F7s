@@ -14,8 +14,7 @@ namespace F7s.Engine.InputHandling {
         public override void Register () {
             InputHandler.RegisterMouseWheelAction(this);
         }
-        public void Trigger () {
-            float value = InputHandler.GetMouseWheelDelta();
+        public void Trigger (float value) {
             action.Invoke(value);
             Triggered();
         }
