@@ -210,8 +210,8 @@ namespace F7s.Utility.Mescherei {
             }
         }
 
-        public VertexPositionNormalColor ToStride () {
-            return new VertexPositionNormalColor(Position, Normal, Color);
+        public VertexPositionNormalColor ToStrideVertexPositionNormalColor () {
+            return new VertexPositionNormalColor(Position, Normal, Color.ToStrideColor());
         }
     }
 

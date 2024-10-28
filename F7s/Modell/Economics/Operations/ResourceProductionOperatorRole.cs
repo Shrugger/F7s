@@ -1,7 +1,8 @@
-﻿using F7s.Modell.Conceptual.Agents;
+﻿using F7s.Modell.Conceptual.Agents.Roles;
 using F7s.Modell.Physical.Localities;
 
-namespace F7s.Modell.Economics.Operations {
+namespace F7s.Modell.Economics.Operations
+{
     public abstract class ResourceProductionOperatorRole : Role {
         public ResourceProductionOperation ProductiveOperation { get; private set; }
 

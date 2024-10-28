@@ -1,4 +1,5 @@
-﻿using F7s.Modell.Conceptual.Agents;
+﻿using F7s.Modell.Conceptual.Agents.Institutions;
+using F7s.Modell.Conceptual.Agents.Roles;
 using F7s.Modell.Economics.Agents;
 using F7s.Modell.Economics.Operations;
 using System.Collections.Generic;

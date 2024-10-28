@@ -90,8 +90,8 @@ namespace F7s.Modell.Terrains {
             DownscaleVertexRadii(); // Visible scaling is then done by MeschInstande3D parentage - TODO: a roundabout system that needs to be deprecated.
         }
 
-        public Mesch Render (GraphicsDevice graphicsDevice, GraphicsResourceUsage graphicsResourceUsage) {
-            return Mesch.FromGraph(Graph, graphicsDevice, graphicsResourceUsage);
+        public Mesch Render (GraphicsResourceUsage graphicsResourceUsage) {
+            return Mesch.FromGraph(Graph, graphicsResourceUsage);
         }
 
         public override string ToString () {

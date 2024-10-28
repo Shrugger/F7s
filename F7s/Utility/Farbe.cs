@@ -1,5 +1,5 @@
-﻿using Stride.Core.Mathematics; using F7s.Utility.Geometry.Double;
-using System; using F7s.Utility.Geometry.Double;
+﻿using Stride.Core.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -349,6 +349,11 @@ namespace F7s.Utility {
 
         public Farbe Lerp (Farbe other, float factor) {
             return Lerp(this, other, factor);
+        }
+
+
+        public Color ToStrideColor () {
+            return new Color(R, G, B, A);
         }
 
         #endregion

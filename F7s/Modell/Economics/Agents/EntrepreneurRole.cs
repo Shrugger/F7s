@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using F7s.Modell.Conceptual.Agents;
+using F7s.Modell.Conceptual.Agents.Roles;
 using F7s.Modell.Economics.Enterprises;
 
-namespace F7s.Modell.Economics.Agents {
+namespace F7s.Modell.Economics.Agents
+{
     public class EntrepreneurRole : Role
     {
         // Responsible for handling enterprises.

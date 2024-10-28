@@ -1,5 +1,6 @@
 using F7s.Modell.Abstract;
 using F7s.Modell.Conceptual.Agents.GroupDistributions;
+using F7s.Modell.Conceptual.Agents.Roles;
 using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
 using System;

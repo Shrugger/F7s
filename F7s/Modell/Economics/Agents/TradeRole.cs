@@ -1,11 +1,14 @@
-﻿using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
+﻿using System;
+using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 using System.Collections.Generic;
 using F7s.Modell.Conceptual;
-using F7s.Modell.Conceptual.Agents;
 using F7s.Modell.Economics.Markets;
 using F7s.Modell.Economics.Trade;
+using F7s.Modell.Conceptual.Agents.Roles;
 
-namespace F7s.Modell.Economics.Agents {
+namespace F7s.Modell.Economics.Agents
+{
 
     public class TradeRole : Role
     {

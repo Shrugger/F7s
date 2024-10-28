@@ -1,9 +1,4 @@
-﻿using F7s.Modell.Conceptual.Agents;
-using System;
-using F7s.Utility.Geometry.Double;
-using Stride.Core.Mathematics;
-
-namespace F7s.Modell.Conceptual {
+﻿namespace F7s.Modell.Conceptual.Agents.Roles {
     public class GroupRoleManager : Role {
         public Group Group { get; private set; }
 
@@ -12,9 +7,9 @@ namespace F7s.Modell.Conceptual {
         }
 
         public override void RunRole (double deltaTime) {
-            System.Collections.Generic.List<Role> unassignedRoles = this.Group.UnassignedRoles();
+            System.Collections.Generic.List<Role> unassignedRoles = Group.UnassignedRoles();
             foreach (Role role in unassignedRoles) {
-                role.SetAgent(this.Group);
+                role.SetAgent(Group);
             }
             // TODO: Determine when to assign unassigned roles to qualified group members instead of the group as a whole, and when to reassign roles.
         }

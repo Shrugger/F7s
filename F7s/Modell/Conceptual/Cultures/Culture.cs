@@ -1,9 +1,12 @@
 ﻿using F7s.Modell.Abstract;
-using F7s.Modell.Conceptual.Agents;
-using System; using F7s.Utility.Geometry.Double; using Stride.Core.Mathematics;
+using System;
+using F7s.Utility.Geometry.Double;
+using Stride.Core.Mathematics;
 using System.Collections.Generic;
+using F7s.Modell.Conceptual.Agents.Institutions;
 
-namespace F7s.Modell.Conceptual.Cultures {
+namespace F7s.Modell.Conceptual.Cultures
+{
 
     public class Culture : GameEntity {
 

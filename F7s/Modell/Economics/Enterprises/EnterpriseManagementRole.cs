@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using F7s.Modell.Conceptual.Agents;
+using F7s.Modell.Conceptual.Agents.Roles;
 using F7s.Modell.Economics.Facilities;
 
-namespace F7s.Modell.Economics.Agents {
+namespace F7s.Modell.Economics.Agents
+{
     public class EnterpriseManagementRole : Role
     {
         // Responsible for handling a single enterprise. Coordinates facilities and trade to maximize profits.

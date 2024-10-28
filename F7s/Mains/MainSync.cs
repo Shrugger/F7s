@@ -4,11 +4,10 @@ using F7s.Modell.Handling.PlayerControllers;
 using F7s.Modell.Populators;
 using F7s.Modell.Terrains;
 using F7s.Utility;
+using F7s.Utility.Mescherei;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Stride.CommunityToolkit.Engine;
-using Stride.CommunityToolkit.Rendering.Compositing;
-using Stride.CommunityToolkit.Rendering.ProceduralModels;
 using Stride.Core.Mathematics;
+using Stride.Core.Serialization.Contents;
 using Stride.Engine;
 using Stride.Graphics;
 using Stride.Physics;
@@ -30,11 +29,18 @@ namespace F7s.Mains {
 
         private static MainSync instance;
 
+        public CameraComponent camera;
         public static CameraComponent Camera { get; private set; }
         public static Entity CameraEntity { get; private set; }
         public static Entity CameraParentEntity { get; private set; }
 
+        public static ContentManager ContentManager { get; private set; }
+
+        public static new GraphicsDevice GraphicsDevice { get; private set; }
+
         public override void Start () {
+
+            Stride.Core.Collections.TrackingCollection<Entity> SceneSystemEntities = SceneSystem.SceneInstance.RootScene.Entities;
 
             if (instance != null) {
                 throw new System.Exception();
@@ -42,28 +48,21 @@ namespace F7s.Mains {
                 instance = this;
             }
 
-            System.Diagnostics.Debug.WriteLine("Starting " + this + " with game " + game + " in scene " + Entity.Scene + ".");
-
-
             {
                 game = (Game) Game;
                 Assert.IsNotNull(game);
             }
 
-            {
-                game.AddGraphicsCompositor().AddCleanUIStage();
-                //game.Add3DCamera().Add3DCameraController();
-                game.AddDirectionalLight();
-                game.Add3DGround();
-                game.AddProfiler();
-                game.AddGroundGizmo(position: new Vector3(-5, 0.1f, -5), showAxisName: true);
-            }
+            GraphicsDevice = base.GraphicsDevice;
+            ContentManager = base.Content;
+
 
             Entity.Add(new MainAsync());
 
-            {
+            // InitializeCamera(); // TODO: Reactivate
+            void InitializeCamera () {
                 CameraParentEntity = new Entity("Camera Yawer");
-                CameraParentEntity.Scene = Entity.Scene;
+                SceneSystemEntities.Add(CameraParentEntity);
 
                 CameraEntity = new Entity("Camera Pitcher");
                 CameraParentEntity.AddChild(CameraEntity);
@@ -71,13 +70,11 @@ namespace F7s.Mains {
                 Camera = new CameraComponent();
                 CameraEntity.Add(Camera);
                 Camera.Slot = SceneSystem.GraphicsCompositor.Cameras[0].ToSlotId();
-
-                CameraEntity.Add3DCameraController();
             }
 
             {
                 Entity lightEntity = new Entity("Light Entity");
-                lightEntity.Scene = Entity.Scene;
+                SceneSystemEntities.Add(lightEntity);
                 LightComponent lightComponent = new LightComponent();
                 lightEntity.Add(lightComponent);
                 lightComponent.Type = new LightDirectional();
@@ -96,13 +93,15 @@ namespace F7s.Mains {
                                 continue;
                             }
 
-                            Entity marker = game.Create3DPrimitive(PrimitiveModelType.Cube, new() {
-                                Material = game.CreateMaterial(Color.Gold),
-                                IncludeCollider = false // No collider for simple movement
-                            });
-                            marker.Name = "Marker " + x + " " + y + " " + z;
+                            Entity marker = new Entity("Marker " + x + " " + y + " " + z, new Vector3(x, y, z));
+                            // SceneSystemEntities.Add(marker);
                             marker.Scene = Entity.Scene;
-                            ;
+                            ModelComponent modelComponent = new ModelComponent();
+                            marker.Add(modelComponent);
+
+                            Graph graph = Icosahedra.IcosphereGraph();
+                            modelComponent.Model = Mesch.FromGraph(graph, GraphicsResourceUsage.Immutable).model;
+
                         }
                     }
                 }
@@ -110,9 +109,15 @@ namespace F7s.Mains {
 
             {
                 Terrain terrain = new Terrain("Tiny Planet", 1, 2, Entity, new PlanetologyData(1, 1, 1, true, true, 5)); // TODO: Reactivate after child's play.
-                Mesch terrainMesch = terrain.Render(GraphicsDevice, Stride.Graphics.GraphicsResourceUsage.Default);
+                Mesch terrainMesch = terrain.Render(Stride.Graphics.GraphicsResourceUsage.Default);
                 Assert.IsNotNull(terrainMesch);
+                Entity terrainEntity = new Entity("Terrain");
+                ModelComponent modelComponent = new ModelComponent();
+                modelComponent.Model = terrainMesch.model;
+                terrainEntity.Add(modelComponent);
+                SceneSystemEntities.Add(terrainEntity);
             }
+
             populator = new PerduePopulator();
 
             {
@@ -130,7 +135,7 @@ namespace F7s.Mains {
                 };
 
                 canvas.Children.Add(new TextBlock {
-                    Text = "Let's see about this.",
+                    Text = "Main Sync to Fleet Command.",
                     TextColor = Color.White,
                     Font = font,
                     TextSize = 24,
@@ -146,7 +151,7 @@ namespace F7s.Mains {
                     }
                 };
 
-                uiEntity.Scene = Entity.Scene;
+                SceneSystemEntities.Add(uiEntity);
             }
         }
 
@@ -170,6 +175,14 @@ namespace F7s.Mains {
         }
 
         public override void Update () {
+
+            if (camera != null) {
+                // TODO: Remove these.
+                Camera = camera;
+                CameraEntity = camera.Entity;
+                CameraParentEntity = CameraEntity;
+            }
+
             InitializeSimulationUpdateListeners();
 
             Frogram.UpdateAll();
@@ -178,7 +191,7 @@ namespace F7s.Mains {
             Origin.Update(deltaTime);
 
             Player.Update(deltaTime);
-            Kamera.Update(deltaTime);
+            // Kamera.Update(deltaTime); // TODO: Reactivate
 
             if (!Zeit.Paused) {
                 GameEntity.OnEngineUpdate(1.0, false);

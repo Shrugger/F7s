@@ -1,7 +1,8 @@
 ﻿using F7s.Modell.Abstract;
+using F7s.Modell.Conceptual.Agents.Roles;
 using System.Collections.Generic;
 
-namespace F7s.Modell.Conceptual.Agents
+namespace F7s.Modell.Conceptual.Agents.Institutions
 {
     // Basically a preset of roles. Groups should be able to institute insititutions in order to specialize. 
     // Insitutions may also contain some special logic, though it may be better to code that into agencies.
@@ -25,10 +26,11 @@ namespace F7s.Modell.Conceptual.Agents
     {
         public readonly List<Role> Roles;
 
-        protected Institution () {
-            this.Roles = GenerateRoles();
+        protected Institution()
+        {
+            Roles = GenerateRoles();
         }
 
-        protected abstract List<Role> GenerateRoles ();
+        protected abstract List<Role> GenerateRoles();
     }
 }

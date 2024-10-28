@@ -45,7 +45,7 @@ namespace F7s.Utility.Mescherei {
             return vertexArray;
         }
         private VertexPositionNormalColor[] BakeVertexArray () {
-            return Vertices.ConvertAll(v => v.ToStride()).ToArray();
+            return Vertices.ConvertAll(v => v.ToStrideVertexPositionNormalColor()).ToArray();
         }
         public int[] GetIndexArray () {
             if (indexArray == null) {
