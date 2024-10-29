@@ -2,15 +2,20 @@
 using F7s.Engine.InputHandling;
 using F7s.Modell.Abstract;
 using F7s.Modell.Handling.PlayerControllers;
+using F7s.Modell.Physical;
+using F7s.Modell.Physical.Bodies;
+using F7s.Modell.Physical.Localities;
 using F7s.Modell.Populators;
 using F7s.Modell.Terrains;
 using F7s.Utility;
+using F7s.Utility.Geometry.Double;
 using F7s.Utility.Mescherei;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Stride.Core.Mathematics;
 using Stride.Core.Serialization.Contents;
 using Stride.Engine;
 using Stride.Graphics;
+using Stride.Input;
 using Stride.Physics;
 using Stride.Rendering;
 using Stride.Rendering.Lights;
@@ -26,7 +31,6 @@ namespace F7s.Mains {
 
         private Populator populator;
 
-        public static Game game { get; private set; }
 
         private static MainSync instance;
         public static CameraComponent Camera { get; private set; }
@@ -34,8 +38,9 @@ namespace F7s.Mains {
         public static Entity CameraParentEntity { get; private set; }
 
         public static ContentManager ContentManager { get; private set; }
-
         public static new GraphicsDevice GraphicsDevice { get; private set; }
+        public static InputManager InputManager { get; private set; }
+        public static new Game Game { get; private set; }
 
         public override void Start () {
 
@@ -48,13 +53,13 @@ namespace F7s.Mains {
             }
 
             {
-                game = (Game) Game;
-                Assert.IsNotNull(game);
+                Game = (Game) base.Game;
+                Assert.IsNotNull(Game);
+
+                GraphicsDevice = base.GraphicsDevice;
+                ContentManager = base.Content;
+                InputManager = base.Input;
             }
-
-            GraphicsDevice = base.GraphicsDevice;
-            ContentManager = base.Content;
-
 
             Entity.Add(new MainAsync());
 
@@ -72,6 +77,22 @@ namespace F7s.Mains {
             }
 
             {
+                Locality playerLocation = new Fixed(null, RootLocality.Instance, MatrixD.Transformation(new Double3(0, 0, 0), QuaternionD.Identity));
+                playerLocation.Name = "Player Location";
+                PhysicalEntity playerEntity = new Body("Player", new Double3(1.0f, 2.0f, 0.5f), new Farbe(0.0f, 0.5f, 0.25f));
+                Locality playerEntityLocation = new Fixed(playerEntity, playerLocation, MatrixD.Identity);
+                playerEntityLocation.Name = "Player Entity Location";
+                playerEntity.SetQuantity(new Quantity(100));
+                Player.SetPhysicalEntity(playerEntity);
+            }
+
+            {
+                Origin.UseKameraAsFloatingOrigin();
+                Player.ActivateFreeCameraControls();
+                Kamera.DetachFromPlayer();
+            }
+
+            {
                 Entity lightEntity = new Entity("Light Entity");
                 SceneSystemEntities.Add(lightEntity);
                 LightComponent lightComponent = new LightComponent();
@@ -82,17 +103,19 @@ namespace F7s.Mains {
             }
 
             {
-                for (int x = -100; x <= 100; x += 25) {
+                // Nonphysical entites
+                int interval = 50;
+                for (int x = -100; x <= 100; x += interval) {
 
-                    for (int y = -100; y <= 100; y += 25) {
+                    for (int y = -100; y <= 100; y += interval) {
 
-                        for (int z = -100; z <= 100; z += 25) {
+                        for (int z = -100; z <= 100; z += interval) {
                             Vector3 location = new Vector3(x, y, z);
                             if (location.Length() < 10) {
                                 continue;
                             }
 
-                            Entity marker = new Entity("Marker " + x + " " + y + " " + z, new Vector3(x, y, z));
+                            Entity marker = new Entity("Marker " + x + " " + y + " " + z, location);
                             SceneSystemEntities.Add(marker);
 
                             ModelComponent modelComponent = new ModelComponent();
@@ -100,6 +123,37 @@ namespace F7s.Mains {
 
                             Graph graph = Icosahedra.IcosphereGraph();
                             graph.ApplyToAllVertices((Vertex v) => v.SetColor(new Farbe(v.Position.X, v.Position.Y, v.Position.Z)));
+                            modelComponent.Model = Mesch.FromGraph(graph, GraphicsResourceUsage.Immutable).model;
+
+                        }
+                    }
+                }
+            }
+            {
+                // Physical entities
+                int interval = 50;
+                for (int x = -100; x <= 100; x += interval) {
+
+                    for (int y = -100; y <= 100; y += interval) {
+
+                        for (int z = -100; z <= 100; z += interval) {
+                            Vector3 rawLocation = new Vector3(x, y, z) + Vector3.One;
+                            if (rawLocation.Length() < 10) {
+                                continue;
+                            }
+
+                            Locality locality = new Fixed(null, anchor: RootLocality.Instance, transform: MatrixD.Translation(rawLocation));
+                            Vector3 location = (Vector3) locality.GetAbsoluteTransform().TranslationVector;
+                            Assert.AreEqual(rawLocation, location);
+
+                            Entity marker = new Entity("Marker " + x + " " + y + " " + z, location);
+                            SceneSystemEntities.Add(marker);
+
+                            ModelComponent modelComponent = new ModelComponent();
+                            marker.Add(modelComponent);
+
+                            Graph graph = Icosahedra.IcosphereGraph();
+                            graph.ApplyToAllVertices((Vertex v) => v.SetColor(new Farbe(1, 0, 0)));
                             modelComponent.Model = Mesch.FromGraph(graph, GraphicsResourceUsage.Immutable).model;
 
                         }
@@ -122,10 +176,10 @@ namespace F7s.Mains {
 
             {
                 // UI Test
-                Assert.IsNotNull(Game);
-                Assert.IsNotNull(Game.Content);
+                Assert.IsNotNull(base.Game);
+                Assert.IsNotNull(base.Game.Content);
                 SpriteFont? font = null;
-                font = Game.Content.Load<SpriteFont>("StrideDefaultFont");
+                font = base.Game.Content.Load<SpriteFont>("StrideDefaultFont");
                 var canvas = new Canvas {
                     Width = 300,
                     Height = 100,

@@ -11,17 +11,17 @@ namespace F7s.Modell.Physical.Localities {
         private Locality anchor;
         public MatrixD Transform { get; private set; }
 
-        public Fixed (PhysicalEntity entity, MatrixD? transform = null, Locality anchor = null, Double3? velocity = null) : base(entity, anchor) {
+        public Fixed (PhysicalEntity entity, Locality anchor, MatrixD? transform = null, Double3? velocity = null) : base(entity, anchor) {
             Transform = transform ?? MatrixD.Identity;
             this.anchor = anchor;
         }
 
         public override Locality Sibling (PhysicalEntity entity) {
-            return new Fixed(entity, Transform, anchor);
+            return new Fixed(entity, anchor, Transform);
         }
 
         public static Fixed FixedSibling (PhysicalEntity entity, Locality sibling) {
-            return new Fixed(entity, sibling.GetLocalTransform(), sibling.HierarchySuperior(), null);
+            return new Fixed(entity, sibling.HierarchySuperior(), sibling.GetLocalTransform(), null);
         }
 
         public enum ReanchorMethodology { MaintainAbsoluteTransform, MaintainLocalTransform, UseNewTransform }
@@ -36,17 +36,17 @@ namespace F7s.Modell.Physical.Localities {
                 case ReanchorMethodology.MaintainAbsoluteTransform:
                     Debug.Assert(null == newTransform);
                     MatrixD newLocalTransform = CalculateRelativeTransform(newAnchor);
-                    newLocality = new Fixed(physicalEntity, newLocalTransform, newAnchor);
+                    newLocality = new Fixed(physicalEntity, newAnchor, newLocalTransform);
                     AssertEquivalence(this, newLocality);
                     break;
                 case ReanchorMethodology.MaintainLocalTransform:
                     Debug.Assert(null == newTransform);
-                    newLocality = new Fixed(physicalEntity, Transform, newAnchor);
+                    newLocality = new Fixed(physicalEntity, newAnchor, Transform);
                     break;
                 case ReanchorMethodology.UseNewTransform:
                     Debug.Assert(newTransform != null);
                     Debug.Assert(Mathematik.ValidPositional(newTransform.Value));
-                    newLocality = new Fixed(physicalEntity, newTransform, newAnchor);
+                    newLocality = new Fixed(physicalEntity, newAnchor, newTransform);
                     break;
                 default:
                     throw new NotImplementedException(methodology.ToString());
@@ -94,11 +94,15 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public override void Translate (Double3 relativeOffset) {
+            if (relativeOffset == Double3.Zero) {
+                return;
+            }
             if (Mathematik.Invalid(relativeOffset)) {
                 throw new Exception(relativeOffset.ToString());
             }
-            throw new NotImplementedException(); // TODO: Redo for Stride.
-            //this.Transform = this.Transform.TranslatedLocal(relativeOffset);
+            Transform = MatrixD.Translation(relativeOffset) * Transform;
+            Double3 newTranslation = Transform.TranslationVector;
+            Debug.WriteLine("Additional translation length: " + newTranslation.Length());
             if (Mathematik.Invalid(Transform.TranslationVector)) {
                 throw new Exception(Transform.TranslationVector.ToString());
             }

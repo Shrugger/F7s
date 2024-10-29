@@ -30,7 +30,7 @@ namespace F7s.Modell.Conceptual.Agents.GroupDistributions {
             return this.geographicDistribution.RepresentativeLocality();
         }
         public Locality GenerateIndividualMemberLocality () {
-            return new Fixed(null, null, this.GetRepresentativeLocality());
+            return new Fixed(null, this.GetRepresentativeLocality(), null);
         }
 
         public GroupComposition Copy () {

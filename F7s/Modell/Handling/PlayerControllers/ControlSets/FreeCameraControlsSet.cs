@@ -3,30 +3,33 @@ using F7s.Engine.InputHandling;
 using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
 using Stride.Input;
-using System;
 namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
     public class FreeCameraControlsSet : InputSet {
         public FreeCameraControlsSet () {
             Add(new InputVectorAction(Player.ActivateUiControls, new KeyButtonInput(Keys.Tab, ButtonInput.ButtonStates.Pressed)));
 
+            float PanSpeed () {
+                return (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed;
+            }
+
             {
                 void MoveLeft () {
-                    Kamera.Translate(-Double3.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(-Double3.UnitX * PanSpeed());
                 }
                 void MoveRight () {
-                    Kamera.Translate(Double3.UnitX * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(Double3.UnitX * PanSpeed());
                 }
                 void MoveForward () {
-                    Kamera.Translate(Double3.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(Double3.UnitZ * PanSpeed());
                 }
                 void MoveBackward () {
-                    Kamera.Translate(-Double3.UnitZ * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(-Double3.UnitZ * PanSpeed());
                 }
                 void MoveUp () {
-                    Kamera.Translate(Double3.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(Double3.UnitY * PanSpeed());
                 }
                 void MoveDown () {
-                    Kamera.Translate(-Double3.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
+                    Kamera.Translate(-Double3.UnitY * PanSpeed());
                 }
                 const float RollSensitivity = 50;
                 void RollLeft () {

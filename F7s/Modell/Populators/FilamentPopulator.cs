@@ -16,7 +16,6 @@ using F7s.Utility.Geometry.Double;
 using F7s.Utility.Measurements;
 using Stride.Core.Mathematics;
 using Stride.Input;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -64,18 +63,18 @@ namespace F7s.Modell.Populators {
 
             for (int s = 1; s <= 1; s++) {
                 Locality locality = new Fixed(null,
-                    MatrixD.Transformation(-Double3.UnitX * 200, QuaternionD.Identity),
                     Player.GetLocalityParent().HierarchySuperior()
-                    );
+,
+                    MatrixD.Transformation(-Double3.UnitX * 200, QuaternionD.Identity));
                 Group scavengerCommunity = locals.EstablishSubgroup("Scavengers #" + s, new GroupComposition(100, locality));
                 scavengerCommunity.InstituteInstitution(new SubsistenceScavengingInstitution());
                 scavengerCommunity.ManifestMember("Jim", locality);
             }
             for (int f = 1; f <= 1; f++) {
                 Locality locality = new Fixed(null,
-                    MatrixD.Transformation(Double3.UnitX * 10, QuaternionD.Identity),
                     Player.GetLocalityParent().HierarchySuperior()
-                    );
+,
+                    MatrixD.Transformation(Double3.UnitX * 10, QuaternionD.Identity));
                 Group farmingCommunity = locals.EstablishSubgroup("Farmers #" + f, new GroupComposition(100, locality));
                 farmingCommunity.InstituteInstitution(new SubsistenceFarming());
                 Human bob = (Human) farmingCommunity.ManifestMember("Bob", locality);
@@ -89,7 +88,7 @@ namespace F7s.Modell.Populators {
             int planetResolution = 4;
 
             coer = new Star("Cör Alpha", Constants.RadiusOfTheSun * 25f * scale, new Farbe(1, 0.8f, 0));
-            new Fixed(coer, MatrixD.Identity, RootLocality.Instance);
+            new Fixed(coer, RootLocality.Instance, MatrixD.Identity);
 
             SolidPlanet tophet = new SolidPlanet("Tophet", 15000000 * scale, new Farbe(0.1f, 0.0f, 0.2f), planetResolution, new PlanetologyData(1000, 0, null, false, false, 2000));
             new Orbiting(tophet, coer.radius * 5 * scale, coer);
@@ -124,7 +123,7 @@ namespace F7s.Modell.Populators {
             pml1.SetQuantity(new Quantity(Constants.MassOfEarth * 0.5 * massScale));
 
             Body megastructure = new Body("Megastructure", new Double3(2000, 500, 4000) * scale, new Farbe(0.25f, 0.25f, 0.25f, 1));
-            new Fixed(megastructure, MatrixD.Identity, pml1);
+            new Fixed(megastructure, pml1, MatrixD.Identity);
             megastructure.SetQuantity(new Quantity(1000000 * massScale));
 
             Body terminusStation = new Body("Terminus Station", new Double3(1000, 2000, 1000) * scale, new Farbe(0.25f, 0.25f, 0.25f, 1));
@@ -145,10 +144,10 @@ namespace F7s.Modell.Populators {
                     QuaternionD.Identity));
             }
 
-            Locality playerLocation = new Fixed(null, MatrixD.Transformation(new Double3(0, 6, 0) * scale, QuaternionD.Identity), terminusThrone);
+            Locality playerLocation = new Fixed(null, terminusThrone, MatrixD.Transformation(new Double3(0, 6, 0) * scale, QuaternionD.Identity));
             playerLocation.Name = "Player Location";
             PhysicalEntity playerEntity = new Body("Player", new Double3(1.0f, 2.0f, 0.5f), new Farbe(0.0f, 0.5f, 0.25f));
-            Locality playerEntityLocation = new Fixed(playerEntity, MatrixD.Identity, playerLocation);
+            Locality playerEntityLocation = new Fixed(playerEntity, playerLocation, MatrixD.Identity);
             playerEntityLocation.Name = "Player Entity Location";
             playerEntity.SetQuantity(new Quantity(100 * massScale));
             Player.SetPhysicalEntity(playerEntity);

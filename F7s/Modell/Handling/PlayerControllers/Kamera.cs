@@ -32,10 +32,10 @@ namespace F7s.Modell.Handling.PlayerControllers {
                 Locality fallback = Player.GetLocality();
                 if (fallback != null) {
                     fallback.Validate();
-                    locality = new Fixed(null, MatrixD.Identity, fallback);
+                    locality = new Fixed(null, fallback, MatrixD.Identity);
                     locality.Name = "Camera Locality";
                 } else {
-                    throw new Exception("No player locality and no fallback found.");
+                    throw new Exception("No Kamera locality and no fallback (Player locality) found.");
                 }
             }
             return locality;
@@ -56,6 +56,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
 
         private static void UpdateCameraNodeTransform () {
             MatrixD localityTransform = GetLocality().GetAbsoluteTransform();
+
             Matrix parentTransform = Mathematik.Downscale(MatrixD.Transformation(localityTransform.TranslationVector, QuaternionD.Identity));
             Matrix cameraTransform = Mathematik.Downscale(MatrixD.Transformation(Double3.Zero, Mathematik.ExtractRotation(localityTransform)));
 
@@ -99,7 +100,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             if (cameraFixedLocality != null) {
                 SetLocality(cameraFixedLocality.Reanchored(playerLocality.HierarchySuperior()));
             } else {
-                Fixed newCameraLocality = new Fixed(null, MatrixD.Identity, playerLocality.HierarchySuperior());
+                Fixed newCameraLocality = new Fixed(null, playerLocality.HierarchySuperior(), MatrixD.Identity);
                 newCameraLocality.Name = "Cam-Loc";
                 SetLocality(newCameraLocality);
             }

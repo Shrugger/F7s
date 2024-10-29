@@ -11,8 +11,6 @@ namespace F7s.Engine.InputHandling {
 
         // TODO: Make sure that all AbstractInputActions are actually registered, triggerable and handled.
 
-        private static readonly InputManager strideInputManager = new InputManager();
-
         private static readonly List<InputVectorAction> eventActions = new List<InputVectorAction>();
         private static readonly List<InputVectorAction> keyHoldActionsOnUpdate = new List<InputVectorAction>();
         private static readonly List<InputVectorAction> keyHoldActionsBeforePhysicsUpdate = new List<InputVectorAction>();
@@ -21,7 +19,8 @@ namespace F7s.Engine.InputHandling {
         private static readonly List<MouseWheelAction> mouseWheelActions = new List<MouseWheelAction>();
 
         protected override void Update () {
-            if (strideInputManager.KeyEvents.Count > 0) {
+
+            if (MainSync.InputManager.KeyEvents.Count > 0) {
                 keyHoldActionsOnUpdate.ForEach(a => a.TriggerIfMatch());
             }
             eventActions.ForEach(a => a.TriggerIfMatch());
@@ -38,7 +37,7 @@ namespace F7s.Engine.InputHandling {
         }
 
         protected override void PrePhysicsUpdate (Stride.Physics.Simulation sender, float tick) {
-            if (strideInputManager.KeyEvents.Count > 0) {
+            if (MainSync.InputManager.KeyEvents.Count > 0) {
                 keyHoldActionsBeforePhysicsUpdate.ForEach(a => a.TriggerIfMatch());
             }
         }
@@ -78,77 +77,77 @@ namespace F7s.Engine.InputHandling {
         }
 
         public static void LockMousePosition () {
-            strideInputManager.LockMousePosition();
+            MainSync.InputManager.LockMousePosition();
         }
         public static void UnlockMousePosition () {
-            strideInputManager.UnlockMousePosition();
+            MainSync.InputManager.UnlockMousePosition();
         }
 
         public static void SetMouseVisible () {
-            MainSync.game.IsMouseVisible = true;
+            MainSync.Game.IsMouseVisible = true;
         }
 
         public static void SetMouseInvisible () {
-            MainSync.game.IsMouseVisible = false;
+            MainSync.Game.IsMouseVisible = false;
         }
 
         public static void SetMousePosition (Vector2 position) {
-            strideInputManager.Mouse.SetPosition(position);
+            MainSync.InputManager.Mouse.SetPosition(position);
         }
 
         public static Vector2 GetMousePosition () {
-            return strideInputManager.MousePosition; // Alternatively: strideInputManager.Mouse.Position;
+            return MainSync.InputManager.MousePosition; // Alternatively: MainSync.InputManager.Mouse.Position;
         }
 
         public static Vector2 GetMouseDelta () {
-            return strideInputManager.MouseDelta; // Alternatively: strideInputManager.Mouse.Delta;
+            return MainSync.InputManager.MouseDelta; // Alternatively: MainSync.InputManager.Mouse.Delta;
         }
         public static float GetMouseWheelDelta () {
-            return strideInputManager.MouseWheelDelta;
+            return MainSync.InputManager.MouseWheelDelta;
         }
 
         public static bool AnyMouseButtonInteraction () {
             return PressedAnyMouseButton() || HeldAnyMouseButton() || ReleasedAnyMouseButton();
         }
         public static bool PressedAnyMouseButton () {
-            return strideInputManager.HasPressedMouseButtons;
+            return MainSync.InputManager.HasPressedMouseButtons;
         }
         public static bool HeldAnyMouseButton () {
-            return strideInputManager.HasDownMouseButtons;
+            return MainSync.InputManager.HasDownMouseButtons;
         }
         public static bool ReleasedAnyMouseButton () {
-            return strideInputManager.HasReleasedMouseButtons;
+            return MainSync.InputManager.HasReleasedMouseButtons;
         }
         public static bool MouseButtonPressed (MouseButton mouseButton) {
-            return strideInputManager.IsMouseButtonPressed(mouseButton);
+            return MainSync.InputManager.IsMouseButtonPressed(mouseButton);
         }
         public static bool MouseButtonHeld (MouseButton mouseButton) {
-            return strideInputManager.IsMouseButtonDown(mouseButton);
+            return MainSync.InputManager.IsMouseButtonDown(mouseButton);
         }
         public static bool MouseButtonReleased (MouseButton mouseButton) {
-            return strideInputManager.IsMouseButtonReleased(mouseButton);
+            return MainSync.InputManager.IsMouseButtonReleased(mouseButton);
         }
 
         public static bool AnyKeysInteraction () {
             return PressedAnyKeys() || HeldAnyKeys() || ReleasedAnyKeys();
         }
         public static bool PressedAnyKeys () {
-            return strideInputManager.HasPressedKeys;
+            return MainSync.InputManager.HasPressedKeys;
         }
         public static bool HeldAnyKeys () {
-            return strideInputManager.HasDownKeys;
+            return MainSync.InputManager.HasDownKeys;
         }
         public static bool ReleasedAnyKeys () {
-            return strideInputManager.HasReleasedKeys;
+            return MainSync.InputManager.HasReleasedKeys;
         }
         public static bool KeyPressed (Keys key) {
-            return strideInputManager.IsKeyPressed(key);
+            return MainSync.InputManager.IsKeyPressed(key);
         }
         public static bool KeyHeld (Keys key) {
-            return strideInputManager.IsKeyDown(key);
+            return MainSync.InputManager.IsKeyDown(key);
         }
         public static bool KeyReleased (Keys key) {
-            return strideInputManager.IsKeyReleased(key);
+            return MainSync.InputManager.IsKeyReleased(key);
         }
 
         public static Vector2 GetMouseVelocity () {

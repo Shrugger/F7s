@@ -183,7 +183,6 @@ namespace F7s.Modell.Physical.Localities {
             MatrixD absoluteOther = relativeTo.CalculateRelativeTransformUpToRoot(commonRoot);
 
             MatrixD result = Mathematik.Inverse(absoluteOther) * absoluteSelf;
-            result.Orthonormalize(); // TODO: Verify that this actually works. MatrixD is a struct after all.
 
             if (Mathematik.InvalidPositional(result)) {
                 throw new Exception("Invalid relative transform of " + this + " to " + relativeTo + ": " + result);

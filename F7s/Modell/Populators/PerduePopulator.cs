@@ -37,18 +37,18 @@ namespace F7s.Modell.Populators {
 
             for (int s = 1; s <= 1; s++) {
                 Locality scavengerCommunityLocality = new Fixed(null,
-                    MatrixD.Transformation(-Double3.UnitX * 200, QuaternionD.Identity),
                     RootLocality.Instance
-                    );
+,
+                    MatrixD.Transformation(-Double3.UnitX * 200, QuaternionD.Identity));
                 Group scavengerCommunity = locals.EstablishSubgroup("Scavengers #" + s, new GroupComposition(100, scavengerCommunityLocality));
                 scavengerCommunity.InstituteInstitution(new SubsistenceScavengingInstitution());
                 scavengerCommunity.ManifestMember("Jim", scavengerCommunityLocality);
             }
             for (int f = 1; f <= 1; f++) {
                 Locality farmingCommunityLocality = new Fixed(null,
-                    MatrixD.Transformation(Double3.UnitX * 10, QuaternionD.Identity),
                     RootLocality.Instance
-                    );
+,
+                    MatrixD.Transformation(Double3.UnitX * 10, QuaternionD.Identity));
                 Group farmingCommunity = locals.EstablishSubgroup("Farmers #" + f, new GroupComposition(100, farmingCommunityLocality));
                 farmingCommunity.InstituteInstitution(new SubsistenceFarming());
                 Human bob = (Human) farmingCommunity.ManifestMember("Bob", farmingCommunityLocality);
@@ -57,10 +57,10 @@ namespace F7s.Modell.Populators {
 
         private void GeneratePlayer () {
 
-            Locality playerLocation = new Fixed(null, MatrixD.Transformation(new Double3(0, 6, 0), QuaternionD.Identity), RootLocality.Instance);
+            Locality playerLocation = new Fixed(null, RootLocality.Instance, MatrixD.Transformation(new Double3(0, 6, 0), QuaternionD.Identity));
             playerLocation.Name = "Player Location";
             PhysicalEntity playerEntity = new Body("Player", new Double3(1.0, 2.0, 0.5), new Farbe(0.0f, 0.5f, 0.25f));
-            Locality playerEntityLocation = new Fixed(playerEntity, MatrixD.Identity, playerLocation);
+            Locality playerEntityLocation = new Fixed(playerEntity, playerLocation, MatrixD.Identity);
             playerEntityLocation.Name = "Player Entity Location";
             playerEntity.SetQuantity(new Quantity(100));
             Player.SetPhysicalEntity(playerEntity);

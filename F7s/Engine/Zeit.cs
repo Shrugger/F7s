@@ -1,4 +1,5 @@
-﻿using F7s.Utility.Measurements;
+﻿using F7s.Mains;
+using F7s.Utility.Measurements;
 using Stride.Games;
 using System;
 namespace F7s.Engine {
@@ -13,8 +14,6 @@ namespace F7s.Engine {
         private static double timePaused = 0;
         private static double realDateOfLastPausing = 0;
 
-        private static readonly GameTime StrideGameTime = new GameTime();
-
         public static string Timestamp () {
             return "F+" + GetCurrentFrame() + " T+" + Measurement.MeasureTime(GetEngineTimeSeconds()) + ": ";
         }
@@ -25,14 +24,18 @@ namespace F7s.Engine {
 
         public static int GetCurrentFrame () {
             if (currentFrameGetter == null) {
-                return StrideGameTime.FrameCount;
+                return GameTime().FrameCount;
             } else {
                 return currentFrameGetter();
             }
         }
 
+        public static GameTime GameTime () {
+            return MainSync.Game.UpdateTime;
+        }
+
         public static double DeltaTimeSeconds () {
-            return StrideGameTime.Elapsed.TotalSeconds;
+            return GameTime().Elapsed.TotalSeconds;
         }
 
         public static void SetSimulationDateGetter (Func<double> seconds) {
@@ -49,7 +52,7 @@ namespace F7s.Engine {
         }
 
         public static double GetEngineTimeSeconds () {
-            return StrideGameTime.WarpElapsed.TotalSeconds;
+            return GameTime().WarpElapsed.TotalSeconds;
         }
 
         public static void TogglePause () {

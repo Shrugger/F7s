@@ -83,7 +83,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
         }
 
         public static void UseKameraAsOrigin () {
-            Locality newLocality = new Fixed(null, MatrixD.Identity, Kamera.GetLocality());
+            Locality newLocality = new Fixed(null, Kamera.GetLocality(), MatrixD.Identity);
             newLocality.Name = "Ori-Cam";
             SetOriginLocality(newLocality);
             if (logOriginSwitchs) {
@@ -109,7 +109,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
         }
 
         public static void UsePlayerAsOrigin () {
-            Locality newLocality = new Fixed(Player.GetPhysicalEntity(), MatrixD.Identity, Player.GetLocality());
+            Locality newLocality = new Fixed(Player.GetPhysicalEntity(), Player.GetLocality(), MatrixD.Identity);
             newLocality.Name = "Ori-Ple";
             SetOriginLocality(newLocality);
             if (logOriginSwitchs) {

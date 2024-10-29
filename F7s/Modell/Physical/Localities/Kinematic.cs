@@ -4,7 +4,7 @@ using Stride.Core.Mathematics;
 namespace F7s.Modell.Physical.Localities {
     public class Kinematic : Fixed {
         private Double3 velocity;
-        public Kinematic (PhysicalEntity entity, MatrixD transform, Locality anchor = null, Double3? velocity = null) : base(entity, transform, anchor) {
+        public Kinematic (PhysicalEntity entity, MatrixD transform, Locality anchor = null, Double3? velocity = null) : base(entity, anchor, transform) {
             this.velocity = velocity ?? Double3.Zero;
         }
 

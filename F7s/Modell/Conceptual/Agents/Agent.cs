@@ -112,7 +112,7 @@ namespace F7s.Modell.Conceptual.Agents {
             base.Update(deltaTime);
 
             if (assignedRoles.Count == 0) {
-                fallbackRole.RunRole(deltaTime);
+                fallbackRole?.RunRole(deltaTime);
             }
 
             assignedRoles.ForEach(r => r.RunRole(deltaTime));
