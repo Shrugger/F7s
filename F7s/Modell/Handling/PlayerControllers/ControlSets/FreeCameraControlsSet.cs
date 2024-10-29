@@ -6,7 +6,7 @@ using Stride.Input;
 namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
     public class FreeCameraControlsSet : InputSet {
         public FreeCameraControlsSet () {
-            Add(new InputVectorAction(Player.ActivateUiControls, new KeyButtonInput(Keys.Tab, ButtonInput.ButtonStates.Pressed)));
+            Add(new ComplexInputAction(Player.ActivateUiControls, new KeyButtonInput(Keys.Tab, ButtonInput.ButtonStates.Pressed)));
 
             float PanSpeed () {
                 return (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed;
@@ -39,16 +39,16 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
                     Kamera.RotateEcliptic(0, 0, (float) Zeit.DeltaTimeSeconds() * RollSensitivity);
                 }
 
-                Add(new InputVectorAction(MoveLeft, Keys.A));
-                Add(new InputVectorAction(MoveRight, Keys.D));
-                Add(new InputVectorAction(MoveForward, Keys.W));
-                Add(new InputVectorAction(MoveBackward, Keys.S));
-                Add(new InputVectorAction(MoveUp, Keys.Space));
-                Add(new InputVectorAction(MoveDown, Keys.LeftAlt));
-                Add(new InputVectorAction(RollLeft, Keys.Q));
-                Add(new InputVectorAction(RollRight, Keys.E));
-                Add(new InputVectorAction(Player.SpeedUp, Keys.Up));
-                Add(new InputVectorAction(Player.SpeedDown, Keys.Down));
+                Add(new ContinuousInputAction(MoveLeft, Keys.A));
+                Add(new ContinuousInputAction(MoveRight, Keys.D));
+                Add(new ContinuousInputAction(MoveForward, Keys.W));
+                Add(new ContinuousInputAction(MoveBackward, Keys.S));
+                Add(new ContinuousInputAction(MoveUp, Keys.Space));
+                Add(new ContinuousInputAction(MoveDown, Keys.LeftAlt));
+                Add(new ContinuousInputAction(RollLeft, Keys.Q));
+                Add(new ContinuousInputAction(RollRight, Keys.E));
+                Add(new InstantaneousInputAction(Player.SpeedUp, Keys.Up));
+                Add(new InstantaneousInputAction(Player.SpeedDown, Keys.Down));
 
                 void AlterGlobalScaleFactor (float multiplier) {
                     float oldScaleFactor = RepresentationSettings.GlobalScaleFactor;
@@ -72,7 +72,7 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
                 Add(new MouseDeltaAction(Player.RotateCamera));
             }
 
-            Add(new InputVectorAction(() => { Kamera.SetTransform(MatrixD.Identity); }, new KeyButtonInput(Keys.R, ButtonInput.ButtonStates.Pressed), new KeyButtonInput(Keys.LeftCtrl, ButtonInput.ButtonStates.HeldDown)));
+            Add(new ComplexInputAction(() => { Kamera.SetTransform(MatrixD.Identity); }, new KeyButtonInput(Keys.R, ButtonInput.ButtonStates.Pressed), new KeyButtonInput(Keys.LeftCtrl, ButtonInput.ButtonStates.HeldDown)));
         }
 
         protected override void OnActivation () {

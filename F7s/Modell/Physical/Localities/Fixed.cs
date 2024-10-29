@@ -102,7 +102,7 @@ namespace F7s.Modell.Physical.Localities {
             }
             Transform = MatrixD.Translation(relativeOffset) * Transform;
             Double3 newTranslation = Transform.TranslationVector;
-            Debug.WriteLine("Additional translation length: " + newTranslation.Length());
+
             if (Mathematik.Invalid(Transform.TranslationVector)) {
                 throw new Exception(Transform.TranslationVector.ToString());
             }

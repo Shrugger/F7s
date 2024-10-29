@@ -1,7 +1,7 @@
-﻿using System;
-namespace F7s.Engine.InputHandling {
+﻿namespace F7s.Engine.InputHandling {
 
     public abstract class AbstractInputAction {
+
         public readonly string name;
 
         public AbstractInputAction (string name) {
@@ -12,7 +12,7 @@ namespace F7s.Engine.InputHandling {
         }
 
         protected void Triggered () {
-            System.Diagnostics.Debug.WriteLine("Input: " + ToString());
+
         }
 
         public abstract void Register ();

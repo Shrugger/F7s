@@ -4,6 +4,8 @@ using Stride.Core.Mathematics;
 using Stride.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace F7s.Engine.InputHandling {
 
@@ -11,20 +13,43 @@ namespace F7s.Engine.InputHandling {
 
         // TODO: Make sure that all AbstractInputActions are actually registered, triggerable and handled.
 
-        private static readonly List<InputVectorAction> eventActions = new List<InputVectorAction>();
-        private static readonly List<InputVectorAction> keyHoldActionsOnUpdate = new List<InputVectorAction>();
-        private static readonly List<InputVectorAction> keyHoldActionsBeforePhysicsUpdate = new List<InputVectorAction>();
+        private static readonly List<ComplexInputAction> eventActions = new List<ComplexInputAction>();
+        private static readonly List<ComplexInputAction> keyHoldActionsOnUpdate = new List<ComplexInputAction>();
+        private static readonly List<ComplexInputAction> keyHoldActionsBeforePhysicsUpdate = new List<ComplexInputAction>();
         private static readonly List<MouseDeltaAction> onMouseMoveDelta = new List<MouseDeltaAction>();
         private static readonly List<MouseVelocityAction> onMouseMoveVelocity = new List<MouseVelocityAction>();
         private static readonly List<MouseWheelAction> mouseWheelActions = new List<MouseWheelAction>();
 
+        public static readonly HashSet<Keys> pressedButUnreleasedKeys = new HashSet<Keys>(); // TODO: Make private.
+        private static readonly HashSet<MouseButton> pressedButUnreleasedMouseButtons = new HashSet<MouseButton>();
+
+        public InputHandler () {
+            Debug.WriteLine("Registered event actions: " + eventActions.Aggregate("", (l, ae) => l + "\n" + ae));
+            Debug.WriteLine("Registered hold actions: " + keyHoldActionsOnUpdate.Aggregate("", (l, ae) => l + "\n" + ae));
+        }
+
         protected override void Update () {
 
             if (MainSync.InputManager.KeyEvents.Count > 0) {
-                keyHoldActionsOnUpdate.ForEach(a => a.TriggerIfMatch());
+                foreach (ButtonEvent e in MainSync.InputManager.Events) {
+                    if (e is KeyEvent key) {
+                        if (key.IsDown) {
+                            pressedButUnreleasedKeys.Add(key.Key);
+                        } else {
+                            pressedButUnreleasedKeys.Remove(key.Key);
+                        }
+                    } else if (e is MouseButtonEvent mbe) {
+                        if (mbe.IsDown) {
+                            pressedButUnreleasedMouseButtons.Add(mbe.Button);
+                        } else {
+                            pressedButUnreleasedMouseButtons.Remove(mbe.Button);
+                        }
+                    }
+                }
+                eventActions.ForEach(a => a.TriggerIfMatch());
             }
-            eventActions.ForEach(a => a.TriggerIfMatch());
 
+            keyHoldActionsOnUpdate.ForEach(a => a.TriggerIfMatch());
             if (InputHandler.GetMouseDelta() != Vector2.Zero) {
                 onMouseMoveDelta.ForEach(a => a.Trigger());
                 onMouseMoveVelocity.ForEach(a => a.Trigger());
@@ -37,30 +62,28 @@ namespace F7s.Engine.InputHandling {
         }
 
         protected override void PrePhysicsUpdate (Stride.Physics.Simulation sender, float tick) {
-            if (MainSync.InputManager.KeyEvents.Count > 0) {
-                keyHoldActionsBeforePhysicsUpdate.ForEach(a => a.TriggerIfMatch());
-            }
+            keyHoldActionsBeforePhysicsUpdate.ForEach(a => a.TriggerIfMatch());
         }
 
         protected override void PostPhysicsUpdate (Stride.Physics.Simulation sender, float tick) {
         }
 
-        public static void RegisterEventAction (InputVectorAction action) {
+        public static void RegisterEventAction (ComplexInputAction action) {
             eventActions.Add(action);
         }
-        public static void DeregisterEventAction (InputVectorAction action) {
+        public static void DeregisterEventAction (ComplexInputAction action) {
             eventActions.Remove(action);
         }
-        public static void RegisterKeyHoldActionOnUpdate (InputVectorAction action) {
+        public static void RegisterKeyHoldActionOnUpdate (ComplexInputAction action) {
             keyHoldActionsOnUpdate.Add(action);
         }
-        public static void DeregisterKeyHoldActionOnUpdate (InputVectorAction action) {
+        public static void DeregisterKeyHoldActionOnUpdate (ComplexInputAction action) {
             keyHoldActionsOnUpdate.Remove(action);
         }
-        public static void RegisterKeyHoldActionBeforePhysicsUpdate (InputVectorAction action) {
+        public static void RegisterKeyHoldActionBeforePhysicsUpdate (ComplexInputAction action) {
             keyHoldActionsBeforePhysicsUpdate.Add(action);
         }
-        public static void DeregisterKeyHoldActionBeforePhysicsUpdate (InputVectorAction action) {
+        public static void DeregisterKeyHoldActionBeforePhysicsUpdate (ComplexInputAction action) {
             keyHoldActionsBeforePhysicsUpdate.Remove(action);
         }
         public static void RegisterMouseDeltaAction (MouseDeltaAction action) {
@@ -122,7 +145,7 @@ namespace F7s.Engine.InputHandling {
             return MainSync.InputManager.IsMouseButtonPressed(mouseButton);
         }
         public static bool MouseButtonHeld (MouseButton mouseButton) {
-            return MainSync.InputManager.IsMouseButtonDown(mouseButton);
+            return MainSync.InputManager.IsMouseButtonDown(mouseButton) || pressedButUnreleasedMouseButtons.Contains(mouseButton);
         }
         public static bool MouseButtonReleased (MouseButton mouseButton) {
             return MainSync.InputManager.IsMouseButtonReleased(mouseButton);
@@ -144,7 +167,7 @@ namespace F7s.Engine.InputHandling {
             return MainSync.InputManager.IsKeyPressed(key);
         }
         public static bool KeyHeld (Keys key) {
-            return MainSync.InputManager.IsKeyDown(key);
+            return MainSync.InputManager.IsKeyDown(key) || pressedButUnreleasedKeys.Contains(key);
         }
         public static bool KeyReleased (Keys key) {
             return MainSync.InputManager.IsKeyReleased(key);

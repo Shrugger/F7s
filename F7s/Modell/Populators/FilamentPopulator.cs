@@ -215,8 +215,8 @@ namespace F7s.Modell.Populators {
         }
 
         private void ConfigureControls () {
-            Player.UiControls.Add(new InputVectorAction(() => ViewCelestialBody(-1), Keys.OemComma));
-            Player.UiControls.Add(new InputVectorAction(() => ViewCelestialBody(+1), Keys.OemPeriod));
+            Player.UiControls.Add(new InstantaneousInputAction(() => ViewCelestialBody(-1), Keys.OemComma));
+            Player.UiControls.Add(new InstantaneousInputAction(() => ViewCelestialBody(+1), Keys.OemPeriod));
         }
 
         private void UpdateGlobalScaleFactor () {

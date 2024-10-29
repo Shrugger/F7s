@@ -8,7 +8,7 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
     public class FirstPersonPlayerControlsSet : InputSet {
         public FirstPersonPlayerControlsSet () {
 
-            Add(new InputVectorAction(Player.ActivateUiControls, Keys.Tab));
+            Add(new InstantaneousInputAction(Player.ActivateUiControls, Keys.Tab));
 
             {
                 void MoveLeft () {
@@ -30,21 +30,21 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
                     Player.Translate(-Double3.UnitY * (float) Zeit.DeltaTimeSeconds() * Player.PanSpeed);
                 }
 
-                Add(new InputVectorAction(MoveLeft, Keys.A));
-                Add(new InputVectorAction(MoveRight, Keys.D));
-                Add(new InputVectorAction(MoveForward, Keys.W));
-                Add(new InputVectorAction(MoveBackward, Keys.S));
-                Add(new InputVectorAction(MoveUp, Keys.Space));
-                Add(new InputVectorAction(MoveDown, Keys.LeftAlt));
-                Add(new InputVectorAction(Player.SpeedUp, Keys.Up));
-                Add(new InputVectorAction(Player.SpeedDown, Keys.Down));
+                Add(new PhysicalInputVectorAction(MoveLeft, Keys.A));
+                Add(new PhysicalInputVectorAction(MoveRight, Keys.D));
+                Add(new PhysicalInputVectorAction(MoveForward, Keys.W));
+                Add(new PhysicalInputVectorAction(MoveBackward, Keys.S));
+                Add(new PhysicalInputVectorAction(MoveUp, Keys.Space));
+                Add(new PhysicalInputVectorAction(MoveDown, Keys.LeftAlt));
+                Add(new InstantaneousInputAction(Player.SpeedUp, Keys.Up));
+                Add(new InstantaneousInputAction(Player.SpeedDown, Keys.Down));
             }
 
             {
                 Add(new MouseDeltaAction(Player.RotatePlayer));
             }
 
-            Add(new InputVectorAction(() => { Player.SetTransform(MatrixD.Identity); }, new KeyButtonInput(Keys.R, ButtonInput.ButtonStates.Pressed), new KeyButtonInput(Keys.LeftCtrl, ButtonInput.ButtonStates.HeldDown)));
+            Add(new ComplexInputAction(() => { Player.SetTransform(MatrixD.Identity); }, new KeyButtonInput(Keys.R, ButtonInput.ButtonStates.Pressed), new KeyButtonInput(Keys.LeftCtrl, ButtonInput.ButtonStates.HeldDown)));
         }
         protected override void OnActivation () {
             base.OnActivation();

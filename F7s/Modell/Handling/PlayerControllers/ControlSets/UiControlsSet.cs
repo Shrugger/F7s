@@ -5,7 +5,7 @@ using Stride.Input;
 namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
     public class UiControlsSet : InputSet {
         public UiControlsSet () {
-            this.Add(new InputVectorAction(Player.DeactivateUiControls, Keys.Tab));
+            Add(new InstantaneousInputAction(Player.DeactivateUiControls, Keys.Tab));
         }
         protected override void OnActivation () {
             base.OnActivation();

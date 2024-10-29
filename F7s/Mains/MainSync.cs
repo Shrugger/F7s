@@ -22,6 +22,7 @@ using Stride.Rendering.Lights;
 using Stride.UI;
 using Stride.UI.Controls;
 using Stride.UI.Panels;
+using System.Linq;
 
 namespace F7s.Mains {
 
@@ -30,6 +31,7 @@ namespace F7s.Mains {
         private readonly bool simulationStarted = false;
 
         private Populator populator;
+        private TextBlock textBlock;
 
 
         private static MainSync instance;
@@ -181,20 +183,22 @@ namespace F7s.Mains {
                 SpriteFont? font = null;
                 font = base.Game.Content.Load<SpriteFont>("StrideDefaultFont");
                 var canvas = new Canvas {
-                    Width = 300,
-                    Height = 100,
-                    BackgroundColor = new Color(248, 177, 149, 100),
+                    Width = 500,
+                    Height = 200,
+                    BackgroundColor = new Color(0, 0, 0, 255),
                     HorizontalAlignment = HorizontalAlignment.Right,
                     VerticalAlignment = VerticalAlignment.Top,
                 };
 
-                canvas.Children.Add(new TextBlock {
+                textBlock = new TextBlock {
                     Text = "Main Sync to Fleet Command.",
                     TextColor = Color.White,
                     Font = font,
-                    TextSize = 24,
+                    TextSize = 16,
                     Margin = new Thickness(3, 3, 3, 0),
-                });
+                    WrapText = true,
+                };
+                canvas.Children.Add(textBlock);
 
                 var uiEntity = new Entity
                 {
@@ -245,6 +249,11 @@ namespace F7s.Mains {
                 GameEntity.OnEngineUpdate(1.0, false);
                 populator?.Update(deltaTime);
             }
+
+            string timestamp = "F+" + Game.UpdateTime.FrameCount + ": ";
+            string inputReport = InputHandler.pressedButUnreleasedKeys.ToList().Aggregate("", (l, k) => l + "\n" + k); //Input.Events.Aggregate(seed: "", func: (string accumulation, InputEvent e) => accumulation += "\n" + e.ToString());
+            textBlock.Text = timestamp + inputReport;
+
         }
     }
 }
