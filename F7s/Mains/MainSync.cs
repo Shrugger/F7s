@@ -91,7 +91,7 @@ namespace F7s.Mains {
 
             {
                 Entity lightEntity = new Entity("Light Entity");
-                SceneSystemEntities.Add(lightEntity);
+                lightEntity.Scene = Scene;
                 LightComponent lightComponent = new LightComponent();
                 lightEntity.Add(lightComponent);
                 lightComponent.Type = new LightDirectional();
@@ -113,7 +113,7 @@ namespace F7s.Mains {
                             }
 
                             Entity marker = new Entity("Marker " + x + " " + y + " " + z, location);
-                            SceneSystemEntities.Add(marker);
+                            marker.Scene = Scene;
 
                             ModelComponent modelComponent = new ModelComponent();
                             marker.Add(modelComponent);
@@ -144,7 +144,7 @@ namespace F7s.Mains {
                             Assert.AreEqual(rawLocation, location);
 
                             Entity marker = new Entity("Marker " + x + " " + y + " " + z, location);
-                            SceneSystemEntities.Add(marker);
+                            marker.Scene = Scene;
 
                             ModelComponent modelComponent = new ModelComponent();
                             marker.Add(modelComponent);
@@ -166,7 +166,7 @@ namespace F7s.Mains {
                 ModelComponent modelComponent = new ModelComponent();
                 modelComponent.Model = terrainMesch.model;
                 terrainEntity.Add(modelComponent);
-                SceneSystemEntities.Add(terrainEntity);
+                terrainEntity.Scene = Scene;
             }
 
             populator = new PerduePopulator();
@@ -204,7 +204,7 @@ namespace F7s.Mains {
                     }
                 };
 
-                SceneSystemEntities.Add(uiEntity);
+                uiEntity.Scene = Scene;
             }
 
             new InputHandler();

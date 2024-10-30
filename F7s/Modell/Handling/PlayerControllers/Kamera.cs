@@ -66,13 +66,15 @@ namespace F7s.Modell.Handling.PlayerControllers {
         private static void UpdateCameraNodeTransform () {
             MatrixD localityTransform = GetLocality().GetAbsoluteTransform();
 
-            Matrix parentTransform = Mathematik.Downscale(MatrixD.Transformation(localityTransform.TranslationVector, QuaternionD.Identity));
-            Matrix cameraTransform = Mathematik.Downscale(MatrixD.Transformation(Double3.Zero, Mathematik.ExtractRotation(localityTransform)));
+            Matrix yawTransform = Matrix.Translation((Vector3) localityTransform.TranslationVector);
+            MatrixD localityRotation;
+            localityTransform.Decompose(out _, out localityRotation, out _);
+            Matrix pitchTransform = Mathematik.Downscale(localityRotation);
 
             CameraYawer.Transform.UseTRS = false;
-            CameraYawer.Transform.LocalMatrix = parentTransform;
-            CameraEntity.Transform.UseTRS = false;
-            CameraEntity.Transform.LocalMatrix = cameraTransform;
+            CameraYawer.Transform.LocalMatrix = yawTransform;
+            CameraPitcher.Transform.UseTRS = false;
+            CameraPitcher.Transform.LocalMatrix = pitchTransform;
         }
 
         public static Vector3 CameraNodeGlobalPosition () {
@@ -134,7 +136,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             CameraPitcher = new Entity("Camera Pitcher");
             CameraYawer.AddChild(CameraPitcher);
 
-            CameraReverter = new Entity("Camera Reverter");
+            CameraReverter = new Entity("Camera Reverter", default, Quaternion.RotationY(180 * Mathematik.Deg2Rad));
             CameraPitcher.AddChild(CameraReverter);
 
             CameraEntity = new Entity("Camera");
