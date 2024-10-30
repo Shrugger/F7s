@@ -1,9 +1,10 @@
-﻿using F7s.Mains;
-using F7s.Modell.Physical;
+﻿using F7s.Modell.Physical;
 using F7s.Modell.Physical.Localities;
 using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using Stride.Core.Mathematics;
+using Stride.Engine;
+using Stride.Rendering.Compositing;
 using System;
 using System.Diagnostics;
 
@@ -13,6 +14,14 @@ namespace F7s.Modell.Handling.PlayerControllers {
     /// Handles the camera, mostly for moving it independently of the player entity, and for interacting with rendering.
     /// </summary>
     public static class Kamera {
+
+        public static CameraComponent Camera { get; private set; }
+        public static Entity CameraEntity { get; private set; }
+        public static Entity CameraReverter { get; private set; }
+        public static Entity CameraPitcher { get; private set; }
+        public static Entity CameraYawer { get; private set; }
+
+
 
         public static float MaximumRenderDistance () {
             throw new NotImplementedException();
@@ -60,10 +69,10 @@ namespace F7s.Modell.Handling.PlayerControllers {
             Matrix parentTransform = Mathematik.Downscale(MatrixD.Transformation(localityTransform.TranslationVector, QuaternionD.Identity));
             Matrix cameraTransform = Mathematik.Downscale(MatrixD.Transformation(Double3.Zero, Mathematik.ExtractRotation(localityTransform)));
 
-            MainSync.CameraParentEntity.Transform.UseTRS = false;
-            MainSync.CameraParentEntity.Transform.LocalMatrix = parentTransform;
-            MainSync.CameraEntity.Transform.UseTRS = false;
-            MainSync.CameraEntity.Transform.LocalMatrix = cameraTransform;
+            CameraYawer.Transform.UseTRS = false;
+            CameraYawer.Transform.LocalMatrix = parentTransform;
+            CameraEntity.Transform.UseTRS = false;
+            CameraEntity.Transform.LocalMatrix = cameraTransform;
         }
 
         public static Vector3 CameraNodeGlobalPosition () {
@@ -116,6 +125,23 @@ namespace F7s.Modell.Handling.PlayerControllers {
             MatrixD newTransform = MatrixD.Transformation(desiredRelativePosition, Mathematik.ExtractRotation(locality.Transform));
             SetAnchor(entity.Locality, Fixed.ReanchorMethodology.UseNewTransform, newTransform);
             LookAt(-newTransform.TranslationVector, up);
+        }
+
+        internal static void BuildStrideHierarchy (Scene scene, GraphicsCompositor graphicsCompositor) {
+            CameraYawer = new Entity("Camera Yawer");
+            CameraYawer.Scene = scene;
+
+            CameraPitcher = new Entity("Camera Pitcher");
+            CameraYawer.AddChild(CameraPitcher);
+
+            CameraReverter = new Entity("Camera Reverter");
+            CameraPitcher.AddChild(CameraReverter);
+
+            CameraEntity = new Entity("Camera");
+            CameraReverter.AddChild(CameraEntity);
+            Camera = new CameraComponent();
+            CameraEntity.Add(Camera);
+            Camera.Slot = graphicsCompositor.Cameras[0].ToSlotId();
         }
     }
 }

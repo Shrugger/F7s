@@ -35,18 +35,16 @@ namespace F7s.Mains {
 
 
         private static MainSync instance;
-        public static CameraComponent Camera { get; private set; }
-        public static Entity CameraEntity { get; private set; }
-        public static Entity CameraParentEntity { get; private set; }
 
         public static ContentManager ContentManager { get; private set; }
         public static new GraphicsDevice GraphicsDevice { get; private set; }
         public static InputManager InputManager { get; private set; }
         public static new Game Game { get; private set; }
+        public static Scene Scene;
 
         public override void Start () {
 
-            Stride.Core.Collections.TrackingCollection<Entity> SceneSystemEntities = SceneSystem.SceneInstance.RootScene.Entities;
+            Scene = Entity.Scene;
 
             if (instance != null) {
                 throw new System.Exception();
@@ -64,18 +62,15 @@ namespace F7s.Mains {
             }
 
             Entity.Add(new MainAsync());
+            Kamera.BuildStrideHierarchy(Scene, SceneSystem.GraphicsCompositor);
 
-            InitializeCamera();
-            void InitializeCamera () {
-                CameraParentEntity = new Entity("Camera Yawer");
-                SceneSystemEntities.Add(CameraParentEntity);
-
-                CameraEntity = new Entity("Camera Pitcher");
-                CameraParentEntity.AddChild(CameraEntity);
-
-                Camera = new CameraComponent();
-                CameraEntity.Add(Camera);
-                Camera.Slot = SceneSystem.GraphicsCompositor.Cameras[0].ToSlotId();
+            {
+                Entity lightSourceEntity = new Entity("Light");
+                lightSourceEntity.Scene = Entity.Scene;
+                LightComponent lightComponent = new LightComponent();
+                lightSourceEntity.Add(lightComponent);
+                LightDirectional lightDirectional = new LightDirectional();
+                lightComponent.Type = lightDirectional;
             }
 
             {
@@ -254,6 +249,7 @@ namespace F7s.Mains {
             string inputReport = InputHandler.pressedButUnreleasedKeys.ToList().Aggregate("", (l, k) => l + "\n" + k); //Input.Events.Aggregate(seed: "", func: (string accumulation, InputEvent e) => accumulation += "\n" + e.ToString());
             textBlock.Text = timestamp + inputReport;
 
+            DebugText.Print("IsPressed: " + Input.IsKeyDown(Keys.G), new Stride.Core.Mathematics.Int2(50, 50));
         }
     }
 }

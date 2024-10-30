@@ -110,17 +110,14 @@ namespace F7s.Modell.Physical.Localities {
 
         public override void Rotate (double yaw, double pitch, double roll = 0) {
             MatrixD entityTransform = GetLocalTransform();
-
-            throw new NotImplementedException(); // TODO: Redo for Stride.
-            // entityTransform.Basis = entityTransform.Basis.Rotated(-Double3.UnitY, yaw).Rotated(-Double3.UnitX, pitch).Rotated(Double3.UnitZ, roll);
-            SetTransform(entityTransform);
+            MatrixD rotation = MatrixD.RotationYawPitchRoll(yaw, pitch, roll);
+            SetTransform(rotation * entityTransform);
         }
 
         public override void RotateEcliptic (double yaw, double pitch, double roll = 0) {
-            MatrixD entityTransform = GetLocalTransform();
+            Rotate(yaw, pitch, roll);
 
-            throw new NotImplementedException(); // TODO: Redo for Stride.
-            /*
+            /* // TODO: Take the below into consideration. Account for local VS global rotation. Account for pitch limit.
             float oldPitch = -Mathematik.RadToDeg(entityTransform.Basis.GetEuler().X);
             float permittedPitch = LimitPitch(oldPitch, pitch);
 

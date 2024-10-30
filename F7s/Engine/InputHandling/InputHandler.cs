@@ -4,8 +4,6 @@ using Stride.Core.Mathematics;
 using Stride.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace F7s.Engine.InputHandling {
 
@@ -24,27 +22,28 @@ namespace F7s.Engine.InputHandling {
         private static readonly HashSet<MouseButton> pressedButUnreleasedMouseButtons = new HashSet<MouseButton>();
 
         public InputHandler () {
-            Debug.WriteLine("Registered event actions: " + eventActions.Aggregate("", (l, ae) => l + "\n" + ae));
-            Debug.WriteLine("Registered hold actions: " + keyHoldActionsOnUpdate.Aggregate("", (l, ae) => l + "\n" + ae));
         }
 
         protected override void Update () {
 
             if (MainSync.InputManager.KeyEvents.Count > 0) {
-                foreach (ButtonEvent e in MainSync.InputManager.Events) {
-                    if (e is KeyEvent key) {
-                        if (key.IsDown) {
-                            pressedButUnreleasedKeys.Add(key.Key);
+                foreach (InputEvent inputEvent in MainSync.InputManager.Events) {
+                    if (inputEvent is ButtonEvent buttonEvent)
+                        if (buttonEvent is KeyEvent keyEvent) {
+                            if (keyEvent.IsDown) {
+                                pressedButUnreleasedKeys.Add(keyEvent.Key);
+                            } else {
+                                pressedButUnreleasedKeys.Remove(keyEvent.Key);
+                            }
+                        } else if (buttonEvent is MouseButtonEvent mouseButtonEvent) {
+                            if (mouseButtonEvent.IsDown) {
+                                pressedButUnreleasedMouseButtons.Add(mouseButtonEvent.Button);
+                            } else {
+                                pressedButUnreleasedMouseButtons.Remove(mouseButtonEvent.Button);
+                            }
                         } else {
-                            pressedButUnreleasedKeys.Remove(key.Key);
+                            throw new Exception("Unhandled input event type: " + inputEvent.GetType().Name);
                         }
-                    } else if (e is MouseButtonEvent mbe) {
-                        if (mbe.IsDown) {
-                            pressedButUnreleasedMouseButtons.Add(mbe.Button);
-                        } else {
-                            pressedButUnreleasedMouseButtons.Remove(mbe.Button);
-                        }
-                    }
                 }
                 eventActions.ForEach(a => a.TriggerIfMatch());
             }

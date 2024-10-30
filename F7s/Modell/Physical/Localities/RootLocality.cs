@@ -6,6 +6,7 @@ namespace F7s.Modell.Physical.Localities {
         public static RootLocality Instance = new RootLocality();
 
         public RootLocality () : base(null, null) {
+            Name = "Root of all Places";
         }
 
         public override MatrixD GetLocalTransform () {
