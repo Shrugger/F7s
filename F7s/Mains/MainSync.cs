@@ -90,11 +90,20 @@ namespace F7s.Mains {
             }
 
             {
-                Entity lightEntity = new Entity("Light Entity");
+                Entity lightEntity = new Entity("Directional Light Entity");
                 lightEntity.Scene = Scene;
                 LightComponent lightComponent = new LightComponent();
                 lightEntity.Add(lightComponent);
                 lightComponent.Type = new LightDirectional();
+                lightComponent.Intensity = 20;
+                lightComponent.SetColor(new Color3(1, 1, 1));
+            }
+            {
+                Entity lightEntity = new Entity("Ambient Light Entity");
+                lightEntity.Scene = Scene;
+                LightComponent lightComponent = new LightComponent();
+                lightEntity.Add(lightComponent);
+                lightComponent.Type = new LightAmbient();
                 lightComponent.Intensity = 1;
                 lightComponent.SetColor(new Color3(1, 1, 1));
             }
@@ -159,7 +168,7 @@ namespace F7s.Mains {
             }
 
             {
-                Terrain terrain = new Terrain("Tiny Planet", 1, 2, Entity, new PlanetologyData(1, 1, 1, true, true, 5)); // TODO: Reactivate after child's play.
+                Terrain terrain = new Terrain("Tiny Planet", 1, 2, Entity, new PlanetologyData(1, 1, 1, true, true, 5));
                 Mesch terrainMesch = terrain.Render(Stride.Graphics.GraphicsResourceUsage.Default);
                 Assert.IsNotNull(terrainMesch);
                 Entity terrainEntity = new Entity("Terrain");
