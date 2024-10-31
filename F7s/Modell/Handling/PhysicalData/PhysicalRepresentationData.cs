@@ -11,7 +11,7 @@ namespace F7s.Modell.Handling.PhysicalData {
         public abstract double BoundingRadius ();
 
         public float AngularSize () {
-            return (float) Mathematik.AngularDiameterInDegreesFromDistanceAndRadius(DistanceToCamera(), BoundingRadius());
+            return (float) MM.AngularDiameterInDegreesFromDistanceAndRadius(DistanceToCamera(), BoundingRadius());
         }
 
         private static float GetMainCameraFieldOfView () {
@@ -24,7 +24,7 @@ namespace F7s.Modell.Handling.PhysicalData {
             float screenSize = ScreenSizeLength();
             float fieldOfView = GetMainCameraFieldOfView();
 
-            float sizeInPixels = Mathematik.AngularSizeInPixels(boundingDiameter, distance, screenSize, fieldOfView);
+            float sizeInPixels = MM.AngularSizeInPixels(boundingDiameter, distance, screenSize, fieldOfView);
 
             return sizeInPixels;
         }

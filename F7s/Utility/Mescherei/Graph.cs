@@ -191,8 +191,8 @@ namespace F7s.Utility.Mescherei {
         }
 
         public Vector3 RotatedVertexPosition (Vector3 position, Vector3 rotation) {
-            Matrix old = Mathematik.Transformation(position, Quaternion.Identity);
-            Matrix transformation = Mathematik.Transformation(Vector3.Zero, Mathematik.DegreesToQuaternion(rotation));
+            Matrix old = MM.Transformation(position, Quaternion.Identity);
+            Matrix transformation = MM.Transformation(Vector3.Zero, MM.DegreesToQuaternion(rotation));
             Vector3 result = (transformation * old).TranslationVector;
             return result;
         }
@@ -202,7 +202,7 @@ namespace F7s.Utility.Mescherei {
         }
 
         public Vector3 AlteredVertexRadius (Vector3 vertex, float radius) {
-            return Mathematik.Normalize(vertex) * radius;
+            return MM.Normalize(vertex) * radius;
         }
 
         public void ApplyToAllVertices (Func<Vector3, Vector3> action) {
@@ -228,11 +228,11 @@ namespace F7s.Utility.Mescherei {
             if (!spherical) {
                 position = Vector3.Lerp(a.Position, b.Position, weight);
             } else {
-                position = Mathematik.Slerp(a.Position, b.Position, weight);
+                position = MM.Slerp(a.Position, b.Position, weight);
             }
             Vertex interpolated = AddVertex(position, null, null, Farbe.Lerp(a.Color, b.Color, weight));
             if (!spherical) {
-                Debug.Assert(Mathematik.ApproximatelyEqual(Vertex.Distance(a, b), Vertex.Distance(a, interpolated) + Vertex.Distance(interpolated, b), 0.001f));
+                Debug.Assert(MM.ApproximatelyEqual(Vertex.Distance(a, b), Vertex.Distance(a, interpolated) + Vertex.Distance(interpolated, b), 0.001f));
             }
             return interpolated;
         }

@@ -2690,7 +2690,7 @@ namespace F7s.Utility.Geometry.Double {
         }
 
         public static MatrixD Transformation (Double3 translation, QuaternionD rotation) {
-            return Mathematik.Transformation(translation, rotation);
+            return MM.Transformation(translation, rotation);
         }
 
         /// <summary>

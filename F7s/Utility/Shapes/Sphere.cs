@@ -22,7 +22,7 @@ namespace F7s.Utility.Shapes
             return true;
         }
         public override string ToString() {
-            return this.GetType().Name + "(" + Mathematik.RoundToFirstInterestingDigit(this.Radius) + ")";
+            return this.GetType().Name + "(" + MM.RoundToFirstInterestingDigit(this.Radius) + ")";
         }
         public float Radius { get; protected set; }
 

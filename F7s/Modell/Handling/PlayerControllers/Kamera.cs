@@ -17,7 +17,6 @@ namespace F7s.Modell.Handling.PlayerControllers {
 
         public static CameraComponent Camera { get; private set; }
         public static Entity CameraEntity { get; private set; }
-        public static Entity CameraReverter { get; private set; }
         public static Entity CameraPitcher { get; private set; }
         public static Entity CameraYawer { get; private set; }
 
@@ -69,7 +68,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             Matrix yawTransform = Matrix.Translation((Vector3) localityTransform.TranslationVector);
             MatrixD localityRotation;
             localityTransform.Decompose(out _, out localityRotation, out _);
-            Matrix pitchTransform = Mathematik.Downscale(localityRotation);
+            Matrix pitchTransform = MM.Downscale(localityRotation);
 
             CameraYawer.Transform.UseTRS = false;
             CameraYawer.Transform.LocalMatrix = yawTransform;
@@ -95,7 +94,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
         }
 
         public static void LookAt (Double3 relativePosition, Double3? up = null) {
-            locality.LookAt(relativePosition, up ?? Double3.UnitY);
+            locality.LookAt(relativePosition, up ?? MM.UpD);
         }
 
         public static void AttachToPlayer () {
@@ -124,7 +123,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
 
         public static void View (PhysicalEntity entity, Double3 desiredRelativePosition, Double3? up = null) {
             Debug.Assert(Double3.Zero != desiredRelativePosition);
-            MatrixD newTransform = MatrixD.Transformation(desiredRelativePosition, Mathematik.ExtractRotation(locality.Transform));
+            MatrixD newTransform = MatrixD.Transformation(desiredRelativePosition, MM.ExtractRotation(locality.Transform));
             SetAnchor(entity.Locality, Fixed.ReanchorMethodology.UseNewTransform, newTransform);
             LookAt(-newTransform.TranslationVector, up);
         }
@@ -136,11 +135,8 @@ namespace F7s.Modell.Handling.PlayerControllers {
             CameraPitcher = new Entity("Camera Pitcher");
             CameraYawer.AddChild(CameraPitcher);
 
-            CameraReverter = new Entity("Camera Reverter", default, Quaternion.RotationY(180 * Mathematik.Deg2Rad));
-            CameraPitcher.AddChild(CameraReverter);
-
             CameraEntity = new Entity("Camera");
-            CameraReverter.AddChild(CameraEntity);
+            CameraPitcher.AddChild(CameraEntity);
             Camera = new CameraComponent();
             CameraEntity.Add(Camera);
             Camera.Slot = graphicsCompositor.Cameras[0].ToSlotId();

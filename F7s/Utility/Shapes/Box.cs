@@ -16,7 +16,7 @@ namespace F7s.Utility.Shapes
             : this(fullExtents: new Vector3(x: x, y: y, z: z)) { }
 
         public Box (Vector3 aspectRatio, float volume)
-            : this(fullExtents: Mathematik.ScaleBoxToVolume(boxExtents: aspectRatio, volume: volume)) { }
+            : this(fullExtents: MM.ScaleBoxToVolume(boxExtents: aspectRatio, volume: volume)) { }
 
         public Box (Vector3 fullExtents) {
             this.fullExtents = fullExtents;
@@ -115,7 +115,7 @@ namespace F7s.Utility.Shapes
         }
 
         public override string ToString () {
-            return this.GetType().Name + Mathematik.RoundToFirstInterestingDigit(this.fullExtents);
+            return this.GetType().Name + MM.RoundToFirstInterestingDigit(this.fullExtents);
         }
 
         public override bool IsConvex () {

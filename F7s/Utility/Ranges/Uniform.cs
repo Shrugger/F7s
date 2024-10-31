@@ -55,7 +55,7 @@ namespace F7s.Utility.Ranges
             return -MathF.Log(1 - Alea.Float()) / this.decayParameter;
         }
         public long GetDiscreteValue () {
-            return Mathematik.RoundToInt(this.GetContinuousValue());
+            return MM.RoundToInt(this.GetContinuousValue());
         }
     }
 

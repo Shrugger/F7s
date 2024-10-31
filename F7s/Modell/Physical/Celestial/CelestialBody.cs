@@ -37,7 +37,7 @@ namespace F7s.Modell.Physical.Celestial {
         }
 
         protected override Quantity CalculateFallbackQuantity () {
-            return new Quantity(Mathematik.VolumeFromSphereRadius(BoundingRadius()), FallbackDensity());
+            return new Quantity(MM.VolumeFromSphereRadius(BoundingRadius()), FallbackDensity());
         }
 
         protected virtual float FallbackDensity () {

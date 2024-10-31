@@ -51,7 +51,7 @@ namespace F7s.Utility.Ranges
         }
 
         public float Clamp (float value) {
-            return Mathematik.Clamp(value: value, min: this.Min, max: this.Max);
+            return MM.Clamp(value: value, min: this.Min, max: this.Max);
         }
 
         public override string ToString () {

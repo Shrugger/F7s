@@ -23,9 +23,9 @@ namespace F7s.Utility.Mescherei {
 
         public Triangle (Graph mesch, Vertex v0, Vertex v1, Vertex v2) {
 
-            Debug.Assert(!Mathematik.ApproximatelyEqual(v0.Position, v1.Position, 0.0001f));
-            Debug.Assert(!Mathematik.ApproximatelyEqual(v1.Position, v2.Position, 0.0001f));
-            Debug.Assert(!Mathematik.ApproximatelyEqual(v2.Position, v0.Position, 0.0001f));
+            Debug.Assert(!MM.ApproximatelyEqual(v0.Position, v1.Position, 0.0001f));
+            Debug.Assert(!MM.ApproximatelyEqual(v1.Position, v2.Position, 0.0001f));
+            Debug.Assert(!MM.ApproximatelyEqual(v2.Position, v0.Position, 0.0001f));
 
             Mesch = mesch;
             Vertices = new List<Vertex>() { v0, v1, v2 };
@@ -112,14 +112,14 @@ namespace F7s.Utility.Mescherei {
             Triangle tc = Mesch.AddTriangle(v01, v12, v20);
 
             if (!spherical) {
-                Debug.Assert(Mathematik.IsEqualApprox(SurfaceArea(), t0.SurfaceArea() + t1.SurfaceArea() + t2.SurfaceArea() + tc.SurfaceArea(), 0.001));
+                Debug.Assert(MM.IsEqualApprox(SurfaceArea(), t0.SurfaceArea() + t1.SurfaceArea() + t2.SurfaceArea() + tc.SurfaceArea(), 0.001));
             }
 
             Delete();
         }
 
         public float SurfaceArea () {
-            return Mathematik.TriangleSurfaceArea(V0.Position, V1.Position, V2.Position);
+            return MM.TriangleSurfaceArea(V0.Position, V1.Position, V2.Position);
         }
 
         public void AddEdge (Edge edge) {
@@ -159,9 +159,9 @@ namespace F7s.Utility.Mescherei {
             Vector3 triangleCenter = CartesianCenter();
             Vector3 surfaceNormal = GetFaceNormal();
             Vector3 shapeToTriangleVector = triangleCenter - shapeCentre;
-            Vector3 normalizedShapeToTriangleVector = Mathematik.Normalize(shapeToTriangleVector);
+            Vector3 normalizedShapeToTriangleVector = MM.Normalize(shapeToTriangleVector);
 
-            double angle = Mathematik.Angle(normalizedShapeToTriangleVector, surfaceNormal); // Using double-precision angle calculation works better for very small angles.
+            double angle = MM.Angle(normalizedShapeToTriangleVector, surfaceNormal); // Using double-precision angle calculation works better for very small angles.
 
             if (angle < 0) {
                 throw new Exception("Angle " + angle + " < 0.");
@@ -177,7 +177,7 @@ namespace F7s.Utility.Mescherei {
         }
 
         public Vector3 CartesianCenter () {
-            return Mathematik.Average(Vertices.Select(v => v.Position));
+            return MM.Average(Vertices.Select(v => v.Position));
         }
 
         private Vector3 CalculateFaceNormal () {
@@ -187,8 +187,8 @@ namespace F7s.Utility.Mescherei {
 
             Vector3 vector1 = pos1 - pos0;
             Vector3 vector2 = pos2 - pos0;
-            Vector3 cross = Mathematik.Cross(vector2, vector1);
-            Vector3 faceNormal = Mathematik.Normalize(cross);
+            Vector3 cross = MM.Cross(vector2, vector1);
+            Vector3 faceNormal = MM.Normalize(cross);
 
             Debug.Assert(Vector3.Zero != faceNormal);
             this.faceNormal = faceNormal;

@@ -53,13 +53,13 @@ namespace F7s.Utility {
 
         public override string ToString () {
             return "(r"
-                 + Mathematik.Round(value: R, decimals: 1)
+                 + MM.Round(value: R, decimals: 1)
                  + ", g"
-                 + Mathematik.Round(value: G, decimals: 1)
+                 + MM.Round(value: G, decimals: 1)
                  + ", b"
-                 + Mathematik.Round(value: B, decimals: 1)
+                 + MM.Round(value: B, decimals: 1)
                  + ", a"
-                 + Mathematik.Round(value: A, decimals: 1)
+                 + MM.Round(value: A, decimals: 1)
                  + ")";
         }
 
@@ -165,9 +165,9 @@ namespace F7s.Utility {
 
         public static Farbe Clamp (Farbe color, float minBrightness, float maxBrighteness) {
             return new Farbe(
-                             r: Mathematik.Clamp(value: color.R, min: minBrightness, max: maxBrighteness),
-                             g: Mathematik.Clamp(value: color.G, min: minBrightness, max: maxBrighteness),
-                             b: Mathematik.Clamp(value: color.B, min: minBrightness, max: maxBrighteness),
+                             r: MM.Clamp(value: color.R, min: minBrightness, max: maxBrighteness),
+                             g: MM.Clamp(value: color.G, min: minBrightness, max: maxBrighteness),
+                             b: MM.Clamp(value: color.B, min: minBrightness, max: maxBrighteness),
                              a: color.A
                             );
         }
@@ -287,19 +287,19 @@ namespace F7s.Utility {
 
         public static Farbe Randomise (Farbe basis, float minBright, float maxBright, float randomisation) {
             return new Farbe(
-                             r: Mathematik.Clamp(
+                             r: MM.Clamp(
                                             value: basis.R
                                                  + Utility.Alea.Float(min: -randomisation, max: randomisation),
                                             min: minBright,
                                             max: maxBright
                                            ),
-                             g: Mathematik.Clamp(
+                             g: MM.Clamp(
                                             value: basis.G
                                                  + Utility.Alea.Float(min: -randomisation, max: randomisation),
                                             min: minBright,
                                             max: maxBright
                                            ),
-                             b: Mathematik.Clamp(
+                             b: MM.Clamp(
                                             value: basis.B
                                                  + Utility.Alea.Float(min: -randomisation, max: randomisation),
                                             min: minBright,

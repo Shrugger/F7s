@@ -39,7 +39,7 @@ namespace F7s.Modell.Populators {
                 Locality scavengerCommunityLocality = new Fixed(null,
                     RootLocality.Instance
 ,
-                    MatrixD.Transformation(-Double3.UnitX * 200, QuaternionD.Identity));
+                    MatrixD.Transformation(-MM.RightD * 200, QuaternionD.Identity));
                 Group scavengerCommunity = locals.EstablishSubgroup("Scavengers #" + s, new GroupComposition(100, scavengerCommunityLocality));
                 scavengerCommunity.InstituteInstitution(new SubsistenceScavengingInstitution());
                 scavengerCommunity.ManifestMember("Jim", scavengerCommunityLocality);
@@ -48,7 +48,7 @@ namespace F7s.Modell.Populators {
                 Locality farmingCommunityLocality = new Fixed(null,
                     RootLocality.Instance
 ,
-                    MatrixD.Transformation(Double3.UnitX * 10, QuaternionD.Identity));
+                    MatrixD.Transformation(MM.RightD * 10, QuaternionD.Identity));
                 Group farmingCommunity = locals.EstablishSubgroup("Farmers #" + f, new GroupComposition(100, farmingCommunityLocality));
                 farmingCommunity.InstituteInstitution(new SubsistenceFarming());
                 Human bob = (Human) farmingCommunity.ManifestMember("Bob", farmingCommunityLocality);

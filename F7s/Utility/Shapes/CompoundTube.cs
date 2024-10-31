@@ -36,7 +36,7 @@ namespace F7s.Utility.Shapes {
 
             void Constitute (float rotation) {
                 float longitude = rotation < 180 ? 90 : 270;
-                float latitude = Mathematik.Wrap(rotation, -90f, 90f);
+                float latitude = MM.Wrap(rotation, -90f, 90f);
                 Vector3 position = new PolarCoordinatesD(longitude, latitude, (shape.diameter / 2.0f) - (thickness / 2.0f)).ToVector3();
 
                 AddConstituent(new Constituent(GenerateWall(), position, new Vector3(0, 0, rotation), "Partial " + GetType().Name + " " + rotation + Chars.degree));

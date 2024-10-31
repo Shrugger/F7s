@@ -14,7 +14,7 @@ namespace F7s.Modell.Physical.Localities {
         public static double OrbitSpeedMultiplier = 1;
 
         public Orbiting (PhysicalEntity orbiter, double semimajorAxis, PhysicalEntity orbitee) : base(orbiter, orbitee) {
-            orbit = new Orbit(0, 0, 0, 0, semimajorAxis, Alea.AngleDouble(), orbitee, angularVelocity: Double3.UnitY * rotationSpeed / OrbitSpeedMultiplier);
+            orbit = new Orbit(0, 0, 0, 0, semimajorAxis, Alea.AngleDouble(), orbitee, angularVelocity: MM.UpD * rotationSpeed / OrbitSpeedMultiplier);
             orbit.SetOrbiter(orbiter);
         }
 

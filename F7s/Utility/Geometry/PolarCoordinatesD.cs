@@ -153,8 +153,8 @@ namespace F7s.Utility.Geometry {
         /// <param name="polar"> The polar coordinates meant to be converted. </param>
         /// <returns> The converted coordinates, now as a cartesian vector. </returns>
         public static Double3 ToCartesian (PolarCoordinatesD polar) {
-            double phi = Mathematik.DegToRad((polar.longitude + 0) % 360);
-            double theta = Mathematik.DegToRad(polar.latitude + 90.0);
+            double phi = MM.DegToRad((polar.longitude + 0) % 360);
+            double theta = MM.DegToRad(polar.latitude + 90.0);
             double rho = polar.radialDistance;
             double sinTheta = Math.Sin(a: theta);
             double z = rho * sinTheta * Math.Cos(phi);
@@ -182,9 +182,9 @@ namespace F7s.Utility.Geometry {
             double x = X;
             double y = -Y;
             double z = Z;
-            double phi = (Mathematik.RadToDeg(Math.Atan2(y: x, x: z)) - 0) % 360;
+            double phi = (MM.RadToDeg(Math.Atan2(y: x, x: z)) - 0) % 360;
             double rho = Math.Sqrt((x * x) + (y * y) + (z * z));
-            double theta = Mathematik.RadToDeg(Math.Acos(y / rho)) - 90;
+            double theta = MM.RadToDeg(Math.Acos(y / rho)) - 90;
 
             return new PolarCoordinatesD(longitude: phi, latitude: theta, radialDistance: rho);
         }
@@ -240,8 +240,8 @@ namespace F7s.Utility.Geometry {
         #region miscellaneous
 
         public override string ToString () {
-            double lon = Mathematik.Round(value: longitude);
-            double lat = Mathematik.Round(value: latitude);
+            double lon = MM.Round(value: longitude);
+            double lat = MM.Round(value: latitude);
 
             string lonD = Math.Abs(value: lon - 180)
                         + (lon < 0
@@ -257,7 +257,7 @@ namespace F7s.Utility.Geometry {
                                    ? "S"
                                    : "");
 
-            return "(" + lonD + ", " + latD + ", " + Mathematik.Round(value: radialDistance) + ")";
+            return "(" + lonD + ", " + latD + ", " + MM.Round(value: radialDistance) + ")";
         }
         public override bool Equals (object obj) {
             if (obj == null) {
@@ -294,9 +294,9 @@ namespace F7s.Utility.Geometry {
         }
 
         public static bool ApproximatelyEquals (PolarCoordinatesD lhs, PolarCoordinatesD rhs) {
-            return Mathematik.IsEqualApprox(a: lhs.latitude, b: rhs.latitude)
-                && Mathematik.IsEqualApprox(a: lhs.longitude, b: rhs.longitude)
-                && Mathematik.IsEqualApprox(a: lhs.radialDistance, b: rhs.radialDistance);
+            return MM.IsEqualApprox(a: lhs.latitude, b: rhs.latitude)
+                && MM.IsEqualApprox(a: lhs.longitude, b: rhs.longitude)
+                && MM.IsEqualApprox(a: lhs.radialDistance, b: rhs.radialDistance);
         }
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace F7s.Utility.Geometry {
         public static double PolarDistanceDouble (Coordinates one, Coordinates other, double projectionRadius = 1.0) {
             PolarCoordinatesD oneCoordinates = one.Polar();
             PolarCoordinatesD otherCoordinates = other.Polar();
-            return Mathematik.GreatCircleDistance(oneCoordinates.latitude, oneCoordinates.longitude, otherCoordinates.latitude, otherCoordinates.longitude, projectionRadius);
+            return MM.GreatCircleDistance(oneCoordinates.latitude, oneCoordinates.longitude, otherCoordinates.latitude, otherCoordinates.longitude, projectionRadius);
         }
 
         public double DirectDistance (PolarCoordinatesD other) {

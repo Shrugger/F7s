@@ -49,7 +49,7 @@ namespace F7s.Modell.Terrains {
 
             Graph = Icosahedra.IcosphereGraph(resolution: resolution, radius: radius);
 
-            Graph.Vertices.ForEach(v => Debug.Assert(Mathematik.IsEqualApprox(radius, v.GetRadius(), radius / 1000f)));
+            Graph.Vertices.ForEach(v => Debug.Assert(MM.IsEqualApprox(radius, v.GetRadius(), radius / 1000f)));
 
             RTG = new RheoTecGeo(name, resolution, radius);
 
@@ -138,7 +138,7 @@ namespace F7s.Modell.Terrains {
             float equatorialSeaLevelTemperature = 35 + Planetology.baseTemperature;
             float polarSeaLevelTemperature = -50 + Planetology.baseTemperature;
             float solarInflux = MathF.Cos(latitude / 90f * MathF.PI / 2f);
-            float latitudeFactor = Mathematik.Lerp(polarSeaLevelTemperature, equatorialSeaLevelTemperature, solarInflux);
+            float latitudeFactor = MM.Lerp(polarSeaLevelTemperature, equatorialSeaLevelTemperature, solarInflux);
             float elevationFactor = -elevation * 0.0001f;
 
             float temperature = latitudeFactor + elevationFactor;

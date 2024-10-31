@@ -58,7 +58,7 @@ namespace F7s.Modell.Handling.PlayerControllers {
             MatrixD forcedPerspectiveBaseTransform = ForcedProjectionBaseTransform(locality);
             Double3 forcedPerspectiveBaseOrigin = forcedPerspectiveBaseTransform.TranslationVector;
             Debug.Assert(Double3.Zero != forcedPerspectiveBaseOrigin);
-            Double3 origin = Mathematik.Normalize(forcedPerspectiveBaseOrigin) * desiredDistanceFromCamera;
+            Double3 origin = MM.Normalize(forcedPerspectiveBaseOrigin) * desiredDistanceFromCamera;
             forcedPerspectiveBaseTransform.TranslationVector = origin;
             return forcedPerspectiveBaseTransform;
         }

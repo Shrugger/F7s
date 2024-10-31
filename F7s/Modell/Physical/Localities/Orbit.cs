@@ -22,7 +22,7 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public QuaternionD GetRotation () {
-            if (!Mathematik.Valid(absoluteRotation)) {
+            if (!MM.Valid(absoluteRotation)) {
                 throw new Exception("Invalid rotation " + absoluteRotation + " out of " + ToString());
             }
             return absoluteRotation;
@@ -74,7 +74,7 @@ namespace F7s.Modell.Physical.Localities {
 
         public QuaternionD GetRotation (double time) {
             double modulodTime = (double) (time % (double) RotationalPeriod());
-            return Mathematik.DegreesToQuaternionD(rotationOffset + (angularVelocity * modulodTime));
+            return MM.DegreesToQuaternionD(rotationOffset + (angularVelocity * modulodTime));
         }
 
         public double GetInclination () {
@@ -208,8 +208,8 @@ namespace F7s.Modell.Physical.Localities {
                 throw new Exception();
             }
 
-            double i = orbit.GetInclination() * Mathematik.Deg2Rad;
-            double om = orbit.GetLongitudeOfAscendingNode() * Mathematik.Deg2Rad;
+            double i = orbit.GetInclination() * MM.Deg2Rad;
+            double om = orbit.GetLongitudeOfAscendingNode() * MM.Deg2Rad;
             double e = orbit.GetEccentricity();
             double a = orbit.GetSemimajorAxis();
 
@@ -250,7 +250,7 @@ namespace F7s.Modell.Physical.Localities {
             Double3 x = new Double3(fCos, 0, fSin) * r;
             Double3 v = new Double3(-fSin, 0, e + fCos) * Math.Sqrt(mu / (a * (1 - (e * e))));
 
-            double wf = orbit.GetArgumentOfPeriapsis() * Mathematik.Deg2Rad;
+            double wf = orbit.GetArgumentOfPeriapsis() * MM.Deg2Rad;
             /*Matrix3x3d m1 = new Matrix3x3d	(	Math.Cos(om * Geometry.Deg2Rad),	-Math.Sin(om * Geometry.Deg2Rad),	0,
 												Math.Sin(om * Geometry.Deg2Rad),	Math.Cos(om * Geometry.Deg2Rad),	1,
 												0,				0,				0);

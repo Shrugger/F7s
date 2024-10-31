@@ -41,7 +41,7 @@ namespace F7s.Utility
 
             int digits = 0;
 
-            string numericalValueString = Mathematik.RoundToInt(value).ToString();
+            string numericalValueString = MM.RoundToInt(value).ToString();
 
             for (int i = 0; i < numericalValueString.Length; i++) {
                 char c = numericalValueString[index: i];

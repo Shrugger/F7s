@@ -1,7 +1,7 @@
 ﻿using F7s.Engine;
 using F7s.Engine.InputHandling;
+using F7s.Utility;
 using F7s.Utility.Geometry.Double;
-using Stride.Core.Mathematics;
 using Stride.Input;
 namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
     public class FreeCameraControlsSet : InputSet {
@@ -14,22 +14,22 @@ namespace F7s.Modell.Handling.PlayerControllers.ControlSets {
 
             {
                 void MoveLeft () {
-                    Kamera.Translate(-Double3.UnitX * PanSpeed());
+                    Kamera.Translate(-MM.RightD * PanSpeed());
                 }
                 void MoveRight () {
-                    Kamera.Translate(Double3.UnitX * PanSpeed());
+                    Kamera.Translate(MM.RightD * PanSpeed());
                 }
                 void MoveForward () {
-                    Kamera.Translate(Double3.UnitZ * PanSpeed());
+                    Kamera.Translate(MM.ForwardD * PanSpeed());
                 }
                 void MoveBackward () {
-                    Kamera.Translate(-Double3.UnitZ * PanSpeed());
+                    Kamera.Translate(MM.BackwardD * PanSpeed());
                 }
                 void MoveUp () {
-                    Kamera.Translate(Double3.UnitY * PanSpeed());
+                    Kamera.Translate(MM.UpD * PanSpeed());
                 }
                 void MoveDown () {
-                    Kamera.Translate(-Double3.UnitY * PanSpeed());
+                    Kamera.Translate(MM.DownD * PanSpeed());
                 }
                 const float RollSensitivity = 50;
                 void RollLeft () {

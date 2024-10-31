@@ -20,7 +20,7 @@ namespace F7s.Utility.Shapes
             return true;
         }
         public override string ToString () {
-            return this.GetType().Name + "(" + Mathematik.RoundToFirstInterestingDigit(this.diameter) + "x" + Mathematik.RoundToFirstInterestingDigit(this.length) + ")";
+            return this.GetType().Name + "(" + MM.RoundToFirstInterestingDigit(this.diameter) + "x" + MM.RoundToFirstInterestingDigit(this.length) + ")";
         }
 
         public override Vector3 FullExtents () {
@@ -44,8 +44,8 @@ namespace F7s.Utility.Shapes
         }
 
         public override float SurfaceArea () {
-            float hemispheres = Mathematik.SphereSurfaceArea(this.diameter);
-            float cylinder = Mathematik.CylinderSideSurfaceArea(this.diameter * 0.5f, this.length);
+            float hemispheres = MM.SphereSurfaceArea(this.diameter);
+            float cylinder = MM.CylinderSideSurfaceArea(this.diameter * 0.5f, this.length);
             return hemispheres + cylinder;
         }
 
@@ -69,8 +69,8 @@ namespace F7s.Utility.Shapes
             float hemispheresLength = this.diameter;
             float cylinderLength = this.length - hemispheresLength;
 
-            float cylinderVolume = Mathematik.CylinderVolume(this.diameter / 2.0f, cylinderLength);
-            float hemispheresVolume = Mathematik.SphereVolumeFromDiameter(this.diameter);
+            float cylinderVolume = MM.CylinderVolume(this.diameter / 2.0f, cylinderLength);
+            float hemispheresVolume = MM.SphereVolumeFromDiameter(this.diameter);
 
             return cylinderVolume + hemispheresVolume;
         }

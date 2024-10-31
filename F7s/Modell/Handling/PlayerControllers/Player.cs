@@ -149,11 +149,11 @@ namespace F7s.Modell.Handling.PlayerControllers {
         }
 
         private static (float, float) CalculateYawAndPitchFromMouseDelta (Vector2 mouseDelta) {
-            const float sensitivityX = 30f;
-            const float sensitivityY = 10f;
+            const float sensitivityX = 100f;
+            const float sensitivityY = 100f;
 
-            float yaw = Mathematik.DegToRad(Math.Clamp(mouseDelta.X * -1 * sensitivityY, -720, 720));
-            float pitch = Mathematik.DegToRad(Math.Clamp(mouseDelta.Y * sensitivityX, -720, 720));
+            float yaw = MM.DegToRad(Math.Clamp(mouseDelta.X * -1 * sensitivityY, -720, 720));
+            float pitch = MM.DegToRad(Math.Clamp(mouseDelta.Y * -1 * sensitivityX, -720, 720));
 
             return (yaw, pitch);
         }

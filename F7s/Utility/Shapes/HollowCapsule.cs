@@ -11,7 +11,7 @@
         }
 
         public override string ToString() {
-            return this.GetType().Name + "(" + Mathematik.RoundToFirstInterestingDigit(this.diameter, 2) + "x" + Mathematik.RoundToFirstInterestingDigit(this.length, 2) + ")(" + Mathematik.RoundToFirstInterestingDigit(this.internalDiameter, 2) + "x" + Mathematik.RoundToFirstInterestingDigit(this.internalLength, 2) + ")";
+            return this.GetType().Name + "(" + MM.RoundToFirstInterestingDigit(this.diameter, 2) + "x" + MM.RoundToFirstInterestingDigit(this.length, 2) + ")(" + MM.RoundToFirstInterestingDigit(this.internalDiameter, 2) + "x" + MM.RoundToFirstInterestingDigit(this.internalLength, 2) + ")";
         }
         public Capsule InternalNegativeCapsule() {
             return new Capsule(this.internalDiameter, this.internalLength);

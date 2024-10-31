@@ -18,10 +18,10 @@ namespace F7s.Utility.Shapes {
             public Farbe? Color;
 
             public Vector3 position { get { return transform.TranslationVector; } set { transform.TranslationVector = value; } }
-            public Quaternion rotation => Mathematik.ExtractRotation(transform);
+            public Quaternion rotation => MM.ExtractRotation(transform);
 
             public Constituent (Shape3Dim shape, Vector3 position, Vector3? rotation = null, string name = null, Farbe? color = null)
-                : this(shape, position, rotation != null ? Mathematik.DegreesToQuaternion(rotation.Value) : null, name, color) { }
+                : this(shape, position, rotation != null ? MM.DegreesToQuaternion(rotation.Value) : null, name, color) { }
             public Constituent (Shape3Dim shape, Vector3 position, Quaternion? rotation = null, string name = null, Farbe? color = null) {
                 this.shape = shape;
                 transform = new Matrix();
@@ -65,7 +65,7 @@ namespace F7s.Utility.Shapes {
             constituents.ForEach(c => action.Invoke(c));
         }
         public Constituent AddConstituent (Shape3Dim shape, Vector3 relativePosition, Vector3 relativeRotation, string name, Farbe? color = null) {
-            return AddConstituent(new Constituent(shape, relativePosition, Mathematik.DegreesToQuaternion(relativeRotation), name, color));
+            return AddConstituent(new Constituent(shape, relativePosition, MM.DegreesToQuaternion(relativeRotation), name, color));
         }
         public Constituent AddConstituent (Shape3Dim shape, Vector3 relativePosition, Quaternion relativeRotation, string name, Farbe? color = null) {
             return AddConstituent(new Constituent(shape, relativePosition, relativeRotation, name, color));

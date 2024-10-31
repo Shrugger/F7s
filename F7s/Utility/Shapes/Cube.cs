@@ -12,7 +12,7 @@ namespace F7s.Utility.Shapes {
             return F7s.Utility.Shapes.ShapeType.Box;
         }
         public override string ToString() {
-            return this.GetType().Name + "(" + Mathematik.RoundToFirstInterestingDigit(this.fullExtents.X) + ")";
+            return this.GetType().Name + "(" + MM.RoundToFirstInterestingDigit(this.fullExtents.X) + ")";
         }
     }
 

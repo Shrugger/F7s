@@ -64,7 +64,7 @@ namespace F7s.Modell.Terrains
                 if (!this.RTG.currentsMap.ContainsKey(e)) {
                     float currentMagnitude = this.RTG.vertexGeosampleMap[e.A].MantleFlux - this.RTG.vertexGeosampleMap[e.B].MantleFlux;
                     PolarCoordinatesD currentCoordinates = e.B.Coordinates - e.A.Coordinates;
-                    Vector2 current = Mathematik.Normalize(currentCoordinates.LongLatToVector2()) * currentMagnitude;
+                    Vector2 current = MM.Normalize(currentCoordinates.LongLatToVector2()) * currentMagnitude;
                     this.RTG.currentsMap.Add(e, current);
                 }
                 sum += this.RTG.currentsMap[e];
@@ -100,7 +100,7 @@ namespace F7s.Modell.Terrains
                 Vector2 theirMovement = borderingPlate.Item1.RheologicMovement;
                 Vector2 relativeVelocity = ourMovement - theirMovement;
                 Vector2 relativePosition = (this.Vertex.Coordinates - borderingPlate.Item2.Vertex.Coordinates).LongLatToVector2();
-                float sign = Mathematik.ApproachOrSeparate(relativePosition, relativeVelocity);
+                float sign = MM.ApproachOrSeparate(relativePosition, relativeVelocity);
                 float elevation = -sign;
                 totalElevation += elevation;
                 Debug.Assert(!float.IsNaN(totalElevation));

@@ -82,7 +82,7 @@ namespace F7s.Modell.Physical.Localities {
             Debug.Assert(AbsolutelyEqual(a, b, delta), "\n" + a.GetAbsoluteTransform() + "\n" + " != " + "\n" + b.GetAbsoluteTransform());
         }
         public static bool AbsolutelyEqual (Locality a, Locality b, float delta = 0.1f) {
-            return Mathematik.ApproximatelyEqual(a.GetAbsoluteTransform(), b.GetAbsoluteTransform(), delta);
+            return MM.ApproximatelyEqual(a.GetAbsoluteTransform(), b.GetAbsoluteTransform(), delta);
         }
 
         public virtual bool InheritsRotation () {
@@ -159,7 +159,7 @@ namespace F7s.Modell.Physical.Localities {
             } else {
                 MatrixD transform3D = CalculateRelativeTransform(relativeTo); // TODO: REMOVE
                 // TODO: REACTIVATE MatrixD transform3D = this.cachedRelativeMathematik.GetValue(relativeTo);
-                if (Mathematik.InvalidPositional(transform3D)) {
+                if (MM.InvalidPositional(transform3D)) {
                     throw new Exception();
                 }
                 return transform3D;
@@ -182,9 +182,9 @@ namespace F7s.Modell.Physical.Localities {
             MatrixD absoluteSelf = CalculateRelativeTransformUpToRoot(commonRoot);
             MatrixD absoluteOther = relativeTo.CalculateRelativeTransformUpToRoot(commonRoot);
 
-            MatrixD result = Mathematik.Inverse(absoluteOther) * absoluteSelf;
+            MatrixD result = MM.Inverse(absoluteOther) * absoluteSelf;
 
-            if (Mathematik.InvalidPositional(result)) {
+            if (MM.InvalidPositional(result)) {
                 throw new Exception("Invalid relative transform of " + this + " to " + relativeTo + ": " + result);
             }
 
@@ -219,7 +219,7 @@ namespace F7s.Modell.Physical.Localities {
 
             foreach (Locality child in descendingInheritance) {
                 MatrixD local = child.GetLocalTransform();
-                if (Mathematik.InvalidPositional(local)) {
+                if (MM.InvalidPositional(local)) {
                     throw new Exception();
                 }
                 if (!initialized) {
@@ -234,7 +234,7 @@ namespace F7s.Modell.Physical.Localities {
                         result = MatrixD.Translation(total.TranslationVector) * local;
                     }
                     result.Orthonormalize(); // TODO: Verify that this actually works. MatrixD is a struct after all.
-                    if (Mathematik.InvalidPositional(result)) {
+                    if (MM.InvalidPositional(result)) {
                         Double3 scale;
                         result.Decompose(out scale, out _);
                         throw new Exception("Scale " + scale + ". Whole Transform: " + result);

@@ -45,7 +45,7 @@ namespace F7s.Modell.Physical.Localities {
                     break;
                 case ReanchorMethodology.UseNewTransform:
                     Debug.Assert(newTransform != null);
-                    Debug.Assert(Mathematik.ValidPositional(newTransform.Value));
+                    Debug.Assert(MM.ValidPositional(newTransform.Value));
                     newLocality = new Fixed(physicalEntity, newAnchor, newTransform);
                     break;
                 default:
@@ -87,7 +87,7 @@ namespace F7s.Modell.Physical.Localities {
         }
 
         public override void SetTransform (MatrixD value) {
-            if (Mathematik.InvalidPositional(value)) {
+            if (MM.InvalidPositional(value)) {
                 throw new Exception();
             }
             Transform = value;
@@ -97,13 +97,13 @@ namespace F7s.Modell.Physical.Localities {
             if (relativeOffset == Double3.Zero) {
                 return;
             }
-            if (Mathematik.Invalid(relativeOffset)) {
+            if (MM.Invalid(relativeOffset)) {
                 throw new Exception(relativeOffset.ToString());
             }
             Transform = MatrixD.Translation(relativeOffset) * Transform;
             Double3 newTranslation = Transform.TranslationVector;
 
-            if (Mathematik.Invalid(Transform.TranslationVector)) {
+            if (MM.Invalid(Transform.TranslationVector)) {
                 throw new Exception(Transform.TranslationVector.ToString());
             }
         }
@@ -123,14 +123,14 @@ namespace F7s.Modell.Physical.Localities {
 
             bool useBuiltinOperations = false;
             if (useBuiltinOperations) {
-                entityTransform = entityTransform.Rotated(Double3.UnitY, MathF.DegToRad(yaw));
-                entityTransform = entityTransform.RotatedLocal(-Double3.UnitX, MathF.DegToRad(permittedPitch));
-                entityTransform = entityTransform.RotatedLocal(Double3.UnitZ, MathF.DegToRad(roll));
+                entityTransform = entityTransform.Rotated(Mathematik.UpD, MathF.DegToRad(yaw));
+                entityTransform = entityTransform.RotatedLocal(-Mathematik.RightD, MathF.DegToRad(permittedPitch));
+                entityTransform = entityTransform.RotatedLocal(Mathematik.BackwardD, MathF.DegToRad(roll));
             } else {
                 Basis oldBasis = entityTransform.Basis;
-                Basis yawBasis = new Basis(Double3.UnitY, MathF.DegToRad(yaw));
-                Basis pitchBasis = new Basis(-Double3.UnitX, MathF.DegToRad(permittedPitch));
-                Basis rollBasis = new Basis(Double3.UnitZ, MathF.DegToRad(roll));
+                Basis yawBasis = new Basis(Mathematik.UpD, MathF.DegToRad(yaw));
+                Basis pitchBasis = new Basis(-Mathematik.RightD, MathF.DegToRad(permittedPitch));
+                Basis rollBasis = new Basis(Mathematik.BackwardD, MathF.DegToRad(roll));
                 Basis newBasis = yawBasis * oldBasis * pitchBasis * rollBasis;
                 entityTransform = MatrixD.Transformation(newBasis, entityTransform.TranslationVector);
             }
@@ -160,12 +160,12 @@ namespace F7s.Modell.Physical.Localities {
 
             if (logging) {
                 System.Diagnostics.Debug.WriteLine(
-                    Mathematik.RoundToFirstInterestingDigit(currentPitch, 3) +
+                    MM.RoundToFirstInterestingDigit(currentPitch, 3) +
                     " + " + (Math.Abs(permittedPitch - additionalPitch) > 0.0001f ?
-                        Mathematik.RoundToFirstInterestingDigit(permittedPitch, 3) + " LIMITED" :
-                        Mathematik.RoundToFirstInterestingDigit(additionalPitch, 3)
+                        MM.RoundToFirstInterestingDigit(permittedPitch, 3) + " LIMITED" :
+                        MM.RoundToFirstInterestingDigit(additionalPitch, 3)
                     ) +
-                    " = " + Mathematik.RoundToFirstInterestingDigit(expectedLegalPitch, 3)
+                    " = " + MM.RoundToFirstInterestingDigit(expectedLegalPitch, 3)
                     );
             }
 
@@ -185,7 +185,7 @@ namespace F7s.Modell.Physical.Localities {
         public override void Validate () {
             base.Validate();
 
-            if (Mathematik.InvalidPositional(Transform)) {
+            if (MM.InvalidPositional(Transform)) {
                 throw new Exception();
             }
         }

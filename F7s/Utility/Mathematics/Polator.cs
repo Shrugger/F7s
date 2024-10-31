@@ -37,12 +37,12 @@ namespace F7s.Utility.Mathematics
                 (double, double) upper = this.data[1];
                 for (int i = 0; i < this.data.Count; i++) {
                     if (lower.Item1 < target && target < upper.Item1) {
-                        double interpolationFactor = Mathematik.InverseLerpClamped(lower.Item1, upper.Item1, target);
-                        double result = Mathematik.LerpClamped(lower.Item2, upper.Item2, interpolationFactor);
+                        double interpolationFactor = MM.InverseLerpClamped(lower.Item1, upper.Item1, target);
+                        double result = MM.LerpClamped(lower.Item2, upper.Item2, interpolationFactor);
                         return result;
                     } else if (target < lower.Item1 || (target > upper.Item2 && i >= this.data.Count - 1)) {
-                        double interpolationFactor = Mathematik.InverseLerp(lower.Item1, upper.Item1, target);
-                        double result = Mathematik.Lerp(lower.Item2, upper.Item2, interpolationFactor);
+                        double interpolationFactor = MM.InverseLerp(lower.Item1, upper.Item1, target);
+                        double result = MM.Lerp(lower.Item2, upper.Item2, interpolationFactor);
                         return result;
                     } else {
                         lower = this.data[i];

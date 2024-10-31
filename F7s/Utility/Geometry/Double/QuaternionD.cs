@@ -200,7 +200,7 @@ namespace F7s.Utility.Geometry.Double {
             get {
                 double length = (X * X) + (Y * Y) + (Z * Z);
                 if (length < MathUtilD.ZeroTolerance)
-                    return Double3.UnitX;
+                    return MM.RightD;
 
                 double inv = 1.0f / length;
                 return new Double3(X * inv, Y * inv, Z * inv);

@@ -32,7 +32,7 @@ namespace F7s.Utility
         #endregion
 
         public static Quaternion AQuaternion () {
-            return Mathematik.DegreesToQuaternion(Vector3() * 180f);
+            return MM.DegreesToQuaternion(Vector3() * 180f);
         }
 
         public static T Item<T> (List<T> items) {
@@ -312,7 +312,7 @@ namespace F7s.Utility
             return OnUnitSphere() * Float();
         }
         public static Vector3 OnUnitSphere () {
-            return Mathematik.Normalize(Alea.Vector3());
+            return MM.Normalize(Alea.Vector3());
         }
 
         public static PolarCoordinatesD Coordinates (float radius = 1) {

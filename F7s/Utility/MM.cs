@@ -7,7 +7,28 @@ using System.Diagnostics;
 using System.Linq;
 
 namespace F7s.Utility {
-    public static class Mathematik {
+
+    /// <summary>
+    /// Mathematik.
+    /// </summary>
+    public static class MM {
+
+        private const float DefaultValidationTolerance = 0.0001f;
+
+        public static Double3 ForwardD => -Double3.UnitZ;
+        public static Double3 BackwardD => Double3.UnitZ;
+        public static Double3 LeftD => -Double3.UnitX;
+        public static Double3 RightD => Double3.UnitX;
+        public static Double3 DownD => -Double3.UnitY;
+        public static Double3 UpD => Double3.UnitY;
+
+        public static Vector3 Forward => -Vector3.UnitZ;
+        public static Vector3 Backward => Vector3.UnitZ;
+        public static Vector3 Left => -Vector3.UnitX;
+        public static Vector3 Right => Vector3.UnitX;
+        public static Vector3 Down => -Vector3.UnitY;
+        public static Vector3 Up => Vector3.UnitY;
+
 
         public static float ApproachLogarithmically (float value, float limit = 1, float floor = 0, float speed = 1, float log = 2) {
             Debug.Assert(log > 1);
@@ -391,14 +412,14 @@ namespace F7s.Utility {
 
 
         public static double AngularDiameterInDegreesFromDistanceAndDiameter (double distance, double diameter) {
-            double result = Mathematik.RadToDeg(AngularDiameterInRadiansFromDistanceAndDiameter(distance, diameter));
+            double result = MM.RadToDeg(AngularDiameterInRadiansFromDistanceAndDiameter(distance, diameter));
             return result;
         }
 
         public static bool PointIsOnLine (Double3 point, Double3 lineStart, Double3 lineEnd) {
             double pointDistance = Double3.Distance(lineStart, point) + Double3.Distance(lineEnd, point);
             double lineLength = Double3.Distance(lineStart, lineEnd);
-            if (Mathematik.IsEqualApprox(lineLength, pointDistance)) {
+            if (MM.IsEqualApprox(lineLength, pointDistance)) {
                 return true; // C is on the line.
             }
             return false;    // C is not on the line.
@@ -712,7 +733,7 @@ namespace F7s.Utility {
         public static bool PointIsOnLine (Vector3 point, Vector3 lineStart, Vector3 lineEnd) {
             float pointDistance = Vector3.Distance(lineStart, point) + Vector3.Distance(lineEnd, point);
             float lineLength = Vector3.Distance(lineStart, lineEnd);
-            if (Mathematik.IsEqualApprox(lineLength, pointDistance)) {
+            if (MM.IsEqualApprox(lineLength, pointDistance)) {
                 return true; // C is on the line.
             }
             return false;    // C is not on the line.
@@ -902,7 +923,7 @@ namespace F7s.Utility {
         public static Vector3 Slerp (Vector3 start, Vector3 end, float weight) {
             // Source: https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
 
-            if (Mathematik.ApproximatelyEqual(start, end)) {
+            if (MM.ApproximatelyEqual(start, end)) {
                 throw new Exception(start + " == " + end + ".");
             }
 
@@ -911,7 +932,7 @@ namespace F7s.Utility {
             Quaternion resultQ = Quaternion.Slerp(startQ, endQ, weight);
             Vector3 result = resultQ * Vector3.UnitZ;
 
-            if (!Mathematik.Valid(result) || (weight != 0 && Mathematik.ApproximatelyEqual(result, start)) || (weight != 1 && Mathematik.ApproximatelyEqual(result, end))) {
+            if (!MM.Valid(result) || (weight != 0 && MM.ApproximatelyEqual(result, start)) || (weight != 1 && MM.ApproximatelyEqual(result, end))) {
                 throw new Exception("Spherical interpolation failed from " + start + " to " + end + " by " + weight + " with " + result + ".");
             }
             return result;
@@ -1058,8 +1079,6 @@ namespace F7s.Utility {
         public static void AssertEqual (MatrixD a, MatrixD b, float delta = 0.001f) {
             Debug.Assert(ApproximatelyEqual(a, b, delta));
         }
-
-        private const float DefaultValidationTolerance = 0.0001f;
 
         public static void ValidatePositional (MatrixD transform, float tolerance = DefaultValidationTolerance) {
             if (InvalidPositional(transform, tolerance)) {
