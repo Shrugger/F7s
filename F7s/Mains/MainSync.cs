@@ -53,6 +53,9 @@ namespace F7s.Mains {
                 } else {
                     instance = this;
                 }
+
+                // Main Async
+                Entity.Add(new MainAsync());
             }
 
             {
@@ -64,9 +67,6 @@ namespace F7s.Mains {
                 ContentManager = base.Content;
                 InputManager = base.Input;
             }
-
-            Entity.Add(new MainAsync());
-            Kamera.BuildStrideHierarchy(Scene, SceneSystem.GraphicsCompositor);
 
             {
                 // Player
@@ -80,7 +80,8 @@ namespace F7s.Mains {
             }
 
             {
-                // Floating Origin and Control Scheme
+                // Floating Origin, Kamera and Control Scheme
+                Kamera.BuildStrideHierarchy(Scene, SceneSystem.GraphicsCompositor);
                 Origin.UseKameraAsFloatingOrigin();
                 Player.ActivateFreeCameraControls();
                 Kamera.DetachFromPlayer();
