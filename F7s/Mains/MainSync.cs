@@ -46,13 +46,17 @@ namespace F7s.Mains {
 
             Scene = Entity.Scene;
 
-            if (instance != null) {
-                throw new System.Exception();
-            } else {
-                instance = this;
+            {
+                // Singleton
+                if (instance != null) {
+                    throw new System.Exception();
+                } else {
+                    instance = this;
+                }
             }
 
             {
+                // Make Stride systems available as static fields.
                 Game = (Game) base.Game;
                 Assert.IsNotNull(Game);
 
@@ -65,15 +69,7 @@ namespace F7s.Mains {
             Kamera.BuildStrideHierarchy(Scene, SceneSystem.GraphicsCompositor);
 
             {
-                Entity lightSourceEntity = new Entity("Light");
-                lightSourceEntity.Scene = Entity.Scene;
-                LightComponent lightComponent = new LightComponent();
-                lightSourceEntity.Add(lightComponent);
-                LightDirectional lightDirectional = new LightDirectional();
-                lightComponent.Type = lightDirectional;
-            }
-
-            {
+                // Player
                 Locality playerLocation = new Fixed(null, RootLocality.Instance, MatrixD.Transformation(new Double3(0, 0, 0), QuaternionD.Identity));
                 playerLocation.Name = "Player Location";
                 PhysicalEntity playerEntity = new Body("Player", new Double3(1.0f, 2.0f, 0.5f), new Farbe(0.0f, 0.5f, 0.25f));
@@ -84,12 +80,14 @@ namespace F7s.Mains {
             }
 
             {
+                // Floating Origin and Control Scheme
                 Origin.UseKameraAsFloatingOrigin();
                 Player.ActivateFreeCameraControls();
                 Kamera.DetachFromPlayer();
             }
 
             {
+                // Directional Light
                 Entity lightEntity = new Entity("Directional Light Entity");
                 lightEntity.Scene = Scene;
                 LightComponent lightComponent = new LightComponent();
@@ -99,6 +97,7 @@ namespace F7s.Mains {
                 lightComponent.SetColor(new Color3(1, 1, 1));
             }
             {
+                // Ambient Light
                 Entity lightEntity = new Entity("Ambient Light Entity");
                 lightEntity.Scene = Scene;
                 LightComponent lightComponent = new LightComponent();
@@ -168,6 +167,7 @@ namespace F7s.Mains {
             }
 
             {
+                // Terrain - Does not work so far
                 Terrain terrain = new Terrain("Tiny Planet", 1, 2, Entity, new PlanetologyData(1, 1, 1, true, true, 5));
                 Mesch terrainMesch = terrain.Render(Stride.Graphics.GraphicsResourceUsage.Default);
                 Assert.IsNotNull(terrainMesch);
@@ -178,7 +178,10 @@ namespace F7s.Mains {
                 terrainEntity.Scene = Scene;
             }
 
-            populator = new PerduePopulator();
+            {
+                // Populator, obviously.
+                populator = new PerduePopulator();
+            }
 
             {
                 // UI Test
@@ -216,7 +219,10 @@ namespace F7s.Mains {
                 uiEntity.Scene = Scene;
             }
 
-            new InputHandler();
+            {
+                // Frograms
+                new InputHandler();
+            }
         }
 
         private void PrePhysicsUpdate (Simulation sender, float tick) {
