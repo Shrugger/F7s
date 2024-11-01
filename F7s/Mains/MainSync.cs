@@ -11,6 +11,7 @@ using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Mescherei;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Stride.CommunityToolkit.Rendering.Compositing;
 using Stride.Core.Mathematics;
 using Stride.Core.Serialization.Contents;
 using Stride.Engine;
@@ -18,6 +19,7 @@ using Stride.Graphics;
 using Stride.Input;
 using Stride.Physics;
 using Stride.Rendering;
+using Stride.Rendering.Compositing;
 using Stride.Rendering.Lights;
 using Stride.UI;
 using Stride.UI.Controls;
@@ -85,6 +87,17 @@ namespace F7s.Mains {
                 Origin.UseKameraAsFloatingOrigin();
                 Player.ActivateFreeCameraControls();
                 Kamera.DetachFromPlayer();
+            }
+
+            {
+                // Background
+                ClearRenderer clearRenderer = new ClearRenderer() {
+                    ClearFlags = ClearRendererFlags.ColorOnly, // Depth shows geometry on grey, Color shows blue but also hides all geometry. Both is as Color.
+                    Depth = 1,
+                    Color = Farbe.plonatSky.ToStrideColor(),
+                    Stencil = 0
+                };
+                SceneSystem.GraphicsCompositor.AddSceneRenderer(clearRenderer);
             }
 
             {
@@ -172,6 +185,7 @@ namespace F7s.Mains {
                 Terrain terrain = new Terrain("Tiny Planet", 1, 2, Entity, new PlanetologyData(1, 1, 1, true, true, 5));
                 Mesch terrainMesch = terrain.Render(Stride.Graphics.GraphicsResourceUsage.Default);
                 Assert.IsNotNull(terrainMesch);
+                Assert.AreNotEqual(0, terrainMesch.model.Materials.Count);
                 Entity terrainEntity = new Entity("Terrain");
                 ModelComponent modelComponent = new ModelComponent();
                 modelComponent.Model = terrainMesch.model;
