@@ -121,7 +121,7 @@ SharedRenderers:
         Id: 6f591510-b13e-4f74-ac20-7cbf2ae721b0
         Clear:
             Id: 4bc4b2ca-027e-4e4a-94cb-2912709bef5f
-            Color: {R: 0.40491876, G: 0.41189542, B: 0.43775, A: 1.0}
+            Color*: {R: 0.0, G: 0.31390628, B: 0.6125, A: 1.0}
         LightProbes: true
         OpaqueRenderStage: ref!! bcc68488-4227-4bb8-85cd-7b74c0180b5f
         TransparentRenderStage: ref!! d053553f-3c9c-4c6e-b520-870a87c37814

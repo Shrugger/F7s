@@ -7,7 +7,88 @@ Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
         - ref!! b4297cbf-d35c-4b59-a310-95362d88ad4a
+        - ref!! 98fb3018-bb4f-4d07-b49c-8da9d7594456
     Parts:
+        -   Entity:
+                Id: 01b5b704-5899-4755-80d5-439043f3a66e
+                Name: Sphere
+                Components:
+                    366ff064408e429123057bb2ab0d1ee0: !TransformComponent
+                        Id: ef544bef-720b-4c1a-b339-0e664e16262d
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    f778cc76f4f62d67c77635091ecae4a4: !ModelComponent
+                        Id: 965fff85-139d-41a2-a176-11bb2d25e555
+                        Model: d32f9d4c-a7ee-4d8d-8d01-f99f17cc11c0:Sphere
+                        Materials: {}
+        -   Entity:
+                Id: 355ba2be-8bcf-4c18-bcc5-a6d0fdfafd78
+                Name: Camera
+                Components:
+                    dbe84716f8ce5a89b58560113af04757: !TransformComponent
+                        Id: ddb72fd4-1706-4656-80db-99932ea6bf95
+                        Position: {X: 0.0, Y: 0.0, Z: 5.5801744}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    00f9ad5e98032a10475c1b8a6e25ba74: !CameraComponent
+                        Id: 0633d6d3-db75-43dd-a9d3-4b6bc8dcb3eb
+                        Name: null
+                        Projection: Perspective
+                        Slot: b917f00c-05fb-42d4-aa55-d24db9218503
+        -   Entity:
+                Id: 8d048623-c978-4a38-84fa-7151b7e92c87
+                Name: Ambient light
+                Components:
+                    eeafbad70c7d9ed2dfe05252a45e3c65: !TransformComponent
+                        Id: ec17be2c-9fec-4319-a786-5cbfd397ad34
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    0718aa878cb00fd9657c4faa4dc56f19: !LightComponent
+                        Id: 8b58e6ba-10fa-455e-9e2d-cd4ca3ee80cf
+                        Type: !LightAmbient
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+        -   Entity:
+                Id: 8ffe1cb8-a9bc-485c-a04a-8a3c785065fd
+                Name: Directional light
+                Components:
+                    0f034ff352e18cc61b348bdbf5497c3e: !TransformComponent
+                        Id: 759622cb-4d24-4096-be71-128f3687e257
+                        Position: {X: 0.0, Y: 2.0, Z: 0.71601766}
+                        Rotation: {X: -0.57357645, Y: 0.0, Z: 0.0, W: 0.81915206}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    08d5b4a558a2d4be9306ddd71f4ab700: !LightComponent
+                        Id: dc9017b8-28d1-4e8f-a243-145907767312
+                        Type: !LightDirectional
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Shadow:
+                                Size: Large
+                                DepthRange: {}
+                                PartitionMode: !LightDirectionalShadowMap.PartitionLogarithmic {}
+                                ComputeTransmittance: false
+                                BiasParameters: {}
+                        Intensity: 5.0
+        -   Entity:
+                Id: 98fb3018-bb4f-4d07-b49c-8da9d7594456
+                Name: Disposables
+                Components:
+                    0769f077d81d32011bf500f558223730: !TransformComponent
+                        Id: 62066f2a-4c32-4d54-9701-73676ea3de8e
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            9697eb796f4b4e3c8824e41f9a6b4a1f: ref!! ec17be2c-9fec-4319-a786-5cbfd397ad34
+                            4b5c14229b9c82ecabe287f878a7e054: ref!! 759622cb-4d24-4096-be71-128f3687e257
+                            50a004696ccd90a1b86f5cd4bf24cff2: ref!! ef544bef-720b-4c1a-b339-0e664e16262d
+                            70bd363e86693a85d15601900117edda: ref!! ddb72fd4-1706-4656-80db-99932ea6bf95
         -   Entity:
                 Id: b4297cbf-d35c-4b59-a310-95362d88ad4a
                 Name: Origin
@@ -20,3 +101,4 @@ Hierarchy:
                         Children: {}
                     9687dacff821c262db7c1cd47069b335: !F7s.Mains.MainSync,F7s
                         Id: 2ae87992-4555-4155-a88c-e0776f1afd5d
+                        disposables: ref!! 98fb3018-bb4f-4d07-b49c-8da9d7594456

@@ -11,6 +11,7 @@ using F7s.Utility;
 using F7s.Utility.Geometry.Double;
 using F7s.Utility.Mescherei;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Stride.CommunityToolkit.Engine;
 using Stride.CommunityToolkit.Rendering.Compositing;
 using Stride.Core.Mathematics;
 using Stride.Core.Serialization.Contents;
@@ -24,6 +25,7 @@ using Stride.Rendering.Lights;
 using Stride.UI;
 using Stride.UI.Controls;
 using Stride.UI.Panels;
+using System;
 using System.Linq;
 
 namespace F7s.Mains {
@@ -35,6 +37,7 @@ namespace F7s.Mains {
         private Populator populator;
         private TextBlock textBlock;
 
+        public Entity disposables;
 
         private static MainSync instance;
 
@@ -58,6 +61,12 @@ namespace F7s.Mains {
 
                 // Main Async
                 Entity.Add(new MainAsync());
+            }
+
+            {
+                // Cleanup
+                disposables.Remove();
+                disposables.Dispose();
             }
 
             {
@@ -89,15 +98,28 @@ namespace F7s.Mains {
                 Kamera.DetachFromPlayer();
             }
 
-            {
-                // Background
-                ClearRenderer clearRenderer = new ClearRenderer() {
-                    ClearFlags = ClearRendererFlags.ColorOnly, // Depth shows geometry on grey, Color shows blue but also hides all geometry. Both is as Color.
-                    Depth = 1,
-                    Color = Farbe.plonatSky.ToStrideColor(),
-                    Stencil = 0
-                };
-                SceneSystem.GraphicsCompositor.AddSceneRenderer(clearRenderer);
+            [Obsolete("Don't do this; it's configured in the editor asset.")]
+            void ConfigureClearRenderer () {
+
+                ClearRenderer clearRenderer;
+                ISceneRenderer game = SceneSystem.GraphicsCompositor.Game;
+                if (game is SceneRendererCollection sceneRendererCollection) {
+                    clearRenderer = (ClearRenderer) sceneRendererCollection.First(sr => sr is ClearRenderer);
+                } else if (game is SceneCameraRenderer sceneCameraRenderer) {
+                    SceneRendererCollection sceneRendererCollection2 = sceneCameraRenderer.Child as SceneRendererCollection;
+                    throw new System.Exception();
+                } else {
+                    throw new System.Exception();
+                }
+                if (clearRenderer == null) {
+                    clearRenderer = new ClearRenderer() {
+                        ClearFlags = ClearRendererFlags.ColorAndDepth, // Depth shows geometry on grey, Color shows blue but also hides all geometry. Both is as Color.
+                        Depth = 1,
+                        Color = Farbe.plonatSky.ToStrideColor(),
+                        Stencil = 0
+                    };
+                    SceneSystem.GraphicsCompositor.AddSceneRenderer(clearRenderer);
+                }
             }
 
             {
